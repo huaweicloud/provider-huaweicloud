@@ -9,8 +9,10 @@ import "github.com/crossplane/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": config.IdentifierFromProvider,
+	// https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/cce_cluster#import
+	"huaweicloud_cce_cluster": config.IdentifierFromProvider,
+	// https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/cce_node#import
+	"huaweicloud_cce_node": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

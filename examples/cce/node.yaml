@@ -1,0 +1,23 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: Node
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/node
+  labels:
+    testing.upbound.io/example-name: node
+  name: node
+spec:
+  forProvider:
+    availabilityZone: cn-north-4
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    dataVolumes:
+    - size: 100
+      volumetype: SATA
+    flavorId: flavor-id
+    keyPair: keypair-name
+    name: example
+    rootVolume:
+    - size: 40
+      volumetype: SATA

@@ -14,9 +14,9 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/upbound/upjet-provider-template/apis/null/v1alpha1"
-	v1alpha1apis "github.com/upbound/upjet-provider-template/apis/v1alpha1"
-	v1beta1 "github.com/upbound/upjet-provider-template/apis/v1beta1"
+	v1alpha1 "github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1"
+	v1alpha1apis "github.com/huaweicloud/provider-huaweicloud/apis/v1alpha1"
+	v1beta1 "github.com/huaweicloud/provider-huaweicloud/apis/v1beta1"
 )
 
 func init() {

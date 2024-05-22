@@ -1,0 +1,1231 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: clusters.cce.huaweicloud.crossplane.io
+spec:
+  group: cce.huaweicloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - huaweicloud
+    kind: Cluster
+    listKind: ClusterList
+    plural: clusters
+    singular: cluster
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Cluster is the Schema for the Clusters API. ""
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ClusterSpec defines the desired state of Cluster
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: 'DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  alias:
+                    description: Specifies the display name of a cluster. The value
+                      of alias cannot be the same as the name and display names of
+                      other clusters.
+                    type: string
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  authenticatingProxyCa:
+                    description: Specifies the CA root certificate provided in the
+                      authenticating_proxy mode. The input value can be a Base64 encoded
+                      string or not. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  authenticatingProxyCert:
+                    description: Specifies the Client certificate provided in the
+                      authenticating_proxy mode. The input value can be a Base64 encoded
+                      string or not. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  authenticatingProxyPrivateKey:
+                    description: Specifies the private key of the client certificate
+                      provided in the authenticating_proxy mode. The input value can
+                      be a Base64 encoded string or not. Changing this parameter will
+                      create a new cluster resource.
+                    type: string
+                  authenticationMode:
+                    description: Specifies the authentication mode of the cluster,
+                      possible values are rbac and authenticating_proxy. Defaults
+                      to rbac. Changing this parameter will create a new cluster resource.
+                    type: string
+                  autoPay:
+                    type: string
+                  autoRenew:
+                    description: Specifies whether auto renew is enabled. Valid values
+                      are true and false.
+                    type: string
+                  billingMode:
+                    type: number
+                  chargingMode:
+                    description: Specifies the charging mode of the CCE cluster. Valid
+                      values are prePaid and postPaid, defaults to postPaid. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  clusterType:
+                    description: Specifies the cluster Type, possible values are VirtualMachine
+                      and ARM64. Defaults to VirtualMachine. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  clusterVersion:
+                    description: Specifies the cluster version, defaults to the latest
+                      supported version. Changing this parameter will create a new
+                      cluster resource.
+                    type: string
+                  componentConfigurations:
+                    description: Specifies the kubernetes component configurations.
+                      For details, see documentation. The object structure is documented
+                      below. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        configurations:
+                          description: Specifies JSON string of the component configurations.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                        name:
+                          description: Specifies the component name. Changing this
+                            parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  containerNetworkCidr:
+                    description: Specifies the container network segments. In clusters
+                      of v1.21 and later, when the container_network_type is vpc-router,
+                      you can add multiple container segments, separated with comma
+                      (,). In other situations, only the first segment takes effect.
+                    type: string
+                  containerNetworkType:
+                    description: 'Specifies the container network type. Changing this
+                      parameter will create a new cluster resource. Possible values:'
+                    type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
+                  deleteAll:
+                    description: Specified whether to delete all associated storage
+                      resources when deleting the CCE cluster. valid values are true,
+                      try and false. Default is false.
+                    type: string
+                  deleteEfs:
+                    description: Specified whether to unbind associated SFS Turbo
+                      file systems when deleting the CCE cluster. valid values are
+                      true, try and false. Default is false.
+                    type: string
+                  deleteEni:
+                    description: 'schema: Internal'
+                    type: string
+                  deleteEvs:
+                    description: Specified whether to delete associated EVS disks
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  deleteNet:
+                    description: 'schema: Internal'
+                    type: string
+                  deleteObs:
+                    description: Specified whether to delete associated OBS buckets
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  deleteSfs:
+                    description: Specified whether to delete associated SFS file systems
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  description:
+                    description: Specifies the cluster description.
+                    type: string
+                  eip:
+                    description: Specifies the EIP address of the cluster.
+                    type: string
+                  enableDistributeManagement:
+                    description: 'schema: Internal'
+                    type: boolean
+                  eniSubnetCidr:
+                    description: 'The ENI network segment. This value is valid when
+                      only one eni_subnet_id is specified. schema: Computed'
+                    type: string
+                  eniSubnetId:
+                    description: Specifies the IPv4 subnet ID of the subnet where
+                      the ENI resides. Specified when creating a CCE Turbo cluster.
+                      You can add multiple IPv4 subnet ID, separated with comma (,).
+                      Only adding subnets is allowed, removing subnets is not allowed.
+                      the IPv4 subnet ID of the subnet where the ENI resides
+                    type: string
+                  enterpriseProjectId:
+                    description: The enterprise project ID of the CCE cluster.
+                    type: string
+                  extendParam:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  extendParams:
+                    description: Specifies the extended parameter. The object structure
+                      is documented below. Changing this parameter will create a new
+                      cluster resource.
+                    items:
+                      properties:
+                        clusterAz:
+                          description: 'Specifies the AZ of master nodes in the cluster.
+                            The value can be:'
+                          type: string
+                        cpuManagerPolicy:
+                          description: 'Specifies the cluster CPU management policy.
+                            The value can be:'
+                          type: string
+                        decMasterFlavor:
+                          description: Specifies the specifications of the master
+                            node in the dedicated hybrid cluster. Changing this parameter
+                            will create a new cluster resource.
+                          type: string
+                        dockerUmaskMode:
+                          description: Specifies the default UmaskMode configuration
+                            of Docker in a cluster. The value can be secure or normal,
+                            defaults to normal. Changing this parameter will create
+                            a new cluster resource.
+                          type: string
+                        dssMasterVolumes:
+                          description: 'Specifies whether the system and data disks
+                            of a master node use dedicated distributed storage. If
+                            left unspecified, EVS disks are used by default. This
+                            parameter is mandatory for dedicated CCE clusters. It
+                            is in the following format:'
+                          type: string
+                        fixPoolMask:
+                          description: Specifies the number of mask bits of the fixed
+                            IP address pool of the container network model. This field
+                            can only be used when container_network_type is set to
+                            vpc-router. Changing this parameter will create a new
+                            cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  flavorId:
+                    description: 'Specifies the cluster specifications. Possible values:'
+                    type: string
+                  hibernate:
+                    description: Specifies whether to hibernate the CCE cluster. Defaults
+                      to false. After a cluster is hibernated, resources such as workloads
+                      cannot be created or managed in the cluster, and the cluster
+                      cannot be deleted.
+                    type: boolean
+                  highwaySubnetId:
+                    description: 'Specifies the ID of the subnet used to create the
+                      node which should be configured with a DNS address. Changing
+                      this parameter will create a new cluster resource. schema: Internal'
+                    type: string
+                  ipv6Enable:
+                    description: Specifies whether to enable IPv6 in the cluster.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  kubeProxyMode:
+                    description: 'Specifies the service forwarding mode. Changing
+                      this parameter will create a new cluster resource. Two modes
+                      are available:'
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  masters:
+                    description: Specifies the advanced configuration of master nodes.
+                      The object structure is documented below. This parameter and
+                      multi_az are alternative. Changing this parameter will create
+                      a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: Specifies the availability zone of the master
+                            node. Changing this parameter will create a new cluster
+                            resource.
+                          type: string
+                      type: object
+                    type: array
+                  multiAz:
+                    description: Specifies whether to enable multiple AZs for the
+                      cluster, only when using HA flavors. Changing this parameter
+                      will create a new cluster resource. This parameter and masters
+                      are alternative.
+                    type: boolean
+                  name:
+                    description: Specifies the cluster name. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  period:
+                    description: Specifies the charging period of the CCE cluster.
+                      If period_unit is set to month, the value ranges from 1 to 9.
+                      If period_unit is set to year, the value ranges from 1 to 3.
+                      This parameter is mandatory if charging_mode is set to prePaid.
+                      Changing this parameter will create a new cluster resource.
+                    type: number
+                  periodUnit:
+                    description: Specifies the charging period unit of the CCE cluster.
+                      Valid values are month and year. This parameter is mandatory
+                      if charging_mode is set to prePaid. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  region:
+                    description: Specifies the region in which to create the CCE cluster
+                      resource. If omitted, the provider-level region will be used.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the default worker node security group
+                      ID of the cluster. If left empty, the system will automatically
+                      create a default worker node security group for you. The default
+                      worker node security group needs to allow access from certain
+                      ports to ensure normal communications. For details, see documentation.
+                      If updated, the modified security group will only be applied
+                      to nodes newly created or accepted. For existing nodes, you
+                      need to manually modify the security group rules for them.
+                    type: string
+                  serviceNetworkCidr:
+                    description: Specifies the service network segment. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
+                  subnetId:
+                    description: Specifies the ID of the subnet used to create the
+                      node which should be configured with a DNS address. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  supportIstio:
+                    description: Specifies whether to support Istio in the cluster.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the tags of the CCE cluster, key/value
+                      pair format.
+                    type: object
+                  vpcId:
+                    description: Specifies the ID of the VPC used to create the node.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  alias:
+                    description: Specifies the display name of a cluster. The value
+                      of alias cannot be the same as the name and display names of
+                      other clusters.
+                    type: string
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  authenticatingProxyCa:
+                    description: Specifies the CA root certificate provided in the
+                      authenticating_proxy mode. The input value can be a Base64 encoded
+                      string or not. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  authenticatingProxyCert:
+                    description: Specifies the Client certificate provided in the
+                      authenticating_proxy mode. The input value can be a Base64 encoded
+                      string or not. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  authenticatingProxyPrivateKey:
+                    description: Specifies the private key of the client certificate
+                      provided in the authenticating_proxy mode. The input value can
+                      be a Base64 encoded string or not. Changing this parameter will
+                      create a new cluster resource.
+                    type: string
+                  authenticationMode:
+                    description: Specifies the authentication mode of the cluster,
+                      possible values are rbac and authenticating_proxy. Defaults
+                      to rbac. Changing this parameter will create a new cluster resource.
+                    type: string
+                  autoPay:
+                    type: string
+                  autoRenew:
+                    description: Specifies whether auto renew is enabled. Valid values
+                      are true and false.
+                    type: string
+                  billingMode:
+                    type: number
+                  chargingMode:
+                    description: Specifies the charging mode of the CCE cluster. Valid
+                      values are prePaid and postPaid, defaults to postPaid. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  clusterType:
+                    description: Specifies the cluster Type, possible values are VirtualMachine
+                      and ARM64. Defaults to VirtualMachine. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  clusterVersion:
+                    description: Specifies the cluster version, defaults to the latest
+                      supported version. Changing this parameter will create a new
+                      cluster resource.
+                    type: string
+                  componentConfigurations:
+                    description: Specifies the kubernetes component configurations.
+                      For details, see documentation. The object structure is documented
+                      below. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        configurations:
+                          description: Specifies JSON string of the component configurations.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                        name:
+                          description: Specifies the component name. Changing this
+                            parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  containerNetworkCidr:
+                    description: Specifies the container network segments. In clusters
+                      of v1.21 and later, when the container_network_type is vpc-router,
+                      you can add multiple container segments, separated with comma
+                      (,). In other situations, only the first segment takes effect.
+                    type: string
+                  containerNetworkType:
+                    description: 'Specifies the container network type. Changing this
+                      parameter will create a new cluster resource. Possible values:'
+                    type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
+                  deleteAll:
+                    description: Specified whether to delete all associated storage
+                      resources when deleting the CCE cluster. valid values are true,
+                      try and false. Default is false.
+                    type: string
+                  deleteEfs:
+                    description: Specified whether to unbind associated SFS Turbo
+                      file systems when deleting the CCE cluster. valid values are
+                      true, try and false. Default is false.
+                    type: string
+                  deleteEni:
+                    description: 'schema: Internal'
+                    type: string
+                  deleteEvs:
+                    description: Specified whether to delete associated EVS disks
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  deleteNet:
+                    description: 'schema: Internal'
+                    type: string
+                  deleteObs:
+                    description: Specified whether to delete associated OBS buckets
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  deleteSfs:
+                    description: Specified whether to delete associated SFS file systems
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  description:
+                    description: Specifies the cluster description.
+                    type: string
+                  eip:
+                    description: Specifies the EIP address of the cluster.
+                    type: string
+                  enableDistributeManagement:
+                    description: 'schema: Internal'
+                    type: boolean
+                  eniSubnetCidr:
+                    description: 'The ENI network segment. This value is valid when
+                      only one eni_subnet_id is specified. schema: Computed'
+                    type: string
+                  eniSubnetId:
+                    description: Specifies the IPv4 subnet ID of the subnet where
+                      the ENI resides. Specified when creating a CCE Turbo cluster.
+                      You can add multiple IPv4 subnet ID, separated with comma (,).
+                      Only adding subnets is allowed, removing subnets is not allowed.
+                      the IPv4 subnet ID of the subnet where the ENI resides
+                    type: string
+                  enterpriseProjectId:
+                    description: The enterprise project ID of the CCE cluster.
+                    type: string
+                  extendParam:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  extendParams:
+                    description: Specifies the extended parameter. The object structure
+                      is documented below. Changing this parameter will create a new
+                      cluster resource.
+                    items:
+                      properties:
+                        clusterAz:
+                          description: 'Specifies the AZ of master nodes in the cluster.
+                            The value can be:'
+                          type: string
+                        cpuManagerPolicy:
+                          description: 'Specifies the cluster CPU management policy.
+                            The value can be:'
+                          type: string
+                        decMasterFlavor:
+                          description: Specifies the specifications of the master
+                            node in the dedicated hybrid cluster. Changing this parameter
+                            will create a new cluster resource.
+                          type: string
+                        dockerUmaskMode:
+                          description: Specifies the default UmaskMode configuration
+                            of Docker in a cluster. The value can be secure or normal,
+                            defaults to normal. Changing this parameter will create
+                            a new cluster resource.
+                          type: string
+                        dssMasterVolumes:
+                          description: 'Specifies whether the system and data disks
+                            of a master node use dedicated distributed storage. If
+                            left unspecified, EVS disks are used by default. This
+                            parameter is mandatory for dedicated CCE clusters. It
+                            is in the following format:'
+                          type: string
+                        fixPoolMask:
+                          description: Specifies the number of mask bits of the fixed
+                            IP address pool of the container network model. This field
+                            can only be used when container_network_type is set to
+                            vpc-router. Changing this parameter will create a new
+                            cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  flavorId:
+                    description: 'Specifies the cluster specifications. Possible values:'
+                    type: string
+                  hibernate:
+                    description: Specifies whether to hibernate the CCE cluster. Defaults
+                      to false. After a cluster is hibernated, resources such as workloads
+                      cannot be created or managed in the cluster, and the cluster
+                      cannot be deleted.
+                    type: boolean
+                  highwaySubnetId:
+                    description: 'Specifies the ID of the subnet used to create the
+                      node which should be configured with a DNS address. Changing
+                      this parameter will create a new cluster resource. schema: Internal'
+                    type: string
+                  ipv6Enable:
+                    description: Specifies whether to enable IPv6 in the cluster.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  kubeProxyMode:
+                    description: 'Specifies the service forwarding mode. Changing
+                      this parameter will create a new cluster resource. Two modes
+                      are available:'
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  masters:
+                    description: Specifies the advanced configuration of master nodes.
+                      The object structure is documented below. This parameter and
+                      multi_az are alternative. Changing this parameter will create
+                      a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: Specifies the availability zone of the master
+                            node. Changing this parameter will create a new cluster
+                            resource.
+                          type: string
+                      type: object
+                    type: array
+                  multiAz:
+                    description: Specifies whether to enable multiple AZs for the
+                      cluster, only when using HA flavors. Changing this parameter
+                      will create a new cluster resource. This parameter and masters
+                      are alternative.
+                    type: boolean
+                  name:
+                    description: Specifies the cluster name. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  period:
+                    description: Specifies the charging period of the CCE cluster.
+                      If period_unit is set to month, the value ranges from 1 to 9.
+                      If period_unit is set to year, the value ranges from 1 to 3.
+                      This parameter is mandatory if charging_mode is set to prePaid.
+                      Changing this parameter will create a new cluster resource.
+                    type: number
+                  periodUnit:
+                    description: Specifies the charging period unit of the CCE cluster.
+                      Valid values are month and year. This parameter is mandatory
+                      if charging_mode is set to prePaid. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  region:
+                    description: Specifies the region in which to create the CCE cluster
+                      resource. If omitted, the provider-level region will be used.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the default worker node security group
+                      ID of the cluster. If left empty, the system will automatically
+                      create a default worker node security group for you. The default
+                      worker node security group needs to allow access from certain
+                      ports to ensure normal communications. For details, see documentation.
+                      If updated, the modified security group will only be applied
+                      to nodes newly created or accepted. For existing nodes, you
+                      need to manually modify the security group rules for them.
+                    type: string
+                  serviceNetworkCidr:
+                    description: Specifies the service network segment. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
+                  subnetId:
+                    description: Specifies the ID of the subnet used to create the
+                      node which should be configured with a DNS address. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  supportIstio:
+                    description: Specifies whether to support Istio in the cluster.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the tags of the CCE cluster, key/value
+                      pair format.
+                    type: object
+                  vpcId:
+                    description: Specifies the ID of the VPC used to create the node.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.containerNetworkType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.containerNetworkType)
+                || (has(self.initProvider) && has(self.initProvider.containerNetworkType))'
+            - message: spec.forProvider.flavorId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavorId)
+                || (has(self.initProvider) && has(self.initProvider.flavorId))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.subnetId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.subnetId)
+                || (has(self.initProvider) && has(self.initProvider.subnetId))'
+            - message: spec.forProvider.vpcId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.vpcId)
+                || (has(self.initProvider) && has(self.initProvider.vpcId))'
+          status:
+            description: ClusterStatus defines the observed state of Cluster.
+            properties:
+              atProvider:
+                properties:
+                  alias:
+                    description: Specifies the display name of a cluster. The value
+                      of alias cannot be the same as the name and display names of
+                      other clusters.
+                    type: string
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  authenticatingProxyCa:
+                    description: Specifies the CA root certificate provided in the
+                      authenticating_proxy mode. The input value can be a Base64 encoded
+                      string or not. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  authenticatingProxyCert:
+                    description: Specifies the Client certificate provided in the
+                      authenticating_proxy mode. The input value can be a Base64 encoded
+                      string or not. Changing this parameter will create a new cluster
+                      resource.
+                    type: string
+                  authenticatingProxyPrivateKey:
+                    description: Specifies the private key of the client certificate
+                      provided in the authenticating_proxy mode. The input value can
+                      be a Base64 encoded string or not. Changing this parameter will
+                      create a new cluster resource.
+                    type: string
+                  authenticationMode:
+                    description: Specifies the authentication mode of the cluster,
+                      possible values are rbac and authenticating_proxy. Defaults
+                      to rbac. Changing this parameter will create a new cluster resource.
+                    type: string
+                  autoPay:
+                    type: string
+                  autoRenew:
+                    description: Specifies whether auto renew is enabled. Valid values
+                      are true and false.
+                    type: string
+                  billingMode:
+                    type: number
+                  category:
+                    description: The category of the cluster. The value can be CCE
+                      and Turbo.
+                    type: string
+                  certificateClusters:
+                    description: The certificate clusters. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        certificateAuthorityData:
+                          description: The certificate data.
+                          type: string
+                        name:
+                          description: The cluster name.
+                          type: string
+                        server:
+                          description: The server IP address.
+                          type: string
+                      type: object
+                    type: array
+                  certificateUsers:
+                    description: The certificate users. Structure is documented below.
+                    items:
+                      properties:
+                        clientCertificateData:
+                          description: The client certificate data.
+                          type: string
+                        clientKeyData:
+                          description: The client key data.
+                          type: string
+                        name:
+                          description: The user name.
+                          type: string
+                      type: object
+                    type: array
+                  chargingMode:
+                    description: Specifies the charging mode of the CCE cluster. Valid
+                      values are prePaid and postPaid, defaults to postPaid. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  clusterType:
+                    description: Specifies the cluster Type, possible values are VirtualMachine
+                      and ARM64. Defaults to VirtualMachine. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  clusterVersion:
+                    description: Specifies the cluster version, defaults to the latest
+                      supported version. Changing this parameter will create a new
+                      cluster resource.
+                    type: string
+                  componentConfigurations:
+                    description: Specifies the kubernetes component configurations.
+                      For details, see documentation. The object structure is documented
+                      below. Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        configurations:
+                          description: Specifies JSON string of the component configurations.
+                            Changing this parameter will create a new cluster resource.
+                          type: string
+                        name:
+                          description: Specifies the component name. Changing this
+                            parameter will create a new cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  containerNetworkCidr:
+                    description: Specifies the container network segments. In clusters
+                      of v1.21 and later, when the container_network_type is vpc-router,
+                      you can add multiple container segments, separated with comma
+                      (,). In other situations, only the first segment takes effect.
+                    type: string
+                  containerNetworkType:
+                    description: 'Specifies the container network type. Changing this
+                      parameter will create a new cluster resource. Possible values:'
+                    type: string
+                  customSan:
+                    description: Specifies the custom san to add to certificate (array
+                      of string).
+                    items:
+                      type: string
+                    type: array
+                  deleteAll:
+                    description: Specified whether to delete all associated storage
+                      resources when deleting the CCE cluster. valid values are true,
+                      try and false. Default is false.
+                    type: string
+                  deleteEfs:
+                    description: Specified whether to unbind associated SFS Turbo
+                      file systems when deleting the CCE cluster. valid values are
+                      true, try and false. Default is false.
+                    type: string
+                  deleteEni:
+                    description: 'schema: Internal'
+                    type: string
+                  deleteEvs:
+                    description: Specified whether to delete associated EVS disks
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  deleteNet:
+                    description: 'schema: Internal'
+                    type: string
+                  deleteObs:
+                    description: Specified whether to delete associated OBS buckets
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  deleteSfs:
+                    description: Specified whether to delete associated SFS file systems
+                      when deleting the CCE cluster. valid values are true, try and
+                      false. Default is false.
+                    type: string
+                  description:
+                    description: Specifies the cluster description.
+                    type: string
+                  eip:
+                    description: Specifies the EIP address of the cluster.
+                    type: string
+                  enableDistributeManagement:
+                    description: 'schema: Internal'
+                    type: boolean
+                  eniSubnetCidr:
+                    description: 'The ENI network segment. This value is valid when
+                      only one eni_subnet_id is specified. schema: Computed'
+                    type: string
+                  eniSubnetId:
+                    description: Specifies the IPv4 subnet ID of the subnet where
+                      the ENI resides. Specified when creating a CCE Turbo cluster.
+                      You can add multiple IPv4 subnet ID, separated with comma (,).
+                      Only adding subnets is allowed, removing subnets is not allowed.
+                      the IPv4 subnet ID of the subnet where the ENI resides
+                    type: string
+                  enterpriseProjectId:
+                    description: The enterprise project ID of the CCE cluster.
+                    type: string
+                  extendParam:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  extendParams:
+                    description: Specifies the extended parameter. The object structure
+                      is documented below. Changing this parameter will create a new
+                      cluster resource.
+                    items:
+                      properties:
+                        clusterAz:
+                          description: 'Specifies the AZ of master nodes in the cluster.
+                            The value can be:'
+                          type: string
+                        cpuManagerPolicy:
+                          description: 'Specifies the cluster CPU management policy.
+                            The value can be:'
+                          type: string
+                        decMasterFlavor:
+                          description: Specifies the specifications of the master
+                            node in the dedicated hybrid cluster. Changing this parameter
+                            will create a new cluster resource.
+                          type: string
+                        dockerUmaskMode:
+                          description: Specifies the default UmaskMode configuration
+                            of Docker in a cluster. The value can be secure or normal,
+                            defaults to normal. Changing this parameter will create
+                            a new cluster resource.
+                          type: string
+                        dssMasterVolumes:
+                          description: 'Specifies whether the system and data disks
+                            of a master node use dedicated distributed storage. If
+                            left unspecified, EVS disks are used by default. This
+                            parameter is mandatory for dedicated CCE clusters. It
+                            is in the following format:'
+                          type: string
+                        fixPoolMask:
+                          description: Specifies the number of mask bits of the fixed
+                            IP address pool of the container network model. This field
+                            can only be used when container_network_type is set to
+                            vpc-router. Changing this parameter will create a new
+                            cluster resource.
+                          type: string
+                      type: object
+                    type: array
+                  flavorId:
+                    description: 'Specifies the cluster specifications. Possible values:'
+                    type: string
+                  hibernate:
+                    description: Specifies whether to hibernate the CCE cluster. Defaults
+                      to false. After a cluster is hibernated, resources such as workloads
+                      cannot be created or managed in the cluster, and the cluster
+                      cannot be deleted.
+                    type: boolean
+                  highwaySubnetId:
+                    description: 'Specifies the ID of the subnet used to create the
+                      node which should be configured with a DNS address. Changing
+                      this parameter will create a new cluster resource. schema: Internal'
+                    type: string
+                  id:
+                    description: ID of the cluster resource.
+                    type: string
+                  ipv6Enable:
+                    description: Specifies whether to enable IPv6 in the cluster.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  kubeConfigRaw:
+                    description: Raw Kubernetes config to be used by kubectl and other
+                      compatible tools.
+                    type: string
+                  kubeProxyMode:
+                    description: 'Specifies the service forwarding mode. Changing
+                      this parameter will create a new cluster resource. Two modes
+                      are available:'
+                    type: string
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: 'schema: Internal'
+                    type: object
+                  masters:
+                    description: Specifies the advanced configuration of master nodes.
+                      The object structure is documented below. This parameter and
+                      multi_az are alternative. Changing this parameter will create
+                      a new cluster resource.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: Specifies the availability zone of the master
+                            node. Changing this parameter will create a new cluster
+                            resource.
+                          type: string
+                      type: object
+                    type: array
+                  multiAz:
+                    description: Specifies whether to enable multiple AZs for the
+                      cluster, only when using HA flavors. Changing this parameter
+                      will create a new cluster resource. This parameter and masters
+                      are alternative.
+                    type: boolean
+                  name:
+                    description: Specifies the cluster name. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  period:
+                    description: Specifies the charging period of the CCE cluster.
+                      If period_unit is set to month, the value ranges from 1 to 9.
+                      If period_unit is set to year, the value ranges from 1 to 3.
+                      This parameter is mandatory if charging_mode is set to prePaid.
+                      Changing this parameter will create a new cluster resource.
+                    type: number
+                  periodUnit:
+                    description: Specifies the charging period unit of the CCE cluster.
+                      Valid values are month and year. This parameter is mandatory
+                      if charging_mode is set to prePaid. Changing this parameter
+                      will create a new cluster resource.
+                    type: string
+                  region:
+                    description: Specifies the region in which to create the CCE cluster
+                      resource. If omitted, the provider-level region will be used.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the default worker node security group
+                      ID of the cluster. If left empty, the system will automatically
+                      create a default worker node security group for you. The default
+                      worker node security group needs to allow access from certain
+                      ports to ensure normal communications. For details, see documentation.
+                      If updated, the modified security group will only be applied
+                      to nodes newly created or accepted. For existing nodes, you
+                      need to manually modify the security group rules for them.
+                    type: string
+                  serviceNetworkCidr:
+                    description: Specifies the service network segment. Changing this
+                      parameter will create a new cluster resource.
+                    type: string
+                  status:
+                    description: Cluster status information.
+                    type: string
+                  subnetId:
+                    description: Specifies the ID of the subnet used to create the
+                      node which should be configured with a DNS address. Changing
+                      this parameter will create a new cluster resource.
+                    type: string
+                  supportIstio:
+                    description: Specifies whether to support Istio in the cluster.
+                      Changing this parameter will create a new cluster resource.
+                    type: boolean
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: Specifies the tags of the CCE cluster, key/value
+                      pair format.
+                    type: object
+                  vpcId:
+                    description: Specifies the ID of the VPC used to create the node.
+                      Changing this parameter will create a new cluster resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
