@@ -27,9 +27,9 @@ const (
 	errUnmarshalCredentials = "cannot unmarshal huaweicloud credentials as JSON"
 
 	// provider config
-	keyRegion     = "region"
-	keyAccessKey  = "access_key"
-	keySecretKey  = "secret_key"
+	keyRegion    = "region"
+	keyAccessKey = "access_key"
+	keySecretKey = "secret_key"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
