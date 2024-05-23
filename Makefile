@@ -241,4 +241,9 @@ crossplane.help:
 
 help-special: crossplane.help
 
+up.login:
+	@$(INFO) logging into up
+	@$(UP) login
+	@$(OK) logging into up
+
 .PHONY: crossplane.help help-special
