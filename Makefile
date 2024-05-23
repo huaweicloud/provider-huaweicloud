@@ -223,6 +223,15 @@ schema-version-diff:
 .PHONY: cobertura submodules fallthrough run crds.clean
 
 # ====================================================================================
+# UP Login
+up.login:
+    @$(INFO) logging into up
+    @$(UP) login
+    @$(OK) logging into up
+
+# ====================================================================================
+
+# ====================================================================================
 # Special Targets
 
 define CROSSPLANE_MAKE_HELP
