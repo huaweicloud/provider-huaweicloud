@@ -2,9 +2,9 @@ apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
 kind: Cluster
 metadata:
   annotations:
-    meta.upbound.io/example-id: cce/v1alpha1/cluster
+    meta.crossplane.io/example-id: cce/v1alpha1/cluster
   labels:
-    testing.upbound.io/example-name: cluster
+    testing.crossplane.io/example-name: cluster
   name: cluster
 spec:
   forProvider:
