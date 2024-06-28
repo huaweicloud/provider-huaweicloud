@@ -8,10 +8,10 @@ export TERRAFORM_VERSION ?= 1.2.1
 
 export TERRAFORM_PROVIDER_SOURCE ?= huaweicloud/huaweicloud
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/huaweicloud/terraform-provider-huaweicloud
-export TERRAFORM_PROVIDER_VERSION ?= 1.64.0
+export TERRAFORM_PROVIDER_VERSION ?= 1.65.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-huaweicloud
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/huaweicloud/terraform-provider-huaweicloud/releases/download/v1.64.0
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-huaweicloud_v1.64.0_x5
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/huaweicloud/terraform-provider-huaweicloud/releases/download/v1.65.0
+export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-huaweicloud_v1.65.0_x5
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 

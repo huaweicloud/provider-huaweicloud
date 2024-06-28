@@ -846,6 +846,8 @@ resources:
                 policy_id: var.policy_id
                 publish_ids: var.api_publish_ids
         argumentDocs:
+            create: '- Default is 3 minutes.'
+            delete: '- Default is 3 minutes.'
             id: '- Resource ID. The format is <instance_id>/<policy_id>.'
             instance_id: |-
                 - (Required, String, ForceNew) Specifies the ID of the dedicated instance to which the APIs and the
@@ -858,6 +860,7 @@ resources:
             region: |-
                 - (Optional, String, ForceNew) Specifies the region where the ACL policy and the APIs are located.
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
+            update: '- Default is 3 minutes.'
         importStatements: []
     huaweicloud_apig_api:
         subCategory: API Gateway (Dedicated APIG)
@@ -996,7 +999,7 @@ resources:
                 - (Optional, String) Specifies the effective mode of the backend policy.
                 The valid values are ALL and ANY, defaults to ANY.
             func_graph_policy.function_urn: '- (Required, String) Specifies the URN of the FunctionGraph function.'
-            func_graph_policy.invocation_mode: |-
+            func_graph_policy.invocation_type: |-
                 - (Optional, String) Specifies the invocation mode of the FunctionGraph function.
                 The valid values are async and sync, defaults to sync.
             func_graph_policy.name: |-
@@ -1390,6 +1393,53 @@ resources:
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
             update: '- Default is 3 minutes.'
         importStatements: []
+    huaweicloud_apig_application_quota:
+        subCategory: API Gateway (Dedicated APIG)
+        description: Manages an APIG application quota resource within HuaweiCloud.
+        name: huaweicloud_apig_application_quota
+        title: huaweicloud_apig_application_quota
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "call_limits": 200,
+                  "instance_id": "${var.instance_id}",
+                  "name": "${var.name}",
+                  "time_interval": 3,
+                  "time_unit": "MINUTE"
+                }
+              references:
+                instance_id: var.instance_id
+                name: var.name
+        argumentDocs:
+            bind_num: '- The number of bound APPs.'
+            call_limits: |-
+                - (Required, Int) Specifies the access limit of the application quota.
+                The valid value ranges from 1 to 2,147,483,647.
+            created_at: '- The creation time of the application quota, in RFC3339 format.'
+            description: |-
+                - (Optional, String) Specifies the description of the application quota.
+                The description contain a maximum of 255 characters and the angle brackets (< and >) are not allowed.
+                Chinese characters must be in UTF-8 or Unicode format.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the dedicated instance to
+                which the application quota belongs. Changing this creates a new resource.
+            name: |-
+                - (Required, String) Specifies the name of the application quota.
+                The value only Chinese and English letters, digits and underscores (_) are allowed,
+                and must start with a Chinese or English letter. The valid value ranges from 3 to 255.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            time_interval: |-
+                - (Required, Int) Specifies the limited time value for flow control of the application quota.
+                The valid value ranges from 1 to 2,147,483,647.
+            time_unit: |-
+                - (Required, String) Specifies the limited time unit of the application quota.
+                The valid values are as follows:
+        importStatements: []
     huaweicloud_apig_certificate:
         subCategory: API Gateway (Dedicated APIG)
         description: '""'
@@ -1624,7 +1674,7 @@ resources:
                 Required if the protocol is HTTP or HTTPS.
             health_check.port: |-
                 - (Optional, Int) Specifies the destination host port for health check.
-                The valid value ranges from 0 to 65535.
+                The valid value ranges from 0 to 65,535.
             health_check.protocol: |-
                 - (Required, String) Specifies the microservice for performing health check on backend servers.
                 The valid values are TCP, HTTP and HTTPS, defaults to TCP.
@@ -1655,31 +1705,27 @@ resources:
             member.group_name: |-
                 - (Optional, String) Specifies the IP address each backend servers.
                 If omitted, means that all backend servers are both in one group.
-            member.host: |-
-                - (Optional, String) Specifies the IP address each backend servers.
-                Required if the member_type is ecs.
-                This parameter and member.id are alternative.
-            member.id: |-
-                - (Optional, String) Specifies the ECS ID for each backend servers.
-                Required if the member_type is ecs.
-                This parameter and member.host are alternative.
+            member.host: '- (Optional, String) Specifies the IP address each backend servers.'
+            member.id: '- (Optional, String) Specifies the ECS ID for each backend servers.'
             member.is_backup: |-
                 - (Optional, Bool) Specifies whether this member is the backup member.
                 Defaults to false.
+            member.member.host: |-
+                and member.id must be set if member_type is ecs.
+                The parameter member.host and member.id are alternative.
             member.name: |-
                 - (Optional, String) Specifies the name of the backend server.
-                Required if the member.id is set.
-                This parameter and member.host are alternative.
+                Required if the parameter member.id is set.
             member.port: |-
                 - (Optional, Int) Specifies the port of the backend server.
-                The valid value ranges from 0 to 65535.
+                The valid value ranges from 0 to 65,535.
                 If omitted, the default port of channel will be used.
             member.status: |-
                 - (Optional, Int) Specifies the status of the backend server.
                 The valid values are as follows:
             member.weight: |-
                 - (Optional, Int) Specifies the weight of current backend server.
-                The valid value ranges from 0 to 10000, defaults to 0.
+                The valid value ranges from 0 to 10,000, defaults to 0.
             member_group: |-
                 - (Optional, List) Specifies the backend (server) groups of the channel.
                 The object structure is documented below.
@@ -1687,7 +1733,7 @@ resources:
             member_group.microservice_labels: '- (Optional, Map) Specifies the microservice tags of the backend server group.'
             member_group.microservice_port: |-
                 - (Optional, Int) Specifies the microservice port of the backend server group.
-                The valid value ranges from 0 to 65535.
+                The valid value ranges from 0 to 65,535.
             member_group.microservice_version: '- (Optional, String) Specifies the microservice version of the backend server group.'
             member_group.name: |-
                 - (Required, String) Specifies the name of the member group.
@@ -1736,6 +1782,7 @@ resources:
                 {
                   "cache_age": 60,
                   "function_urn": "${var.function_urn}",
+                  "function_version": "latest",
                   "identity": [
                     {
                       "location": "QUERY",
@@ -1753,7 +1800,9 @@ resources:
         argumentDocs:
             cache_age: '- (Optional, Int) Specifies the maximum cache age.'
             created_at: '- The creation time of the custom authorizer.'
+            function_alias_uri: '- (Optional, String) Specifies the version alias URI of the FGS function.'
             function_urn: '- (Required, String) Specifies the uniform function URN of the function graph resource.'
+            function_version: '- (Required, String) Specifies the version of the FGS function.'
             id: '- ID of the custom authorizer.'
             identity: |-
                 - (Optional, List) Specifies an array of one or more parameter identities of the custom authorizer.
@@ -1775,6 +1824,7 @@ resources:
                 - (Required, String) Specifies the name of the custom authorizer.
                 The custom authorizer name consists of 3 to 64 characters, starting with a letter.
                 Only letters, digits and underscores (_) are allowed.
+            network_type: '- (Optional, String) Specifies the framework type of the function.'
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the custom authorizer resource.
                 If omitted, the provider-level region will be used.
@@ -1788,6 +1838,41 @@ resources:
                 The user data is used by APIG to invoke the specified authentication function when accessing the backend service.
         importStatements:
             - $ terraform import huaweicloud_apig_custom_authorizer.test <instance_id>/<name>
+    huaweicloud_apig_endpoint_connection_management:
+        subCategory: API Gateway (Dedicated APIG)
+        description: Use this resource to accept or reject a VPC endpoint connection under specified instance within HuaweiCloud.
+        name: huaweicloud_apig_endpoint_connection_management
+        title: huaweicloud_apig_endpoint_connection_management
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "action": "receive",
+                  "endpoint_id": "${var.endpoint_id}",
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                endpoint_id: var.endpoint_id
+                instance_id: var.instance_id
+        argumentDocs:
+            action: |-
+                - (Required, String) Specifies the operation type endpoint connection.
+                The valid values are as follows:
+            create: '- Default is 5 minutes.'
+            endpoint_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the endpoint connection.
+                Changing this creates a new resource.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the dedicated instance ID to which the endpoint connection belongs.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            status: '- The current ststus of the endpoint connection.'
+            update: '- Default is 5 minutes.'
+        importStatements: []
     huaweicloud_apig_endpoint_whitelist:
         subCategory: API Gateway (Dedicated APIG)
         description: '""'
@@ -1856,6 +1941,52 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region where the dedicated instance is located.
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
         importStatements: []
+    huaweicloud_apig_environment_variable:
+        subCategory: API Gateway (Dedicated APIG)
+        description: Manages an APIG environment variable resource within HuaweiCloud.
+        name: huaweicloud_apig_environment_variable
+        title: huaweicloud_apig_environment_variable
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "env_id": "${var.environment_id}",
+                  "group_id": "${var.group_id}",
+                  "instance_id": "${var.instance_id}",
+                  "name": "${var.variable_name}",
+                  "value": "${var.variable_value}"
+                }
+              references:
+                env_id: var.environment_id
+                group_id: var.group_id
+                instance_id: var.instance_id
+                name: var.variable_name
+                value: var.variable_value
+        argumentDocs:
+            env_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the environment to which the environment variable belongs.
+                Changing this creates a new resource.
+            group_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the group to which the environment variable belongs.
+                Changing this creates a new resource.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the dedicated instance to which the environment
+                variable belongs. Changing this creates a new resource.
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of the environment variable.
+                Changing this creates a new resource.
+                The valid length is limited from 3 to 32 characters.
+                Only letters, digits, hyphens (-), and underscores (_) are allowed, and must start with a letter.
+                In the definition of an API, thename (case-sensitive) indicates a variable, for example, #Name#.
+                It is replaced by the actual value when the API is published in an environment. The variable name must be unique.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            value: |-
+                - (Required, String) Specifies the value of the environment variable.
+                The valid length is limited from 1 to 255 characters. Only letters, digits and special characters (_-/.:) are allowed.
+        importStatements: []
     huaweicloud_apig_group:
         subCategory: API Gateway (Dedicated APIG)
         description: '""'
@@ -1891,6 +2022,9 @@ resources:
                 - (Optional, String) Specifies the group description.
                 The description contain a maximum of 255 characters and the angle brackets (< and >) are not allowed.
                 Chinese characters must be in UTF-8 or Unicode format.
+            domain_access_enabled: |-
+                - (Optional, Bool) Specifies whether to use the debugging domain name to access the APIs
+                within the group. The default value is true.
             environment: |-
                 - (Optional, List) Specifies an array of one or more environments of the associated group.
                 The object structure is documented below.
@@ -2047,6 +2181,38 @@ resources:
                 If this parameter is specified, the system automatically generates a name in the
                 "{region}.{vpcep_service_name}.{service_id}" format.
         importStatements: []
+    huaweicloud_apig_instance_feature:
+        subCategory: API Gateway (Dedicated APIG)
+        description: Manages an APIG instance feature resource within HuaweiCloud.
+        name: huaweicloud_apig_instance_feature
+        title: huaweicloud_apig_instance_feature
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "config": "${jsonencode({\n    api_limits = 300\n  })}",
+                  "enabled": true,
+                  "instance_id": "${var.instance_id}",
+                  "name": "ratelimit"
+                }
+              references:
+                instance_id: var.instance_id
+        argumentDocs:
+            config: '- (Optional, String) Specified the detailed configuration of the feature.'
+            create: '- Default is 5 minutes.'
+            enabled: '- (Optional, Bool) Specified whether to enable the feature. Default value is false.'
+            id: '- The resource ID. The value is the feature name.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specified the ID of the dedicated instance to which the feature belongs.
+                Changing this creates a new resource.
+            name: |-
+                - (Required, String, ForceNew) Specified the name of the feature.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+        importStatements: []
     huaweicloud_apig_instance_routes:
         subCategory: API Gateway (Dedicated APIG)
         description: '""'
@@ -2094,7 +2260,7 @@ resources:
             - name: test
               manifest: |-
                 {
-                  "content": "${jsonencode(\n    {\n      response_headers = [{\n        name   = \"X-Custom-Pwd\"\n        value  = \"**********\"\n        action = \"override\"\n      },\n      {\n        name   = \"X-Custom-Debug-Step\"\n        value  = \"Beta\"\n        action = \"skip\"\n      },\n      {\n        name   = \"X-Custom-Config\"\n        value  = \"\u003cHTTP response test\u003e\"\n        action = \"append\"\n      },\n      {\n        name   = \"X-Custom-Id\"\n        value  = \"\"\n        action = \"delete\"\n      },\n      {\n        name   = \"X-Custom-Log-Level\"\n        value  = \"DEBUG\"\n        action = \"add\"\n      }]\n    }\n  )}",
+                  "content": "${jsonencode(\n    {\n      response_headers = [{\n        name       = \"X-Custom-Pwd\"\n        value      = \"**********\"\n        value_type = \"custom_value\"\n        action     = \"override\"\n      },\n      {\n        name       = \"X-Custom-Debug-Step\"\n        value      = \"Beta\"\n        value_type = \"custom_value\"\n        action     = \"skip\"\n      },\n      {\n        name       = \"X-Custom-Config\"\n        value      = \"\u003cHTTP response test\u003e\"\n        value_type = \"custom_value\"\n        action     = \"append\"\n      },\n      {\n        name       = \"X-Custom-Id\"\n        value      = \"\"\n        value_type = \"custom_value\"\n        action     = \"delete\"\n      },\n      {\n        name       = \"X-Custom-Log-Level\"\n        value      = \"DEBUG\"\n        value_type = \"custom_value\"\n        action     = \"add\"\n      },\n      {\n        name       = \"Sys-Param\"\n        value      = \"$context.cacheStatus\"\n        value_type = \"system_parameter\"\n        action     = \"add\"\n      }]\n    }\n  )}",
                   "instance_id": "${var.instance_id}",
                   "name": "${var.plugin_name}",
                   "type": "set_resp_headers"
@@ -2358,6 +2524,8 @@ resources:
                 publish_ids: var.api_publish_ids
                 signature_id: var.signature_id
         argumentDocs:
+            create: '- Default is 3 minutes.'
+            delete: '- Default is 3 minutes.'
             id: '- Resource ID. The format is <instance_id>/<signature_id>.'
             instance_id: |-
                 - (Required, String, ForceNew) Specifies the ID of the dedicated instance to which the APIs and the
@@ -2370,6 +2538,7 @@ resources:
             signature_id: |-
                 - (Required, String, ForceNew) Specifies the signature ID for APIs binding.
                 Changing this will create a new resource.
+            update: '- Default is 3 minutes.'
         importStatements: []
     huaweicloud_apig_throttling_policy:
         subCategory: API Gateway (Dedicated APIG)
@@ -2490,6 +2659,8 @@ resources:
                 policy_id: var.policy_id
                 publish_ids: var.api_publish_ids
         argumentDocs:
+            create: '- Default is 3 minutes.'
+            delete: '- Default is 3 minutes.'
             id: '- Resource ID. The format is <instance_id>/<policy_id>.'
             instance_id: |-
                 - (Required, String, ForceNew) Specifies the ID of the dedicated instance to which the APIs and the
@@ -2503,6 +2674,7 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region where the dedicated instance and the throttling policy
                 are located.
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
+            update: '- Default is 3 minutes.'
         importStatements:
             - $ terraform import huaweicloud_apig_throttling_policy_associate.test <instance_id>/<policy_id>
     huaweicloud_apig_vpc_channel:
@@ -4192,6 +4364,96 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
         importStatements: []
+    huaweicloud_cbh_ha_instance:
+        subCategory: Cloud Bastion Host (CBH)
+        description: Manages a CBH HA instance resource within HuaweiCloud.
+        name: huaweicloud_cbh_ha_instance
+        title: huaweicloud_cbh_ha_instance
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "charging_mode": "prePaid",
+                  "flavor_id": "${var.flavor_id}",
+                  "master_availability_zone": "${var.master_availability_zone}",
+                  "name": "${var.name}",
+                  "password": "${var.password}",
+                  "period": 1,
+                  "period_unit": "month",
+                  "security_group_id": "${var.security_group_id}",
+                  "slave_availability_zone": "${var.slave_availability_zone}",
+                  "subnet_id": "${var.subnet_id}",
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                flavor_id: var.flavor_id
+                master_availability_zone: var.master_availability_zone
+                name: var.name
+                password: var.password
+                security_group_id: var.security_group_id
+                slave_availability_zone: var.slave_availability_zone
+                subnet_id: var.subnet_id
+                vpc_id: var.vpc_id
+        argumentDocs:
+            "8": to 32 characters.
+            attach_disk_size: |-
+                - (Optional, Int) Specifies the size of the additional data disk for the CBH HA instance.
+                The unit is TB. It refers to the additional disk size added on top of the existing disk. And the sum of the built-in
+                disk of the instance flavor and the additional disk cannot exceed 300TB.
+            auto_renew: |-
+                - (Optional, String) Specifies whether auto-renew is enabled.
+                Valid values are true and false. Defaults to false.
+            charging_mode: |-
+                - (Required, String, ForceNew) Specifies the charging mode of the CBH HA instance.
+                The options are as follows:
+            create: '- Default is 60 minutes.'
+            data_disk_size: |-
+                - The data disk size of the CBH HA instance. The unit is TB. It represents the sum of the
+                disks that come with the flavor and the disks that have already been expanded.
+            delete: '- Default is 30 minutes.'
+            enterprise_project_id: |-
+                - (Optional, String) Specifies the enterprise project ID to which the CBH HA instance belongs.
+                For enterprise users, if omitted, default enterprise project will be used.
+            flavor_id: |-
+                - (Required, String) Specifies the product ID of the CBH server. When updating the flavor, it can only be
+                changed to a higher flavor.
+            floating_ip: '- (Optional, String, ForceNew) Specifies the floating IP address of the CBH HA instance.'
+            id: '- The resource ID.'
+            ipv6_enable: '- (Optional, Bool, ForceNew) Specifies whether the IPv6 network is enabled. Defaults to false.'
+            master_availability_zone: '- (Required, String, ForceNew) Specifies the availability zone name of the master instance.'
+            master_id: '- The ID of the master instance.'
+            master_private_ip: '- (Optional, String, ForceNew) Specifies the private IP address of the master instance.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of the CBH HA instance. The field can contain 1 to 64
+                characters. Only letters, digits, underscores (_), and hyphens (-) are allowed.
+            password: |-
+                - (Required, String) Specifies the password for logging in to the management console. The value of the
+                field has the following restrictions:
+            period: |-
+                - (Required, Int, ForceNew) Specifies the charging period of the CBH HA instance.
+                If period_unit is set to month, the value ranges from 1 to 9.
+                If period_unit is set to year, the value ranges from 1 to 3.
+            period_unit: |-
+                - (Required, String, ForceNew) Specifies the charging period unit of the CBH HA instance.
+                Valid values are month and year.
+            public_ip: '- The elastic IP address.'
+            public_ip_id: '- (Optional, String) Specifies the ID of the elastic IP.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the CBH HA instance.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            security_group_id: |-
+                - (Required, String) Specifies the IDs of the security group. Multiple security group IDs are
+                separated by commas (,) without spaces.
+            slave_availability_zone: '- (Required, String, ForceNew) Specifies the availability zone name of the slave instance.'
+            slave_id: '- The ID of the slave instance.'
+            slave_private_ip: '- (Optional, String, ForceNew) Specifies the private IP address of the slave instance.'
+            status: '- The status of the CBH HA instance.'
+            subnet_id: '- (Required, String, ForceNew) Specifies the ID of a subnet.'
+            tags: '- (Optional, Map) Specifies the key/value pairs to associate with the CBH HA instance.'
+            update: '- Default is 60 minutes.'
+            version: '- The current version of the CBH HA instance image.'
+            vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC.'
+        importStatements: []
     huaweicloud_cbh_instance:
         subCategory: Cloud Bastion Host (CBH)
         description: '""'
@@ -4258,6 +4520,9 @@ resources:
             period_unit: |-
                 - (Required, String, ForceNew) Specifies the charging period unit of the instance.
                 Valid values are month and year.
+            power_action: |-
+                - (Optional, String) Specifies the power action after the CBH instance is created.
+                The valid values are as follows:
             private_ip: '- Indicates the private IP address of the instance.'
             public_ip: '- Indicates the elastic IP address.'
             public_ip_id: '- (Optional, String) Specifies the ID of the elastic IP.'
@@ -4272,6 +4537,7 @@ resources:
                 - (Optional, String) Specifies the IP address of the subnet.
                 If not specified, a new IP address will be assigned.
             subnet_id: '- (Required, String, ForceNew) Specifies the ID of a subnet.'
+            tags: '- (Optional, Map) Specifies the key/value pairs to associate with the CBH instance.'
             update: '- Default is 60 minutes.'
             version: '- Indicates the current version of the instance image.'
             vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC.'
@@ -4431,15 +4697,24 @@ resources:
                 {
                   "backup_cycle": [
                     {
-                      "days": "MO,TH",
+                      "days": "SA,SU",
                       "execution_times": [
-                        "06:00"
-                      ],
-                      "frequency": "WEEKLY"
+                        "08:00",
+                        "20:00"
+                      ]
+                    }
+                  ],
+                  "long_term_retention": [
+                    {
+                      "daily": 10,
+                      "full_backup_interval": -1,
+                      "monthly": 1,
+                      "weekly": 10
                     }
                   ],
                   "name": "${var.policy_name}",
                   "time_period": 20,
+                  "time_zone": "UTC+08:00",
                   "type": "backup"
                 }
               references:
@@ -4452,7 +4727,6 @@ resources:
                       "execution_times": [
                         "21:00"
                       ],
-                      "frequency": "DAILY",
                       "interval": 5
                     }
                   ],
@@ -4471,16 +4745,16 @@ resources:
                 - (Required, List) Specifies the scheduling rule for the policy backup execution.
                 The object structure is documented below.
             backup_cycle.days: |-
-                - (Optional, String) Specifies the weekly backup day of backup schedule. It supports seven days a week (MO, TU,
-                WE, TH, FR, SA, SU) and this parameter is separated by a comma (,) without spaces, between date and date during the
-                configuration.
+                - (Optional, String) Specifies the weekly backup day of backup schedule.
+                It supports seven days a week (MO, TU, WE, TH, FR, SA, SU) and this parameter is separated by a comma (,) without
+                spaces, between date and date during the configuration.
             backup_cycle.execution_times: |-
                 - (Required, List) Specifies the backup time. Automated backups will be triggered at the backup
                 time. The current time is in the UTC format (HH:MM). The minutes in the list must be set to 00 and the hours
                 cannot be repeated. In the replication policy, you are advised to set one time point for one day.
             backup_cycle.interval: |-
-                - (Optional, Int) Specifies the interval (in days) of backup schedule. The value range is 1 to 30. This
-                parameter and days are alternative.
+                - (Optional, Int) Specifies the interval (in days) of backup schedule.
+                The valid value ranges from 1 to 30.
             backup_quantity: |-
                 - (Optional, Int) Specifies the maximum number of retained backups. The value ranges from 2 to
                 99,999. This parameter and time_period are alternative.
@@ -4568,14 +4842,29 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "auto_bind": true,
+                  "bind_rules": {
+                    "service_name": "xxx"
+                  },
                   "consistent_level": "crash_consistent",
                   "name": "${var.vault_name}",
+                  "policy": [
+                    {
+                      "id": "${var.backup_policy_id}"
+                    },
+                    {
+                      "destination_vault_id": "${huaweicloud_cbr_vault.destination.id}",
+                      "id": "${var.replication_policy_id}"
+                    }
+                  ],
                   "protection_type": "backup",
                   "size": 500,
                   "type": "server"
                 }
               references:
                 name: var.vault_name
+                policy.destination_vault_id: huaweicloud_cbr_vault.destination.id
+                policy.id: var.replication_policy_id
             - name: test
               manifest: |-
                 {
@@ -5529,10 +5818,16 @@ resources:
             - name: test
               manifest: |-
                 {
-                  "name": "${cluster}"
+                  "container_network_type": "eni",
+                  "eni_subnet_id": "${join(\",\", [\n    huaweicloud_vpc_subnet.eni_test_1.ipv4_subnet_id,\n    huaweicloud_vpc_subnet.eni_test_2.ipv4_subnet_id,\n  ])}",
+                  "flavor_id": "cce.s1.small",
+                  "name": "cluster",
+                  "subnet_id": "${huaweicloud_vpc_subnet.mysubnet.id}",
+                  "vpc_id": "${huaweicloud_vpc.myvpc.id}"
                 }
               references:
-                name: cluster
+                subnet_id: huaweicloud_vpc_subnet.mysubnet.id
+                vpc_id: huaweicloud_vpc.myvpc.id
               dependencies:
                 huaweicloud_vpc.myvpc: |-
                     {
@@ -6971,21 +7266,19 @@ resources:
             - name: test
               manifest: |-
                 {
-                  "availability_zone": "${data.huaweicloud_availability_zones.test.names[0]}",
                   "name": "${var.network_name}",
                   "namespace": "${var.namespace_name}",
                   "network_id": "${var.vpc_network_id}",
                   "security_group_id": "${var.security_group_id}"
                 }
               references:
-                availability_zone: data.huaweicloud_availability_zones.test.names[0]
                 name: var.network_name
                 namespace: var.namespace_name
                 network_id: var.vpc_network_id
                 security_group_id: var.security_group_id
         argumentDocs:
             availability_zone: |-
-                - (Required, String, ForceNew) Specifies the availability zone (AZ) to which the CCI network
+                - (Optional, String, ForceNew) Specifies the availability zone (AZ) to which the CCI network
                 belongs. Changing this will create a new CCI network resource.
             cidr: '- The network segment on which the subnet resides.'
             create: '- Default is 10 minutes.'
@@ -7827,6 +8120,106 @@ resources:
                 provider-level region will be used. Changing this parameter will create a new resource.
             secret_key: '- (Optional, String) Specifies security key for accessing the data sources.'
         importStatements: []
+    huaweicloud_cdn_billing_option:
+        subCategory: Content Delivery Network (CDN)
+        description: Manages a CDN billing option resource within HuaweiCloud.
+        name: huaweicloud_cdn_billing_option
+        title: huaweicloud_cdn_billing_option
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "charge_mode": "${var.charge_mode}",
+                  "product_type": "base",
+                  "service_area": "mainland_china"
+                }
+              references:
+                charge_mode: var.charge_mode
+        argumentDocs:
+            charge_mode: |-
+                - (Required, String) Specifies the billing option. The value can be flux (traffic-based billing) or
+                bw (bandwidth-based billing, only for V2 and higher customers).
+            created_at: '- The creation time.'
+            current_charge_mode: '- The billing option of the account.'
+            effective_time: '- The effective time of the option.'
+            id: '- The resource ID.'
+            product_type: '- (Required, String) Specifies the product mode. Only base (basic acceleration) is supported.'
+            service_area: '- (Required, String) Specifies the service area. Only mainland_china (Chinese mainland) is supported.'
+            status: '- The status.'
+        importStatements: []
+    huaweicloud_cdn_cache_preheat:
+        subCategory: Content Delivery Network (CDN)
+        description: Manages a CDN cache preheat resource within HuaweiCloud.
+        name: huaweicloud_cdn_cache_preheat
+        title: huaweicloud_cdn_cache_preheat
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "urls": "${var.urls}"
+                }
+              references:
+                urls: var.urls
+        argumentDocs:
+            created_at: '- The creation time.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID to which the accelerated
+                domain name belongs. This parameter is mandatory when you use an IAM user to call this API.
+                For enterprise users, if omitted, default enterprise project will be used.
+            failed: '- The number of URLs that failed to be processed.'
+            id: '- The resource ID.'
+            processing: '- The number of URLs that are being processed.'
+            status: '- The task execution result. Possible values: task_done (successful) and task_inprocess (processing).'
+            succeed: '- The number of URLs processed.'
+            total: '- The total number of URLs in historical tasks.'
+            urls: |-
+                - (Required, List, ForceNew) Specifies the URLs that need to be preheated.
+                A URL must start with http:// or https:// and must contain the accelerated domain name.
+                A URL can contain up to 4,096 characters. Enter up to 1,000 URLs and separate them by commas (,).
+            zh_url_encode: |-
+                - (Optional, Bool, ForceNew) Specifies whether to encode Chinese characters in URLs before cache preheat.
+                The value false indicates disabled, and true indicates enabled. After enabled, cache is preheated only for
+                transcode URLs. Defaults to false.
+        importStatements: []
+    huaweicloud_cdn_cache_refresh:
+        subCategory: Content Delivery Network (CDN)
+        description: Manages a CDN cache refresh resource within HuaweiCloud.
+        name: huaweicloud_cdn_cache_refresh
+        title: huaweicloud_cdn_cache_refresh
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "urls": "${var.urls}"
+                }
+              references:
+                urls: var.urls
+        argumentDocs:
+            created_at: '- The creation time.'
+            enterprise_project_id: |-
+                - (Optional, String, ForceNew) Specifies the enterprise project ID to which the accelerated
+                domain name belongs. This parameter is mandatory when you use an IAM user to call this API.
+                For enterprise users, if omitted, default enterprise project will be used.
+            failed: '- The number of URLs that failed to be processed.'
+            id: '- The resource ID.'
+            mode: '- (Optional, String, ForceNew) Specifies the directory refresh mode. Valid values are:'
+            processing: '- The number of URLs that are being processed.'
+            status: '- The task execution result. Possible values: task_done (successful) and task_inprocess (processing).'
+            succeed: '- The number of URLs processed.'
+            total: '- The total number of URLs in historical tasks.'
+            type: |-
+                is set to file, the value should be file path. Example: http://www.example.com/file01.html or
+                http://www.example.com/.
+            urls: |-
+                - (Required, List, ForceNew) Specifies the URLs that need to be refreshed.
+                A URL must start with http:// or https:// and must contain the accelerated domain name.
+                A URL can contain up to 4,096 characters. Enter up to 1,000 URLs or 100 directories and separate them by commas (,).
+                Changing this parameter will create a new resource.
+            zh_url_encode: |-
+                - (Optional, Bool, ForceNew) Specifies whether to encode Chinese characters in URLs before cache refresh.
+                The value false indicates disabled, and true indicates enabled. After enabled, cache is refreshed only for
+                transcode URLs. Defaults to false.
+        importStatements: []
     huaweicloud_cdn_domain:
         subCategory: Content Delivery Network (CDN)
         description: '""'
@@ -8084,12 +8477,18 @@ resources:
             configs.error_code_cache: |-
                 - (Optional, List) Specifies the status code cache TTL.
                 The error_code_cache structure is documented below.
+            configs.error_code_redirect_rules: |-
+                - (Optional, List) Specifies the custom error pages.
+                The error_code_redirect_rules structure is documented below.
             configs.flexible_origin: |-
                 - (Optional, List) Specifies the advanced origin rules.
                 The flexible_origin structure is documented below.
             configs.force_redirect: |-
                 - (Optional, List) Specifies the force redirect.
                 The force_redirect structure is documented below.
+            configs.hsts: |-
+                - (Optional, List) Specifies the HSTS settings. HSTS forces clients (such as browsers) to use HTTPS to access
+                your server, improving access security. The hsts structure is documented below.
             configs.http_response_header: |-
                 - (Optional, List) Specifies the HTTP response header settings.
                 The http_response_header structure is documented below.
@@ -8103,6 +8502,9 @@ resources:
                 - (Optional, List) Specifies the IP access frequency limit.
                 The ip_frequency_limit structure is documented below.
             configs.ipv6_enable: '- (Optional, Bool) Specifies whether to enable IPv6.'
+            configs.origin_follow302_status: |-
+                - (Optional, String) Specifies whether to enable redirection from the origin.
+                Valid values are as follows:
             configs.origin_protocol: '- (Optional, String) Specifies the content retrieval protocol. Possible values:'
             configs.origin_receive_timeout: |-
                 - (Optional, Int) Specifies the origin response timeout.
@@ -8158,6 +8560,13 @@ resources:
                 - (Required, Int) Specifies the error code. Valid values are: 301, 302, 400, 403, 404,
                 405, 414, 500, 501, 502, 503, and 504.
             error_code_cache.ttl: '- (Required, Int) Specifies the error code cache TTL, in seconds. The value ranges from 0 to 31,536,000.'
+            error_code_redirect_rules.error_code: |-
+                - (Required, Int) Specifies the redirect unique error code. Valid values are: 400, 403, 404,
+                405, 414, 416, 451, 500, 501, 502, 503, and 504.
+            error_code_redirect_rules.target_code: '- (Required, Int) Specifies the redirect status code. The value can be 301 or 302.'
+            error_code_redirect_rules.target_link: |-
+                - (Required, String) Specifies the destination URL. The value must start with http:// or https://.
+                For example: http://www.example.com.
             flexible_origin.back_sources: |-
                 - (Required, List) Specifies the back source information. The length of this array field cannot exceed 1.
                 The back_sources structure is documented below.
@@ -8173,6 +8582,14 @@ resources:
             force_redirect.type: |-
                 - (Required, String) Specifies the force redirect type.
                 Possible values are: http (force redirect to HTTP) and https (force redirect to HTTPS).
+            hsts.enabled: '- (Required, Bool) Specifies whether to enable HSTS settings.'
+            hsts.include_subdomains: |-
+                - (Optional, String) Specifies whether subdomain names are included.
+                The options are on (included) and off (not included). This field is required when enable HSTS settings.
+            hsts.max_age: |-
+                - (Optional, Int) Specifies the expiration time, which means the TTL of the response header
+                Strict-Transport-Security on the client. The value ranges from 0 to 63,072,000. The unit is second.
+                This field is required when enable HSTS settings.
             http_response_header.action: '- (Required, String) Specifies the operation type of the HTTP response header. The value can be set or delete.'
             http_response_header.name: |-
                 - (Required, String) Specifies the HTTP response header. Valid values are Content-Disposition, Content-Language,
@@ -8363,12 +8780,16 @@ resources:
             sources.https_port: |-
                 - (Optional, Int) Specifies the HTTPS port. The port number ranges from 1 to 65535.
                 Default value: 443.
+            sources.obs_bucket_type: '- (Optional, String) Specifies the OBS bucket type. Valid values are as follows:'
             sources.obs_web_hosting_enabled: |-
                 - (Optional, Bool) Specifies whether to enable static website hosting for the OBS bucket.
                 This parameter is valid only when the origin_type is set to obs_bucket. Defaults to false.
             sources.origin: '- (Required, String) Specifies the unique domain name or IP address of the origin server.'
             sources.origin_type: '- (Required, String) Specifies the origin server type. The valid values are as follows:'
             sources.retrieval_host: '- (Optional, String) Specifies the retrieval host. Things to note when using this field are as follows:'
+            sources.weight: |-
+                - (Optional, Int) Specifies the weight. The value ranges from 1 to 100. Defaults to 50.
+                A larger value indicates a larger number of times that content is pulled from this IP address.
             sources_type: is set to ipaddr, the value of this field can only be set to a valid IPv4 or Ipv6 address.
             tags: '- (Optional, Map) Specifies the key/value pairs to associate with the domain.'
             type: '- (Required, String) Specifies the service type of the domain name. The valid values are as follows:'
@@ -8936,6 +9357,7 @@ resources:
             address_type: |-
                 - (Required, Int) Specifies the IP address type.
                 The options are 0 (ipv4), 1 (ipv6) and 2 (domain).
+            description: '- (Optional, String) Specifies the description of the list.'
             direction: |-
                 - (Required, Int) Specifies the address direction.
                 The options are 0 (source address) and 1 (destination address).
@@ -12332,8 +12754,8 @@ resources:
             nodes.status: '- Instance status.'
             nodes.type: '- Node type. The options are as follows:'
             password: |-
-                - (Optional, String, ForceNew) Specifies the password of the cluster administrator in security mode.
-                This parameter is mandatory only when security_mode is set to true. Changing this parameter will create a new resource.
+                - (Optional, String) Specifies the password of the cluster administrator in security mode.
+                This parameter is mandatory only when security_mode is set to true.
                 The administrator password must meet the following requirements:
             period: |-
                 - (Optional, Int, ForceNew) Specifies the charging period of the instance.
@@ -12356,13 +12778,10 @@ resources:
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the cluster resource. If omitted, the
                 provider-level region will be used. Changing this creates a new cluster resource.
-            security_group_id: |-
-                - (Required, String, ForceNew) Specifies Security group ID.
-                Changing this parameter will create a new resource.
+            security_group_id: '- (Required, String) Specifies the security group ID.'
             security_mode: |-
-                - (Optional, Bool, ForceNew) Specifies whether to enable communication encryption and security
-                authentication. Available values include true and false. security_mode is disabled by default.
-                Changing this parameter will create a new resource.
+                - (Optional, Bool) Specifies Whether to enable authentication.
+                The value can be true or false. Authentication is disabled by default.
             status: '- The cluster status'
             subnet_id: '- (Required, String, ForceNew) Specifies the Subnet ID. Changing this parameter will create a new resource.'
             tags: '- (Optional, Map) The key/value pairs to associate with the cluster.'
@@ -12377,6 +12796,45 @@ resources:
             vpcep_endpoint.whitelist: '- (Optional, List) Specifies the whitelist of access control. The whitelisted account id must be unique.'
             vpcep_endpoint_id: '- The VPC endpoint service ID.'
             vpcep_ip: '- The private IP address of VPC endpoint service.'
+        importStatements: []
+    huaweicloud_css_cluster_restart:
+        subCategory: Cloud Search Service (CSS)
+        description: Manages CSS cluster restart resource within HuaweiCloud.
+        name: huaweicloud_css_cluster_restart
+        title: huaweicloud_css_cluster_restart
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "cluster_id": "${var.cluster_id}",
+                  "type": "role",
+                  "value": "ess"
+                }
+              references:
+                cluster_id: var.cluster_id
+        argumentDocs:
+            cluster_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the CSS cluster.
+                Changing this creates a new resource.
+            create: '- Default is 60 minutes.'
+            id: '- The resource ID.'
+            is_rolling: |-
+                - (Optional, Bool, ForceNew) Specifies whether to roll restart.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            type: |-
+                - (Required, String, ForceNew) Specifies the operation type of the CSS cluster restart.
+                The value can be role or node. The value can only be role when the is_rolling is true.
+                Changing this creates a new resource.
+            value: |-
+                - (Required, String, ForceNew) Specifies the value under the operation type. If the operation
+                role is node, the value is the node ID. If the operation role is role, the value is one or multiple node
+                types (such as ess, ess-master, ess-client, ess-cold, and all). Use commas (,) to
+                separate multiple node types.
+                Changing this creates a new resource.
         importStatements: []
     huaweicloud_css_configuration:
         subCategory: Cloud Search Service (CSS)
@@ -12430,6 +12888,79 @@ resources:
             thread_pool_force_merge_size: |-
                 - (Optional, String) Queue size in the force merge thread pool.
                 Default value: 1.
+        importStatements: []
+    huaweicloud_css_es_loadbalancer_config:
+        subCategory: Cloud Search Service (CSS)
+        description: Manages CSS ElasticSearch loadbalancer resource within HuaweiCloud.
+        name: huaweicloud_css_es_loadbalancer_config
+        title: huaweicloud_css_es_loadbalancer_config
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "agency": "${var.agency}",
+                  "cluster_id": "${var.cluster_id}",
+                  "loadbalancer_id": "${var.elb_loadbalancer_id}",
+                  "protocol_port": "${var.protocol_port}",
+                  "server_cert_id": "${var.server_cert_id}"
+                }
+              references:
+                agency: var.agency
+                cluster_id: var.cluster_id
+                loadbalancer_id: var.elb_loadbalancer_id
+                protocol_port: var.protocol_port
+                server_cert_id: var.server_cert_id
+        argumentDocs:
+            agency: |-
+                - (Required, String, ForceNew) Specifies the IAM agency used to access ELB.
+                Changing this creates a new resource.
+            authentication_type: '- The authentication type.'
+            ca_cert_id: '- (Optional, String) Specifies the CA certificate ID.'
+            ca_cert_name: '- The CA certificate name.'
+            cluster_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the CSS cluster.
+                Changing this creates a new resource.
+            create: '- Default is 3 minutes.'
+            delete: '- Default is 3 minutes.'
+            elb_enabled: '- Whether the loadbalancer is enabled.'
+            health_monitors: |-
+                - The health monitors.
+                The health_monitors structure is documented below.
+            health_monitors.ip: '- The IP address corresponding to the backend server.'
+            health_monitors.protocol_port: '- The backend server business port number.'
+            health_monitors.status: '- The health status of the backend cloud server.'
+            id: '- The resource ID.'
+            ip_group.enabled: '- The status of the access control group.'
+            ip_group.id: '- The ID of the access control group associated with the listener.'
+            listener: |-
+                - The listener information.
+                The listener structure is documented below.
+            listener.id: '- The listener ID.'
+            listener.ip_group: |-
+                - The ipgroup information in the listener object.
+                The ip_group structure is documented below.
+            listener.name: '- The listener name.'
+            listener.protocol: '- The listening protocol of the listener.'
+            listener.protocol_port: '- The front-end listening port of the listener.'
+            loadbalancer: |-
+                - The ELB loadbalancer information.
+                The loadbalancer structure is documented below.
+            loadbalancer.id: '- The loadbalancer ID.'
+            loadbalancer.ip: '- The IPv4 virtual IP address of the loadbalancer.'
+            loadbalancer.name: '- The loadbalancer name.'
+            loadbalancer.public_ip: '- The elastic public IP address.'
+            loadbalancer_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the loadbalancer.
+                Changing this creates a new resource.
+            protocol_port: |-
+                - (Required, Int, ForceNew) Specifies the protocol port.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            server_cert_id: '- (Optional, String) Specifies the server certificate ID.'
+            server_cert_name: '- The server certificate name.'
         importStatements: []
     huaweicloud_css_log_setting:
         subCategory: Cloud Search Service (CSS)
@@ -12563,9 +13094,12 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region in which to create the logstash cluster resource.
                 If omitted, the provider-level region will be used.
                 Changing this creates a new cluster resource.
-            security_group_id: |-
-                - (Required, String, ForceNew) Specifies the security group ID.
-                Changing this parameter will create a new resource.
+            routes: |-
+                - (Optional, List) Specifies the list of route objects.
+                The routes structure is documented below.
+            routes.ip_address: '- (Required, String) Specifies the route ip address.'
+            routes.ip_net_mask: '- (Required, String) Specifies the subnet mask of the route ip address.'
+            security_group_id: '- (Required, String) Specifies the security group ID.'
             status: '- The CSS logstash cluster status. The value are as follows:'
             subnet_id: |-
                 - (Required, String, ForceNew) Specifies the subnet ID.
@@ -12689,6 +13223,47 @@ resources:
             status: '- The custom certificate status.'
             updated_at: '- The custom certificate upload time.'
         importStatements: []
+    huaweicloud_css_logstash_custom_template:
+        subCategory: Cloud Search Service (CSS)
+        description: Manages CSS logstash custom template within HuaweiCloud.
+        name: huaweicloud_css_logstash_custom_template
+        title: huaweicloud_css_logstash_custom_template
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "cluster_id": "${var.cluster_id}",
+                  "configuration_name": "${var.configuration_name}",
+                  "name": "${var.name}"
+                }
+              references:
+                cluster_id: var.cluster_id
+                configuration_name: var.configuration_name
+                name: var.name
+            - name: test
+              manifest: '{}'
+        argumentDocs:
+            cluster_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the CSS logstash cluster.
+                Changing this creates a new resource.
+            conf_content: '- The configuration file content of the custom template.'
+            configuration_name: |-
+                - (Required, String, ForceNew) Specifies the name of the configuration file you want to
+                add to the custom template.
+                Changing this creates a new resource.
+            description: |-
+                - (Optional, String, ForceNew) Specifies the description of the custom template.
+                Changing this creates a new resource.
+            id: '- The resource ID.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of the custom template.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            template_id: '- The ID of the custom template.'
+        importStatements: []
     huaweicloud_css_logstash_pipeline:
         subCategory: Cloud Search Service (CSS)
         description: '""'
@@ -12699,11 +13274,11 @@ resources:
               manifest: |-
                 {
                   "cluster_id": "${var.cluster_id}",
-                  "name": "${var.config_file_name}"
+                  "names": "${var.config_file_names}"
                 }
               references:
                 cluster_id: var.cluster_id
-                name: var.config_file_name
+                names: var.config_file_names
         argumentDocs:
             cluster_id: |-
                 - (Required, String, ForceNew) Specifies ID of the CSS logstash cluster.
@@ -16024,78 +16599,22 @@ resources:
                     {
                       "admin_password": "${var.rds_password}",
                       "admin_user": "root",
-                      "id": "${huaweicloud_rds_instance.test.id}"
+                      "id": "${var.rds_instance_id}"
                     }
                   ],
-                  "instance_id": "${huaweicloud_ddm_instance.test.id}",
+                  "instance_id": "${var.instance_id}",
                   "name": "test_schema",
                   "shard_mode": "single",
                   "shard_number": 1
                 }
               references:
                 data_nodes.admin_password: var.rds_password
-                data_nodes.id: huaweicloud_rds_instance.test.id
-                instance_id: huaweicloud_ddm_instance.test.id
-              dependencies:
-                huaweicloud_ddm_instance.test: |-
-                    {
-                      "availability_zones": [
-                        "${data.huaweicloud_availability_zones.test.names[0]}"
-                      ],
-                      "engine_id": "${data.huaweicloud_ddm_engines.test.engines[0].id}",
-                      "flavor_id": "${data.huaweicloud_ddm_flavors.test.flavors[0].id}",
-                      "name": "ddm-test",
-                      "node_num": 2,
-                      "security_group_id": "${huaweicloud_networking_secgroup.test.id}",
-                      "subnet_id": "${huaweicloud_vpc_subnet.test.id}",
-                      "vpc_id": "${huaweicloud_vpc.test.id}"
-                    }
-                huaweicloud_networking_secgroup.test: |-
-                    {
-                      "name": "test_secgroup"
-                    }
-                huaweicloud_rds_instance.test: |-
-                    {
-                      "availability_zone": [
-                        "${data.huaweicloud_availability_zones.test.names[0]}"
-                      ],
-                      "db": [
-                        {
-                          "password": "${var.rds_password}",
-                          "port": 3306,
-                          "type": "MySQL",
-                          "version": "5.7"
-                        }
-                      ],
-                      "fixed_ip": "192.168.0.58",
-                      "flavor": "rds.mysql.n1.large.4",
-                      "name": "rds_test",
-                      "security_group_id": "${huaweicloud_networking_secgroup.test.id}",
-                      "subnet_id": "${huaweicloud_vpc_subnet.test.id}",
-                      "volume": [
-                        {
-                          "size": 40,
-                          "type": "CLOUDSSD"
-                        }
-                      ],
-                      "vpc_id": "${huaweicloud_vpc.test.id}"
-                    }
-                huaweicloud_vpc.test: |-
-                    {
-                      "cidr": "192.168.0.0/24",
-                      "name": "test_vpc"
-                    }
-                huaweicloud_vpc_subnet.test: |-
-                    {
-                      "cidr": "192.168.0.0/24",
-                      "gateway_ip": "192.168.0.1",
-                      "name": "test_subnet",
-                      "vpc_id": "${huaweicloud_vpc.test.id}"
-                    }
+                data_nodes.id: var.rds_instance_id
+                instance_id: var.instance_id
         argumentDocs:
-            DataNode.admin_password: '- (Required, String) Specifies the password for logging in to the associated RDS instance.'
-            DataNode.admin_user: '- (Required, String) Specifies the username for logging in to the associated RDS instance.'
-            DataNode.id: '- (Required, String) Specifies the ID of the RDS instance associated with the schema.'
+            DataNode.admin_password: '- (Required, String, ForceNew) Specifies the password for logging in to the associated RDS instance.'
+            DataNode.admin_user: '- (Required, String, ForceNew) Specifies the username for logging in to the associated RDS instance.'
+            DataNode.id: '- (Required, String, ForceNew) Specifies the ID of the RDS instance associated with the schema.'
             DataNode.name: '- Indicates the name of the associated RDS instance.'
             DataNode.status: '- Indicates the status of the associated RDS instance.'
             Shard.db_slot: '- Indicates the number of shards.'
@@ -16392,6 +16911,8 @@ resources:
                       "type": "config"
                     }
                   ],
+                  "maintain_begin": "02:00",
+                  "maintain_end": "03:00",
                   "mode": "Sharding",
                   "name": "dds-instance",
                   "password": "${var.dds_password}",
@@ -16414,7 +16935,7 @@ resources:
                   ],
                   "flavor": [
                     {
-                      "num": 1,
+                      "num": 3,
                       "size": 30,
                       "spec_code": "dds.mongodb.c3.medium.4.repset",
                       "storage": "ULTRAHIGH",
@@ -16422,35 +16943,6 @@ resources:
                     }
                   ],
                   "mode": "ReplicaSet",
-                  "name": "dds-instance",
-                  "password": "${var.dds_password}",
-                  "security_group_id": "{{ security_group_id }}",
-                  "subnet_id": "{{ subnet_network_id }}}",
-                  "vpc_id": "{{ vpc_id }}"
-                }
-              references:
-                password: var.dds_password
-            - name: instance
-              manifest: |-
-                {
-                  "availability_zone": "{{ availability_zone }}",
-                  "datastore": [
-                    {
-                      "storage_engine": "wiredTiger",
-                      "type": "DDS-Community",
-                      "version": "3.4"
-                    }
-                  ],
-                  "flavor": [
-                    {
-                      "num": 1,
-                      "size": 30,
-                      "spec_code": "dds.mongodb.s6.large.2.single",
-                      "storage": "ULTRAHIGH",
-                      "type": "single"
-                    }
-                  ],
-                  "mode": "Single",
                   "name": "dds-instance",
                   "password": "${var.dds_password}",
                   "security_group_id": "{{ security_group_id }}",
@@ -16476,17 +16968,32 @@ resources:
                 - (Required, String) Specifies the backup time window. Automated backups will be triggered during
                 the backup time window. The value cannot be empty. It must be a valid value in the "hh:mm-HH:MM" format.
                 The current time is in the UTC format.
+            balancer_active_begin: |-
+                - (Optional, String) Specifies the start time of the balancing activity time window.
+                The format is HH:MM. It's required with balancer_active_end.
+            balancer_active_end: |-
+                - (Optional, String) Specifies the end time of the balancing activity time window.
+                The format is HH:MM. It's required with balancer_active_begin.
+            balancer_status: |-
+                - (Optional, String) Specifies the status of the balancer.
+                The value can be start or stop. Defaults to start.
             charging_mode: |-
                 - (Optional, String, ForceNew) Specifies the charging mode of the instance.
                 The valid values are as follows:
+            client_network_ranges: |-
+                - (Optional, List) Specifies the CIDR block where the client is located. Cross-CIDR access is
+                required only when the CIDR blocks of the client and the replica set instance are different. For example, if the client
+                CIDR block is 192.168.0.0/16 and the replica set instance's CIDR block is 172.16.0.0/24, add the CIDR block
+                192.168.0.0/16 so that the client can access the replica set instance.
+                It's only for replica set instance.
             configuration: |-
                 - (Optional, List, ForceNew) Specifies the configuration information.
                 The structure is described below. Changing this creates a new instance.
-            configuration.id: |-
-                - (Required, String, ForceNew) Specifies the ID of the template.
-                Changing this creates a new instance.
+            configuration.configuration.id: ', please check whether the instance needs to be restarted.'
+            configuration.id: '- (Required, String) Specifies the ID of the template.'
             configuration.type: '- (Required, String, ForceNew) Specifies the node type. Valid value:'
             create: '- Default is 60 minutes.'
+            created_at: '- Indicates the create time.'
             datastore: |-
                 - (Required, List, ForceNew) Specifies database information. The structure is described below. Changing
                 this creates a new instance.
@@ -16511,36 +17018,54 @@ resources:
             flavor.num: '- (Required, Int) Specifies the node quantity. Valid value:'
             flavor.size: |-
                 - (Optional, Int) Specifies the disk size. The value must be a multiple of 10. The unit is GB. This parameter
-                is mandatory for nodes except mongos and invalid for mongos. This parameter can be updated when the value of type is
-                shard, replica or single.
+                is mandatory for nodes except mongos and invalid for mongos.For a cluster instance, the storage space of a shard node
+                can be 10 to 2,000 GB, and the config storage space is 20 GB. For a replica set instance, the value ranges
+                from 10 to 3000 GB. This parameter can be updated when the value of type is shard or replica.
             flavor.spec_code: |-
                 - (Required, String) Specifies the resource specification code. In a cluster instance, multiple
                 specifications need to be specified. All specifications must be of the same series, that is, general-purpose (s6),
                 enhanced (c3), or enhanced II (c6). For example:
-            flavor.storage: |-
-                - (Optional, String, ForceNew) Specifies the disk type.
-                Valid value: ULTRAHIGH which indicates the type SSD.
+            flavor.storage: '- (Optional, String, ForceNew) Specifies the disk type. Valid value:'
             flavor.type: '- (Required, String, ForceNew) Specifies the node type. Valid value:'
+            groups: |-
+                - Indicates the instance groups information.
+                The groups structure is documented below.
+            groups.id: '- Indicates the group ID.'
+            groups.name: '- Indicates the group name.'
+            groups.nodes: |-
+                - Indicates the nodes info.
+                The nodes structure is documented below.
+            groups.nodes.id: '- Indicates the node ID.'
+            groups.nodes.name: '- Indicates the node name.'
+            groups.nodes.private_ip: |-
+                - Indicates the private IP address of a node. This parameter is valid only for mongos nodes, replica set
+                instances, and single node instances.
+            groups.nodes.public_ip: |-
+                - Indicates the EIP that has been bound on a node. This parameter is valid only for mongos nodes of
+                cluster instances, primary nodes and secondary nodes of replica set instances, and single node instances.
+            groups.nodes.role: '- Indicates the node role.'
+            groups.nodes.status: '- Indicates the node status.'
+            groups.nodes.type: '- Indicates the node type.'
+            groups.size: '- Indicates the disk size.'
+            groups.status: '- Indicates the group status.'
+            groups.type: '- Indicates the node type.'
+            groups.used: '- Indicates the disk usage.'
             id: '- Indicates the the DB instance ID.'
             keep_days: to 0, this parameter is no need to set.
+            maintain_begin: |-
+                - (Optional, String) Specifies begin time of the time range within which you are allowed to start a
+                task that affects the running of database instances. It must be a valid value in the format of hh:mm in UTC+0,
+                such as 02:00, meanwhile, this time in console displays in the format of hh:mm in UTC+08:00, e.g. 10:00.
+            maintain_end: |-
+                - (Optional, String) Specifies end time of the time range within which you are allowed to start a
+                task that affects the running of database instances. It must be a valid value in the format of hh:mm in UTC+0,
+                such as 04:00, meanwhile, this time in console displays in the format of hh:mm in UTC+08:00, e.g. 12:00.
             mode: |-
                 - (Required, String, ForceNew) Specifies the mode of the database instance. Sharding, ReplicaSet
                 are supported. Changing this creates a new instance.
             name: |-
                 - (Required, String) Specifies the DB instance name. The DB instance name of the same type is unique in the
                 same tenant.
-            nodes: '- Indicates the instance nodes information. Structure is documented below.'
-            nodes.id: '- Indicates the node ID.'
-            nodes.name: '- Indicates the node name.'
-            nodes.private_ip: |-
-                - Indicates the private IP address of a node. This parameter is valid only for mongos nodes, replica set
-                instances, and single node instances.
-            nodes.public_ip: |-
-                - Indicates the EIP that has been bound on a node. This parameter is valid only for mongos nodes of
-                cluster instances, primary nodes and secondary nodes of replica set instances, and single node instances.
-            nodes.role: '- Indicates the node role.'
-            nodes.status: '- Indicates the node status.'
-            nodes.type: '- Indicates the node type.'
             password: '- (Optional, String) Specifies the Administrator password of the database instance.'
             period: |-
                 - (Optional, Int, ForceNew) Specifies the charging period of the instance.
@@ -16566,13 +17091,139 @@ resources:
                 digits, and underscores (_). Default is replica.
             second_level_monitoring_enabled: '- (Optional, Bool) Specifies whether to enable second level monitoring.'
             security_group_id: '- (Required, String) Specifies the security group ID of the DDS instance.'
+            slow_log_desensitization: |-
+                - (Optional, String) Specifies whether to enable slow original log.
+                The value can be on or off.
             ssl: '- (Optional, Bool) Specifies whether to enable or disable SSL. Defaults to true.'
             status: '- Indicates the the DB instance status.'
             subnet_id: '- (Required, String, ForceNew) Specifies the subnet Network ID. Changing this creates a new instance.'
             tags: '- (Optional, Map) The key/value pairs to associate with the DDS instance.'
-            type: is mongos or shard.
+            time_zone: '- Indicates the time zone.'
             update: '- Default is 60 minutes.'
+            updated_at: '- Indicates the update time.'
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this creates a new instance.'
+        importStatements: []
+    huaweicloud_dds_instance_eip_associate:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS instance EIP associate resource within HuaweiCloud.
+        name: huaweicloud_dds_instance_eip_associate
+        title: huaweicloud_dds_instance_eip_associate
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "node_id": "${var.node_id}",
+                  "public_ip": "${var.public_ip}"
+                }
+              references:
+                instance_id: var.instance_id
+                node_id: var.node_id
+                public_ip: var.public_ip
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            delete: '- Default is 30 minutes.'
+            id: '- Indicates the resource ID. Format is <instance_id>/<node_id>.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of a DDS instance.
+                Changing this creates a new resource.
+            node_id: |-
+                - (Required, String, ForceNew) Specifies the ID of a DDS instance node.
+                Changing this creates a new resource.
+            public_ip: '- (Required, String, ForceNew) Specifies the EIP address. Changing this creates a new resource.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
+        importStatements: []
+    huaweicloud_dds_instance_internal_ip_modify:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS instance internal IP modify resource within HuaweiCloud.
+        name: huaweicloud_dds_instance_internal_ip_modify
+        title: huaweicloud_dds_instance_internal_ip_modify
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "new_ip": "${var.new_ip}",
+                  "node_id": "${var.node_id}"
+                }
+              references:
+                instance_id: var.instance_id
+                new_ip: var.new_ip
+                node_id: var.node_id
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            id: '- Indicates the resource ID. Format is <instance_id>/<node_id>.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of a DDS instance.
+                Changing this creates a new resource.
+            new_ip: '- (Required, String) Specifies the new IP of the DDS instance node.'
+            node_id: |-
+                - (Required, String, ForceNew) Specifies the ID of a DDS instance node.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
+            update: '- Default is 30 minutes.'
+        importStatements: []
+    huaweicloud_dds_instance_parameters_modify:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS instance parameters modify resource within HuaweiCloud.
+        name: huaweicloud_dds_instance_parameters_modify
+        title: huaweicloud_dds_instance_parameters_modify
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "parameters": [
+                    {
+                      "name": "${var.parameter_name}",
+                      "value": "${var.parameter_value}"
+                    }
+                  ]
+                }
+              references:
+                instance_id: var.instance_id
+                parameters.name: var.parameter_name
+                parameters.value: var.parameter_value
+            - name: test
+              manifest: |-
+                {
+                  "entity_id": "${var.entity_id}",
+                  "instance_id": "${var.instance_id}",
+                  "parameters": [
+                    {
+                      "name": "${var.parameter_name}",
+                      "value": "${var.parameter_value}"
+                    }
+                  ]
+                }
+              references:
+                entity_id: var.entity_id
+                instance_id: var.instance_id
+                parameters.name: var.parameter_name
+                parameters.value: var.parameter_value
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            entity_id: |-
+                - (Optional, String, ForceNew) Specifies the ID of a DDS instance entity.
+                Changing this creates a new resource.
+            id: '- Indicates the resource ID. Same as <instance_id> or <instance_id>/<entity_id>.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of a DDS instance.
+                Changing this creates a new resource.
+            parameters: |-
+                - (Required, List) Specify an array of one or more parameters to be set to the DDS instance or entity.
+                You can check on console to see which parameters supported.
+                The parameters structure is documented below.
+            parameters.name: '- (Required, String) Specifies the parameter name. Some of them needs a restart of instance to take effect.'
+            parameters.value: '- (Required, String) Specifies the parameter value.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
+            update: '- Default is 30 minutes.'
         importStatements: []
     huaweicloud_dds_instance_restart:
         subCategory: Document Database Service (DDS)
@@ -16624,6 +17275,52 @@ resources:
             target_type: |-
                 - (Optional, String, ForceNew) Specifies the type of the object to restart. Valid values are mongos,
                 shard, config. It's required with target_id. Changing this creates a new resource.
+        importStatements: []
+    huaweicloud_dds_instance_restore:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS instance restore resource within HuaweiCloud.
+        name: huaweicloud_dds_instance_restore
+        title: huaweicloud_dds_instance_restore
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "backup_id": "${var.backup_id}",
+                  "source_id": "${var.source_id}",
+                  "target_id": "${var.target_id}"
+                }
+              references:
+                backup_id: var.backup_id
+                source_id: var.source_id
+                target_id: var.target_id
+            - name: test
+              manifest: |-
+                {
+                  "restore_time": "${var.restore_time}",
+                  "source_id": "${var.source_id}",
+                  "target_id": "${var.target_id}"
+                }
+              references:
+                restore_time: var.restore_time
+                source_id: var.source_id
+                target_id: var.target_id
+        argumentDocs:
+            backup_id: |-
+                - (Optional, String, ForceNew) Specifies the backup ID of the source DDS instance.
+                Changing this creates a new resource.
+            create: '- Default is 30 minutes.'
+            id: '- Indicates the resource ID. It''s same as the target instance ID.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
+            restore_time: |-
+                - (Optional, String, ForceNew) Specifies the restore time of the source DDS instance. The unit is
+                millisecond and the time zone is UTC. This parameter takes effect only for replica set instances.
+                Changing this creates a new resource.
+            source_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the source DDS instance.
+                Changing this creates a new resource.
+            target_id: '- (Required, String, ForceNew) Specifies the ID of the target DDS instance.'
         importStatements: []
     huaweicloud_dds_lts_log:
         subCategory: Document Database Service (DDS)
@@ -16686,6 +17383,7 @@ resources:
             Parameter.type: '- Indicates the parameter type. The value can be integer, string, boolean, float, or list.'
             Parameter.value: '- Indicates the parameter value.'
             Parameter.value_range: '- Indicates the value range.'
+            created_at: '- The create time of the parameter template.'
             description: |-
                 - (Optional, String) Specifies the parameter template description.
                 The description must consist of a maximum of 256 characters and cannot contain the carriage
@@ -16695,7 +17393,7 @@ resources:
                 - (Required, String) Specifies the parameter template name.
                 The value must be 1 to 64 characters, which can contain only letters, digits, hyphens (-),
                 underscores (_), and periods (.).
-            node_type: '- (Required, String, ForceNew) Specifies the node type of parameter template node_type. Valid value:'
+            node_type: '- (Required, String, ForceNew) Specifies the node type of parameter template. Valid value:'
             node_version: |-
                 - (Required, String, ForceNew) Specifies the database version.
                 The value can be 4.4, 4.2, 4.0, 3.4 or 3.2.
@@ -16708,6 +17406,7 @@ resources:
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            updated_at: '- The update time of the parameter template.'
         importStatements: []
     huaweicloud_dis_stream:
         subCategory: Data Ingestion Service (DIS)
@@ -16823,6 +17522,8 @@ resources:
               references:
                 name: var.database_name
         argumentDocs:
+            create: '- Default is 10 minutes.'
+            delete: '- Default is 10 minutes.'
             description: |-
                 - (Optional, String, ForceNew) Specifies the description of a queue.
                 Changing this parameter will create a new database resource.
@@ -17967,7 +18668,6 @@ resources:
                       "name": "${var.database_name}"
                     }
         argumentDocs:
-            Delete: '- Default is 10 minutes.'
             bucket_location: |-
                 - (Optional, String, ForceNew) Specifies storage path of data which will be import to the OBS table.
                 Changing this parameter will create a new resource.
@@ -17989,6 +18689,7 @@ resources:
             columns: |-
                 - (Optional, List, ForceNew) Specifies Columns of the new table. Structure is documented below.
                 Changing this parameter will create a new resource.
+            create: '- Default is 10 minutes.'
             data_format: |-
                 - (Optional, String, ForceNew) Specifies type of the data to be added to the OBS table.
                 The options: parquet, orc, csv, json, carbon, and avro. Changing this parameter will create a new resource.
@@ -18001,6 +18702,7 @@ resources:
             date_format: |-
                 - (Optional, String, ForceNew) Specifies date type. yyyy-MM-dd is used by default. Only
                 data in CSV and JSON files has this attribute. Changing this parameter will create a new resource.
+            delete: '- Default is 10 minutes.'
             delimiter: |-
                 - (Optional, String, ForceNew) Specifies data delimiter. Only data in CSV files has this
                 attribute. Changing this parameter will create a new resource.
@@ -18246,6 +18948,7 @@ resources:
                   ],
                   "password": "${var.access_password}",
                   "security_group_id": "${var.security_group_id}",
+                  "ssl_enable": true,
                   "storage_space": 600,
                   "storage_spec_code": "${data.huaweicloud_dms_kafka_flavors.test.flavors[0].ios[0].storage_spec_code}",
                   "vpc_id": "${var.vpc_id}"
@@ -18265,6 +18968,9 @@ resources:
             access_user: |-
                 - (Optional, String, ForceNew) Specifies the username of SASL_SSL user. A username consists of 4
                 to 64 characters and supports only letters, digits, and hyphens (-). Changing this creates a new instance resource.
+            arch_type: |-
+                - (Optional, String, ForceNew) Specifies the CPU architecture. Valid value is X86.
+                Changing this creates a new instance resource.
             auto_renew: '- (Optional, String) Specifies whether auto renew is enabled. Valid values are "true" and "false".'
             availability_zones: |-
                 - (Required, List, ForceNew) The names of the AZ where the Kafka instances reside.
@@ -18299,7 +19005,7 @@ resources:
             enable_public_ip: '- Indicates whether public access to the DMS Kafka instance is enabled.'
             enabled_mechanisms: |-
                 - (Optional, List, ForceNew) Specifies the authentication mechanisms to use after SASL is
-                enabled (access_user and password are specified). Value options:
+                enabled. Value options:
             engine: '- Indicates the message engine.'
             engine_version: |-
                 - (Required, String, ForceNew) Specifies the version of the Kafka engine,
@@ -18371,9 +19077,7 @@ resources:
                 - (Optional, String) Specifies the action to be taken when the memory usage reaches the disk
                 capacity threshold. The valid values are as follows:
             security_group_id: '- (Required, String) Specifies the ID of a security group.'
-            security_protocol: |-
-                - (Optional, String, ForceNew) Specifies the protocol to use after SASL is enabled (access_user
-                and password are specified). Value options:
+            security_protocol: '- (Optional, String, ForceNew) Specifies the protocol to use after SASL is enabled. Value options:'
             ssl_enable: |-
                 - (Optional, Bool, ForceNew) Specifies whether the Kafka SASL_SSL is enabled.
                 Changing this creates a new resource.
@@ -20030,12 +20734,6 @@ resources:
                 Default is 0 and no notifications will be sent to recipient. If the RTO delay between the DRS instance and the
                 DR database exceeds a specified value and lasts for 6 minutes, DRS will notify specified recipients.
             alarm_notify.topic_urn: '- (Required, String, ForceNew) Specifies the SMN topic URN which is subscribed.'
-            auto_renew: '- (Optional, String) Specifies whether auto renew is enabled. Valid values are true and false.'
-            charging_mode: |-
-                - (Optional, String, ForceNew) Specifies the billing mode of the job.
-                The valid values are prePaid and postPaid. Defaults to postPaid.
-                When type is sync or cloudDataGuard, prePaid is valid.
-                Changing this will create a new resource.
             create: '- Default is 30 minutes.'
             created_at: '- Create time. The format is ISO8601:YYYY-MM-DDThh:mm:ssZ.'
             databases: |-
@@ -20149,16 +20847,6 @@ resources:
             pause_mode: |-
                 - (Optional, String) Specifies the stop type of job. It's valid when action is stop.
                 Default value is target. The options are as follows:
-            period: |-
-                - (Optional, Int, ForceNew) Specifies the charging period of the job.
-                If period_unit is set to month, the value ranges from 1 to 9.
-                If period_unit is set to year, the value ranges from 1 to 3.
-                This parameter is mandatory if charging_mode is set to prePaid.
-                Changing this will create a new resource.
-            period_unit: |-
-                - (Optional, String, ForceNew) Specifies the charging period unit of the job.
-                Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                Changing this will create a new resource.
             policy_config: |-
                 - (Optional, List, ForceNew) Specifies the policy information used to configure migration and
                 synchronization policies. The policy_config structure is documented below.
@@ -22264,9 +22952,8 @@ resources:
                 is empty. Changing this parameter will create a new resource.
             charge_mode: '- Indicates the billing mode. The value can be one of the following:'
             charging_mode: |-
-                - (Optional, String, ForceNew) Specifies the charging mode of the ELB loadbalancer.
+                - (Optional, String) Specifies the charging mode of the ELB loadbalancer.
                 Valid values are prePaid and postPaid, defaults to postPaid.
-                Changing this parameter will create a new resource.
             create: '- Default is 10 minutes.'
             created_at: '- Indicates the time when the load balancer was created, in RFC3339 format.'
             cross_vpc_backend: |-
@@ -22303,15 +22990,13 @@ resources:
             l7_flavor_id: '- (Optional, String) The L7 flavor id of the load balancer.'
             name: '- (Required, String) Human-readable name for the loadbalancer.'
             period: |-
-                - (Optional, Int, ForceNew) Specifies the charging period of the ELB loadbalancer.
+                - (Optional, Int) Specifies the charging period of the ELB loadbalancer.
                 If period_unit is set to month, the value ranges from 1 to 9.
                 If period_unit is set to year, the value ranges from 1 to 3.
                 This parameter is mandatory if charging_mode is set to prePaid.
-                Changing this parameter will create a new resource.
             period_unit: |-
-                - (Optional, String, ForceNew) Specifies the charging period unit of the ELB loadbalancer.
+                - (Optional, String) Specifies the charging period unit of the ELB loadbalancer.
                 Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                Changing this parameter will create a new resource.
             protection_reason: |-
                 - (Optional, String) The reason for update protection. Only valid when protection_status is
                 consoleProtection.
@@ -22419,13 +23104,15 @@ resources:
               references:
                 pool_id: var.pool_id
         argumentDocs:
-            created_at: '- The create time of the monitor.'
+            created_at: '- The creation time of the monitor.'
             domain_name: |-
                 - (Optional, String) Specifies the domain name that HTTP requests are sent to during the health check.
                 The domain name consists of 1 to 100 characters, can contain only digits, letters, hyphens (-), and periods (.) and
                 must start with a digit or letter. The value is left blank by default, indicating that the virtual IP address of the
                 load balancer is used as the destination address of HTTP requests. This parameter is available only when protocol
                 is set to HTTP or HTTPS.
+            enabled: '- (Optional, Bool) Specifies whether the health check is enabled.'
+            http_method: '- (Optional, String) Specifies the HTTP method. Value options: GET, HEAD, POST. Defaults to GET.'
             id: '- The unique ID of the monitor.'
             interval: |-
                 - (Required, Int) Specifies the interval between health checks, in seconds.
@@ -23298,6 +23985,7 @@ resources:
             bucket: |-
                 (bucket name), prefix (object directory prefix) and expires (object
                 expiration time, the valid value ranges from 0 to 365. If the value is 0, the object will not expire.).
+            created_at: '- The creation time of the asynchronous invocation, in RFC3339 format.'
             enable_async_status_log: '- (Optional, Bool) Specifies whether to enable asynchronous invocation status persistence.'
             func_urn: (function URN).
             function_urn: |-
@@ -23324,6 +24012,7 @@ resources:
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
             stream_name: .
             topic_urn: .
+            updated_at: '- The latest update time of the asynchronous invocation, in RFC3339 format.'
         importStatements: []
     huaweicloud_fgs_dependency:
         subCategory: FunctionGraph
@@ -23369,6 +24058,7 @@ resources:
                 - (Required, String) Specifies the dependency package runtime.
                 The valid values are as follows:
             size: '- The dependency package size in bytes.'
+            version: '- The dependency package version.'
         importStatements: []
     huaweicloud_fgs_dependency_version:
         subCategory: FunctionGraph
@@ -23387,6 +24077,7 @@ resources:
                 link: var.custom_dependency_location
                 name: var.dependency_name
         argumentDocs:
+            dependency_id: '- The ID of the dependency package.'
             description: |-
                 - (Optional, String, ForceNew) Specifies the description of the custom dependency version.
                 The description can contain a maximum of 512 characters.
@@ -23578,6 +24269,9 @@ resources:
             code_url: |-
                 - (Optional, String) Specifies the code url.
                 Required if the code_type is set to obs.
+            concurrency_num: |-
+                - (Optional, Int) Specifies the number of concurrent requests of the function.
+                The valid value ranges from 1 to 1,000, the default value is 1.
             create: '- Default is 10 minutes.'
             cron_configs.count: |-
                 - (Required, Int) Specifies the number of reserved instance to which the policy belongs.
@@ -23594,7 +24288,19 @@ resources:
             custom_image: |-
                 - (Optional, List) Specifies the custom image configuration for creating function.
                 The object structure is documented below.
+            custom_image.args: |-
+                - (Optional, String) Specifies the command line arguments used to start the SWR image.
+                If multiple arguments are separated by commas (,). e.g. -args,value.
+                If this parameter is not specified, the CMD in the image configuration will be used by default.
+            custom_image.command: |-
+                - (Optional, String) Specifies the startup commands of the SWR image.
+                Multiple commands are separated by commas (,). e.g. /bin/sh.
+                If this parameter is not specified, the entrypoint or CMD in the image configuration will be used by default.
             custom_image.url: '- (Required, String) Specifies the URL of SWR image, the URL must start with swr..'
+            custom_image.working_dir: |-
+                - (Optional, String) Specifies the working directory of the SWR image.
+                If not specified, the default value is /.
+                Currently, the folder path can only be set to / and it cannot be created or modified.
             delete: '- Default is 10 minutes.'
             depend_list: '- (Optional, List) Specifies the ID list of the dependencies.'
             description: '- (Optional, String) Specifies the description of the function.'
@@ -23616,14 +24322,10 @@ resources:
             func_mounts: |-
                 - (Optional, List) Specifies the file system list. The func_mounts object structure is documented
                 below.
-            func_mounts.concurrency_num: |-
-                - (Optional, Int) Specifies the number of concurrent requests of the function.
-                The valid value ranges from 1 to 1,000, the default value is 1.
             func_mounts.local_mount_path: '- (Required, String) Specifies the function access path.'
             func_mounts.mount_resource: '- (Required, String) Specifies the ID of the mounted resource (corresponding cloud service).'
             func_mounts.mount_share_path: '- (Required, String) Specifies the remote mount path. Example: 192.168.0.12:/data.'
             func_mounts.mount_type: '- (Required, String) Specifies the mount type.'
-            func_mounts.v2: version of the function.
             func_mounts/status: '- The status of file system.'
             functiongraph_version: |-
                 - (Optional, String, ForceNew) Specifies the FunctionGraph version, default value is v2.
@@ -25855,7 +26557,9 @@ resources:
             id: '- Indicates the DB instance ID.'
             lb_ip_address: '- Indicates the LB IP address of the db.'
             lb_port: '- Indicates the LB port of the db.'
-            mode: '- Indicates the instance type.'
+            mode: |-
+                - (Optional, String, ForceNew) Specifies the instance type. Value options: Cluster, Replication.
+                Defaults to Cluster.
             name: |-
                 - (Required, String) Specifies the instance name, which can be the same as an existing instance name. The value
                 must be 4 to 64 characters in length and start with a letter. It is case-sensitive and can contain only letters,
@@ -26462,6 +27166,59 @@ resources:
             status: '- The protection status of the host. The value can be closed or opened.'
             version: |-
                 - (Required, String) Specifies the protection version enabled by the host.
+                The valid values are as follows:
+        importStatements: []
+    huaweicloud_hss_quota:
+        subCategory: Host Security Service (HSS)
+        description: Manages an HSS quota resource within HuaweiCloud.
+        name: huaweicloud_hss_quota
+        title: huaweicloud_hss_quota
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "period": 1,
+                  "period_unit": "month",
+                  "version": "${var.quota_version}"
+                }
+              references:
+                version: var.quota_version
+            - name: test
+              manifest: '{}'
+        argumentDocs:
+            auto_renew: |-
+                - (Optional, String) Specifies whether auto-renew is enabled.
+                Valid values are true and false. Defaults to false.
+            charging_mode: |-
+                - The charging mode of quota.
+                The valid values are as follows:
+            enterprise_project_id: |-
+                - (Optional, String) Specifies the enterprise project ID to which the HSS quota belongs.
+                For enterprise users, if omitted, default enterprise project will be used.
+            enterprise_project_name: '- The enterprise project name to which the quota belongs.'
+            expire_time: '- The expiration time of quota, -1 indicates no expiration date.'
+            host_id: '- The host ID for quota binding.'
+            host_name: '- The host name for quota binding.'
+            id: '- The resource ID.'
+            is_trial_quota: '- Is it a trial quota. The value can be true or false.'
+            period: |-
+                - (Required, Int, ForceNew) Specifies the charging period of the quota. Changing this parameter will
+                create a new resource.
+                If period_unit is set to month, the value ranges from 1 to 9.
+                If period_unit is set to year, the valid values are 1, 2, 3, or 5.
+            period_unit: |-
+                - (Required, String, ForceNew) Specifies the charging period unit of the quota.
+                Valid values are month and year. Changing this parameter will create a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region to which the HSS quota resource belongs.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            shared_quota: '- Is it a shared quota. The value can be shared or unshared.'
+            status: '- The status of quota. The value can be normal, expired, or freeze.'
+            tags: '- (Optional, Map) Specifies the key/value pairs to associate with the HSS quota.'
+            used_status: '- The usage status of quota. The value can be idle or used.'
+            version: |-
+                - (Required, String, ForceNew) Specifies protection quota version. Changing this parameter will create a
+                new resource.
                 The valid values are as follows:
         importStatements: []
     huaweicloud_hss_webtamper_protection:
@@ -27190,6 +27947,49 @@ resources:
             role_id: |-
                 - (Required, String, ForceNew) Specifies the role to assign.
                 Changing this parameter will create a new resource.
+        importStatements: []
+    huaweicloud_identity_trust_agency:
+        subCategory: Identity and Access Management (IAM)
+        description: Manages a trust agency resource within HuaweiCloud.
+        name: huaweicloud_identity_trust_agency
+        title: huaweicloud_identity_trust_agency
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "test demo",
+                  "name": "${var.agency_name}",
+                  "policy_names": [
+                    "${var.policy_name}"
+                  ],
+                  "trust_policy": "${jsonencode(\n    {\n      Statement = [\n        {\n          Action = [\n            \"sts:agencies:assume\",\n          ]\n          Effect = \"Allow\"\n          Principal = {\n            Service = [\n              \"service.APIG\",\n            ]\n          }\n        },\n      ]\n      Version = \"5.0\"\n    }\n  )}"
+                }
+              references:
+                name: var.agency_name
+        argumentDocs:
+            created_at: '- The time when the trust agency was created.'
+            description: '- (Optional, String) Specifies the description of the trust agency.'
+            duration: |-
+                - (Optional, Int) Specifies the validity period of a trust agency.
+                Default value is 3600. The unit is seconds.
+            id: '- The trust agency ID.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of trust agency. The name is a string of 1 to 64
+                characters. Only English letters, digits, underscores (_), plus (+), equals (=), commas (,), dots (.), ats (@) and
+                hyphens (-) are allowed. Changing this will create a new trust agency.
+            path: |-
+                - (Optional, String, ForceNew) Specifies the resource path. It is made of several strings, each containing one
+                or more English letters, digits, underscores (_), plus (+), equals (=), comma (,), dots (.), at (@) and hyphens (-),
+                and must be ended with slash (/). Such as foo/bar/. It's a part of the uniform resource name. Default is empty.
+                Changing this will create a new trust agency.
+            policy_names: |-
+                - (Required, List) Specifies a string list of one or more policy names that you would like to attach to
+                the trust agency.
+            tags: '- (Optional, Map) Specifies the tags of the trust agency.'
+            trust_policy: '- (Required, String, ForceNew) Specifies the trust policy of the trust agency. It''s a JSON string.'
+            urn: |-
+                - The uniform resource name of the trust agency. Format is iam::$accountID:agency:$path$agencyName where
+                $accountID is IAM account ID, $path is path, $agencyName is name.
         importStatements: []
     huaweicloud_identity_user:
         subCategory: Identity and Access Management (IAM)
@@ -28609,6 +29409,8 @@ resources:
             enabled: |-
                 - (Optional, Bool) Specifies whether to enable the data forwarding rule. Defaults to false.
                 Can not enable without targets.
+            fgs_forwarding.func_name: '- (Required, String) Specifies the function name.'
+            fgs_forwarding.func_urn: '- (Required, String) Specifies the function URN.'
             http_forwarding.url: '- (Required, String) Specifies the Push URL. The request method must is post.'
             id: '- The resource ID in UUID format.'
             kafka_forwarding.addresses: |-
@@ -28653,6 +29455,9 @@ resources:
             targets.dis_forwarding: |-
                 - (Optional, List) Specifies the detail of the DIS forwards. It is required when type
                 is DIS_FORWARDING. The dis_forwarding structure is documented below.
+            targets.fgs_forwarding: |-
+                - (Optional, List) Specifies the detail of the FunctionGraph forwards. It is required when
+                type is FUNCTIONGRAPH_FORWARDING. The fgs_forwarding structure is documented below.
             targets.http_forwarding: |-
                 - (Optional, List) Specifies the detail of the HTTP forwards. It is required when type
                 is HTTP_FORWARDING. The http_forwarding structure is documented below.
@@ -29975,10 +30780,12 @@ resources:
             address: |-
                 - (Required, String, ForceNew) The IP address of the member to receive traffic from the load balancer.
                 Changing this creates a new member.
+            backend_server_status: '- Indicates the administrative status of the backend server.'
             create: '- Default is 10 minutes.'
             delete: '- Default is 10 minutes.'
             id: '- The unique ID for the member.'
             name: '- (Optional, String) Human-readable name for the member.'
+            operating_status: '- Indicates the health check result of the backend server.'
             pool_id: '- (Required, String, ForceNew) The id of the pool that this member will be assigned to.'
             protocol_port: |-
                 - (Required, Int, ForceNew) The port on which to listen for client traffic. Changing this creates a
@@ -30615,13 +31422,13 @@ resources:
                     "${var.host_group_id}"
                   ],
                   "log_group_id": "${var.log_group_id}",
-                  "log_stream_id": "${var.log_group_id}",
+                  "log_stream_id": "${var.log_stream_id}",
                   "name": "${var.name}"
                 }
               references:
                 cluster_id: var.cluster_id
                 log_group_id: var.log_group_id
-                log_stream_id: var.log_group_id
+                log_stream_id: var.log_stream_id
                 name: var.name
             - name: container_file
               manifest: |-
@@ -30658,13 +31465,13 @@ resources:
                     "${var.host_group_id}"
                   ],
                   "log_group_id": "${var.log_group_id}",
-                  "log_stream_id": "${var.log_group_id}",
+                  "log_stream_id": "${var.log_stream_id}",
                   "name": "${var.name}"
                 }
               references:
                 cluster_id: var.cluster_id
                 log_group_id: var.log_group_id
-                log_stream_id: var.log_group_id
+                log_stream_id: var.log_stream_id
                 name: var.name
             - name: host_file
               manifest: |-
@@ -30687,13 +31494,13 @@ resources:
                     "${var.host_group_id}"
                   ],
                   "log_group_id": "${var.log_group_id}",
-                  "log_stream_id": "${var.log_group_id}",
+                  "log_stream_id": "${var.log_stream_id}",
                   "name": "${var.name}"
                 }
               references:
                 cluster_id: var.cluster_id
                 log_group_id: var.log_group_id
-                log_stream_id: var.log_group_id
+                log_stream_id: var.log_stream_id
                 name: var.name
         argumentDocs:
             "2019-01-01 23:59:59": |-
@@ -33977,25 +34784,48 @@ resources:
         name: huaweicloud_modelarts_notebook
         title: huaweicloud_modelarts_notebook
         examples:
-            - name: notebook
+            - name: test
               manifest: |-
                 {
-                  "allowed_access_ips": [
-                    "${var.ip}"
-                  ],
+                  "allowed_access_ips": "${var.allowed_ip_addresses}",
                   "flavor_id": "modelarts.vm.cpu.2u",
-                  "image_id": "e1a07296-22a8-4f05-8bc8-e936c8e54090",
+                  "image_id": "${var.image_id}",
                   "key_pair": "${var.key_pair_name}",
                   "name": "${var.notebook_name}",
                   "volume": [
                     {
-                      "type": "EFS"
+                      "size": 5,
+                      "type": "EVS"
                     }
                   ]
                 }
               references:
+                allowed_access_ips: var.allowed_ip_addresses
+                image_id: var.image_id
                 key_pair: var.key_pair_name
                 name: var.notebook_name
+            - name: test
+              manifest: |-
+                {
+                  "flavor_id": "modelarts.vm.cpu.2u",
+                  "image_id": "${var.image_id}",
+                  "name": "${var.notebook_name}",
+                  "pool_id": "${var.resource_pool_id}",
+                  "volume": [
+                    {
+                      "id": "${var.sfs_turbo_id}",
+                      "ownership": "DEDICATED",
+                      "type": "EFS",
+                      "uri": "${var.sfs_export_location}"
+                    }
+                  ]
+                }
+              references:
+                image_id: var.image_id
+                name: var.notebook_name
+                pool_id: var.resource_pool_id
+                volume.id: var.sfs_turbo_id
+                volume.uri: var.sfs_export_location
         argumentDocs:
             EFS: .
             allowed_access_ips: |-
@@ -34038,11 +34868,15 @@ resources:
             updated_at: '- The notebook update time.'
             url: '- The web url of the notebook.'
             volume: '- (Required, List) Specifies the volume information. Structure is documented below.'
+            volume.id: |-
+                - (Optional, String, ForceNew) Specifies the ID of dedicated storage disk, which is mandatory when the type
+                is EFS and the ownership is DEDICATED.
+                Changing this parameter will create a new resource.
             volume.ownership: '- (Optional, String, ForceNew) Specifies the volume ownership. The options are as follows:'
             volume.size: '- (Optional, Int) Specifies the volume size. Its value range is from 5 GB to 4096 GB.'
             volume.type: '- (Required, String, ForceNew) Specifies the volume type. The options are as follows:'
             volume.uri: |-
-                - (Optional, String, ForceNew) Specifies the uri of dedicated storage disk, which is mandatory when the type
+                - (Optional, String, ForceNew) Specifies the URL of dedicated storage disk, which is mandatory when the type
                 is EFS and the ownership is DEDICATED. Example: 192.168.0.1:/user-9sfdsdgdfgh5ea4d56871e75d6966aa274/mount/.
                 Changing this parameter will create a new resource.
             volume/mount_path: '- The local mount path of volume.'
@@ -34245,7 +35079,7 @@ resources:
                 - (Optional, String) Specifies the VPC ID. It is mandatory when resources.subnet_id,
                 resources.security_group_ids is specified, and can not be specified when network_id is specified.
             scope: |-
-                - (Optional, List) Specifies the list of job types supported by the resource pool. It is mandatory when
+                - (Required, List) Specifies the list of job types supported by the resource pool. It is mandatory when
                 network_id is specified and can not be specified when vpc_id is specified. The options are as follows:
             status: '- Indicates the status of the resource pool.'
             subnet_id: |-
@@ -35249,6 +36083,11 @@ resources:
             name: |-
                 - (Required, String) Specifies the NAT gateway name.
                 The valid length is limited from 1 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+            ngport_ip_address: |-
+                - (Optional, String, ForceNew) Specifies the private IP address of the NAT gateway.
+                The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
+                If not spacified, it will be automatically allocated.
+                Changing this will creates a new resource.
             region: |-
                 - (Optional, String, ForceNew) Specifies the region where the NAT gateway is located.
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
@@ -37784,6 +38623,21 @@ resources:
             id: '- The resource ID.'
             service: '- (Required, String, ForceNew) Specifies the name of the trusted service principal.'
         importStatements: []
+    huaweicloud_ram_organization:
+        subCategory: Resource Access Manager (RAM)
+        description: '"Manages a RAM organization resource within HuaweiCloud."'
+        name: huaweicloud_ram_organization
+        title: huaweicloud_ram_organization
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "enabled": true
+                }
+        argumentDocs:
+            enabled: '- (Required, Bool) Specifies whether sharing with organizations is enabled.'
+            id: '- The resource ID.'
+        importStatements: []
     huaweicloud_ram_resource_share:
         subCategory: Resource Access Manager (RAM)
         description: '""'
@@ -38145,15 +38999,6 @@ resources:
                 including uppercase and lowercase letters, digits, and the following special characters: ~!@#%^*-_=+? You are advised
                 to enter a strong password to improve security, preventing security risks such as brute force cracking.
             db.port: '- (Optional, Int) Specifies the database port.'
-            db.power_action: |-
-                - (Optional, String) Specifies the power action to be done for the instance.
-                Value options: ON, OFF and REBOOT.
-            db.read_write_permissions: '- (Optional, String) Specifies the read write permissions of the instance. Valid values:'
-            db.rotate_day: '- (Optional, Int) Specifies the rotation days of TDE rotation.'
-            db.secret_id: '- (Optional, String) Specifies the key ID of TDE rotation.'
-            db.secret_name: '- (Optional, String) Specifies the key name of TDE rotation.'
-            db.secret_version: '- (Optional, String) Specifies the key version of TDE rotation.'
-            db.tde_enabled: '- (Optional, Bool) Specifies whether enable TDE for the instance.'
             db.type: |-
                 - (Required, String, ForceNew) Specifies the DB engine. Available value are MySQL, PostgreSQL,
                 SQLServer and MariaDB. Changing this parameter will create a new resource.
@@ -38214,8 +39059,16 @@ resources:
                 - (Optional, String, ForceNew) Specifies the charging period unit of the RDS DB instance. Valid values
                 are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
                 creates a new resource.
+            power_action: |-
+                - (Optional, String) Specifies the power action to be done for the instance.
+                Value options: ON, OFF and REBOOT.
+            private_dns_name_prefix: |-
+                - (Optional, String) Specifies the prefix of the private domain name. The value contains
+                8 to 64 characters. Only uppercase letters, lowercase letters, and digits are allowed.
+            private_dns_names: '- Indicates the private domain name list of the DB instance.'
             private_ips: '- Indicates the private IP address list. It is a blank string until an ECS is created.'
             public_ips: '- Indicates the public IP address list.'
+            read_write_permissions: '- (Optional, String) Specifies the read write permissions of the instance. Valid values:'
             region: |-
                 - (Optional, String, ForceNew) The region in which to create the rds instance resource. If omitted, the
                 provider-level region will be used. Changing this creates a new rds instance resource.
@@ -38231,7 +39084,18 @@ resources:
             restore.instance_id: |-
                 - (Required, String, ForceNew) Specifies the source DB instance ID. Changing this parameter will create
                 a new resource.
+            rotate_day: '- (Optional, Int) Specifies the rotation days of TDE rotation.'
+            seconds_level_monitoring_enabled: '- (Optional, Bool) Specifies whether to enable seconds level monitoring.'
+            seconds_level_monitoring_interval: |-
+                - (Optional, Int) Specifies the seconds level monitoring interval. Valid values:
+                1, 5. It is mandatory when seconds_level_monitoring_enabled is true.
+            secret_id: '- (Optional, String) Specifies the key ID of TDE rotation.'
+            secret_name: '- (Optional, String) Specifies the key name of TDE rotation.'
+            secret_version: '- (Optional, String) Specifies the key version of TDE rotation.'
             security_group_id: '- (Required, String) Specifies the security group which the RDS DB instance belongs to.'
+            slow_log_show_original_status: |-
+                - (Optional, String) Specifies the slow log show original status of the instance.
+                Only MySQL and PostgreSQL are supported. Value options: on, off.
             ssl_enable: '- (Optional, Bool) Specifies whether to enable the SSL for MySQL database.'
             status: '- Indicates the DB instance status.'
             subnet_id: |-
@@ -38241,6 +39105,7 @@ resources:
             tags: |-
                 - (Optional, Map) A mapping of tags to assign to the RDS instance. Each tag is represented by one key-value
                 pair.
+            tde_enabled: '- (Optional, Bool) Specifies whether enable TDE for the instance.'
             time_zone: |-
                 - (Optional, String, ForceNew) Specifies the UTC time zone. For MySQL and PostgreSQL Chinese mainland site
                 and international site use UTC by default. The value ranges from UTC-12:00 to UTC+12:00 at the full hour. For
@@ -38531,7 +39396,7 @@ resources:
             description: '- (Optional, String) Specifies the remarks of the DB account. The parameter must be 1 to 512 characters.'
             id: '- The resource ID of account which is formatted <instance_id>/<name>.'
             instance_id: '- (Required, String, ForceNew) Specifies the ID of the RDS PostgreSQL instance.'
-            memberof: '- Indicates the default rights of a user.'
+            memberof: '- (Optional, List) Specifies the list of default rights of an account.'
             name: |-
                 - (Required, String, ForceNew) Specifies the username of the DB account. The username contains 1 to 63
                 characters, including letters, digits, and underscores (_). It cannot start with pg or a digit and must be different
@@ -38589,8 +39454,8 @@ resources:
                 PostgreSQL template library names. RDS for PostgreSQL template libraries include postgres, template0, and
                 template1.
             owner: |-
-                - (Optional, String, ForceNew) Specifies the database user. The value must be an existing username and must be
-                different from system usernames. Defaults to root.
+                - (Optional, String) Specifies the database user. The value must be an existing username and must be different
+                from system usernames. Defaults to root.
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
@@ -38677,6 +39542,100 @@ resources:
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
             shared_preload_libraries: '- Dependent preloaded library.'
             version: '- The plugin version.'
+        importStatements: []
+    huaweicloud_rds_pg_plugin_parameter:
+        subCategory: Relational Database Service (RDS)
+        description: Manage an RDS PostgreSQL plugin parameter resource within HuaweiCloud.
+        name: huaweicloud_rds_pg_plugin_parameter
+        title: huaweicloud_rds_pg_plugin_parameter
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "name": "shared_preload_libraries",
+                  "values": [
+                    "pg_stat_kcache"
+                  ]
+                }
+              references:
+                instance_id: var.instance_id
+        argumentDocs:
+            default_values: '- Indicates the default values of the plugin parameter.'
+            id: '- Indicates the resource ID. The format is <instance_id>/<name>.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of RDS instance.'
+            name: '- (Required, String, ForceNew) Specifies the name of the plugin parameter.'
+            region: |-
+                - (Optional, String, ForceNew) The region in which to create the rds PostgreSQL plugin parameter resource.
+                If omitted, the provider-level region will be used. Changing this will creates a new resource.
+            restart_required: '- Indicates whether a reboot is required.'
+            values: '- (Required, List) Specifies the list of plugin parameter values.'
+        importStatements: []
+    huaweicloud_rds_pg_plugin_update:
+        subCategory: Relational Database Service (RDS)
+        description: Manages an RDS plugin update resource within HuaweiCloud.
+        name: huaweicloud_rds_pg_plugin_update
+        title: huaweicloud_rds_pg_plugin_update
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "database_name": "${var.database_name}",
+                  "extension_name": "${var.extension_name}",
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                database_name: var.database_name
+                extension_name: var.extension_name
+                instance_id: var.instance_id
+        argumentDocs:
+            database_name: '- (Required, String, ForceNew) Specifies the database name.'
+            extension_name: '- (Required, String, ForceNew) Specifies the extension name.'
+            id: '- The resource ID. The format is <instance_id>/<database_name>/<extension_name>.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of the RDS instance.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+        importStatements: []
+    huaweicloud_rds_pg_sql_limit:
+        subCategory: Relational Database Service (RDS)
+        description: Manage an RDS PostgreSQL SQL limit resource within HuaweiCloud.
+        name: huaweicloud_rds_pg_sql_limit
+        title: huaweicloud_rds_pg_sql_limit
+        examples:
+            - name: instance
+              manifest: |-
+                {
+                  "db_name": "${var.db_name}",
+                  "instance_id": "${var.instance_id}",
+                  "max_concurrency": 20,
+                  "max_waiting": 5,
+                  "query_id": "5"
+                }
+              references:
+                db_name: var.db_name
+                instance_id: var.instance_id
+            - name: test
+              manifest: '{}'
+        argumentDocs:
+            db_name: '- (Required, String, ForceNew) Specifies the name of the database.'
+            id: '- Indicates the resource ID. The format is <instance_id>/<db_name>/<sql_limit_id>.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of RDS PostgreSQL instance.'
+            is_effective: '- Indicates whether the SQL limit is effective.'
+            max_concurrency: |-
+                - (Required, Int) Specifies the number of SQL statements executed simultaneously.
+                Value ranges from 0 to 50000. 0 means no limit.
+            max_waiting: '- (Required, Int) Specifies the max waiting time in seconds.'
+            query_id: '- (Optional, String, ForceNew) Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.'
+            query_string: '- (Optional, String, ForceNew) Specifies the text form of SQL statement.'
+            region: |-
+                - (Optional, String, ForceNew) The region in which to create the rds PostgreSQL SQL limit resource. If omitted,
+                the provider-level region will be used. Changing this creates a new resource.
+            search_path: |-
+                - (Optional, String, ForceNew) Specifies the query order for names that are not schema qualified.
+                Defaults to public,
+            sql_limit_id: '- Indicates the ID of SQL limit.'
+            switch: '- (Optional, String) Specifies the SQL limit switch. Value options: open, close.'
         importStatements: []
     huaweicloud_rds_read_replica_instance:
         subCategory: Relational Database Service (RDS)
@@ -38815,6 +39774,58 @@ resources:
             retention_period_in_days: |-
                 - (Optional, Int) Specifies the period of retaining deleted DB instances. Value ranges
                 from 1 day to 7 days. Defaults to 7.
+        importStatements: []
+    huaweicloud_rds_restore:
+        subCategory: Relational Database Service (RDS)
+        description: Manages an RDS instance restore resource within HuaweiCloud.
+        name: huaweicloud_rds_restore
+        title: huaweicloud_rds_restore
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "backup_id": "${var.backup_id}",
+                  "source_instance_id": "${var.source_instance_id}",
+                  "target_instance_id": "${var.target_instance_id}",
+                  "type": "backup"
+                }
+              references:
+                backup_id: var.backup_id
+                source_instance_id: var.source_instance_id
+                target_instance_id: var.target_instance_id
+            - name: test
+              manifest: |-
+                {
+                  "restore_time": 1673852043000,
+                  "source_instance_id": "${var.source_instance_id}",
+                  "target_instance_id": "${var.target_instance_id}",
+                  "type": "timestamp"
+                }
+              references:
+                source_instance_id: var.source_instance_id
+                target_instance_id: var.target_instance_id
+        argumentDocs:
+            backup_id: |-
+                - (Optional, String, ForceNew) Specifies the ID of the backup to be restored. This parameter must be
+                specified when type is set to backup or left empty.
+            create: '- Default is 60 minutes.'
+            database_name: |-
+                - (Optional, Map, ForceNew) Specifies the databases that will be restored. This parameter applies only
+                to the SQL Server DB engine. The key is the old database name, the value is the new database name. If this parameter is
+                specified, you can restore all or specific databases and rename new databases. If this parameter is not specified, all
+                databases are restored by default. You can enter multiple new database names and separate them with commas (,). The new
+                database names can contain but cannot be the same as the original database names. Note the following when you are
+                specifying new database names:
+            id: '- The resource ID. The value is the restore job ID.'
+            region: |-
+                - (Optional, String, ForceNew) The region in which to create the rds instance resource. If omitted, the
+                provider-level region will be used. Changing this creates a new resource.
+            restore_time: |-
+                - (Optional, Int, ForceNew) Specifies the time point of data restoration in the UNIX timestamp format.
+                The unit is millisecond and the time zone is UTC. This parameter must be specified when type is set to timestamp.
+            source_instance_id: '- (Required, String, ForceNew) Specifies the source instance ID.'
+            target_instance_id: '- (Required, String, ForceNew) Specifies the target instance ID.'
+            type: '- (Optional, String, ForceNew) Specifies the restoration type. Value options:'
         importStatements: []
     huaweicloud_rds_sql_audit:
         subCategory: Relational Database Service (RDS)
@@ -44846,6 +45857,7 @@ resources:
                 in active-standby VPN gateway. This parameter is mandatory when network_type is public or left empty.
                 The object structure is documented below.
             enterprise_project_id: '- (Optional, String) The enterprise project ID.'
+            er_attachment_id: '- The ER attachment ID.'
             er_id: |-
                 - (Optional, String, ForceNew) The enterprise router ID to attach with to VPN gateway.
                 This parameter is mandatory when attachment_type is er.
@@ -46994,11 +48006,11 @@ resources:
                 - (Required, String, ForceNew) Specifies the VPC ID to which the service belongs.
                 Changing this will create a new resource.
         importStatements: []
-    huaweicloud_workspace_terminal_bindings:
+    huaweicloud_workspace_terminal_binding:
         subCategory: Workspace
         description: '""'
-        name: huaweicloud_workspace_terminal_bindings
-        title: huaweicloud_workspace_terminal_bindings
+        name: huaweicloud_workspace_terminal_binding
+        title: huaweicloud_workspace_terminal_binding
         examples:
             - name: test
               manifest: |-
