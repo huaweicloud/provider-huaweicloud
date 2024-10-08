@@ -1,0 +1,24 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: ProviderConversion
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/providerconversion
+  labels:
+    testing.upbound.io/example-name: conversion
+  name: conversion
+spec:
+  forProvider:
+    conversionRules:
+    - local:
+      - username: Tom
+      remote:
+      - attribute: Tom
+    - local:
+      - username: FederationUser
+      remote:
+      - attribute: username
+        condition: any_one_of
+        value:
+        - Tom
+        - Jerry
+    providerId: ${var.provider_id}

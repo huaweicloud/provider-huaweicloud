@@ -1,0 +1,35 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnet
+  labels:
+    testing.upbound.io/example-name: subnet
+  name: subnet
+spec:
+  forProvider:
+    availabilityZone: ${var.availability_zone}
+    cidr: ${var.subnet_cidr}
+    gatewayIp: ${var.subnet_gateway_ip}
+    name: ${var.subnet_name}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc
+
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnet
+  labels:
+    testing.upbound.io/example-name: vpc
+  name: vpc
+spec:
+  forProvider:
+    cidr: ${var.vpc_cidr}
+    nameSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

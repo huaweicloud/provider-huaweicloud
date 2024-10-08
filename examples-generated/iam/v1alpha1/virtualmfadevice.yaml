@@ -1,0 +1,14 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: VirtualMfaDevice
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/virtualmfadevice
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: ${var.name}
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

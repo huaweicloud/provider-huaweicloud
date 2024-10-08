@@ -1,0 +1,16 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: UserToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/usertoken
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accountName: ${var.account_name}
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    userName: ${var.user_name}

@@ -1,0 +1,15 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpc
+  labels:
+    testing.upbound.io/example-name: vpc
+  name: vpc
+spec:
+  forProvider:
+    cidr: ${var.vpc_cidr}
+    nameSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

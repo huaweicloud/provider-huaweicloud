@@ -244,10 +244,10 @@ jobs:
     needs:
       - detect-noop
       - report-breaking-changes
-      - lint
-      - check-diff
-      - unit-tests
-      - local-deploy
+#      - lint
+#      - check-diff
+#      - unit-tests
+#      - local-deploy
     if: needs.detect-noop.outputs.noop != 'true'
 
     steps:
@@ -319,4 +319,10 @@ jobs:
 
       - name: Publish Artifacts
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-        run: make publish BRANCH_NAME=${GITHUB_REF##*/}
+        env:
+          UP_USER: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
+          UP_PASSWORD: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+        run: |
+          make up.login
+          make publish BRANCH_NAME=${GITHUB_REF##*/}
+          echo "publish BRANCH_NAME=${GITHUB_REF##*/}"

@@ -1,0 +1,32 @@
+apiVersion: obs.huaweicloud.crossplane.io/v1alpha1
+kind: BucketObjectACL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketobjectacl
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accountPermission:
+    - accessToAcl:
+      - READ_ACP
+      - WRITE_ACP
+      accessToObject:
+      - READ
+      accountId: ${var.account1}
+    - accessToAcl:
+      - READ_ACP
+      accessToObject:
+      - READ
+      accountId: ${var.account2}
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    keySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    publicPermission:
+    - accessToAcl:
+      - READ_ACP
+      - WRITE_ACP

@@ -1,0 +1,30 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: AccessKey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/accesskey
+  labels:
+    testing.upbound.io/example-name: key_1
+  name: key-1
+spec:
+  forProvider:
+    userId: ${huaweicloud_identity_user.user_1.id}
+
+---
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/accesskey
+  labels:
+    testing.upbound.io/example-name: user_1
+  name: user-1
+spec:
+  forProvider:
+    description: A user
+    name: user_1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

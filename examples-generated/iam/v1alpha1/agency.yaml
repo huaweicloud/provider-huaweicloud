@@ -1,0 +1,21 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: Agency
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/agency
+  labels:
+    testing.upbound.io/example-name: agency
+  name: agency
+spec:
+  forProvider:
+    allResourcesRoles:
+    - Server Administrator
+    delegatedDomainName: '***'
+    description: test agency
+    domainRoles:
+    - Anti-DDoS Administrator
+    name: test_agency
+    projectRole:
+    - project: cn-north-1
+      roles:
+      - Tenant Administrator

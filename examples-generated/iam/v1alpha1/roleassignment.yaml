@@ -1,0 +1,31 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: RoleAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: role_assignment_1
+  name: role-assignment-1
+spec:
+  forProvider:
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: group_1
+    projectId: ${var.project_id}
+    roleIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: huaweicloud_identity_role
+
+---
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+spec:
+  forProvider:
+    name: group_1
