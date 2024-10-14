@@ -1,0 +1,17 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: LoginPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/loginpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accountValidityPeriod: 20
+    customInfoForLogin: hello crossplane
+    lockoutDuration: 30
+    loginFailedTimes: 10
+    periodWithLoginFailures: 30
+    sessionTimeout: 120
+    showRecentLoginInfo: true

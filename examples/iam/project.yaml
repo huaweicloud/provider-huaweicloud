@@ -1,0 +1,12 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/project
+  labels:
+    testing.upbound.io/example-name: project_1
+  name: project-1
+spec:
+  forProvider:
+    description: This is a test project
+    name: cn-north-1_project1

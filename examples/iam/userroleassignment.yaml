@@ -1,0 +1,70 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: UserRoleAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/userroleassignment
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    enterpriseProjectId: "0"
+    roleIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: role1
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: role1
+  name: role1
+spec:
+  forProvider:
+    description: created by terraform
+    name: test
+    policy: |
+      {
+        "Version": "1.1",
+        "Statement": [
+          {
+            "Action": [
+              "obs:bucket:GetBucketAcl"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+              "obs:*:*:bucket:*"
+            ],
+            "Condition": {
+              "StringStartWith": {
+                "g:ProjectName": [
+                  "cn-north-4"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    type: AX
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: A user
+    name: user_1
+    passwordSecretRef:
+      key: password
+      name: user-secret
+      namespace: crossplane-system
