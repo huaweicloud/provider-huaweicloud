@@ -7,27 +7,9 @@ HuaweiCloud API.
 
 ## Getting Started
 
-Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/huaweicloud/provider-huaweicloud):
-```
-up ctp provider install xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.3
-```
+To start using this provider, follow the [Configuration Guide](docs/configuration.md).
 
-Alternatively, you can use declarative installation:
-```
-cat <<EOF | kubectl apply -f -
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-huaweicloud
-spec:
-  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.4
-EOF
-```
-
-Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
-
-You can see the API reference [here](https://doc.crds.dev/github.com/huaweicloud/provider-huaweicloud).
+You can find a detailed API reference with all CRDs [here](https://doc.crds.dev/github.com/huaweicloud/provider-huaweicloud).
 
 ## Developing
 
