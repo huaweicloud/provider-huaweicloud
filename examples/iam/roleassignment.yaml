@@ -1,0 +1,66 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: RoleAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: role_assignment_1
+  name: role-assignment-1
+spec:
+  forProvider:
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: group_1
+    projectId: your_project_id
+    roleIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: role1
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/group
+  labels:
+    testing.upbound.io/example-name: group_1
+  name: group-1
+spec:
+  forProvider:
+    description: This is a test group
+    name: group_1
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: role1
+  name: role1
+spec:
+  forProvider:
+    description: created by crossplane
+    name: test
+    policy: |
+      {
+        "Version": "1.1",
+        "Statement": [
+          {
+            "Action": [
+              "obs:bucket:GetBucketAcl"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+              "obs:*:*:bucket:*"
+            ],
+            "Condition": {
+              "StringStartWith": {
+                "g:ProjectName": [
+                  "cn-north-4"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    type: AX

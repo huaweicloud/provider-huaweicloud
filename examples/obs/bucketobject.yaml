@@ -1,0 +1,33 @@
+apiVersion: obs.huaweicloud.crossplane.io/v1alpha1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketobject
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    content: some object content
+    contentType: application/xml
+    key: new_key_from_content
+
+
+apiVersion: obs.huaweicloud.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucket
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    acl: private
+    bucket: my-tf-test-bucket
+    tags:
+      Env: Test
+      foo: bar

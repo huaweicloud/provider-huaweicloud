@@ -1,0 +1,13 @@
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: GroupMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/groupmembership
+  labels:
+    testing.upbound.io/example-name: membership_1
+  name: membership-1
+spec:
+  forProvider:
+    group: your_group_id
+    users:
+    - your_user_id
