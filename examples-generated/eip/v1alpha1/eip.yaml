@@ -1,0 +1,37 @@
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: EIP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/eip
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessSite: ${data.huaweicloud_global_eip_pools.all.geip_pools[0].access_site}
+    enterpriseProjectId: ${var.enterprise_project_id}
+    geipPoolName: ${data.huaweicloud_global_eip_pools.all.geip_pools[0].name}
+    internetBandwidthId: ${huaweicloud_global_internet_bandwidth.test.id}
+    name: ${var.eip_name}
+    tags:
+      foo: bar
+
+---
+
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: InternetBandwidth
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/eip
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessSite: ${data.huaweicloud_global_eip_pools.all.geip_pools[0].access_site}
+    chargeMode: 95peak_guar
+    enterpriseProjectId: ${var.enterprise_project_id}
+    isp: ${data.huaweicloud_global_eip_pools.all.geip_pools[0].isp}
+    name: ${var.bandwidth_name}
+    size: 300
+    type: ${data.huaweicloud_global_eip_pools.all.geip_pools[0].allowed_bandwidth_types[0].type}
