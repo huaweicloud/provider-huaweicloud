@@ -11,13 +11,6 @@ import (
 
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
 	node "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/node"
-	bandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/bandwidth"
-	bandwidthassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/bandwidthassociate"
-	eip "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/eip"
-	eipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/eipassociate"
-	eipv3associate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/eipv3associate"
-	internetbandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/internetbandwidth"
-	internetgateway "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/internetgateway"
 	accesskey "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/accesskey"
 	acl "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/acl"
 	agency "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/agency"
@@ -53,15 +46,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		cluster.Setup,
 		node.Setup,
-		bandwidth.Setup,
-		bandwidthassociate.Setup,
-		eip.Setup,
-		eip.Setup,
-		eipassociate.Setup,
-		eipassociate.Setup,
-		eipv3associate.Setup,
-		internetbandwidth.Setup,
-		internetgateway.Setup,
 		accesskey.Setup,
 		acl.Setup,
 		agency.Setup,
