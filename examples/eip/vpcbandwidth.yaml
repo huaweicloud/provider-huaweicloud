@@ -1,0 +1,12 @@
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: VpcBandwidth
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/vpcbandwidth
+  labels:
+    testing.upbound.io/example-name: bandwidth_1
+  name: bandwidth-1
+spec:
+  forProvider:
+    name: bandwidth_1
+    size: 5
