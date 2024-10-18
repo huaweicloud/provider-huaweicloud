@@ -1,0 +1,15 @@
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: VpcInternetGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/vpcinternetgateway
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    addRoute: true
+    name: test
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

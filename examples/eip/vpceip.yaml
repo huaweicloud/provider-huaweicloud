@@ -1,0 +1,17 @@
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: VpcEip
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/vpceip
+  labels:
+    testing.upbound.io/example-name: dedicated
+  name: dedicated
+spec:
+  forProvider:
+    bandwidth:
+    - chargeMode: traffic
+      name: crossplane-test
+      shareType: PER
+      size: 10
+    publicip:
+    - type: 5_bgp
