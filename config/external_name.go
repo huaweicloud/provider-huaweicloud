@@ -14,17 +14,6 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_cce_cluster": config.IdentifierFromProvider,
 	"huaweicloud_cce_node":    config.IdentifierFromProvider,
 
-	// eip
-	"huaweicloud_global_eip":                config.IdentifierFromProvider,
-	"huaweicloud_global_eip_associate":      config.IdentifierFromProvider,
-	"huaweicloud_global_internet_bandwidth": config.IdentifierFromProvider,
-	"huaweicloud_vpc_bandwidth":             config.IdentifierFromProvider,
-	"huaweicloud_vpc_bandwidth_associate":   config.IdentifierFromProvider,
-	"huaweicloud_vpc_eip":                   config.IdentifierFromProvider,
-	"huaweicloud_vpc_eip_associate":         config.IdentifierFromProvider,
-	"huaweicloud_vpc_eipv3_associate":       config.IdentifierFromProvider,
-	"huaweicloud_vpc_internet_gateway":      config.IdentifierFromProvider,
-
 	// iam
 	"huaweicloud_identity_access_key":            config.IdentifierFromProvider,
 	"huaweicloud_identity_acl":                   config.IdentifierFromProvider,
