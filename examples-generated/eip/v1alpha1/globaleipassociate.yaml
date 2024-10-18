@@ -1,0 +1,23 @@
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: GlobalEipAssociate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/globaleipassociate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    associateInstance:
+    - instanceId: ${var.compute_instance_id}
+      instanceType: ECS
+      projectId: ${var.project_id}
+      region: ${var.region}
+    gcBandwidth:
+    - chargeMode: bwd
+      name: ${var.gc_bandwidth_name}
+      size: 5
+    globalEipIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    isReserveGcb: false
