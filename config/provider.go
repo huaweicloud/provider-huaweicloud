@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	"github.com/huaweicloud/provider-huaweicloud/config/cce"
+	"github.com/huaweicloud/provider-huaweicloud/config/eip"
 	"github.com/huaweicloud/provider-huaweicloud/config/iam"
 	"github.com/huaweicloud/provider-huaweicloud/config/obs"
 
@@ -44,6 +45,7 @@ func GetProvider() *ujconfig.Provider {
 		iam.Configure,
 		obs.Configure,
 		vpc.Configure,
+		eip.Configure,
 	} {
 		configure(pc)
 	}

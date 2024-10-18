@@ -11,6 +11,15 @@ import (
 
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
 	node "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/node"
+	globaleip "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/globaleip"
+	globaleipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/globaleipassociate"
+	globalinternetbandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/globalinternetbandwidth"
+	vpcbandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpcbandwidth"
+	vpcbandwidthassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpcbandwidthassociate"
+	vpceip "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpceip"
+	vpceipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpceipassociate"
+	vpceipv3associate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpceipv3associate"
+	vpcinternetgateway "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpcinternetgateway"
 	accesskey "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/accesskey"
 	acl "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/acl"
 	agency "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/agency"
@@ -46,6 +55,15 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		cluster.Setup,
 		node.Setup,
+		globaleip.Setup,
+		globaleipassociate.Setup,
+		globalinternetbandwidth.Setup,
+		vpcbandwidth.Setup,
+		vpcbandwidthassociate.Setup,
+		vpceip.Setup,
+		vpceipassociate.Setup,
+		vpceipv3associate.Setup,
+		vpcinternetgateway.Setup,
 		accesskey.Setup,
 		acl.Setup,
 		agency.Setup,
