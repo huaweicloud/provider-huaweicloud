@@ -1,0 +1,17 @@
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: GlobalEip
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/globaleip
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessSite: your_access_site
+    enterpriseProjectId: your_enterprise_project_id
+    geipPoolName: your_geip_pool_name
+    internetBandwidthId: your_internet_bandwidth_id
+    name: test
+    tags:
+      foo: bar
