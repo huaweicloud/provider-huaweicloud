@@ -7,6 +7,30 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *AddressGroup) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *FlowLog) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *NetworkACL) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *NetworkInterface) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PeeringConnection) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PeeringConnectionAccepter) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Route) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RouteTable) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Secgroup) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -14,6 +38,24 @@ func (tr *SecgroupRule) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Subnet) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SubNetworkInterface) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TrafficMirrorFilter) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TrafficMirrorFilterRule) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TrafficMirrorSession) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Vip) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *VipAssociate) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *VPC) Hub() {}

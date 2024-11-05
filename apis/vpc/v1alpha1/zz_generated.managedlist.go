@@ -8,6 +8,78 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
+// GetItems of this AddressGroupList.
+func (l *AddressGroupList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this FlowLogList.
+func (l *FlowLogList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this NetworkACLList.
+func (l *NetworkACLList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this NetworkInterfaceList.
+func (l *NetworkInterfaceList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PeeringConnectionAccepterList.
+func (l *PeeringConnectionAccepterList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PeeringConnectionList.
+func (l *PeeringConnectionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RouteList.
+func (l *RouteList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RouteTableList.
+func (l *RouteTableList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this SecgroupList.
 func (l *SecgroupList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -26,6 +98,15 @@ func (l *SecgroupRuleList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this SubNetworkInterfaceList.
+func (l *SubNetworkInterfaceList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this SubnetList.
 func (l *SubnetList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -35,8 +116,53 @@ func (l *SubnetList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this TrafficMirrorFilterList.
+func (l *TrafficMirrorFilterList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TrafficMirrorFilterRuleList.
+func (l *TrafficMirrorFilterRuleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TrafficMirrorSessionList.
+func (l *TrafficMirrorSessionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this VPCList.
 func (l *VPCList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this VipAssociateList.
+func (l *VipAssociateList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this VipList.
+func (l *VipList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

@@ -11,6 +11,12 @@ import (
 
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
 	node "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/node"
+	autolaunchgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/autolaunchgroup"
+	eipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/eipassociate"
+	instance "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/instance"
+	interfaceattach "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/interfaceattach"
+	servergroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/servergroup"
+	volumeattach "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/volumeattach"
 	globaleip "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/globaleip"
 	globaleipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/globaleipassociate"
 	globalinternetbandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/globalinternetbandwidth"
@@ -43,9 +49,23 @@ import (
 	bucketobject "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobject"
 	bucketobjectacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobjectacl"
 	providerconfig "github.com/huaweicloud/provider-huaweicloud/internal/controller/providerconfig"
+	addressgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/addressgroup"
+	flowlog "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/flowlog"
+	networkacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/networkacl"
+	networkinterface "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/networkinterface"
+	peeringconnection "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/peeringconnection"
+	peeringconnectionaccepter "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/peeringconnectionaccepter"
+	route "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/route"
+	routetable "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/routetable"
 	secgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/secgroup"
 	secgrouprule "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/secgrouprule"
 	subnet "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/subnet"
+	subnetworkinterface "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/subnetworkinterface"
+	trafficmirrorfilter "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/trafficmirrorfilter"
+	trafficmirrorfilterrule "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/trafficmirrorfilterrule"
+	trafficmirrorsession "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/trafficmirrorsession"
+	vip "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/vip"
+	vipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/vipassociate"
 	vpc "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/vpc"
 )
 
@@ -55,6 +75,12 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		cluster.Setup,
 		node.Setup,
+		autolaunchgroup.Setup,
+		eipassociate.Setup,
+		instance.Setup,
+		interfaceattach.Setup,
+		servergroup.Setup,
+		volumeattach.Setup,
 		globaleip.Setup,
 		globaleipassociate.Setup,
 		globalinternetbandwidth.Setup,
@@ -87,9 +113,23 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bucketobject.Setup,
 		bucketobjectacl.Setup,
 		providerconfig.Setup,
+		addressgroup.Setup,
+		flowlog.Setup,
+		networkacl.Setup,
+		networkinterface.Setup,
+		peeringconnection.Setup,
+		peeringconnectionaccepter.Setup,
+		route.Setup,
+		routetable.Setup,
 		secgroup.Setup,
 		secgrouprule.Setup,
 		subnet.Setup,
+		subnetworkinterface.Setup,
+		trafficmirrorfilter.Setup,
+		trafficmirrorfilterrule.Setup,
+		trafficmirrorsession.Setup,
+		vip.Setup,
+		vipassociate.Setup,
 		vpc.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

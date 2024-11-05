@@ -14,6 +14,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_cce_cluster": config.IdentifierFromProvider,
 	"huaweicloud_cce_node":    config.IdentifierFromProvider,
 
+	// ecs
+	"huaweicloud_compute_auto_launch_group": config.IdentifierFromProvider,
+	"huaweicloud_compute_eip_associate":     config.IdentifierFromProvider,
+	"huaweicloud_compute_instance":          config.IdentifierFromProvider,
+	"huaweicloud_compute_interface_attach":  config.IdentifierFromProvider,
+	"huaweicloud_compute_servergroup":       config.IdentifierFromProvider,
+	"huaweicloud_compute_volume_attach":     config.IdentifierFromProvider,
+
 	// eip
 	"huaweicloud_global_eip":                config.IdentifierFromProvider,
 	"huaweicloud_global_eip_associate":      config.IdentifierFromProvider,
@@ -52,10 +60,24 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_obs_bucket_object_acl": config.IdentifierFromProvider,
 
 	// vpc
-	"huaweicloud_vpc":                      config.IdentifierFromProvider,
-	"huaweicloud_vpc_subnet":               config.IdentifierFromProvider,
-	"huaweicloud_networking_secgroup":      config.IdentifierFromProvider,
-	"huaweicloud_networking_secgroup_rule": config.IdentifierFromProvider,
+	"huaweicloud_vpc":                             config.IdentifierFromProvider,
+	"huaweicloud_vpc_subnet":                      config.IdentifierFromProvider,
+	"huaweicloud_networking_secgroup":             config.IdentifierFromProvider,
+	"huaweicloud_networking_secgroup_rule":        config.IdentifierFromProvider,
+	"huaweicloud_networking_vip":                  config.IdentifierFromProvider,
+	"huaweicloud_networking_vip_associate":        config.IdentifierFromProvider,
+	"huaweicloud_vpc_address_group":               config.IdentifierFromProvider,
+	"huaweicloud_vpc_flow_log":                    config.IdentifierFromProvider,
+	"huaweicloud_vpc_network_acl":                 config.IdentifierFromProvider,
+	"huaweicloud_vpc_network_interface":           config.IdentifierFromProvider,
+	"huaweicloud_vpc_peering_connection":          config.IdentifierFromProvider,
+	"huaweicloud_vpc_peering_connection_accepter": config.IdentifierFromProvider,
+	"huaweicloud_vpc_route":                       config.IdentifierFromProvider,
+	"huaweicloud_vpc_route_table":                 config.IdentifierFromProvider,
+	"huaweicloud_vpc_sub_network_interface":       config.IdentifierFromProvider,
+	"huaweicloud_vpc_traffic_mirror_filter":       config.IdentifierFromProvider,
+	"huaweicloud_vpc_traffic_mirror_filter_rule":  config.IdentifierFromProvider,
+	"huaweicloud_vpc_traffic_mirror_session":      config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

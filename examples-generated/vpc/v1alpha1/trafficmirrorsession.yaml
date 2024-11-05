@@ -1,0 +1,36 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: TrafficMirrorSession
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/trafficmirrorsession
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: Traffic mirror session created by terraform
+    name: ${var.traffic_mirror_session_name}
+    priority: 10
+    trafficMirrorFilterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    trafficMirrorSources:
+    - ${huaweicloud_compute_instance.test[1].network[0].port}
+    - ${huaweicloud_compute_instance.test[2].network[0].port}
+    trafficMirrorTargetId: ${huaweicloud_compute_instance.test[0].network[0].port}
+    trafficMirrorTargetType: eni
+
+---
+
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/trafficmirrorsession
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    count: 3
+    flavorId: c7t.large.2
