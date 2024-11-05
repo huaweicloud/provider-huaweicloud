@@ -40,7 +40,7 @@ type VPCInitParameters struct {
 
 	// Specifies the name of the VPC. The name must be unique for a tenant. The value is a string
 	// of no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
-	NameSecretRef v1.SecretKeySelector `json:"nameSecretRef" tf:"-"`
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the region in which to create the VPC. If omitted, the
 	// provider-level region will be used. Changing this creates a new VPC resource.
@@ -76,6 +76,10 @@ type VPCObservation struct {
 
 	// The VPC ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies the name of the VPC. The name must be unique for a tenant. The value is a string
+	// of no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the region in which to create the VPC. If omitted, the
 	// provider-level region will be used. Changing this creates a new VPC resource.
@@ -120,7 +124,7 @@ type VPCParameters struct {
 	// Specifies the name of the VPC. The name must be unique for a tenant. The value is a string
 	// of no more than 64 characters and can contain digits, letters, underscores (_), and hyphens (-).
 	// +kubebuilder:validation:Optional
-	NameSecretRef v1.SecretKeySelector `json:"nameSecretRef" tf:"-"`
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the region in which to create the VPC. If omitted, the
 	// provider-level region will be used. Changing this creates a new VPC resource.
@@ -182,7 +186,7 @@ type VPC struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cidr) || (has(self.initProvider) && has(self.initProvider.cidr))",message="spec.forProvider.cidr is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.nameSecretRef)",message="spec.forProvider.nameSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   VPCSpec   `json:"spec"`
 	Status VPCStatus `json:"status,omitempty"`
 }

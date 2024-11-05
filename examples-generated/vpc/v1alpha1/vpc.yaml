@@ -9,7 +9,4 @@ metadata:
 spec:
   forProvider:
     cidr: ${var.vpc_cidr}
-    nameSecretRef:
-      key: example-key
-      name: example-secret
-      namespace: upbound-system
+    name: ${var.vpc_name}
