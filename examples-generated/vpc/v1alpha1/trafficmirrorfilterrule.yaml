@@ -1,0 +1,22 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: TrafficMirrorFilterRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/trafficmirrorfilterrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    action: accept
+    destinationCidrBlock: 192.168.1.0/24
+    destinationPortRange: 10-65535
+    direction: ingress
+    ethertype: IPv4
+    priority: 1
+    protocol: tcp
+    sourceCidrBlock: 10.0.0.0/8
+    sourcePortRange: 80-90
+    trafficMirrorFilterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

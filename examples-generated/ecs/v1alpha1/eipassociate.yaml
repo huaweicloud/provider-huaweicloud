@@ -1,0 +1,48 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: EIPAssociate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/eipassociate
+  labels:
+    testing.upbound.io/example-name: associated
+  name: associated
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myinstance
+    publicIp: ${huaweicloud_vpc_eip.myeip.address}
+
+---
+
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/eipassociate
+  labels:
+    testing.upbound.io/example-name: myinstance
+  name: myinstance
+spec:
+  forProvider:
+    name: instance
+
+---
+
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: VpcEip
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/eipassociate
+  labels:
+    testing.upbound.io/example-name: myeip
+  name: myeip
+spec:
+  forProvider:
+    bandwidth:
+    - chargeMode: traffic
+      name: test
+      shareType: PER
+      size: 5
+    publicip:
+    - type: 5_bgp

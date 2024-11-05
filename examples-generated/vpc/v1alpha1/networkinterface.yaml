@@ -1,0 +1,14 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: NetworkInterface
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/networkinterface
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: ${var.name}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

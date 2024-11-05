@@ -1,0 +1,14 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VipAssociate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vipassociate
+  labels:
+    testing.upbound.io/example-name: vip_associated
+  name: vip-associated
+spec:
+  forProvider:
+    portIds: ${var.nic_port_ids}
+    vipIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

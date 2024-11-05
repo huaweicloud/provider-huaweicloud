@@ -1,0 +1,14 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: AddressGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/addressgroup
+  labels:
+    testing.upbound.io/example-name: ipv4
+  name: ipv4
+spec:
+  forProvider:
+    addresses:
+    - 192.168.10.10
+    - 192.168.1.1-192.168.1.50
+    name: group-ipv4
