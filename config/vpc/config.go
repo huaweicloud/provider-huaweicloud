@@ -1,7 +1,6 @@
 package vpc
 
 import (
-	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/upjet/pkg/config"
 )
 
@@ -11,13 +10,6 @@ const shortGroupVpc = "vpc"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("huaweicloud_vpc", func(r *config.Resource) {
 		r.ShortGroup = shortGroupVpc
-		r.TerraformResource.Schema["name"].Sensitive = true
-
-		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
-			return map[string][]byte{
-				xpv1.ResourceCredentialsSecretPasswordKey: []byte(attr["cidr"].(string)),
-			}, nil
-		}
 	})
 
 	p.AddResourceConfigurator("huaweicloud_vpc_subnet", func(r *config.Resource) {

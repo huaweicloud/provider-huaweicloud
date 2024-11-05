@@ -27,10 +27,7 @@ metadata:
 spec:
   forProvider:
     cidr: 192.168.0.0/16
-    nameSecretRef:
-      key: example-key
-      name: example-secret
-      namespace: upbound-system
+    name: vpc
 
 ---
 
