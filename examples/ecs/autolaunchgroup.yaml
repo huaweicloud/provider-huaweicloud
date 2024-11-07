@@ -8,11 +8,11 @@ metadata:
   name: test
 spec:
   forProvider:
-    launchTemplateId: ${var.launch_template_id}
-    launchTemplateVersion: ${var.launch_template_version}
-    name: ${var.auto_launch_group_name}
+    launchTemplateId: the_launch_template_id
+    launchTemplateVersion: the_launch_template_version
+    name: the_auto_launch_group_name
     overrides:
-    - availabilityZone: ${var.availability_zone}
-      flavorId: ${var.flavor_id}
+    - availabilityZone: the_availability_zone
+      flavorId: the_flavor_id
     stableCapacity: 2
     targetCapacity: 2

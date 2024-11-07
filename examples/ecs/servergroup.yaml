@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     members:
-    - ${data.huaweicloud_compute_instance.instance_demo.id}
+    - 81b6ca5a-7b93-4d77-82d0-6eb2528e99b0
     name: my-sg
     policies:
     - anti-affinity

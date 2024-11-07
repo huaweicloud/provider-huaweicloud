@@ -16,6 +16,10 @@ func Configure(p *config.Provider) {
 			TerraformName: "huaweicloud_compute_instance",
 			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractResourceID()`,
 		}
+
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"bandwidth_id", "public_ip"},
+		}
 	})
 
 	p.AddResourceConfigurator("huaweicloud_compute_instance", func(r *config.Resource) {
@@ -31,6 +35,10 @@ func Configure(p *config.Provider) {
 		r.References["instance_id"] = config.Reference{
 			TerraformName: "huaweicloud_compute_instance",
 			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractResourceID()`,
+		}
+
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"port_id", "network_id"},
 		}
 	})
 

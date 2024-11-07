@@ -44,7 +44,8 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = shortGroupEip
 		r.Kind = "VpcEip"
 		r.LateInitializer = config.LateInitializer{
-			ConditionalIgnoredFields: []string{"publicip.ip_address", "period_unit", "period", "auto_renew", "auto_pay"},
+			ConditionalIgnoredFields: []string{"publicip.ip_address", "period_unit", "period", "auto_renew", "auto_pay",
+				"bandwidth.name", "bandwidth.id"},
 		}
 	})
 	p.AddResourceConfigurator("huaweicloud_vpc_eip_associate", func(r *config.Resource) {

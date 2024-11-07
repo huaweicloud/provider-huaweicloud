@@ -7,15 +7,12 @@ metadata:
     testing.upbound.io/example-name: basic
   name: basic
 spec:
-  managementPolicies: ["Create", "Delete", "Observe", "Update"]
-  initProvider:
-    securityGroups
   forProvider:
     availabilityZone: cn-north-4a
     flavorId: c7.large.2
     imageId: 89ac6e18-d938-4b0d-b038-bcdb03a1b87f
     name: basic
     network:
-    - uuid: 78f9a54e-423b-422f-86f3-d6c50dba5835
+    - uuid: 238f627c-1346-448b-924c-9a788793c85b
     securityGroupIds:
-    - f90c3606-996e-4483-a5d4-43f92cdfae76
+    - d4fd83b6-cf75-498c-a540-3080e2e324ae

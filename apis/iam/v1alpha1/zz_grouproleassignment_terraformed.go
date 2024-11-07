@@ -118,6 +118,13 @@ func (tr *GroupRoleAssignment) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	initParams, err := tr.GetInitParameters()
+	if err != nil {
+		return false, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+	}
+	opts = append(opts, resource.WithConditionalFilter("DomainID", initParams))
+	opts = append(opts, resource.WithConditionalFilter("EnterpriseProjectID", initParams))
+	opts = append(opts, resource.WithConditionalFilter("ProjectID", initParams))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

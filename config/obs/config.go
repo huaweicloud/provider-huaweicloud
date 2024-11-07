@@ -30,7 +30,7 @@ func Configure(p *config.Provider) {
 		}
 
 		r.LateInitializer = config.LateInitializer{
-			ConditionalIgnoredFields: []string{"website.index_document", "website.error_document", "website.routing_rules", "website.redirect_all_requests_to"},
+			ConditionalIgnoredFields: []string{"source", "content", "website.index_document", "website.error_document", "website.routing_rules", "website.redirect_all_requests_to"},
 		}
 	})
 
