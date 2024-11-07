@@ -16,6 +16,10 @@ func Configure(p *config.Provider) {
 	})
 	p.AddResourceConfigurator("huaweicloud_identity_agency", func(r *config.Resource) {
 		r.ShortGroup = shortGroupObs
+
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"delegated_domain_name", "delegated_service_name"},
+		}
 	})
 	p.AddResourceConfigurator("huaweicloud_identity_group", func(r *config.Resource) {
 		r.ShortGroup = shortGroupObs
@@ -32,6 +36,10 @@ func Configure(p *config.Provider) {
 		r.References["role_id"] = config.Reference{
 			TerraformName: "huaweicloud_identity_role",
 			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractResourceID()`,
+		}
+
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"domain_id", "project_id", "enterprise_project_id"},
 		}
 	})
 	p.AddResourceConfigurator("huaweicloud_identity_login_policy", func(r *config.Resource) {

@@ -124,6 +124,8 @@ func (tr *VpcEip) LateInitialize(attrs []byte) (bool, error) {
 	}
 	opts = append(opts, resource.WithConditionalFilter("AutoPay", initParams))
 	opts = append(opts, resource.WithConditionalFilter("AutoRenew", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Bandwidth.ID", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Bandwidth.Name", initParams))
 	opts = append(opts, resource.WithConditionalFilter("Period", initParams))
 	opts = append(opts, resource.WithConditionalFilter("PeriodUnit", initParams))
 	opts = append(opts, resource.WithConditionalFilter("Publicip.IPAddress", initParams))

@@ -10,22 +10,8 @@ spec:
   forProvider:
     instanceIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: myinstance
-    publicIp: ${huaweicloud_vpc_eip.myeip.address}
-
----
-
-apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
-kind: Instance
-metadata:
-  annotations:
-    meta.upbound.io/example-id: ecs/v1alpha1/eipassociate
-  labels:
-    testing.upbound.io/example-name: myinstance
-  name: myinstance
-spec:
-  forProvider:
-    name: instance
+        testing.upbound.io/example-name: basic
+    publicIp: 113.44.161.78
 
 ---
 

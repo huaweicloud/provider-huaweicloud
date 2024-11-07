@@ -7,8 +7,10 @@ metadata:
     testing.upbound.io/example-name: test
   name: test
 spec:
+  initProvider:
+    portId: ""
   forProvider:
     instanceIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: example
-    networkId: ${var.network_id}
+        testing.upbound.io/example-name: basic
+    networkId: 238f627c-1346-448b-924c-9a788793c85b
