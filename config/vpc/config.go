@@ -10,6 +10,10 @@ const shortGroupVpc = "vpc"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("huaweicloud_vpc", func(r *config.Resource) {
 		r.ShortGroup = shortGroupVpc
+
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"secondary_cidr"},
+		}
 	})
 
 	p.AddResourceConfigurator("huaweicloud_vpc_subnet", func(r *config.Resource) {
@@ -32,6 +36,10 @@ func Configure(p *config.Provider) {
 			TerraformName: "huaweicloud_networking_secgroup",
 			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractResourceID()`,
 		}
+
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"ports", "remote_address_group_id", "action", "priority", "port_range_min", "port_range_max"},
+		}
 	})
 
 	p.AddResourceConfigurator("huaweicloud_networking_vip", func(r *config.Resource) {
@@ -40,6 +48,10 @@ func Configure(p *config.Provider) {
 		r.References["network_id"] = config.Reference{
 			TerraformName: "huaweicloud_vpc_subnet",
 			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractResourceID()`,
+		}
+
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields: []string{"subnet_id"},
 		}
 	})
 

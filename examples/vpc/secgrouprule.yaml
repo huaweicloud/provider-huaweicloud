@@ -1,0 +1,17 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: SecgroupRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/secgrouprule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    direction: ingress
+    ethertype: IPv4
+    portRangeMax: 8080
+    portRangeMin: 8080
+    protocol: tcp
+    remoteIpPrefix: 0.0.0.0/0
+    securityGroupId: f90c3606-996e-4483-a5d4-43f92cdfae76

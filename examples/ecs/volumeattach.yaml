@@ -1,0 +1,36 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: VolumeAttach
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/volumeattach
+  labels:
+    testing.upbound.io/example-name: attached
+  name: attached
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myinstance
+    volumeId: ${huaweicloud_evs_volume.myvol.id}
+
+---
+
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/volumeattach
+  labels:
+    testing.upbound.io/example-name: myinstance
+  name: myinstance
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    flavorId: s6.small.1
+    imageId: ad091b52-742f-469e-8f3c-fd81cadf0743
+    keyPair: my_key_pair_name
+    name: instance
+    network:
+    - uuid: 55534eaa-533a-419d-9b40-ec427ea7195a
+    securityGroupIds:
+    - ${var.security_group_id}

@@ -1,0 +1,16 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: SubNetworkInterface
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/subnetworkinterface
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: create a supplementary network interface
+    parentId: the_parent_id
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vlanId: the_vlan_id

@@ -1,0 +1,64 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: PeeringConnectionAccepter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnectionaccepter
+  labels:
+    testing.upbound.io/example-name: peer
+  name: peer
+spec:
+  forProvider:
+    accept: true
+    vpcPeeringConnectionIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: peering
+
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: PeeringConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/peeringconnection
+  labels:
+    testing.upbound.io/example-name: peering
+  name: peering
+spec:
+  forProvider:
+    name: crossplane_test
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc-2
+
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpc
+  labels:
+    testing.upbound.io/example-name: vpc-1
+  name: vpc-1
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: crossplane_test_1
+
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpc
+  labels:
+    testing.upbound.io/example-name: vpc-2
+  name: vpc-2
+spec:
+  forProvider:
+    cidr: 172.16.0.0/16
+    name: crossplane_test_2
