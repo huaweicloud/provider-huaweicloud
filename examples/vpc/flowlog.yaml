@@ -1,0 +1,16 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: FlowLog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/flowlog
+  labels:
+    testing.upbound.io/example-name: test_flowlog
+  name: test-flowlog
+spec:
+  forProvider:
+    logGroupId: your_lts_group_id
+    logStreamId: your_lts_stream_id
+    name: flowlog-test
+    resourceId: your_subnet_id
+    resourceType: network
+    trafficType: all

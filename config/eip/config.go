@@ -43,10 +43,16 @@ func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("huaweicloud_vpc_eip", func(r *config.Resource) {
 		r.ShortGroup = shortGroupEip
 		r.Kind = "VpcEip"
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"publicip.ip_address", "period_unit", "period", "auto_renew", "auto_pay"},
+		}
 	})
 	p.AddResourceConfigurator("huaweicloud_vpc_eip_associate", func(r *config.Resource) {
 		r.ShortGroup = shortGroupEip
 		r.Kind = "VpcEipAssociate"
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"fixed_ip", "network_id", "port_id"},
+		}
 	})
 	p.AddResourceConfigurator("huaweicloud_vpc_eipv3_associate", func(r *config.Resource) {
 		r.ShortGroup = shortGroupEip

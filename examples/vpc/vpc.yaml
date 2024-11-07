@@ -1,0 +1,12 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/vpc
+  labels:
+    testing.upbound.io/example-name: vpc
+  name: vpc
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: crossplane_test

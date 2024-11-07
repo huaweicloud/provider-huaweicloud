@@ -118,6 +118,16 @@ func (tr *SecgroupRule) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	initParams, err := tr.GetInitParameters()
+	if err != nil {
+		return false, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+	}
+	opts = append(opts, resource.WithConditionalFilter("Action", initParams))
+	opts = append(opts, resource.WithConditionalFilter("PortRangeMax", initParams))
+	opts = append(opts, resource.WithConditionalFilter("PortRangeMin", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Ports", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Priority", initParams))
+	opts = append(opts, resource.WithConditionalFilter("RemoteAddressGroupID", initParams))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

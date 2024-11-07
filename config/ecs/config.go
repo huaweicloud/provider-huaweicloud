@@ -20,6 +20,10 @@ func Configure(p *config.Provider) {
 
 	p.AddResourceConfigurator("huaweicloud_compute_instance", func(r *config.Resource) {
 		r.ShortGroup = shortGroupEcs
+		r.LateInitializer = config.LateInitializer{
+			IgnoredFields:            []string{"security_groups"},
+			ConditionalIgnoredFields: []string{"eip_id", "eip_type", "bandwidth", "bandwidth.size", "bandwidth.charge_mode", "bandwidth.id"},
+		}
 	})
 
 	p.AddResourceConfigurator("huaweicloud_compute_interface_attach", func(r *config.Resource) {

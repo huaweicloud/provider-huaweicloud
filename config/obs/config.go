@@ -28,6 +28,10 @@ func Configure(p *config.Provider) {
 			TerraformName: "huaweicloud_obs_bucket",
 			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractParamPath("bucket",true)`,
 		}
+
+		r.LateInitializer = config.LateInitializer{
+			ConditionalIgnoredFields: []string{"website.index_document", "website.error_document", "website.routing_rules", "website.redirect_all_requests_to"},
+		}
 	})
 
 	p.AddResourceConfigurator("huaweicloud_obs_bucket_object_acl", func(r *config.Resource) {

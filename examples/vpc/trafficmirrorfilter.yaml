@@ -1,0 +1,12 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: TrafficMirrorFilter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/trafficmirrorfilter
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: Traffic mirror filter created by terraform
+    name: the_traffic_mirror_filter_name

@@ -1,0 +1,43 @@
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: NetworkACL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: vpc/v1alpha1/networkacl
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    associatedSubnets:
+    - subnetId: your_subnet_id_1
+    - subnetId: your_subnet_id_2
+    description: created by crossplane
+    egressRules:
+    - action: allow
+      destinationIpAddress: 0.0.0.0/0
+      destinationPort: 8001-8010
+      ipVersion: 4
+      protocol: tcp
+      sourceIpAddress: 172.16.0.0/24
+      sourcePort: 22-30,33
+    - action: deny
+      destinationIpAddress: 0.0.0.0/0
+      ipVersion: 4
+      protocol: icmp
+      sourceIpAddress: 172.16.0.0/24
+    enabled: true
+    enterpriseProjectId: "0"
+    ingressRules:
+    - action: allow
+      destinationIpAddress: 0.0.0.0/0
+      destinationPort: 8001-8010
+      ipVersion: 4
+      protocol: tcp
+      sourceIpAddress: 192.168.0.0/24
+      sourcePort: 22-30,33
+    - action: deny
+      destinationIpAddress: 0.0.0.0/0
+      ipVersion: 4
+      protocol: icmp
+      sourceIpAddress: 192.168.0.0/24
+    name: acl_test
