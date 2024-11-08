@@ -1,0 +1,16 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: PgAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/pgaccount
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceId: ${var.instance_id}
+    name: test_account_name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

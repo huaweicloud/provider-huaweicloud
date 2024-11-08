@@ -49,6 +49,36 @@ import (
 	bucketobject "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobject"
 	bucketobjectacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobjectacl"
 	providerconfig "github.com/huaweicloud/provider-huaweicloud/internal/controller/providerconfig"
+	backup "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/backup"
+	crossregionbackupstrategy "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/crossregionbackupstrategy"
+	databaselogsshrinking "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/databaselogsshrinking"
+	extendloglink "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/extendloglink"
+	instancerds "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/instance"
+	instanceeipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/instanceeipassociate"
+	ltslog "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/ltslog"
+	mysqlaccount "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/mysqlaccount"
+	mysqlbinlog "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/mysqlbinlog"
+	mysqldatabase "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/mysqldatabase"
+	mysqldatabaseprivilege "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/mysqldatabaseprivilege"
+	mysqldatabasetablerestore "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/mysqldatabasetablerestore"
+	parametergroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/parametergroup"
+	pgaccount "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgaccount"
+	pgaccountprivileges "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgaccountprivileges"
+	pgaccountroles "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgaccountroles"
+	pgdatabase "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgdatabase"
+	pgdatabaseprivilege "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgdatabaseprivilege"
+	pghba "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pghba"
+	pgplugin "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgplugin"
+	pgpluginparameter "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgpluginparameter"
+	pgpluginupdate "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgpluginupdate"
+	pgsqllimit "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/pgsqllimit"
+	primarystandbyswitch "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/primarystandbyswitch"
+	readreplicainstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/readreplicainstance"
+	restore "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/restore"
+	sqlaudit "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlaudit"
+	sqlserveraccount "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserveraccount"
+	sqlserverdatabase "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserverdatabase"
+	sqlserverdatabaseprivilege "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserverdatabaseprivilege"
 	addressgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/addressgroup"
 	flowlog "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/flowlog"
 	networkacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/networkacl"
@@ -113,6 +143,36 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bucketobject.Setup,
 		bucketobjectacl.Setup,
 		providerconfig.Setup,
+		backup.Setup,
+		crossregionbackupstrategy.Setup,
+		databaselogsshrinking.Setup,
+		extendloglink.Setup,
+		instancerds.Setup,
+		instanceeipassociate.Setup,
+		ltslog.Setup,
+		mysqlaccount.Setup,
+		mysqlbinlog.Setup,
+		mysqldatabase.Setup,
+		mysqldatabaseprivilege.Setup,
+		mysqldatabasetablerestore.Setup,
+		parametergroup.Setup,
+		pgaccount.Setup,
+		pgaccountprivileges.Setup,
+		pgaccountroles.Setup,
+		pgdatabase.Setup,
+		pgdatabaseprivilege.Setup,
+		pghba.Setup,
+		pgplugin.Setup,
+		pgpluginparameter.Setup,
+		pgpluginupdate.Setup,
+		pgsqllimit.Setup,
+		primarystandbyswitch.Setup,
+		readreplicainstance.Setup,
+		restore.Setup,
+		sqlaudit.Setup,
+		sqlserveraccount.Setup,
+		sqlserverdatabase.Setup,
+		sqlserverdatabaseprivilege.Setup,
 		addressgroup.Setup,
 		flowlog.Setup,
 		networkacl.Setup,

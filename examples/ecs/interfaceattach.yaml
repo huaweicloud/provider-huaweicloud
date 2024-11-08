@@ -13,4 +13,4 @@ spec:
     instanceIdSelector:
       matchLabels:
         testing.upbound.io/example-name: basic
-    networkId: 238f627c-1346-448b-924c-9a788793c85b
+    networkId: fcc7de56-f312-4534-abe3-70943f5c8f51

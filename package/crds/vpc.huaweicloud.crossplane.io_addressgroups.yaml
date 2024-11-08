@@ -75,7 +75,7 @@ spec:
                   addresses:
                     description: |-
                       Specifies an array of one or more IP addresses. The address can be a single IP
-                      address, IP address range or IP address CIDR. The maximum length is 20.
+                      address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
                     items:
                       type: string
                     type: array
@@ -96,6 +96,24 @@ spec:
                       a security group rule, the address group and the associated security group rule will be deleted together.
                       The default value is false.
                     type: boolean
+                  ipExtraSet:
+                    description: |-
+                      Specifies the IP addresses and their remarks in an IP address group.
+                      The ip_extra_set structure is documented below.
+                      Only one of addresses and ip_extra_set can be specified.
+                    items:
+                      properties:
+                        ip:
+                          description: Specifies the IP address, IP address range,
+                            or CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Specifies the supplementary information about the IP address,
+                            IP address range, or CIDR block.
+                          type: string
+                      type: object
+                    type: array
                   ipVersion:
                     description: |-
                       Specifies the IP version, either 4 (default) or 6.
@@ -134,7 +152,7 @@ spec:
                   addresses:
                     description: |-
                       Specifies an array of one or more IP addresses. The address can be a single IP
-                      address, IP address range or IP address CIDR. The maximum length is 20.
+                      address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
                     items:
                       type: string
                     type: array
@@ -155,6 +173,24 @@ spec:
                       a security group rule, the address group and the associated security group rule will be deleted together.
                       The default value is false.
                     type: boolean
+                  ipExtraSet:
+                    description: |-
+                      Specifies the IP addresses and their remarks in an IP address group.
+                      The ip_extra_set structure is documented below.
+                      Only one of addresses and ip_extra_set can be specified.
+                    items:
+                      properties:
+                        ip:
+                          description: Specifies the IP address, IP address range,
+                            or CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Specifies the supplementary information about the IP address,
+                            IP address range, or CIDR block.
+                          type: string
+                      type: object
+                    type: array
                   ipVersion:
                     description: |-
                       Specifies the IP version, either 4 (default) or 6.
@@ -345,10 +381,6 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.addresses is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.addresses)
-                || (has(self.initProvider) && has(self.initProvider.addresses))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
@@ -361,7 +393,7 @@ spec:
                   addresses:
                     description: |-
                       Specifies an array of one or more IP addresses. The address can be a single IP
-                      address, IP address range or IP address CIDR. The maximum length is 20.
+                      address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
                     items:
                       type: string
                     type: array
@@ -385,6 +417,24 @@ spec:
                   id:
                     description: The resource ID in UUID format.
                     type: string
+                  ipExtraSet:
+                    description: |-
+                      Specifies the IP addresses and their remarks in an IP address group.
+                      The ip_extra_set structure is documented below.
+                      Only one of addresses and ip_extra_set can be specified.
+                    items:
+                      properties:
+                        ip:
+                          description: Specifies the IP address, IP address range,
+                            or CIDR block.
+                          type: string
+                        remarks:
+                          description: |-
+                            Specifies the supplementary information about the IP address,
+                            IP address range, or CIDR block.
+                          type: string
+                      type: object
+                    type: array
                   ipVersion:
                     description: |-
                       Specifies the IP version, either 4 (default) or 6.

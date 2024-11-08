@@ -1,0 +1,12 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: MySQLBinlog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/mysqlbinlog
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    binlogRetentionHours: 6
+    instanceId: ${var.instance_id}
