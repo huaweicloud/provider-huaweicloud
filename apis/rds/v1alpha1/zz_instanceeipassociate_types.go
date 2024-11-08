@@ -16,13 +16,43 @@ import (
 type InstanceEIPAssociateInitParameters struct {
 
 	// Specifies the ID of an RDS instance. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+
 	// Specifies the EIP address to be bound. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("address",true)
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// Specifies the EIP ID. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	PublicIPID *string `json:"publicIpId,omitempty" tf:"public_ip_id,omitempty"`
+
+	// Reference to a VpcEip in eip to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPIDRef *v1.Reference `json:"publicIpIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcEip in eip to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPIDSelector *v1.Selector `json:"publicIpIdSelector,omitempty" tf:"-"`
+
+	// Reference to a VpcEip in eip to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPRef *v1.Reference `json:"publicIpRef,omitempty" tf:"-"`
+
+	// Selector for a VpcEip in eip to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPSelector *v1.Selector `json:"publicIpSelector,omitempty" tf:"-"`
 
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used. Changing this creates a new resource.
@@ -51,16 +81,46 @@ type InstanceEIPAssociateObservation struct {
 type InstanceEIPAssociateParameters struct {
 
 	// Specifies the ID of an RDS instance. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
+	// Reference to a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
+
 	// Specifies the EIP address to be bound. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("address",true)
 	// +kubebuilder:validation:Optional
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
 	// Specifies the EIP ID. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	PublicIPID *string `json:"publicIpId,omitempty" tf:"public_ip_id,omitempty"`
+
+	// Reference to a VpcEip in eip to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPIDRef *v1.Reference `json:"publicIpIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcEip in eip to populate publicIpId.
+	// +kubebuilder:validation:Optional
+	PublicIPIDSelector *v1.Selector `json:"publicIpIdSelector,omitempty" tf:"-"`
+
+	// Reference to a VpcEip in eip to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPRef *v1.Reference `json:"publicIpRef,omitempty" tf:"-"`
+
+	// Selector for a VpcEip in eip to populate publicIp.
+	// +kubebuilder:validation:Optional
+	PublicIPSelector *v1.Selector `json:"publicIpSelector,omitempty" tf:"-"`
 
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used. Changing this creates a new resource.
@@ -104,11 +164,8 @@ type InstanceEIPAssociateStatus struct {
 type InstanceEIPAssociate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.publicIp) || (has(self.initProvider) && has(self.initProvider.publicIp))",message="spec.forProvider.publicIp is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.publicIpId) || (has(self.initProvider) && has(self.initProvider.publicIpId))",message="spec.forProvider.publicIpId is a required parameter"
-	Spec   InstanceEIPAssociateSpec   `json:"spec"`
-	Status InstanceEIPAssociateStatus `json:"status,omitempty"`
+	Spec              InstanceEIPAssociateSpec   `json:"spec"`
+	Status            InstanceEIPAssociateStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

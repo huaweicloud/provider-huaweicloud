@@ -8,6 +8,12 @@ metadata:
   name: test
 spec:
   forProvider:
-    instanceId: ${var.instance_id}
-    publicIp: ${var.public_ip}
-    publicIpId: ${var.node_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    publicIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    publicIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

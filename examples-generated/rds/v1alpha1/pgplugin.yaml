@@ -9,5 +9,7 @@ metadata:
 spec:
   forProvider:
     databaseName: ${var.database_name}
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: pgaudit

@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     engine: mysql
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     logType: error_log
     ltsGroupId: ${var.lts_group_id}
     ltsStreamId: ${var.lts_stream_id}

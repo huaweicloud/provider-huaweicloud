@@ -145,6 +145,16 @@ func (in *BackupInitParameters) DeepCopyInto(out *BackupInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -290,6 +300,16 @@ func (in *BackupParameters) DeepCopyInto(out *BackupParameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -568,6 +588,16 @@ func (in *CrossRegionBackupStrategyInitParameters) DeepCopyInto(out *CrossRegion
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.KeepDays != nil {
 		in, out := &in.KeepDays, &out.KeepDays
 		*out = new(float64)
@@ -694,6 +724,16 @@ func (in *CrossRegionBackupStrategyParameters) DeepCopyInto(out *CrossRegionBack
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.KeepDays != nil {
 		in, out := &in.KeepDays, &out.KeepDays
@@ -897,6 +937,16 @@ func (in *DatabaseLogsShrinkingInitParameters) DeepCopyInto(out *DatabaseLogsShr
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -993,6 +1043,16 @@ func (in *DatabaseLogsShrinkingParameters) DeepCopyInto(out *DatabaseLogsShrinki
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1221,6 +1281,16 @@ func (in *ExtendLogLinkInitParameters) DeepCopyInto(out *ExtendLogLinkInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1337,6 +1407,16 @@ func (in *ExtendLogLinkParameters) DeepCopyInto(out *ExtendLogLinkParameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1587,6 +1667,16 @@ func (in *InstanceEIPAssociateInitParameters) DeepCopyInto(out *InstanceEIPAssoc
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PublicIP != nil {
 		in, out := &in.PublicIP, &out.PublicIP
 		*out = new(string)
@@ -1596,6 +1686,26 @@ func (in *InstanceEIPAssociateInitParameters) DeepCopyInto(out *InstanceEIPAssoc
 		in, out := &in.PublicIPID, &out.PublicIPID
 		*out = new(string)
 		**out = **in
+	}
+	if in.PublicIPIDRef != nil {
+		in, out := &in.PublicIPIDRef, &out.PublicIPIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PublicIPIDSelector != nil {
+		in, out := &in.PublicIPIDSelector, &out.PublicIPIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PublicIPRef != nil {
+		in, out := &in.PublicIPRef, &out.PublicIPRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PublicIPSelector != nil {
+		in, out := &in.PublicIPSelector, &out.PublicIPSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1694,6 +1804,16 @@ func (in *InstanceEIPAssociateParameters) DeepCopyInto(out *InstanceEIPAssociate
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PublicIP != nil {
 		in, out := &in.PublicIP, &out.PublicIP
 		*out = new(string)
@@ -1703,6 +1823,26 @@ func (in *InstanceEIPAssociateParameters) DeepCopyInto(out *InstanceEIPAssociate
 		in, out := &in.PublicIPID, &out.PublicIPID
 		*out = new(string)
 		**out = **in
+	}
+	if in.PublicIPIDRef != nil {
+		in, out := &in.PublicIPIDRef, &out.PublicIPIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PublicIPIDSelector != nil {
+		in, out := &in.PublicIPIDSelector, &out.PublicIPIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PublicIPRef != nil {
+		in, out := &in.PublicIPRef, &out.PublicIPRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PublicIPSelector != nil {
+		in, out := &in.PublicIPSelector, &out.PublicIPSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1871,6 +2011,16 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ParamGroupIDRef != nil {
+		in, out := &in.ParamGroupIDRef, &out.ParamGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ParamGroupIDSelector != nil {
+		in, out := &in.ParamGroupIDSelector, &out.ParamGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
 		*out = make([]ParametersInitParameters, len(*in))
@@ -1955,6 +2105,16 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityGroupIDRef != nil {
+		in, out := &in.SecurityGroupIDRef, &out.SecurityGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupIDSelector != nil {
+		in, out := &in.SecurityGroupIDSelector, &out.SecurityGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SlowLogShowOriginalStatus != nil {
 		in, out := &in.SlowLogShowOriginalStatus, &out.SlowLogShowOriginalStatus
 		*out = new(string)
@@ -1964,6 +2124,16 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SubnetIDRef != nil {
+		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetIDSelector != nil {
+		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SwitchStrategy != nil {
 		in, out := &in.SwitchStrategy, &out.SwitchStrategy
@@ -2000,6 +2170,16 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Volume != nil {
 		in, out := &in.Volume, &out.Volume
@@ -2486,6 +2666,16 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ParamGroupIDRef != nil {
+		in, out := &in.ParamGroupIDRef, &out.ParamGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ParamGroupIDSelector != nil {
+		in, out := &in.ParamGroupIDSelector, &out.ParamGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
 		*out = make([]ParametersParameters, len(*in))
@@ -2570,6 +2760,16 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityGroupIDRef != nil {
+		in, out := &in.SecurityGroupIDRef, &out.SecurityGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupIDSelector != nil {
+		in, out := &in.SecurityGroupIDSelector, &out.SecurityGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SlowLogShowOriginalStatus != nil {
 		in, out := &in.SlowLogShowOriginalStatus, &out.SlowLogShowOriginalStatus
 		*out = new(string)
@@ -2579,6 +2779,16 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SubnetIDRef != nil {
+		in, out := &in.SubnetIDRef, &out.SubnetIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetIDSelector != nil {
+		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SwitchStrategy != nil {
 		in, out := &in.SwitchStrategy, &out.SwitchStrategy
@@ -2615,6 +2825,16 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Volume != nil {
 		in, out := &in.Volume, &out.Volume
@@ -2709,6 +2929,16 @@ func (in *LtsLogInitParameters) DeepCopyInto(out *LtsLogInitParameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogType != nil {
 		in, out := &in.LogType, &out.LogType
@@ -2836,6 +3066,16 @@ func (in *LtsLogParameters) DeepCopyInto(out *LtsLogParameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LogType != nil {
 		in, out := &in.LogType, &out.LogType
@@ -3035,6 +3275,16 @@ func (in *MySQLAccountInitParameters) DeepCopyInto(out *MySQLAccountInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -3165,6 +3415,16 @@ func (in *MySQLAccountParameters) DeepCopyInto(out *MySQLAccountParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -3263,6 +3523,16 @@ func (in *MySQLBinlogInitParameters) DeepCopyInto(out *MySQLBinlogInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -3360,6 +3630,16 @@ func (in *MySQLBinlogParameters) DeepCopyInto(out *MySQLBinlogParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -3456,6 +3736,16 @@ func (in *MySQLDatabaseInitParameters) DeepCopyInto(out *MySQLDatabaseInitParame
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3574,6 +3864,16 @@ func (in *MySQLDatabaseParameters) DeepCopyInto(out *MySQLDatabaseParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -3635,6 +3935,16 @@ func (in *MySQLDatabasePrivilegeInitParameters) DeepCopyInto(out *MySQLDatabaseP
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -3746,6 +4056,16 @@ func (in *MySQLDatabasePrivilegeParameters) DeepCopyInto(out *MySQLDatabasePrivi
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -3958,6 +4278,16 @@ func (in *MySQLDatabaseTableRestoreInitParameters) DeepCopyInto(out *MySQLDataba
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.IsFastRestore != nil {
 		in, out := &in.IsFastRestore, &out.IsFastRestore
 		*out = new(bool)
@@ -4092,6 +4422,16 @@ func (in *MySQLDatabaseTableRestoreParameters) DeepCopyInto(out *MySQLDatabaseTa
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IsFastRestore != nil {
 		in, out := &in.IsFastRestore, &out.IsFastRestore
@@ -4622,6 +4962,16 @@ func (in *PgAccountInitParameters) DeepCopyInto(out *PgAccountInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Memberof != nil {
 		in, out := &in.Memberof, &out.Memberof
 		*out = make([]*string, len(*in))
@@ -4759,6 +5109,16 @@ func (in *PgAccountParameters) DeepCopyInto(out *PgAccountParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Memberof != nil {
 		in, out := &in.Memberof, &out.Memberof
 		*out = make([]*string, len(*in))
@@ -4827,6 +5187,16 @@ func (in *PgAccountPrivilegesInitParameters) DeepCopyInto(out *PgAccountPrivileg
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -4969,6 +5339,16 @@ func (in *PgAccountPrivilegesParameters) DeepCopyInto(out *PgAccountPrivilegesPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -5082,6 +5462,16 @@ func (in *PgAccountRolesInitParameters) DeepCopyInto(out *PgAccountRolesInitPara
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -5201,6 +5591,16 @@ func (in *PgAccountRolesParameters) DeepCopyInto(out *PgAccountRolesParameters) 
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -5349,6 +5749,16 @@ func (in *PgDatabaseInitParameters) DeepCopyInto(out *PgDatabaseInitParameters) 
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IsRevokePublicPrivilege != nil {
 		in, out := &in.IsRevokePublicPrivilege, &out.IsRevokePublicPrivilege
@@ -5522,6 +5932,16 @@ func (in *PgDatabaseParameters) DeepCopyInto(out *PgDatabaseParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.IsRevokePublicPrivilege != nil {
 		in, out := &in.IsRevokePublicPrivilege, &out.IsRevokePublicPrivilege
 		*out = new(bool)
@@ -5608,6 +6028,16 @@ func (in *PgDatabasePrivilegeInitParameters) DeepCopyInto(out *PgDatabasePrivile
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -5719,6 +6149,16 @@ func (in *PgDatabasePrivilegeParameters) DeepCopyInto(out *PgDatabasePrivilegePa
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -5946,6 +6386,16 @@ func (in *PgHbaInitParameters) DeepCopyInto(out *PgHbaInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -6047,6 +6497,16 @@ func (in *PgHbaParameters) DeepCopyInto(out *PgHbaParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -6138,6 +6598,16 @@ func (in *PgPluginInitParameters) DeepCopyInto(out *PgPluginInitParameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -6283,6 +6753,16 @@ func (in *PgPluginParameterInitParameters) DeepCopyInto(out *PgPluginParameterIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -6418,6 +6898,16 @@ func (in *PgPluginParameterParameters) DeepCopyInto(out *PgPluginParameterParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -6498,6 +6988,16 @@ func (in *PgPluginParameters) DeepCopyInto(out *PgPluginParameters) {
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -6600,6 +7100,16 @@ func (in *PgPluginUpdateInitParameters) DeepCopyInto(out *PgPluginUpdateInitPara
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -6708,6 +7218,16 @@ func (in *PgPluginUpdateParameters) DeepCopyInto(out *PgPluginUpdateParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -6799,6 +7319,16 @@ func (in *PgSQLLimitInitParameters) DeepCopyInto(out *PgSQLLimitInitParameters) 
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MaxConcurrency != nil {
 		in, out := &in.MaxConcurrency, &out.MaxConcurrency
@@ -6967,6 +7497,16 @@ func (in *PgSQLLimitParameters) DeepCopyInto(out *PgSQLLimitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.MaxConcurrency != nil {
 		in, out := &in.MaxConcurrency, &out.MaxConcurrency
 		*out = new(float64)
@@ -7089,6 +7629,16 @@ func (in *PrimaryStandbySwitchInitParameters) DeepCopyInto(out *PrimaryStandbySw
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -7185,6 +7735,16 @@ func (in *PrimaryStandbySwitchParameters) DeepCopyInto(out *PrimaryStandbySwitch
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -7422,6 +7982,16 @@ func (in *ReadReplicaInstanceInitParameters) DeepCopyInto(out *ReadReplicaInstan
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrimaryInstanceIDRef != nil {
+		in, out := &in.PrimaryInstanceIDRef, &out.PrimaryInstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrimaryInstanceIDSelector != nil {
+		in, out := &in.PrimaryInstanceIDSelector, &out.PrimaryInstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -7436,6 +8006,16 @@ func (in *ReadReplicaInstanceInitParameters) DeepCopyInto(out *ReadReplicaInstan
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupIDRef != nil {
+		in, out := &in.SecurityGroupIDRef, &out.SecurityGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupIDSelector != nil {
+		in, out := &in.SecurityGroupIDSelector, &out.SecurityGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -7765,6 +8345,16 @@ func (in *ReadReplicaInstanceParameters) DeepCopyInto(out *ReadReplicaInstancePa
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrimaryInstanceIDRef != nil {
+		in, out := &in.PrimaryInstanceIDRef, &out.PrimaryInstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrimaryInstanceIDSelector != nil {
+		in, out := &in.PrimaryInstanceIDSelector, &out.PrimaryInstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -7779,6 +8369,16 @@ func (in *ReadReplicaInstanceParameters) DeepCopyInto(out *ReadReplicaInstancePa
 		in, out := &in.SecurityGroupID, &out.SecurityGroupID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SecurityGroupIDRef != nil {
+		in, out := &in.SecurityGroupIDRef, &out.SecurityGroupIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurityGroupIDSelector != nil {
+		in, out := &in.SecurityGroupIDSelector, &out.SecurityGroupIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -8152,10 +8752,30 @@ func (in *RestoreInitParameters_2) DeepCopyInto(out *RestoreInitParameters_2) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SourceInstanceIDRef != nil {
+		in, out := &in.SourceInstanceIDRef, &out.SourceInstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SourceInstanceIDSelector != nil {
+		in, out := &in.SourceInstanceIDSelector, &out.SourceInstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TargetInstanceID != nil {
 		in, out := &in.TargetInstanceID, &out.TargetInstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.TargetInstanceIDRef != nil {
+		in, out := &in.TargetInstanceIDRef, &out.TargetInstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TargetInstanceIDSelector != nil {
+		in, out := &in.TargetInstanceIDSelector, &out.TargetInstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -8393,10 +9013,30 @@ func (in *RestoreParameters_2) DeepCopyInto(out *RestoreParameters_2) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SourceInstanceIDRef != nil {
+		in, out := &in.SourceInstanceIDRef, &out.SourceInstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SourceInstanceIDSelector != nil {
+		in, out := &in.SourceInstanceIDSelector, &out.SourceInstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TargetInstanceID != nil {
 		in, out := &in.TargetInstanceID, &out.TargetInstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.TargetInstanceIDRef != nil {
+		in, out := &in.TargetInstanceIDRef, &out.TargetInstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TargetInstanceIDSelector != nil {
+		in, out := &in.TargetInstanceIDSelector, &out.TargetInstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -8577,6 +9217,16 @@ func (in *SQLAuditInitParameters) DeepCopyInto(out *SQLAuditInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.KeepDays != nil {
 		in, out := &in.KeepDays, &out.KeepDays
 		*out = new(float64)
@@ -8706,6 +9356,16 @@ func (in *SQLAuditParameters) DeepCopyInto(out *SQLAuditParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.KeepDays != nil {
 		in, out := &in.KeepDays, &out.KeepDays
 		*out = new(float64)
@@ -8802,6 +9462,16 @@ func (in *SqlserverAccountInitParameters) DeepCopyInto(out *SqlserverAccountInit
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -8906,6 +9576,16 @@ func (in *SqlserverAccountParameters) DeepCopyInto(out *SqlserverAccountParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -8998,6 +9678,16 @@ func (in *SqlserverDatabaseInitParameters) DeepCopyInto(out *SqlserverDatabaseIn
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -9106,6 +9796,16 @@ func (in *SqlserverDatabaseParameters) DeepCopyInto(out *SqlserverDatabaseParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -9167,6 +9867,16 @@ func (in *SqlserverDatabasePrivilegeInitParameters) DeepCopyInto(out *SqlserverD
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -9278,6 +9988,16 @@ func (in *SqlserverDatabasePrivilegeParameters) DeepCopyInto(out *SqlserverDatab
 		in, out := &in.InstanceID, &out.InstanceID
 		*out = new(string)
 		**out = **in
+	}
+	if in.InstanceIDRef != nil {
+		in, out := &in.InstanceIDRef, &out.InstanceIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceIDSelector != nil {
+		in, out := &in.InstanceIDSelector, &out.InstanceIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region

@@ -8,7 +8,9 @@ metadata:
   name: test
 spec:
   forProvider:
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: shared_preload_libraries
     values:
     - pg_stat_kcache

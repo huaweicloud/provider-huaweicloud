@@ -22,9 +22,15 @@ spec:
       version: "12"
     flavor: rds.pg.n1.large.2
     name: terraform_test_rds_instance
-    securityGroupId: ${var.secgroup_id}
-    subnetId: ${var.subnet_id}
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     volume:
     - size: 100
       type: ULTRAHIGH
-    vpcId: ${var.vpc_id}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

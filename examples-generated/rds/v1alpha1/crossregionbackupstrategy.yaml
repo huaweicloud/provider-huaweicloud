@@ -11,5 +11,7 @@ spec:
     backupType: all
     destinationProjectId: ${var.destination_project_id}
     destinationRegion: ${var.destination_region}
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     keepDays: 5

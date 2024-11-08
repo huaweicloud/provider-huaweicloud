@@ -11,5 +11,7 @@ spec:
     databases:
     - newName: test111_update
       oldName: test111
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     restoreTime: 1673852043000

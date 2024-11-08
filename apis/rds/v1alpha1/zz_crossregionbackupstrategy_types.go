@@ -30,7 +30,17 @@ type CrossRegionBackupStrategyInitParameters struct {
 
 	// Specifies the ID of the RDS instance.
 	// Specifies the ID of the RDS instance.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the number of days to retain the generated backup files.
 	// Value ranges from 1 to 1,825.
@@ -94,8 +104,18 @@ type CrossRegionBackupStrategyParameters struct {
 
 	// Specifies the ID of the RDS instance.
 	// Specifies the ID of the RDS instance.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the number of days to retain the generated backup files.
 	// Value ranges from 1 to 1,825.
@@ -148,7 +168,6 @@ type CrossRegionBackupStrategy struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.backupType) || (has(self.initProvider) && has(self.initProvider.backupType))",message="spec.forProvider.backupType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.destinationProjectId) || (has(self.initProvider) && has(self.initProvider.destinationProjectId))",message="spec.forProvider.destinationProjectId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.destinationRegion) || (has(self.initProvider) && has(self.initProvider.destinationRegion))",message="spec.forProvider.destinationRegion is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.keepDays) || (has(self.initProvider) && has(self.initProvider.keepDays))",message="spec.forProvider.keepDays is a required parameter"
 	Spec   CrossRegionBackupStrategySpec   `json:"spec"`
 	Status CrossRegionBackupStrategyStatus `json:"status,omitempty"`

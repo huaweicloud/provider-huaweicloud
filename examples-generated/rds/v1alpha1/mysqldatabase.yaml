@@ -10,5 +10,7 @@ spec:
   forProvider:
     characterSet: utf8
     description: test database
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: test
