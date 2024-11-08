@@ -8,7 +8,9 @@ metadata:
   name: test
 spec:
   forProvider:
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     rolePrivileges:
     - CREATEROLE
     - LOGIN

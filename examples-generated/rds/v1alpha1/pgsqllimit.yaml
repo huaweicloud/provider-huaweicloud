@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     dbName: ${var.db_name}
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     maxConcurrency: 20
     maxWaiting: 5
     queryId: "5"

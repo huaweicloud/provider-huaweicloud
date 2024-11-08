@@ -41,11 +41,31 @@ type RestoreInitParameters_2 struct {
 
 	// Specifies the source instance ID.
 	// Specifies the source instance ID.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SourceInstanceID *string `json:"sourceInstanceId,omitempty" tf:"source_instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate sourceInstanceId.
+	// +kubebuilder:validation:Optional
+	SourceInstanceIDRef *v1.Reference `json:"sourceInstanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate sourceInstanceId.
+	// +kubebuilder:validation:Optional
+	SourceInstanceIDSelector *v1.Selector `json:"sourceInstanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the target instance ID.
 	// Specifies the target instance ID.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	TargetInstanceID *string `json:"targetInstanceId,omitempty" tf:"target_instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate targetInstanceId.
+	// +kubebuilder:validation:Optional
+	TargetInstanceIDRef *v1.Reference `json:"targetInstanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate targetInstanceId.
+	// +kubebuilder:validation:Optional
+	TargetInstanceIDSelector *v1.Selector `json:"targetInstanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the restoration type. Value options:
 	// Specifies the restoration type.
@@ -126,13 +146,33 @@ type RestoreParameters_2 struct {
 
 	// Specifies the source instance ID.
 	// Specifies the source instance ID.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	SourceInstanceID *string `json:"sourceInstanceId,omitempty" tf:"source_instance_id,omitempty"`
 
+	// Reference to a Instance in rds to populate sourceInstanceId.
+	// +kubebuilder:validation:Optional
+	SourceInstanceIDRef *v1.Reference `json:"sourceInstanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate sourceInstanceId.
+	// +kubebuilder:validation:Optional
+	SourceInstanceIDSelector *v1.Selector `json:"sourceInstanceIdSelector,omitempty" tf:"-"`
+
 	// Specifies the target instance ID.
 	// Specifies the target instance ID.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	TargetInstanceID *string `json:"targetInstanceId,omitempty" tf:"target_instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate targetInstanceId.
+	// +kubebuilder:validation:Optional
+	TargetInstanceIDRef *v1.Reference `json:"targetInstanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate targetInstanceId.
+	// +kubebuilder:validation:Optional
+	TargetInstanceIDSelector *v1.Selector `json:"targetInstanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the restoration type. Value options:
 	// Specifies the restoration type.
@@ -176,10 +216,8 @@ type RestoreStatus struct {
 type Restore struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.sourceInstanceId) || (has(self.initProvider) && has(self.initProvider.sourceInstanceId))",message="spec.forProvider.sourceInstanceId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.targetInstanceId) || (has(self.initProvider) && has(self.initProvider.targetInstanceId))",message="spec.forProvider.targetInstanceId is a required parameter"
-	Spec   RestoreSpec   `json:"spec"`
-	Status RestoreStatus `json:"status,omitempty"`
+	Spec              RestoreSpec   `json:"spec"`
+	Status            RestoreStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

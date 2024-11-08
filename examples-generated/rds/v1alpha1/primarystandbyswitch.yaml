@@ -8,4 +8,6 @@ metadata:
   name: test
 spec:
   forProvider:
-    instanceId: ${var.target_instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

@@ -209,7 +209,17 @@ type InstanceInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the parameter group ID.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Parametergroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
+
+	// Reference to a Parametergroup in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDRef *v1.Reference `json:"paramGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Parametergroup in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDSelector *v1.Selector `json:"paramGroupIdSelector,omitempty" tf:"-"`
 
 	// Specify an array of one or more parameters to be set to the RDS instance after
 	// launched. You can check on console to see which parameters supported. Structure is documented below.
@@ -267,7 +277,17 @@ type InstanceInitParameters struct {
 	SecretVersion *string `json:"secretVersion,omitempty" tf:"secret_version,omitempty"`
 
 	// Specifies the security group which the RDS DB instance belongs to.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Secgroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// Specifies the slow log show original status of the instance.
 	// Only MySQL and PostgreSQL are supported. Value options: on, off.
@@ -275,7 +295,17 @@ type InstanceInitParameters struct {
 
 	// Specifies the network id of a subnet. Changing this parameter will create a
 	// new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Subnet
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Specifies the database switchover policy.
 	SwitchStrategy *string `json:"switchStrategy,omitempty" tf:"switch_strategy,omitempty"`
@@ -296,7 +326,17 @@ type InstanceInitParameters struct {
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.VPC
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VPC in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VPC in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	Volume []VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
@@ -574,8 +614,18 @@ type InstanceParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the parameter group ID.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Parametergroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ParamGroupID *string `json:"paramGroupId,omitempty" tf:"param_group_id,omitempty"`
+
+	// Reference to a Parametergroup in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDRef *v1.Reference `json:"paramGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Parametergroup in rds to populate paramGroupId.
+	// +kubebuilder:validation:Optional
+	ParamGroupIDSelector *v1.Selector `json:"paramGroupIdSelector,omitempty" tf:"-"`
 
 	// Specify an array of one or more parameters to be set to the RDS instance after
 	// launched. You can check on console to see which parameters supported. Structure is documented below.
@@ -648,8 +698,18 @@ type InstanceParameters struct {
 	SecretVersion *string `json:"secretVersion,omitempty" tf:"secret_version,omitempty"`
 
 	// Specifies the security group which the RDS DB instance belongs to.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Secgroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// Specifies the slow log show original status of the instance.
 	// Only MySQL and PostgreSQL are supported. Value options: on, off.
@@ -658,8 +718,18 @@ type InstanceParameters struct {
 
 	// Specifies the network id of a subnet. Changing this parameter will create a
 	// new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Subnet
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Specifies the database switchover policy.
 	// +kubebuilder:validation:Optional
@@ -684,8 +754,18 @@ type InstanceParameters struct {
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
 	// Specifies the VPC ID. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.VPC
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Reference to a VPC in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDRef *v1.Reference `json:"vpcIdRef,omitempty" tf:"-"`
+
+	// Selector for a VPC in vpc to populate vpcId.
+	// +kubebuilder:validation:Optional
+	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
 	// Specifies the volume information. Structure is documented below.
 	// +kubebuilder:validation:Optional
@@ -946,10 +1026,7 @@ type Instance struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.db) || (has(self.initProvider) && has(self.initProvider.db))",message="spec.forProvider.db is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavor) || (has(self.initProvider) && has(self.initProvider.flavor))",message="spec.forProvider.flavor is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.securityGroupId) || (has(self.initProvider) && has(self.initProvider.securityGroupId))",message="spec.forProvider.securityGroupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.subnetId) || (has(self.initProvider) && has(self.initProvider.subnetId))",message="spec.forProvider.subnetId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.volume) || (has(self.initProvider) && has(self.initProvider.volume))",message="spec.forProvider.volume is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.vpcId) || (has(self.initProvider) && has(self.initProvider.vpcId))",message="spec.forProvider.vpcId is a required parameter"
 	Spec   InstanceSpec   `json:"spec"`
 	Status InstanceStatus `json:"status,omitempty"`
 }

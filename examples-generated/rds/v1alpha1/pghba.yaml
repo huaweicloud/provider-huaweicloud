@@ -14,4 +14,6 @@ spec:
       method: md5
       type: host
       user: all
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

@@ -9,6 +9,10 @@ metadata:
 spec:
   forProvider:
     backupId: ${var.backup_id}
-    sourceInstanceId: ${var.source_instance_id}
-    targetInstanceId: ${var.target_instance_id}
+    sourceInstanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    targetInstanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     type: backup

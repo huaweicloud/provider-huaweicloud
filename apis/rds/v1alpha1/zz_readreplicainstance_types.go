@@ -103,7 +103,17 @@ type ReadReplicaInstanceInitParameters struct {
 
 	// Specifies the DB instance ID, which is used to create a read
 	// replica. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	PrimaryInstanceID *string `json:"primaryInstanceId,omitempty" tf:"primary_instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate primaryInstanceId.
+	// +kubebuilder:validation:Optional
+	PrimaryInstanceIDRef *v1.Reference `json:"primaryInstanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate primaryInstanceId.
+	// +kubebuilder:validation:Optional
+	PrimaryInstanceIDSelector *v1.Selector `json:"primaryInstanceIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the rds read replica instance resource. If
 	// omitted, the provider-level region will be used.
@@ -115,7 +125,17 @@ type ReadReplicaInstanceInitParameters struct {
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the security group which the read replica instance belongs to.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Secgroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// A mapping of tags to assign to the RDS read replica instance. Each tag is represented by one
 	// key-value pair.
@@ -305,8 +325,18 @@ type ReadReplicaInstanceParameters struct {
 
 	// Specifies the DB instance ID, which is used to create a read
 	// replica. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	PrimaryInstanceID *string `json:"primaryInstanceId,omitempty" tf:"primary_instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate primaryInstanceId.
+	// +kubebuilder:validation:Optional
+	PrimaryInstanceIDRef *v1.Reference `json:"primaryInstanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate primaryInstanceId.
+	// +kubebuilder:validation:Optional
+	PrimaryInstanceIDSelector *v1.Selector `json:"primaryInstanceIdSelector,omitempty" tf:"-"`
 
 	// The region in which to create the rds read replica instance resource. If
 	// omitted, the provider-level region will be used.
@@ -320,8 +350,18 @@ type ReadReplicaInstanceParameters struct {
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
 	// Specifies the security group which the read replica instance belongs to.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Secgroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	SecurityGroupID *string `json:"securityGroupId,omitempty" tf:"security_group_id,omitempty"`
+
+	// Reference to a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDRef *v1.Reference `json:"securityGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Secgroup in vpc to populate securityGroupId.
+	// +kubebuilder:validation:Optional
+	SecurityGroupIDSelector *v1.Selector `json:"securityGroupIdSelector,omitempty" tf:"-"`
 
 	// A mapping of tags to assign to the RDS read replica instance. Each tag is represented by one
 	// key-value pair.
@@ -480,7 +520,6 @@ type ReadReplicaInstance struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.availabilityZone) || (has(self.initProvider) && has(self.initProvider.availabilityZone))",message="spec.forProvider.availabilityZone is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavor) || (has(self.initProvider) && has(self.initProvider.flavor))",message="spec.forProvider.flavor is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.primaryInstanceId) || (has(self.initProvider) && has(self.initProvider.primaryInstanceId))",message="spec.forProvider.primaryInstanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.volume) || (has(self.initProvider) && has(self.initProvider.volume))",message="spec.forProvider.volume is a required parameter"
 	Spec   ReadReplicaInstanceSpec   `json:"spec"`
 	Status ReadReplicaInstanceStatus `json:"status,omitempty"`

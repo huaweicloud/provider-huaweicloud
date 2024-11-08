@@ -57,7 +57,17 @@ type MySQLDatabaseTableRestoreInitParameters struct {
 
 	// Specifies the ID of RDS MySQL instance.
 	// Specifies the ID of RDS MySQL instance.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether to use fast restoration.
 	// Specifies whether to use fast restoration.
@@ -119,8 +129,18 @@ type MySQLDatabaseTableRestoreParameters struct {
 
 	// Specifies the ID of RDS MySQL instance.
 	// Specifies the ID of RDS MySQL instance.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.Reference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance in rds to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies whether to use fast restoration.
 	// Specifies whether to use fast restoration.
@@ -253,7 +273,6 @@ type MySQLDatabaseTableRestoreStatus struct {
 type MySQLDatabaseTableRestore struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.restoreTime) || (has(self.initProvider) && has(self.initProvider.restoreTime))",message="spec.forProvider.restoreTime is a required parameter"
 	Spec   MySQLDatabaseTableRestoreSpec   `json:"spec"`
 	Status MySQLDatabaseTableRestoreStatus `json:"status,omitempty"`

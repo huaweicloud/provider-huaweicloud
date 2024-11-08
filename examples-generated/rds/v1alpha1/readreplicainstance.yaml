@@ -14,8 +14,12 @@ spec:
     - port: "8888"
     flavor: rds.mysql.x1.large.2.rr
     name: test_rds_readonly_instance
-    primaryInstanceId: ${var.primary_instance_id}
-    securityGroupId: ${var.security_group_id}
+    primaryInstanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     volume:
     - limitSize: 200
       size: 50

@@ -9,4 +9,6 @@ metadata:
 spec:
   forProvider:
     fileName: ${var.file_name}
-    instanceId: ${var.instance_id}
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
