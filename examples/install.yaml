@@ -3,4 +3,4 @@ kind: Provider
 metadata:
   name: provider-huaweicloud
 spec:
-  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.2
+  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.0-255.gd9b8fe3

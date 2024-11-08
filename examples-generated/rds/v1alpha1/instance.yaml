@@ -1,0 +1,30 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instance
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+spec:
+  forProvider:
+    availabilityZone:
+    - ${var.availability_zone}
+    backupStrategy:
+    - keepDays: 1
+      startTime: 08:00-09:00
+    db:
+    - passwordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      type: PostgreSQL
+      version: "12"
+    flavor: rds.pg.n1.large.2
+    name: terraform_test_rds_instance
+    securityGroupId: ${var.secgroup_id}
+    subnetId: ${var.subnet_id}
+    volume:
+    - size: 100
+      type: ULTRAHIGH
+    vpcId: ${var.vpc_id}

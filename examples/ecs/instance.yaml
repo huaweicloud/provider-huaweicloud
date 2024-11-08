@@ -13,6 +13,6 @@ spec:
     imageId: 89ac6e18-d938-4b0d-b038-bcdb03a1b87f
     name: basic
     network:
-    - uuid: 238f627c-1346-448b-924c-9a788793c85b
+    - uuid: fcc7de56-f312-4534-abe3-70943f5c8f51
     securityGroupIds:
-    - d4fd83b6-cf75-498c-a540-3080e2e324ae
+    - e46c940a-fc5e-411f-8d61-2ef918be855c

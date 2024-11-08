@@ -1,0 +1,14 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: MySQLDatabase
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/mysqldatabase
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    characterSet: utf8
+    description: test database
+    instanceId: ${var.instance_id}
+    name: test

@@ -16,7 +16,7 @@ import (
 type AddressGroupInitParameters struct {
 
 	// Specifies an array of one or more IP addresses. The address can be a single IP
-	// address, IP address range or IP address CIDR. The maximum length is 20.
+	// address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
 	// +listType=set
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
 
@@ -32,6 +32,11 @@ type AddressGroupInitParameters struct {
 	// a security group rule, the address group and the associated security group rule will be deleted together.
 	// The default value is false.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
+
+	// Specifies the IP addresses and their remarks in an IP address group.
+	// The ip_extra_set structure is documented below.
+	// Only one of addresses and ip_extra_set can be specified.
+	IPExtraSet []IPExtraSetInitParameters `json:"ipExtraSet,omitempty" tf:"ip_extra_set,omitempty"`
 
 	// Specifies the IP version, either 4 (default) or 6.
 	// Changing this creates a new address group.
@@ -54,7 +59,7 @@ type AddressGroupInitParameters struct {
 type AddressGroupObservation struct {
 
 	// Specifies an array of one or more IP addresses. The address can be a single IP
-	// address, IP address range or IP address CIDR. The maximum length is 20.
+	// address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
 	// +listType=set
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
 
@@ -73,6 +78,11 @@ type AddressGroupObservation struct {
 
 	// The resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies the IP addresses and their remarks in an IP address group.
+	// The ip_extra_set structure is documented below.
+	// Only one of addresses and ip_extra_set can be specified.
+	IPExtraSet []IPExtraSetObservation `json:"ipExtraSet,omitempty" tf:"ip_extra_set,omitempty"`
 
 	// Specifies the IP version, either 4 (default) or 6.
 	// Changing this creates a new address group.
@@ -95,7 +105,7 @@ type AddressGroupObservation struct {
 type AddressGroupParameters struct {
 
 	// Specifies an array of one or more IP addresses. The address can be a single IP
-	// address, IP address range or IP address CIDR. The maximum length is 20.
+	// address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
@@ -115,6 +125,12 @@ type AddressGroupParameters struct {
 	// The default value is false.
 	// +kubebuilder:validation:Optional
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
+
+	// Specifies the IP addresses and their remarks in an IP address group.
+	// The ip_extra_set structure is documented below.
+	// Only one of addresses and ip_extra_set can be specified.
+	// +kubebuilder:validation:Optional
+	IPExtraSet []IPExtraSetParameters `json:"ipExtraSet,omitempty" tf:"ip_extra_set,omitempty"`
 
 	// Specifies the IP version, either 4 (default) or 6.
 	// Changing this creates a new address group.
@@ -136,6 +152,38 @@ type AddressGroupParameters struct {
 	// provider-level region will be used. Changing this creates a new address group.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type IPExtraSetInitParameters struct {
+
+	// Specifies the IP address, IP address range, or CIDR block.
+	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
+
+	// Specifies the supplementary information about the IP address,
+	// IP address range, or CIDR block.
+	Remarks *string `json:"remarks,omitempty" tf:"remarks,omitempty"`
+}
+
+type IPExtraSetObservation struct {
+
+	// Specifies the IP address, IP address range, or CIDR block.
+	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
+
+	// Specifies the supplementary information about the IP address,
+	// IP address range, or CIDR block.
+	Remarks *string `json:"remarks,omitempty" tf:"remarks,omitempty"`
+}
+
+type IPExtraSetParameters struct {
+
+	// Specifies the IP address, IP address range, or CIDR block.
+	// +kubebuilder:validation:Optional
+	IP *string `json:"ip" tf:"ip,omitempty"`
+
+	// Specifies the supplementary information about the IP address,
+	// IP address range, or CIDR block.
+	// +kubebuilder:validation:Optional
+	Remarks *string `json:"remarks,omitempty" tf:"remarks,omitempty"`
 }
 
 // AddressGroupSpec defines the desired state of AddressGroup
@@ -174,7 +222,6 @@ type AddressGroupStatus struct {
 type AddressGroup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.addresses) || (has(self.initProvider) && has(self.initProvider.addresses))",message="spec.forProvider.addresses is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   AddressGroupSpec   `json:"spec"`
 	Status AddressGroupStatus `json:"status,omitempty"`

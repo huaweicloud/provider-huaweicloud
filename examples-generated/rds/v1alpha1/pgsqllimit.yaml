@@ -1,0 +1,15 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: PgSQLLimit
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/pgsqllimit
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+spec:
+  forProvider:
+    dbName: ${var.db_name}
+    instanceId: ${var.instance_id}
+    maxConcurrency: 20
+    maxWaiting: 5
+    queryId: "5"

@@ -1,0 +1,15 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: LtsLog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/ltslog
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    engine: mysql
+    instanceId: ${var.instance_id}
+    logType: error_log
+    ltsGroupId: ${var.lts_group_id}
+    ltsStreamId: ${var.lts_stream_id}

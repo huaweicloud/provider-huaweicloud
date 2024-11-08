@@ -1,0 +1,13 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: PgPluginUpdate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/pgpluginupdate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    databaseName: ${var.database_name}
+    extensionName: ${var.extension_name}
+    instanceId: ${var.instance_id}

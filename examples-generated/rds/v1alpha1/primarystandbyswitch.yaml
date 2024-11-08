@@ -1,0 +1,11 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: PrimaryStandbySwitch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/primarystandbyswitch
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceId: ${var.target_instance_id}
