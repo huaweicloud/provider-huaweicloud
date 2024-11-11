@@ -22,6 +22,21 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_compute_servergroup":       config.IdentifierFromProvider,
 	"huaweicloud_compute_volume_attach":     config.IdentifierFromProvider,
 
+	// dms
+	"huaweicloud_dms_rabbitmq_exchange":            config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_exchange_associate":  config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_instance":            config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_plugin":              config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_queue":               config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_queue_message_clear": config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_user":                config.IdentifierFromProvider,
+	"huaweicloud_dms_rabbitmq_vhost":               config.IdentifierFromProvider,
+	"huaweicloud_dms_rocketmq_consumer_group":      config.IdentifierFromProvider,
+	"huaweicloud_dms_rocketmq_instance":            config.IdentifierFromProvider,
+	"huaweicloud_dms_rocketmq_migration_task":      config.IdentifierFromProvider,
+	"huaweicloud_dms_rocketmq_topic":               config.IdentifierFromProvider,
+	"huaweicloud_dms_rocketmq_user":                config.IdentifierFromProvider,
+
 	// eip
 	"huaweicloud_global_eip":                config.IdentifierFromProvider,
 	"huaweicloud_global_eip_associate":      config.IdentifierFromProvider,

@@ -11,6 +11,19 @@ import (
 
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
 	node "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/node"
+	rabbitmqexchange "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqexchange"
+	rabbitmqexchangeassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqexchangeassociate"
+	rabbitmqinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqinstance"
+	rabbitmqplugin "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqplugin"
+	rabbitmqqueue "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqqueue"
+	rabbitmqqueuemessageclear "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqqueuemessageclear"
+	rabbitmquser "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmquser"
+	rabbitmqvhost "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqvhost"
+	rocketmqconsumergroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rocketmqconsumergroup"
+	rocketmqinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rocketmqinstance"
+	rocketmqmigrationtask "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rocketmqmigrationtask"
+	rocketmqtopic "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rocketmqtopic"
+	rocketmquser "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rocketmquser"
 	autolaunchgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/autolaunchgroup"
 	eipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/eipassociate"
 	instance "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/instance"
@@ -105,6 +118,19 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		cluster.Setup,
 		node.Setup,
+		rabbitmqexchange.Setup,
+		rabbitmqexchangeassociate.Setup,
+		rabbitmqinstance.Setup,
+		rabbitmqplugin.Setup,
+		rabbitmqqueue.Setup,
+		rabbitmqqueuemessageclear.Setup,
+		rabbitmquser.Setup,
+		rabbitmqvhost.Setup,
+		rocketmqconsumergroup.Setup,
+		rocketmqinstance.Setup,
+		rocketmqmigrationtask.Setup,
+		rocketmqtopic.Setup,
+		rocketmquser.Setup,
 		autolaunchgroup.Setup,
 		eipassociate.Setup,
 		instance.Setup,

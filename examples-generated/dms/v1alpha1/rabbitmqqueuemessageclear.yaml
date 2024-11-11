@@ -1,0 +1,15 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RabbitmqQueueMessageClear
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rabbitmqqueuemessageclear
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    queue: ${urlencode(replace(var.queue, "/", "__F_SLASH__"))}
+    vhost: ${urlencode(replace(var.vhost, "/", "__F_SLASH__"))}

@@ -1,0 +1,17 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: MySQLDatabaseTableRestore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/mysqldatabasetablerestore
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    databases:
+    - newName: test111_update
+      oldName: test111
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    restoreTime: 1673852043000

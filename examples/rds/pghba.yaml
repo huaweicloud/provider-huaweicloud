@@ -1,0 +1,19 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: PgHba
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/pghba
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    hostBasedAuthentications:
+    - address: 0.0.0.0/0
+      database: all
+      method: md5
+      type: host
+      user: all
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

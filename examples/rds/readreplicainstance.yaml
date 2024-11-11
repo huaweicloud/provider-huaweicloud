@@ -1,0 +1,27 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: ReadReplicaInstance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/readreplicainstance
+  labels:
+    testing.upbound.io/example-name: replica_instance
+  name: replica-instance
+spec:
+  forProvider:
+    availabilityZone:
+    - the_availability_zone
+    db:
+    - port: "8888"
+    flavor: rds.mysql.x1.large.2.rr
+    name: test_rds_readonly_instance
+    primaryInstanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    volume:
+    - limitSize: 200
+      size: 50
+      triggerThreshold: 10
+      type: CLOUDSSD

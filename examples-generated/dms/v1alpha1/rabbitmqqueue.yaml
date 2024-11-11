@@ -1,0 +1,21 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RabbitmqQueue
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rabbitmqqueue
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    autoDelete: false
+    deadLetterExchange: ${var.exchange}
+    deadLetterRoutingKey: ${var.routing_key}
+    durable: true
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    lazyMode: lazy
+    messageTtl: 4
+    name: ${var.name}
+    vhost: ${var.vhost}
