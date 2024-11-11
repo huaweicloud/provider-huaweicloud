@@ -4,7 +4,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: vpc/v1alpha1/secgrouprule
   labels:
-    testing.upbound.io/example-name: test
+    testing.upbound.io/example-name: secgroup-rule
   name: test
 spec:
   forProvider:
@@ -14,4 +14,6 @@ spec:
     portRangeMin: 8080
     protocol: tcp
     remoteIpPrefix: 0.0.0.0/0
-    securityGroupId: f90c3606-996e-4483-a5d4-43f92cdfae76
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup

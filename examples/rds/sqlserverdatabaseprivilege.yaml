@@ -1,0 +1,19 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: SqlserverDatabasePrivilege
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/sqlserverdatabaseprivilege
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    dbName: the_db_name
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    users:
+    - name: the_user_name_1
+      readonly: true
+    - name: the_user_name_2
+      readonly: false

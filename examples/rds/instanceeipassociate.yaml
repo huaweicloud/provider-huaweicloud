@@ -1,0 +1,19 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: InstanceEIPAssociate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instanceeipassociate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
+    publicIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dedicated
+    publicIpSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dedicated

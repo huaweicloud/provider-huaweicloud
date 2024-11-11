@@ -1,0 +1,17 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: CrossRegionBackupStrategy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/crossregionbackupstrategy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    backupType: all
+    destinationProjectId: 09f960944c80f4802f85c003e0ed1d98
+    destinationRegion: cn-south-1
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
+    keepDays: 5
