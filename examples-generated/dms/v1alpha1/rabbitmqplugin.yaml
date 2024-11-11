@@ -1,0 +1,14 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RabbitmqPlugin
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rabbitmqplugin
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: rabbitmq_sharding
