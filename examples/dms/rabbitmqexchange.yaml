@@ -1,0 +1,19 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RabbitmqExchange
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rabbitmqexchange
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    autoDelete: false
+    durable: true
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
+    internal: false
+    name: test-exchange
+    type: direct
+    vhost: test-host

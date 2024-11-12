@@ -14,13 +14,15 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_cce_cluster": config.IdentifierFromProvider,
 	"huaweicloud_cce_node":    config.IdentifierFromProvider,
 
-	// ecs
-	"huaweicloud_compute_auto_launch_group": config.IdentifierFromProvider,
-	"huaweicloud_compute_eip_associate":     config.IdentifierFromProvider,
-	"huaweicloud_compute_instance":          config.IdentifierFromProvider,
-	"huaweicloud_compute_interface_attach":  config.IdentifierFromProvider,
-	"huaweicloud_compute_servergroup":       config.IdentifierFromProvider,
-	"huaweicloud_compute_volume_attach":     config.IdentifierFromProvider,
+	// dcs
+	"huaweicloud_dcs_account":          config.IdentifierFromProvider,
+	"huaweicloud_dcs_backup":           config.IdentifierFromProvider,
+	"huaweicloud_dcs_bigkey_analysis":  config.IdentifierFromProvider,
+	"huaweicloud_dcs_custom_template":  config.IdentifierFromProvider,
+	"huaweicloud_dcs_diagnosis_task":   config.IdentifierFromProvider,
+	"huaweicloud_dcs_hotkey_analysis":  config.IdentifierFromProvider,
+	"huaweicloud_dcs_instance":         config.IdentifierFromProvider,
+	"huaweicloud_dcs_instance_restore": config.IdentifierFromProvider,
 
 	// dms
 	"huaweicloud_dms_rabbitmq_exchange":            config.IdentifierFromProvider,
@@ -36,6 +38,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_dms_rocketmq_migration_task":      config.IdentifierFromProvider,
 	"huaweicloud_dms_rocketmq_topic":               config.IdentifierFromProvider,
 	"huaweicloud_dms_rocketmq_user":                config.IdentifierFromProvider,
+
+	// ecs
+	"huaweicloud_compute_auto_launch_group": config.IdentifierFromProvider,
+	"huaweicloud_compute_eip_associate":     config.IdentifierFromProvider,
+	"huaweicloud_compute_instance":          config.IdentifierFromProvider,
+	"huaweicloud_compute_interface_attach":  config.IdentifierFromProvider,
+	"huaweicloud_compute_servergroup":       config.IdentifierFromProvider,
+	"huaweicloud_compute_volume_attach":     config.IdentifierFromProvider,
 
 	// eip
 	"huaweicloud_global_eip":                config.IdentifierFromProvider,

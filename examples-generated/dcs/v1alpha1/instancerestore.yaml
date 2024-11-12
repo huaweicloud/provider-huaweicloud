@@ -1,0 +1,17 @@
+apiVersion: dcs.huaweicloud.crossplane.io/v1alpha1
+kind: InstanceRestore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/instancerestore
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    backupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    description: test DCS restoration
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

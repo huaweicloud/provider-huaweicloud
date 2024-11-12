@@ -1,0 +1,25 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RocketmqUser
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rocketmquser
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessKey: user_test
+    admin: false
+    defaultGroupPerm: PUB
+    defaultTopicPerm: PUB
+    groupPerms:
+    - name: group_name
+      perm: PUB
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    secretKey: Test@12345
+    topicPerms:
+    - name: topic_name
+      perm: PUB
+    whiteRemoteAddress: 10.10.10.10
