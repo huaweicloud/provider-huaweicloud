@@ -1,0 +1,15 @@
+apiVersion: dcs.huaweicloud.crossplane.io/v1alpha1
+kind: CustomTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/customtemplate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: template_name
+    params:
+    - paramName: timeout
+      paramValue: "100"
+    templateId: ${var.source_template_id}

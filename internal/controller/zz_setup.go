@@ -11,6 +11,14 @@ import (
 
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
 	node "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/node"
+	account "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/account"
+	backup "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/backup"
+	bigkeyanalysis "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/bigkeyanalysis"
+	customtemplate "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/customtemplate"
+	diagnosistask "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/diagnosistask"
+	hotkeyanalysis "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/hotkeyanalysis"
+	instance "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/instance"
+	instancerestore "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/instancerestore"
 	rabbitmqexchange "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqexchange"
 	rabbitmqexchangeassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqexchangeassociate"
 	rabbitmqinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rabbitmqinstance"
@@ -26,7 +34,7 @@ import (
 	rocketmquser "github.com/huaweicloud/provider-huaweicloud/internal/controller/dms/rocketmquser"
 	autolaunchgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/autolaunchgroup"
 	eipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/eipassociate"
-	instance "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/instance"
+	instanceecs "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/instance"
 	interfaceattach "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/interfaceattach"
 	servergroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/servergroup"
 	volumeattach "github.com/huaweicloud/provider-huaweicloud/internal/controller/ecs/volumeattach"
@@ -62,7 +70,7 @@ import (
 	bucketobject "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobject"
 	bucketobjectacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobjectacl"
 	providerconfig "github.com/huaweicloud/provider-huaweicloud/internal/controller/providerconfig"
-	backup "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/backup"
+	backuprds "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/backup"
 	crossregionbackupstrategy "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/crossregionbackupstrategy"
 	databaselogsshrinking "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/databaselogsshrinking"
 	extendloglink "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/extendloglink"
@@ -118,6 +126,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		cluster.Setup,
 		node.Setup,
+		account.Setup,
+		backup.Setup,
+		bigkeyanalysis.Setup,
+		customtemplate.Setup,
+		diagnosistask.Setup,
+		hotkeyanalysis.Setup,
+		instance.Setup,
+		instancerestore.Setup,
 		rabbitmqexchange.Setup,
 		rabbitmqexchangeassociate.Setup,
 		rabbitmqinstance.Setup,
@@ -133,7 +149,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rocketmquser.Setup,
 		autolaunchgroup.Setup,
 		eipassociate.Setup,
-		instance.Setup,
+		instanceecs.Setup,
 		interfaceattach.Setup,
 		servergroup.Setup,
 		volumeattach.Setup,
@@ -169,7 +185,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bucketobject.Setup,
 		bucketobjectacl.Setup,
 		providerconfig.Setup,
-		backup.Setup,
+		backuprds.Setup,
 		crossregionbackupstrategy.Setup,
 		databaselogsshrinking.Setup,
 		extendloglink.Setup,

@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	"github.com/huaweicloud/provider-huaweicloud/config/cce"
+	"github.com/huaweicloud/provider-huaweicloud/config/dcs"
 	"github.com/huaweicloud/provider-huaweicloud/config/dms"
 	"github.com/huaweicloud/provider-huaweicloud/config/ecs"
 	"github.com/huaweicloud/provider-huaweicloud/config/eip"
@@ -45,6 +46,7 @@ func GetProvider() *ujconfig.Provider {
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
 		cce.Configure,
+		dcs.Configure,
 		dms.Configure,
 		ecs.Configure,
 		iam.Configure,
