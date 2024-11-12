@@ -1,0 +1,23 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RabbitmqUser
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rabbitmquser
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessKey: test-user
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
+    secretKeySecretRef:
+      key: password
+      name: user-password
+      namespace: crossplane-system
+    vhosts:
+    - conf: .*
+      read: .*
+      vhost: default
+      write: .*
