@@ -7,8 +7,9 @@ metadata:
     testing.upbound.io/example-name: associated
   name: associated
 spec:
-  forProvider:
-    fixedIp: 192.168.0.196
-    networkId: 828907cc-40c9-42fe-8206-ecc1bdd30060
-    publicIp: 121.36.45.205
+  initProvider:
     portId: ""
+  forProvider:
+    fixedIp: 192.168.0.202
+    networkId: 238f627c-1346-448b-924c-9a788793c85b
+    publicIp: 113.44.161.78

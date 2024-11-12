@@ -1,0 +1,36 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/instance
+  labels:
+    testing.upbound.io/example-name: instance
+  name: instance
+spec:
+  forProvider:
+    availabilityZone:
+    - cn-north-4a
+    backupStrategy:
+    - keepDays: 1
+      startTime: 08:00-09:00
+    db:
+    - passwordSecretRef:
+        key: password
+        name: user-password
+        namespace: crossplane-system
+      type: PostgreSQL
+      version: "12"
+    flavor: rds.pg.n1.large.2
+    name: crossplane_test_rds_instance
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: secgroup
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet
+    volume:
+    - size: 100
+      type: CLOUDSSD
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc

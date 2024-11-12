@@ -1,0 +1,17 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: PgAccountRoles
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/pgaccountroles
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    roles:
+    - test111
+    - test222
+    user: test_user

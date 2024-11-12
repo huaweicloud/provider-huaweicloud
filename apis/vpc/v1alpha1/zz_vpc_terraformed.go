@@ -21,7 +21,7 @@ func (mg *VPC) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this VPC
 func (tr *VPC) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"name": "nameSecretRef"}
+	return nil
 }
 
 // GetObservation of this VPC
@@ -118,6 +118,7 @@ func (tr *VPC) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("SecondaryCidr"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

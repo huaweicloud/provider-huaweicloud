@@ -1,0 +1,33 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RocketmqMigrationTask
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rocketmqmigrationtask
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: test
+    overwrite: "true"
+    subscriptionGroups:
+    - consumeBroadcastEnable: true
+      consumeEnable: true
+      consumeFromMinEnable: true
+      groupName: the_group_name
+      notifyConsumeridsChangedEnable: true
+      retryMaxTimes: 16
+      retryQueueNum: 1
+      whichBrokerWhenConsumeSlow: 1
+    topicConfigs:
+    - order: false
+      perm: 6
+      readQueueNum: 16
+      topicFilterType: SINGLE_TAG
+      topicName: the_topic_name
+      topicSysFlag: 0
+      writeQueueNum: 16
+    type: rocketmq

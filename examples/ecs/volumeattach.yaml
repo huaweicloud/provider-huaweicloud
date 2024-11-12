@@ -1,0 +1,15 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: VolumeAttach
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/volumeattach
+  labels:
+    testing.upbound.io/example-name: attached
+  name: attached
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: basic
+    volumeId: the_volume_id
+

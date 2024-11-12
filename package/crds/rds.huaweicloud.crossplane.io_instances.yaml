@@ -1,0 +1,1954 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: instances.rds.huaweicloud.crossplane.io
+spec:
+  group: rds.huaweicloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - huaweicloud
+    kind: Instance
+    listKind: InstanceList
+    plural: instances
+    singular: instance
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Instance is the Schema for the Instances API. ""
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: InstanceSpec defines the desired state of Instance
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  autoPay:
+                    type: string
+                  autoRenew:
+                    description: Specifies whether auto-renew is enabled. Valid values
+                      are "true" and "false".
+                    type: string
+                  availabilityZone:
+                    description: |-
+                      Specifies the list of AZ name. Changing this parameter will create a
+                      new resource.
+                    items:
+                      type: string
+                    type: array
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: |-
+                            Specifies the retention days for specific backup files. The value range is from 0 to 732.
+                            schema: Required
+                          type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle. Automatic backups will be performed on the specified days of
+                            the week, except when disabling the automatic backup policy. The value range is a comma-separated number, where each
+                            number represents a day of the week. For example, a value of 1,2,3,4 would set the backup cycle to Monday, Tuesday,
+                            Wednesday, and Thursday. The default value is 1,2,3,4,5,6,7.
+                          type: string
+                        startTime:
+                          description: |-
+                            Specifies the backup time window. Automated backups will be triggered during the
+                            backup time window. It must be a valid value in the hh:mm-HH:MM
+                            format. The current time is in the UTC format. The HH value must be 1 greater than the hh value. The values of mm and
+                            MM must be the same and must be set to any of the following: 00, 15, 30, or 45. Example value: 08:15-09:15 23:00-00:
+                            00.
+                          type: string
+                      type: object
+                    type: array
+                  binlogRetentionHours:
+                    description: |-
+                      Specify the binlog retention period in hours. This parameter applies only to
+                      MySQL Server databases. Value range: 0 to 168 (7x24).
+                    type: number
+                  chargingMode:
+                    description: |-
+                      Specifies the charging mode of the RDS DB instance. Valid values are
+                      prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+                    type: string
+                  collation:
+                    description: Specifies the Character Set, only available to Microsoft
+                      SQL Server DB instances.
+                    type: string
+                  db:
+                    description: |-
+                      Specifies the database information. Structure is documented below. Changing this
+                      parameter will create a new resource.
+                    items:
+                      properties:
+                        passwordSecretRef:
+                          description: |-
+                            Specifies the database password. The value should contain 8 to 32 characters,
+                            including uppercase and lowercase letters, digits, and the following special characters: ~!@#%^*-_=+? You are advised
+                            to enter a strong password to improve security, preventing security risks such as brute force cracking.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        port:
+                          description: Specifies the database port.
+                          type: number
+                        type:
+                          description: |-
+                            Specifies the DB engine. Available value are MySQL, PostgreSQL,
+                            SQLServer and MariaDB. Changing this parameter will create a new resource.
+                          type: string
+                        version:
+                          description: |-
+                            Specifies the database version. Changing this parameter will create a new
+                            resource. Available values detailed in
+                            DB Engines and Versions.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the instance. The value consists of 0 to 64
+                      characters, including letters, digits, periods (.), underscores (_), and hyphens (-).
+                    type: string
+                  dssPoolId:
+                    description: |-
+                      Specifies the exclusive storage ID for Dec users. It is different for each az
+                      configuration. When creating an instance for Dec users, it is needed to be specified for all nodes of the instance
+                      and separated by commas if database instance type is not standalone or read-only.
+                    type: string
+                  enterpriseProjectId:
+                    description: Specifies the enterprise project id of the RDS instance.
+                    type: string
+                  fixedIp:
+                    description: Specifies an intranet floating IP address of RDS
+                      DB instance.
+                    type: string
+                  flavor:
+                    description: Specifies the specification code.
+                    type: string
+                  haReplicationMode:
+                    description: Specifies the replication mode for the standby DB
+                      instance.
+                    type: string
+                  lowerCaseTableNames:
+                    description: |-
+                      Specifies the case-sensitive state of the database table name,
+                      the default value is "1". Changing this parameter will create a new resource.
+                    type: string
+                  maintainBegin:
+                    description: Specifies the time at which the maintenance time
+                      window starts, for example, 22:00.
+                    type: string
+                  maintainEnd:
+                    description: Specifies the time at which the maintenance time
+                      window ends, for example, 01:00.
+                    type: string
+                  msdtcHosts:
+                    description: |-
+                      Specify the host information for MSDTC.
+                      The msdtc_hosts structure is documented below.
+                    items:
+                      properties:
+                        hostName:
+                          description: Specifies the host name.
+                          type: string
+                        ip:
+                          description: Specifies the host IP address.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the DB instance name. The DB instance name of the same type must be unique for
+                      the same tenant. The value must be 4 to 64 characters in length and start with a letter. It is case-sensitive and can
+                      contain only letters, digits, hyphens (-), and underscores (_).
+                    type: string
+                  paramGroupId:
+                    description: Specifies the parameter group ID.
+                    type: string
+                  paramGroupIdRef:
+                    description: Reference to a Parametergroup in rds to populate
+                      paramGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  paramGroupIdSelector:
+                    description: Selector for a Parametergroup in rds to populate
+                      paramGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  parameters:
+                    description: |-
+                      Specify an array of one or more parameters to be set to the RDS instance after
+                      launched. You can check on console to see which parameters supported. Structure is documented below.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            Specifies the parameter name. Some of them needs the instance to be restarted
+                            to take effect.
+                          type: string
+                        value:
+                          description: Specifies the parameter value.
+                          type: string
+                      type: object
+                    type: array
+                  period:
+                    description: |-
+                      Specifies the charging period of the RDS DB instance. If period_unit is set
+                      to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
+                      This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                    type: number
+                  periodUnit:
+                    description: |-
+                      Specifies the charging period unit of the RDS DB instance. Valid values
+                      are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
+                      creates a new resource.
+                    type: string
+                  powerAction:
+                    description: |-
+                      Specifies the power action to be done for the instance.
+                      Value options: ON, OFF and REBOOT.
+                    type: string
+                  privateDnsNamePrefix:
+                    description: |-
+                      Specifies the prefix of the private domain name. The value contains
+                      8 to 64 characters. Only uppercase letters, lowercase letters, and digits are allowed.
+                    type: string
+                  readWritePermissions:
+                    description: 'Specifies the read write permissions of the instance.
+                      Valid values:'
+                    type: string
+                  region:
+                    description: |-
+                      The region in which to create the rds instance resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new rds instance resource.
+                    type: string
+                  restore:
+                    description: |-
+                      Specifies the restoration information. It only supported restore to postpaid
+                      instance. Structure is documented below. Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        backupId:
+                          description: |-
+                            Specifies the ID of the backup used to restore data. Changing this
+                            parameter will create a new resource.
+                          type: string
+                        databaseName:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Specifies the database to be restored. This parameter applies only to
+                            Microsoft SQL Server databases. Changing this parameter will create a new resource.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        instanceId:
+                          description: |-
+                            Specifies the source DB instance ID. Changing this parameter will create
+                            a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  rotateDay:
+                    description: Specifies the rotation days of TDE rotation.
+                    type: number
+                  secondsLevelMonitoringEnabled:
+                    description: Specifies whether to enable seconds level monitoring.
+                    type: boolean
+                  secondsLevelMonitoringInterval:
+                    description: |-
+                      Specifies the seconds level monitoring interval. Valid values:
+                      1, 5. It is mandatory when seconds_level_monitoring_enabled is true.
+                    type: number
+                  secretId:
+                    description: Specifies the key ID of TDE rotation.
+                    type: string
+                  secretName:
+                    description: Specifies the key name of TDE rotation.
+                    type: string
+                  secretVersion:
+                    description: Specifies the key version of TDE rotation.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the security group which the RDS DB instance
+                      belongs to.
+                    type: string
+                  securityGroupIdRef:
+                    description: Reference to a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  securityGroupIdSelector:
+                    description: Selector for a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  slowLogShowOriginalStatus:
+                    description: |-
+                      Specifies the slow log show original status of the instance.
+                      Only MySQL and PostgreSQL are supported. Value options: on, off.
+                    type: string
+                  sslEnable:
+                    description: Specifies whether to enable the SSL for MySQL database.
+                    type: boolean
+                  subnetId:
+                    description: |-
+                      Specifies the network id of a subnet. Changing this parameter will create a
+                      new resource.
+                    type: string
+                  subnetIdRef:
+                    description: Reference to a Subnet in vpc to populate subnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  subnetIdSelector:
+                    description: Selector for a Subnet in vpc to populate subnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  switchStrategy:
+                    description: Specifies the database switchover policy.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      A mapping of tags to assign to the RDS instance. Each tag is represented by one key-value
+                      pair.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  tdeEnabled:
+                    description: Specifies whether enable TDE for the instance.
+                    type: boolean
+                  timeZone:
+                    description: |-
+                      Specifies the UTC time zone. For MySQL and PostgreSQL Chinese mainland site
+                      and international site use UTC by default. The value ranges from UTC-12:00 to UTC+12:00 at the full hour. For
+                      Microsoft SQL Server international site use UTC by default and Chinese mainland site use China Standard Time. The time
+                      zone is expressed as a character string, refer to
+                      HuaweiCloud Document.
+                    type: string
+                  volume:
+                    description: Specifies the volume information. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        diskEncryptionId:
+                          description: |-
+                            Specifies the key ID for disk encryption.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        limitSize:
+                          description: Specifies the upper limit of automatic expansion
+                            of storage, in GB.
+                          type: number
+                        size:
+                          description: |-
+                            Specifies the volume size. Its value range is from 40 GB to 4000 GB. The value must be a
+                            multiple of 10 and greater than the original size.
+                          type: number
+                        triggerThreshold:
+                          description: |-
+                            Specifies the threshold to trigger automatic expansion.
+                            If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
+                            The valid values are as follows:
+                          type: number
+                        type:
+                          description: |-
+                            Specifies the volume type. Its value can be any of the following and is
+                            case-sensitive:
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VPC in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VPC in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  autoPay:
+                    type: string
+                  autoRenew:
+                    description: Specifies whether auto-renew is enabled. Valid values
+                      are "true" and "false".
+                    type: string
+                  availabilityZone:
+                    description: |-
+                      Specifies the list of AZ name. Changing this parameter will create a
+                      new resource.
+                    items:
+                      type: string
+                    type: array
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: |-
+                            Specifies the retention days for specific backup files. The value range is from 0 to 732.
+                            schema: Required
+                          type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle. Automatic backups will be performed on the specified days of
+                            the week, except when disabling the automatic backup policy. The value range is a comma-separated number, where each
+                            number represents a day of the week. For example, a value of 1,2,3,4 would set the backup cycle to Monday, Tuesday,
+                            Wednesday, and Thursday. The default value is 1,2,3,4,5,6,7.
+                          type: string
+                        startTime:
+                          description: |-
+                            Specifies the backup time window. Automated backups will be triggered during the
+                            backup time window. It must be a valid value in the hh:mm-HH:MM
+                            format. The current time is in the UTC format. The HH value must be 1 greater than the hh value. The values of mm and
+                            MM must be the same and must be set to any of the following: 00, 15, 30, or 45. Example value: 08:15-09:15 23:00-00:
+                            00.
+                          type: string
+                      type: object
+                    type: array
+                  binlogRetentionHours:
+                    description: |-
+                      Specify the binlog retention period in hours. This parameter applies only to
+                      MySQL Server databases. Value range: 0 to 168 (7x24).
+                    type: number
+                  chargingMode:
+                    description: |-
+                      Specifies the charging mode of the RDS DB instance. Valid values are
+                      prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+                    type: string
+                  collation:
+                    description: Specifies the Character Set, only available to Microsoft
+                      SQL Server DB instances.
+                    type: string
+                  db:
+                    description: |-
+                      Specifies the database information. Structure is documented below. Changing this
+                      parameter will create a new resource.
+                    items:
+                      properties:
+                        passwordSecretRef:
+                          description: |-
+                            Specifies the database password. The value should contain 8 to 32 characters,
+                            including uppercase and lowercase letters, digits, and the following special characters: ~!@#%^*-_=+? You are advised
+                            to enter a strong password to improve security, preventing security risks such as brute force cracking.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        port:
+                          description: Specifies the database port.
+                          type: number
+                        type:
+                          description: |-
+                            Specifies the DB engine. Available value are MySQL, PostgreSQL,
+                            SQLServer and MariaDB. Changing this parameter will create a new resource.
+                          type: string
+                        version:
+                          description: |-
+                            Specifies the database version. Changing this parameter will create a new
+                            resource. Available values detailed in
+                            DB Engines and Versions.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the instance. The value consists of 0 to 64
+                      characters, including letters, digits, periods (.), underscores (_), and hyphens (-).
+                    type: string
+                  dssPoolId:
+                    description: |-
+                      Specifies the exclusive storage ID for Dec users. It is different for each az
+                      configuration. When creating an instance for Dec users, it is needed to be specified for all nodes of the instance
+                      and separated by commas if database instance type is not standalone or read-only.
+                    type: string
+                  enterpriseProjectId:
+                    description: Specifies the enterprise project id of the RDS instance.
+                    type: string
+                  fixedIp:
+                    description: Specifies an intranet floating IP address of RDS
+                      DB instance.
+                    type: string
+                  flavor:
+                    description: Specifies the specification code.
+                    type: string
+                  haReplicationMode:
+                    description: Specifies the replication mode for the standby DB
+                      instance.
+                    type: string
+                  lowerCaseTableNames:
+                    description: |-
+                      Specifies the case-sensitive state of the database table name,
+                      the default value is "1". Changing this parameter will create a new resource.
+                    type: string
+                  maintainBegin:
+                    description: Specifies the time at which the maintenance time
+                      window starts, for example, 22:00.
+                    type: string
+                  maintainEnd:
+                    description: Specifies the time at which the maintenance time
+                      window ends, for example, 01:00.
+                    type: string
+                  msdtcHosts:
+                    description: |-
+                      Specify the host information for MSDTC.
+                      The msdtc_hosts structure is documented below.
+                    items:
+                      properties:
+                        hostName:
+                          description: Specifies the host name.
+                          type: string
+                        ip:
+                          description: Specifies the host IP address.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the DB instance name. The DB instance name of the same type must be unique for
+                      the same tenant. The value must be 4 to 64 characters in length and start with a letter. It is case-sensitive and can
+                      contain only letters, digits, hyphens (-), and underscores (_).
+                    type: string
+                  paramGroupId:
+                    description: Specifies the parameter group ID.
+                    type: string
+                  paramGroupIdRef:
+                    description: Reference to a Parametergroup in rds to populate
+                      paramGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  paramGroupIdSelector:
+                    description: Selector for a Parametergroup in rds to populate
+                      paramGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  parameters:
+                    description: |-
+                      Specify an array of one or more parameters to be set to the RDS instance after
+                      launched. You can check on console to see which parameters supported. Structure is documented below.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            Specifies the parameter name. Some of them needs the instance to be restarted
+                            to take effect.
+                          type: string
+                        value:
+                          description: Specifies the parameter value.
+                          type: string
+                      type: object
+                    type: array
+                  period:
+                    description: |-
+                      Specifies the charging period of the RDS DB instance. If period_unit is set
+                      to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
+                      This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                    type: number
+                  periodUnit:
+                    description: |-
+                      Specifies the charging period unit of the RDS DB instance. Valid values
+                      are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
+                      creates a new resource.
+                    type: string
+                  powerAction:
+                    description: |-
+                      Specifies the power action to be done for the instance.
+                      Value options: ON, OFF and REBOOT.
+                    type: string
+                  privateDnsNamePrefix:
+                    description: |-
+                      Specifies the prefix of the private domain name. The value contains
+                      8 to 64 characters. Only uppercase letters, lowercase letters, and digits are allowed.
+                    type: string
+                  readWritePermissions:
+                    description: 'Specifies the read write permissions of the instance.
+                      Valid values:'
+                    type: string
+                  region:
+                    description: |-
+                      The region in which to create the rds instance resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new rds instance resource.
+                    type: string
+                  restore:
+                    description: |-
+                      Specifies the restoration information. It only supported restore to postpaid
+                      instance. Structure is documented below. Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        backupId:
+                          description: |-
+                            Specifies the ID of the backup used to restore data. Changing this
+                            parameter will create a new resource.
+                          type: string
+                        databaseName:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Specifies the database to be restored. This parameter applies only to
+                            Microsoft SQL Server databases. Changing this parameter will create a new resource.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        instanceId:
+                          description: |-
+                            Specifies the source DB instance ID. Changing this parameter will create
+                            a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  rotateDay:
+                    description: Specifies the rotation days of TDE rotation.
+                    type: number
+                  secondsLevelMonitoringEnabled:
+                    description: Specifies whether to enable seconds level monitoring.
+                    type: boolean
+                  secondsLevelMonitoringInterval:
+                    description: |-
+                      Specifies the seconds level monitoring interval. Valid values:
+                      1, 5. It is mandatory when seconds_level_monitoring_enabled is true.
+                    type: number
+                  secretId:
+                    description: Specifies the key ID of TDE rotation.
+                    type: string
+                  secretName:
+                    description: Specifies the key name of TDE rotation.
+                    type: string
+                  secretVersion:
+                    description: Specifies the key version of TDE rotation.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the security group which the RDS DB instance
+                      belongs to.
+                    type: string
+                  securityGroupIdRef:
+                    description: Reference to a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  securityGroupIdSelector:
+                    description: Selector for a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  slowLogShowOriginalStatus:
+                    description: |-
+                      Specifies the slow log show original status of the instance.
+                      Only MySQL and PostgreSQL are supported. Value options: on, off.
+                    type: string
+                  sslEnable:
+                    description: Specifies whether to enable the SSL for MySQL database.
+                    type: boolean
+                  subnetId:
+                    description: |-
+                      Specifies the network id of a subnet. Changing this parameter will create a
+                      new resource.
+                    type: string
+                  subnetIdRef:
+                    description: Reference to a Subnet in vpc to populate subnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  subnetIdSelector:
+                    description: Selector for a Subnet in vpc to populate subnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  switchStrategy:
+                    description: Specifies the database switchover policy.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      A mapping of tags to assign to the RDS instance. Each tag is represented by one key-value
+                      pair.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  tdeEnabled:
+                    description: Specifies whether enable TDE for the instance.
+                    type: boolean
+                  timeZone:
+                    description: |-
+                      Specifies the UTC time zone. For MySQL and PostgreSQL Chinese mainland site
+                      and international site use UTC by default. The value ranges from UTC-12:00 to UTC+12:00 at the full hour. For
+                      Microsoft SQL Server international site use UTC by default and Chinese mainland site use China Standard Time. The time
+                      zone is expressed as a character string, refer to
+                      HuaweiCloud Document.
+                    type: string
+                  volume:
+                    description: Specifies the volume information. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        diskEncryptionId:
+                          description: |-
+                            Specifies the key ID for disk encryption.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        limitSize:
+                          description: Specifies the upper limit of automatic expansion
+                            of storage, in GB.
+                          type: number
+                        size:
+                          description: |-
+                            Specifies the volume size. Its value range is from 40 GB to 4000 GB. The value must be a
+                            multiple of 10 and greater than the original size.
+                          type: number
+                        triggerThreshold:
+                          description: |-
+                            Specifies the threshold to trigger automatic expansion.
+                            If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
+                            The valid values are as follows:
+                          type: number
+                        type:
+                          description: |-
+                            Specifies the volume type. Its value can be any of the following and is
+                            case-sensitive:
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VPC in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VPC in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.availabilityZone is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.availabilityZone)
+                || (has(self.initProvider) && has(self.initProvider.availabilityZone))'
+            - message: spec.forProvider.db is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.db)
+                || (has(self.initProvider) && has(self.initProvider.db))'
+            - message: spec.forProvider.flavor is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.flavor)
+                || (has(self.initProvider) && has(self.initProvider.flavor))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.volume is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.volume)
+                || (has(self.initProvider) && has(self.initProvider.volume))'
+          status:
+            description: InstanceStatus defines the observed state of Instance.
+            properties:
+              atProvider:
+                properties:
+                  autoPay:
+                    type: string
+                  autoRenew:
+                    description: Specifies whether auto-renew is enabled. Valid values
+                      are "true" and "false".
+                    type: string
+                  availabilityZone:
+                    description: |-
+                      Specifies the list of AZ name. Changing this parameter will create a
+                      new resource.
+                    items:
+                      type: string
+                    type: array
+                  backupStrategy:
+                    description: Specifies the advanced backup policy. Structure is
+                      documented below.
+                    items:
+                      properties:
+                        keepDays:
+                          description: |-
+                            Specifies the retention days for specific backup files. The value range is from 0 to 732.
+                            schema: Required
+                          type: number
+                        period:
+                          description: |-
+                            Specifies the backup cycle. Automatic backups will be performed on the specified days of
+                            the week, except when disabling the automatic backup policy. The value range is a comma-separated number, where each
+                            number represents a day of the week. For example, a value of 1,2,3,4 would set the backup cycle to Monday, Tuesday,
+                            Wednesday, and Thursday. The default value is 1,2,3,4,5,6,7.
+                          type: string
+                        startTime:
+                          description: |-
+                            Specifies the backup time window. Automated backups will be triggered during the
+                            backup time window. It must be a valid value in the hh:mm-HH:MM
+                            format. The current time is in the UTC format. The HH value must be 1 greater than the hh value. The values of mm and
+                            MM must be the same and must be set to any of the following: 00, 15, 30, or 45. Example value: 08:15-09:15 23:00-00:
+                            00.
+                          type: string
+                      type: object
+                    type: array
+                  binlogRetentionHours:
+                    description: |-
+                      Specify the binlog retention period in hours. This parameter applies only to
+                      MySQL Server databases. Value range: 0 to 168 (7x24).
+                    type: number
+                  chargingMode:
+                    description: |-
+                      Specifies the charging mode of the RDS DB instance. Valid values are
+                      prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+                    type: string
+                  collation:
+                    description: Specifies the Character Set, only available to Microsoft
+                      SQL Server DB instances.
+                    type: string
+                  created:
+                    description: Indicates the creation time.
+                    type: string
+                  db:
+                    description: |-
+                      Specifies the database information. Structure is documented below. Changing this
+                      parameter will create a new resource.
+                    items:
+                      properties:
+                        port:
+                          description: Specifies the database port.
+                          type: number
+                        type:
+                          description: |-
+                            Specifies the DB engine. Available value are MySQL, PostgreSQL,
+                            SQLServer and MariaDB. Changing this parameter will create a new resource.
+                          type: string
+                        userName:
+                          description: |-
+                            Specifies the DB instance name. The DB instance name of the same type must be unique for
+                            the same tenant. The value must be 4 to 64 characters in length and start with a letter. It is case-sensitive and can
+                            contain only letters, digits, hyphens (-), and underscores (_).
+                          type: string
+                        version:
+                          description: |-
+                            Specifies the database version. Changing this parameter will create a new
+                            resource. Available values detailed in
+                            DB Engines and Versions.
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      Specifies the description of the instance. The value consists of 0 to 64
+                      characters, including letters, digits, periods (.), underscores (_), and hyphens (-).
+                    type: string
+                  dssPoolId:
+                    description: |-
+                      Specifies the exclusive storage ID for Dec users. It is different for each az
+                      configuration. When creating an instance for Dec users, it is needed to be specified for all nodes of the instance
+                      and separated by commas if database instance type is not standalone or read-only.
+                    type: string
+                  enterpriseProjectId:
+                    description: Specifies the enterprise project id of the RDS instance.
+                    type: string
+                  fixedIp:
+                    description: Specifies an intranet floating IP address of RDS
+                      DB instance.
+                    type: string
+                  flavor:
+                    description: Specifies the specification code.
+                    type: string
+                  haReplicationMode:
+                    description: Specifies the replication mode for the standby DB
+                      instance.
+                    type: string
+                  id:
+                    description: Indicates the DB instance ID.
+                    type: string
+                  lowerCaseTableNames:
+                    description: |-
+                      Specifies the case-sensitive state of the database table name,
+                      the default value is "1". Changing this parameter will create a new resource.
+                    type: string
+                  maintainBegin:
+                    description: Specifies the time at which the maintenance time
+                      window starts, for example, 22:00.
+                    type: string
+                  maintainEnd:
+                    description: Specifies the time at which the maintenance time
+                      window ends, for example, 01:00.
+                    type: string
+                  msdtcHosts:
+                    description: |-
+                      Specify the host information for MSDTC.
+                      The msdtc_hosts structure is documented below.
+                    items:
+                      properties:
+                        hostName:
+                          description: Specifies the host name.
+                          type: string
+                        id:
+                          description: Indicates the host ID.
+                          type: string
+                        ip:
+                          description: Specifies the host IP address.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: |-
+                      Specifies the DB instance name. The DB instance name of the same type must be unique for
+                      the same tenant. The value must be 4 to 64 characters in length and start with a letter. It is case-sensitive and can
+                      contain only letters, digits, hyphens (-), and underscores (_).
+                    type: string
+                  nodes:
+                    description: Indicates the instance nodes information. Structure
+                      is documented below.
+                    items:
+                      properties:
+                        availabilityZone:
+                          description: Indicates the AZ.
+                          type: string
+                        id:
+                          description: Indicates the node ID.
+                          type: string
+                        name:
+                          description: Indicates the node name.
+                          type: string
+                        role:
+                          description: |-
+                            Indicates the node type. The value can be master or slave, indicating the primary node or standby node
+                            respectively.
+                          type: string
+                        status:
+                          description: Indicates the node status.
+                          type: string
+                      type: object
+                    type: array
+                  paramGroupId:
+                    description: Specifies the parameter group ID.
+                    type: string
+                  parameters:
+                    description: |-
+                      Specify an array of one or more parameters to be set to the RDS instance after
+                      launched. You can check on console to see which parameters supported. Structure is documented below.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            Specifies the parameter name. Some of them needs the instance to be restarted
+                            to take effect.
+                          type: string
+                        value:
+                          description: Specifies the parameter value.
+                          type: string
+                      type: object
+                    type: array
+                  period:
+                    description: |-
+                      Specifies the charging period of the RDS DB instance. If period_unit is set
+                      to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
+                      This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                    type: number
+                  periodUnit:
+                    description: |-
+                      Specifies the charging period unit of the RDS DB instance. Valid values
+                      are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
+                      creates a new resource.
+                    type: string
+                  powerAction:
+                    description: |-
+                      Specifies the power action to be done for the instance.
+                      Value options: ON, OFF and REBOOT.
+                    type: string
+                  privateDnsNamePrefix:
+                    description: |-
+                      Specifies the prefix of the private domain name. The value contains
+                      8 to 64 characters. Only uppercase letters, lowercase letters, and digits are allowed.
+                    type: string
+                  privateDnsNames:
+                    description: Indicates the private domain name list of the DB
+                      instance.
+                    items:
+                      type: string
+                    type: array
+                  privateIps:
+                    description: Indicates the private IP address list. It is a blank
+                      string until an ECS is created.
+                    items:
+                      type: string
+                    type: array
+                  publicIps:
+                    description: Indicates the public IP address list.
+                    items:
+                      type: string
+                    type: array
+                  readWritePermissions:
+                    description: 'Specifies the read write permissions of the instance.
+                      Valid values:'
+                    type: string
+                  region:
+                    description: |-
+                      The region in which to create the rds instance resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new rds instance resource.
+                    type: string
+                  restore:
+                    description: |-
+                      Specifies the restoration information. It only supported restore to postpaid
+                      instance. Structure is documented below. Changing this parameter will create a new resource.
+                    items:
+                      properties:
+                        backupId:
+                          description: |-
+                            Specifies the ID of the backup used to restore data. Changing this
+                            parameter will create a new resource.
+                          type: string
+                        databaseName:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Specifies the database to be restored. This parameter applies only to
+                            Microsoft SQL Server databases. Changing this parameter will create a new resource.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        instanceId:
+                          description: |-
+                            Specifies the source DB instance ID. Changing this parameter will create
+                            a new resource.
+                          type: string
+                      type: object
+                    type: array
+                  rotateDay:
+                    description: Specifies the rotation days of TDE rotation.
+                    type: number
+                  secondsLevelMonitoringEnabled:
+                    description: Specifies whether to enable seconds level monitoring.
+                    type: boolean
+                  secondsLevelMonitoringInterval:
+                    description: |-
+                      Specifies the seconds level monitoring interval. Valid values:
+                      1, 5. It is mandatory when seconds_level_monitoring_enabled is true.
+                    type: number
+                  secretId:
+                    description: Specifies the key ID of TDE rotation.
+                    type: string
+                  secretName:
+                    description: Specifies the key name of TDE rotation.
+                    type: string
+                  secretVersion:
+                    description: Specifies the key version of TDE rotation.
+                    type: string
+                  securityGroupId:
+                    description: Specifies the security group which the RDS DB instance
+                      belongs to.
+                    type: string
+                  slowLogShowOriginalStatus:
+                    description: |-
+                      Specifies the slow log show original status of the instance.
+                      Only MySQL and PostgreSQL are supported. Value options: on, off.
+                    type: string
+                  sslEnable:
+                    description: Specifies whether to enable the SSL for MySQL database.
+                    type: boolean
+                  status:
+                    description: Indicates the DB instance status.
+                    type: string
+                  subnetId:
+                    description: |-
+                      Specifies the network id of a subnet. Changing this parameter will create a
+                      new resource.
+                    type: string
+                  switchStrategy:
+                    description: Specifies the database switchover policy.
+                    type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      A mapping of tags to assign to the RDS instance. Each tag is represented by one key-value
+                      pair.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  tdeEnabled:
+                    description: Specifies whether enable TDE for the instance.
+                    type: boolean
+                  timeZone:
+                    description: |-
+                      Specifies the UTC time zone. For MySQL and PostgreSQL Chinese mainland site
+                      and international site use UTC by default. The value ranges from UTC-12:00 to UTC+12:00 at the full hour. For
+                      Microsoft SQL Server international site use UTC by default and Chinese mainland site use China Standard Time. The time
+                      zone is expressed as a character string, refer to
+                      HuaweiCloud Document.
+                    type: string
+                  volume:
+                    description: Specifies the volume information. Structure is documented
+                      below.
+                    items:
+                      properties:
+                        diskEncryptionId:
+                          description: |-
+                            Specifies the key ID for disk encryption.
+                            Changing this parameter will create a new resource.
+                          type: string
+                        limitSize:
+                          description: Specifies the upper limit of automatic expansion
+                            of storage, in GB.
+                          type: number
+                        size:
+                          description: |-
+                            Specifies the volume size. Its value range is from 40 GB to 4000 GB. The value must be a
+                            multiple of 10 and greater than the original size.
+                          type: number
+                        triggerThreshold:
+                          description: |-
+                            Specifies the threshold to trigger automatic expansion.
+                            If the available storage drops to this threshold or 10 GB, the automatic expansion is triggered.
+                            The valid values are as follows:
+                          type: number
+                        type:
+                          description: |-
+                            Specifies the volume type. Its value can be any of the following and is
+                            case-sensitive:
+                          type: string
+                      type: object
+                    type: array
+                  vpcId:
+                    description: Specifies the VPC ID. Changing this parameter will
+                      create a new resource.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

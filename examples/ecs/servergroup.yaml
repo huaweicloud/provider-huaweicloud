@@ -1,0 +1,15 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Servergroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/servergroup
+  labels:
+    testing.upbound.io/example-name: test-sg
+  name: test-sg
+spec:
+  forProvider:
+    members:
+    - 81b6ca5a-7b93-4d77-82d0-6eb2528e99b0
+    name: my-sg
+    policies:
+    - anti-affinity

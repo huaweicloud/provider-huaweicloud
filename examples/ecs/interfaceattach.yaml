@@ -1,0 +1,16 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: InterfaceAttach
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/interfaceattach
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  initProvider:
+    portId: ""
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: basic
+    networkId: fcc7de56-f312-4534-abe3-70943f5c8f51

@@ -9,9 +9,13 @@ import (
 	_ "embed"
 
 	"github.com/huaweicloud/provider-huaweicloud/config/cce"
+	"github.com/huaweicloud/provider-huaweicloud/config/dcs"
+	"github.com/huaweicloud/provider-huaweicloud/config/dms"
+	"github.com/huaweicloud/provider-huaweicloud/config/ecs"
 	"github.com/huaweicloud/provider-huaweicloud/config/eip"
 	"github.com/huaweicloud/provider-huaweicloud/config/iam"
 	"github.com/huaweicloud/provider-huaweicloud/config/obs"
+	"github.com/huaweicloud/provider-huaweicloud/config/rds"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
@@ -42,10 +46,14 @@ func GetProvider() *ujconfig.Provider {
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
 		cce.Configure,
+		dcs.Configure,
+		dms.Configure,
+		ecs.Configure,
 		iam.Configure,
 		obs.Configure,
 		vpc.Configure,
 		eip.Configure,
+		rds.Configure,
 	} {
 		configure(pc)
 	}

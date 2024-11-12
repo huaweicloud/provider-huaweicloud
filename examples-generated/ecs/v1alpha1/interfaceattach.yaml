@@ -1,0 +1,14 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: InterfaceAttach
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/interfaceattach
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    networkId: ${var.network_id}

@@ -954,6 +954,7 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "charts": "${jsonencode(\n    [\n      {\n        \"definition\": {\n          \"requests\": {\n            \"promql\": [\n              \"label_replace(avg_over_time(actual_workload{version=\\\"latest\\\"}[59999ms]),\\\"__name__\\\",\\\"actual_workload\\\",\\\"\\\",\\\"\\\")\"\n            ],\n            \"copyPromql\": [\n              \"label_replace(avg_over_time(actual_workload{version=\\\"latest\\\"}[59999ms]),\\\"__name__\\\",\\\"actual_workload\\\",\\\"\\\",\\\"\\\")\"\n            ],\n            \"sql\": \"label_replace(avg_over_time(actual_workload{version=\\\"latest\\\"}[59999ms]),\\\"__name__\\\",\\\"actual_workload\\\",\\\"\\\",\\\"\\\")\"\n          },\n          \"requests_datasource\": \"prometheus\",\n          \"requests_type\": \"metric\",\n          \"type\": \"line\",\n          \"chart_title\": \"test\",\n          \"config\": \"{\\\"chartConfig\\\":{},\\\"data\\\":[{\\\"namespace\\\":\\\"\\\",\\\"metricName\\\":\\\"actual_workload\\\",\\\"alias\\\":\\\"\\\",\\\"isShowCharts\\\":true}],\\\"metricSelectConfig\\\":{\\\"metricData\\\":[{\\\"code\\\":\\\"a\\\",\\\"metricName\\\":\\\"actual_workload\\\",\\\"period\\\":60000,\\\"statisticRule\\\":{\\\"aggregation_type\\\":\\\"average\\\",\\\"operator\\\":\\\"\u003e\\\",\\\"thresholdNum\\\":1},\\\"aggregate_type\\\":{\\\"aggregate_type\\\":\\\"by\\\",\\\"groupByDimension\\\":[]},\\\"triggerRule\\\":3,\\\"alarmLevel\\\":\\\"Critical\\\",\\\"conditionOption\\\":[{\\\"id\\\":\\\"first\\\",\\\"dimension\\\":\\\"version\\\",\\\"conditionValue\\\":[{\\\"name\\\":\\\"latest\\\"}],\\\"conditionList\\\":[{\\\"name\\\":\\\"latest\\\"}],\\\"addMode\\\":\\\"first\\\",\\\"conditionCompare\\\":\\\"=\\\",\\\"regExpress\\\":null}],\\\"isShowCharts\\\":true,\\\"alias\\\":\\\"\\\",\\\"query\\\":\\\"label_replace({statisticMethod}_over_time(actual_workload{version=\\\\\\\"latest\\\\\\\"}[59999ms]),\\\\\\\"__name__\\\\\\\",\\\\\\\"actual_workload\\\\\\\",\\\\\\\"\\\\\\\",\\\\\\\"\\\\\\\")\\\",\\\"metircV3OriginData\\\":{\\\"metricName\\\":\\\"actual_workload\\\",\\\"label\\\":\\\"actual_workload\\\",\\\"namespace\\\":\\\"\\\",\\\"unit\\\":\\\"count\\\",\\\"help\\\":\\\"\\\"},\\\"promql\\\":\\\"label_replace(avg_over_time(actual_workload{version=\\\\\\\"latest\\\\\\\"}[59999ms]),\\\\\\\"__name__\\\\\\\",\\\\\\\"actual_workload\\\\\\\",\\\\\\\"\\\\\\\",\\\\\\\"\\\\\\\")\\\",\\\"transformPromql\\\":\\\"label_replace(avg_over_time(actual_workload{version=\\\\\\\"latest\\\\\\\"}[59999ms]),\\\\\\\"__name__\\\\\\\",\\\\\\\"actual_workload\\\\\\\",\\\\\\\"\\\\\\\",\\\\\\\"\\\\\\\")\\\"}],\\\"mixValue\\\":{\\\"mixValue\\\":\\\"\\\",\\\"statisticRule\\\":{\\\"aggregation_type\\\":\\\"average\\\",\\\"operator\\\":\\\"\u003e\\\",\\\"thresholdNum\\\":1},\\\"triggerRule\\\":3,\\\"alarmLevel\\\":\\\"Critical\\\",\\\"isShowCharts\\\":true,\\\"alias\\\":\\\"\\\"},\\\"type\\\":\\\"single\\\"}}\",\n          \"period\": 60000,\n          \"currentTime\": \"-1.-1.30\",\n          \"promMethod\": \"avg\",\n          \"statsMethod\": \"average\",\n          \"operationType\": \"edit\",\n          \"chart_id\": \"5k7n66zwew1xoxupkxray7dp\"\n        },\n        \"chart_layout\": {\n          \"width\": 6,\n          \"x\": 0,\n          \"y\": 0,\n          \"height\": 4\n        },\n        \"chart_id\": \"5k7n66zwew1xoxupkxray7dp\",\n        \"chart_title\": \"test\"\n      }\n    ]\n  )}",
                   "dashboard_title": "${var.dashboard_title}",
                   "dashboard_type": "${var.dashboard_type}",
                   "folder_title": "${var.folder_title}"
@@ -963,6 +964,7 @@ resources:
                 dashboard_type: var.dashboard_type
                 folder_title: var.folder_title
         argumentDocs:
+            charts: '- (Optional, String) Specifies the dashboard charts. It''s in json format.'
             dashboard_tags: '- (Optional, List) Specifies the dashboard tags. It''s an array of map.'
             dashboard_title: '- (Required, String) Specifies the dashboard title.'
             dashboard_type: '- (Required, String) Specifies the dashboard type. It''s customized by user.'
@@ -1268,7 +1270,9 @@ resources:
             check_mode: '- (Required, String) Specifies the match condition. The values can be contain and equals.'
             check_type: '- (Required, String) Specifies the match type. The values can be cmdLine, env and scope.'
             create: '- Default is 5 minutes.'
+            created_at: '- The rule create time.'
             delete: '- Default is 5 minutes.'
+            description: '- (Optional, String) Specifies the rule description.'
             detect_log_enabled: '- (Optional, Bool) Specifies whether to enable log collection. The default value is true.'
             discovery_rule_enabled: '- (Optional, Bool) Specifies whether the rule is enabled. The default value is true.'
             discovery_rules: |-
@@ -1325,8 +1329,8 @@ resources:
                 - (Required, String) Specifies the value type. The value can be cmdLineHash, cmdLine, env
                 and str.
             service_name_rule.value: |-
-                - (Optional, List) Specifies the application name, which is mandatory only when the value of
-                name_type is cmdLineHash.
+                - (Optional, List) Specifies the application name, which is mandatory only when the value of name_type is
+                cmdLineHash.
             service_type: |-
                 - (Required, String) Specifies the service type, which is used only for rule classification and UI display.
                 You can enter any field. For example, enter Java or Python by technology stack, or enter collector or database by function.
@@ -8805,11 +8809,10 @@ resources:
             min_node_count: '- (Optional, Int) Specifies the minimum number of nodes allowed if auto scaling is enabled.'
             name: '- (Required, String) Specifies the node pool name.'
             os: |-
-                - (Optional, String, ForceNew) Specifies the operating system of the node.
+                - (Optional, String) Specifies the operating system of the node.
                 The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
                 please see documentation.
                 This parameter is required when the node_image_id in extend_params is not specified.
-                Changing this parameter will create a new resource.
             password: |-
                 - (Optional, String, ForceNew) Specifies the root password when logging in to select the password mode.
                 The password consists of 8 to 26 characters and must contain at least three of following: uppercase letters,
@@ -10127,8 +10130,8 @@ resources:
             created: '- Create time. The format is: YYYY-MM-DDThh:mm:ss.'
             delete: '- Default is 10 minutes.'
             email: |-
-                - (Optional, List, ForceNew) Specifies email address for receiving notifications when a table/file migration
-                job fails or an EIP exception occurs. The max number is 5. Changing this parameter will create a new resource.
+                - (Optional, List) Specifies email address for receiving notifications when a table/file migration
+                job fails or an EIP exception occurs. The max number is 20.
             enterprise_project_id: '- (Optional, String) Specifies the enterprise project id.'
             flavor_id: '- (Required, String, ForceNew) Specifies flavor id. Changing this parameter will create a new resource.'
             flavor_name: '- The flavor name. Format is cdm.<flavor_type>'
@@ -10149,8 +10152,8 @@ resources:
                 running to reduce costs. The default value is false. Changing this parameter will create a new resource.
             name: '- (Required, String, ForceNew) Specifies cluster name. Changing this parameter will create a new resource.'
             phone_num: |-
-                - (Optional, List, ForceNew) Specifies phone number for receiving notifications when a table/file
-                migration job fails or an EIP exception occurs. The max number is 5. Changing this parameter will create a new resource.
+                - (Optional, List) Specifies phone number for receiving notifications when a table/file
+                migration job fails or an EIP exception occurs. The max number is 20.
             public_endpoint: '- EIP bound to the cluster.'
             publid_ip: '- Public ip.'
             region: |-
@@ -10408,6 +10411,7 @@ resources:
                   "cluster_id": "${var.cdm_cluster_id}",
                   "config": {
                     "port": "443",
+                    "properties": "${jsonencode(\n      {\n        connectionTimeout = \"10000\",\n        socketTimeout     = \"20000\"\n      }\n    )}",
                     "server": "${trimprefix(huaweicloud_obs_bucket.bucket.bucket_domain_name, \"${huaweicloud_obs_bucket.bucket.bucket}.\")}",
                     "storageType": "OBS"
                   },
@@ -14708,6 +14712,59 @@ resources:
             volume_id: '- (Required, String, ForceNew) Specifies the ID of the Volume to attach to an Instance.'
         importStatements:
             - $ terraform import huaweicloud_compute_volume_attach.va_1 89c60255-9bd6-460c-822a-e2b959ede9d2/45670584-225f-46c3-b33e-6707b589b666
+    huaweicloud_cph_adb_command:
+        subCategory: Cloud Phone (CPH)
+        description: Manages a CPH adb command resource within HuaweiCloud.
+        name: huaweicloud_cph_adb_command
+        title: huaweicloud_cph_adb_command
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "command": "${var.command}",
+                  "content": "${var.content}",
+                  "phone_ids": "${var.phone_ids}"
+                }
+              references:
+                command: var.command
+                content: var.content
+                phone_ids: var.phone_ids
+        argumentDocs:
+            command: |-
+                - (Required, String, NonUpdatable) Specifies the ADB command. The value can be push, install,
+                install-multiple, uninstall, or shell.
+            content: '- (Required, String, NonUpdatable) Specifies the content.'
+            create: '- Default is 30 minutes.'
+            id: '- The resource ID.'
+            phone_ids: '- (Optional, List, NonUpdatable) Specifies the IDs of the CPH phone.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            server_ids: '- (Optional, List, NonUpdatable) Specifies the IDs of CPH server.'
+        importStatements: []
+    huaweicloud_cph_phone_stop:
+        subCategory: Cloud Phone (CPH)
+        description: Manages a CPH phone stop resource within HuaweiCloud.
+        name: huaweicloud_cph_phone_stop
+        title: huaweicloud_cph_phone_stop
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "phone_id": "${var.phone_id}"
+                }
+              references:
+                phone_id: var.phone_id
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            id: '- The resource ID.'
+            phone_id: '- (Required, String, NonUpdatable) Specifies the ID of the CPH phone.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+        importStatements: []
     huaweicloud_cph_server:
         subCategory: Cloud Phone (CPH)
         description: '""'
@@ -15143,46 +15200,55 @@ resources:
               manifest: |-
                 {
                   "app_name": "${var.app_name}",
-                  "connect_address": "${var.engine_conn_addr}",
+                  "auth_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
+                  "connect_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
                   "environment": "development",
                   "name": "${var.service_name}",
                   "version": "1.0.0"
                 }
               references:
                 app_name: var.app_name
-                connect_address: var.engine_conn_addr
+                auth_address: local.fileter_engines[0].service_registry_addresses[0].public
+                connect_address: local.fileter_engines[0].service_registry_addresses[0].public
                 name: var.service_name
             - name: test
               manifest: |-
                 {
-                  "admin_pass": "${var.admin_pass}",
+                  "admin_pass": "${var.microservice_engine_admin_password}",
                   "admin_user": "root",
                   "app_name": "${var.app_name}",
-                  "connect_address": "${var.engine_conn_addr}",
+                  "auth_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
+                  "connect_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
                   "environment": "development",
                   "name": "${var.service_name}",
                   "version": "1.0.0"
                 }
               references:
-                admin_pass: var.admin_pass
+                admin_pass: var.microservice_engine_admin_password
                 app_name: var.app_name
-                connect_address: var.engine_conn_addr
+                auth_address: local.fileter_engines[0].service_registry_addresses[0].public
+                connect_address: local.fileter_engines[0].service_registry_addresses[0].public
                 name: var.service_name
         argumentDocs:
             "8": to 32 characters long.
             admin_pass: |-
-                - (Optional, String, ForceNew) Specifies the account password.
-                Required if the auth_type of engine is RBAC. Changing this will create a new microservice.
+                - (Optional, String, ForceNew) Specifies the account password for RBAC login.
                 The password format must meet the following conditions:
             admin_user: |-
-                - (Optional, String, ForceNew) Specifies the account name. The initial account name is root.
-                Required if the auth_type of engine is RBAC. Changing this will create a new microservice.
+                - (Optional, String, ForceNew) Specifies the account name for RBAC login.
+                Changing this will create a new resource.
             app_name: |-
                 - (Required, String, ForceNew) Specifies the name of the dedicated microservice application.
                 Changing this will create a new microservice.
+            auth_address: |-
+                - (Required, String, ForceNew) Specifies the address that used to request the access token.
+                Usually is the connection address of service center.
+                Changing this will create a new resource.
             connect_address: |-
-                - (Required, String, ForceNew) Specifies the connection address of service registry center for the
-                specified dedicated CSE engine. Changing this will create a new microservice.
+                - (Required, String, ForceNew) Specifies the address that used to access engine and manages
+                microservice.
+                Usually is the connection address of service center.
+                Changing this will create a new resource.
             description: |-
                 - (Optional, String, ForceNew) Specifies the description of the dedicated microservice.
                 The description can contain a maximum of 256 characters.
@@ -15309,6 +15375,22 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "auth_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
+                  "connect_address": "${local.fileter_engines[0].config_center_addresses[0].public}",
+                  "key": "demo",
+                  "status": "enabled",
+                  "tags": {
+                    "owner": "terraform"
+                  },
+                  "value": "${jsonencode({\n    \"foo\": \"bar\"\n  })}",
+                  "value_type": "json"
+                }
+              references:
+                auth_address: local.fileter_engines[0].service_registry_addresses[0].public
+                connect_address: local.fileter_engines[0].config_center_addresses[0].public
+            - name: test
+              manifest: |-
+                {
                   "admin_pass": "${var.microservice_engine_admin_password}",
                   "admin_user": "root",
                   "auth_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
@@ -15373,7 +15455,8 @@ resources:
             - name: test
               manifest: |-
                 {
-                  "connect_address": "${var.engine_conn_addr}",
+                  "auth_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
+                  "connect_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
                   "data_center": [
                     {
                       "availability_zone": "${var.az_name}",
@@ -15402,16 +15485,18 @@ resources:
                   "version": "1.0.0"
                 }
               references:
-                connect_address: var.engine_conn_addr
+                auth_address: local.fileter_engines[0].service_registry_addresses[0].public
+                connect_address: local.fileter_engines[0].service_registry_addresses[0].public
                 data_center.availability_zone: var.az_name
                 data_center.region: var.region_name
                 microservice_id: var.microservice_id
             - name: test
               manifest: |-
                 {
-                  "admin_pass": "${var.admin_pass}",
+                  "admin_pass": "${var.microservice_engine_admin_password}",
                   "admin_user": "root",
-                  "connect_address": "${var.engine_conn_addr}",
+                  "auth_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
+                  "connect_address": "${local.fileter_engines[0].service_registry_addresses[0].public}",
                   "data_center": [
                     {
                       "availability_zone": "${var.az_name}",
@@ -15440,23 +15525,29 @@ resources:
                   "version": "1.0.0"
                 }
               references:
-                admin_pass: var.admin_pass
-                connect_address: var.engine_conn_addr
+                admin_pass: var.microservice_engine_admin_password
+                auth_address: local.fileter_engines[0].service_registry_addresses[0].public
+                connect_address: local.fileter_engines[0].service_registry_addresses[0].public
                 data_center.availability_zone: var.az_name
                 data_center.region: var.region_name
                 microservice_id: var.microservice_id
         argumentDocs:
             "8": to 32 characters long.
             admin_pass: |-
-                - (Optional, String, ForceNew) Specifies the account password.
-                Required if the auth_type of engine is RBAC. Changing this will create a new microservice instance.
+                - (Optional, String, ForceNew) Specifies the account password for RBAC login.
                 The password format must meet the following conditions:
             admin_user: |-
-                - (Optional, String, ForceNew) Specifies the account name. The initial account name is root.
-                Required if the auth_type of engine is RBAC. Changing this will create a new microservice instance.
+                - (Optional, String, ForceNew) Specifies the account name for RBAC login.
+                Changing this will create a new resource.
+            auth_address: |-
+                - (Required, String, ForceNew) Specifies the address that used to request the access token.
+                Usually is the connection address of service center.
+                Changing this will create a new resource.
             connect_address: |-
-                - (Required, String, ForceNew) Specifies the connection address of service registry center for the
-                specified dedicated CSE engine. Changing this will create a new microservice instance.
+                - (Required, String, ForceNew) Specifies the address that used to access engine and manages
+                microservice instance.
+                Usually is the connection address of service center.
+                Changing this will create a new resource.
             data_center: |-
                 - (Optional, List, ForceNew) Specifies the data center configuration.
                 The object structure is documented below.
@@ -19648,9 +19739,45 @@ resources:
                 Changing this creates a new instance.
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this creates a new instance.'
         importStatements: []
+    huaweicloud_dbss_audit_risk_rule_action:
+        subCategory: Database Security Service (DBSS)
+        description: '|Manages a risk rule action resource within HuaweiCloud.'
+        name: huaweicloud_dbss_audit_risk_rule_action
+        title: huaweicloud_dbss_audit_risk_rule_action
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "action": "${var.action}",
+                  "instance_id": "${var.instance_id}",
+                  "risk_ids": "${var.risk_ids}"
+                }
+              references:
+                action: var.action
+                instance_id: var.instance_id
+                risk_ids: var.risk_ids
+        argumentDocs:
+            action: |-
+                - (Required, String, ForceNew) Specifies the operation type.
+                The value can be ON or OFF.
+                Changing this parameter will create a new resource.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the audit instance ID to which the risk rule belongs.
+                Changing this parameter will create a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this parameter will create a new resource.
+            result: '- The operation execution result.'
+            risk_ids: |-
+                - (Required, String, ForceNew) Specifies the risk rule ID.
+                Multiple IDs should be separated by commas (,).
+                Changing this parameter will create a new resource.
+        importStatements: []
     huaweicloud_dbss_instance:
         subCategory: Database Security Service (DBSS)
-        description: '""'
+        description: '|Manages a DBSS instance resource within HuaweiCloud.'
         name: huaweicloud_dbss_instance
         title: huaweicloud_dbss_instance
         examples:
@@ -19680,21 +19807,23 @@ resources:
               manifest: '{}'
         argumentDocs:
             auto_renew: |-
-                - (Optional, String, ForceNew) Whether auto renew is enabled. Valid values are true and false.
-                Defaults to false.
+                - (Optional, String, ForceNew) Specifies whether auto-renew is enabled. Valid values are true and
+                false. Defaults to false.
             availability_zone: |-
-                - (Required, String, ForceNew) The availability zone to which the instnce belongs.
+                - (Required, String, ForceNew) Specifies the availability zone to which the instance belongs.
                 Primary and secondary AZs are separated by commas. Example: cn-north-4a,cn-north-4b.
             charging_mode: |-
-                - (Required, String, ForceNew) Billing mode.
-                The options are as follows:
+                - (Required, String, ForceNew) Specifies the billing mode.
+                The valid value is prePaid, which means the yearly/monthly billing mode.
             connect_ip: '- The connection address.'
             connect_ipv6: '- The IPv6 address.'
             create: '- Default is 20 minutes.'
             created_at: '- The creation time'
             delete: '- Default is 20 minutes.'
-            description: '- (Optional, String, ForceNew) The description of the instance.'
-            enterprise_project_id: '- (Optional, String) Enterprise project ID. Defaults to 0.'
+            description: '- (Optional, String, ForceNew) Specifies the description of the instance.'
+            enterprise_project_id: |-
+                - (Optional, String) Specifies the Enterprise project ID.
+                For enterprise users, if omitted, default enterprise project will be used.
             expired_at: '- The expired time'
             flavor: '- (Required, String, ForceNew) Specifies the flavor. Possible values are:'
             id: '- The resource ID.'
@@ -19702,17 +19831,16 @@ resources:
             ip_address: |-
                 - (Optional, String, ForceNew) Specifies the IP address.
                 If the value of this parameter is left blank or is set to an empty string, the IP address is automatically assigned.
-                Changing this parameter will create a new resource.
             name: |-
-                - (Required, String, ForceNew) The instance name. The name can contain 1 to 64 characters.
+                - (Required, String, ForceNew) Specifies the instance name. The name can contain 1 to 64 characters.
                 Only letters, digits, underscores (_), and hyphens (-) are allowed.
             period: |-
-                - (Required, Int, ForceNew) The charging period.
+                - (Required, Int, ForceNew) Specifies the charging period.
                 If period_unit is set to month, the value ranges from 1 to 9.
                 If period_unit is set to year, the value ranges from 1 to 3.
                 This parameter is mandatory if charging_mode is set to prePaid.
             period_unit: |-
-                - (Required, String, ForceNew) The charging period unit.
+                - (Required, String, ForceNew) Specifies the charging period unit.
                 Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
             port_id: '- The ID of the port that the EIP is bound to.'
             product_spec_desc: |-
@@ -19721,12 +19849,12 @@ resources:
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
-            resource_spec_code: '- (Required, String, ForceNew) The resource specifications. Possible values are:'
-            security_group_id: '- (Required, String, ForceNew) Specifies the ID of the security group.'
+            resource_spec_code: '- (Required, String, ForceNew) Specifies the resource specifications. Possible values are:'
+            security_group_id: '- (Required, String) Specifies the ID of the security group.'
             status: '- The instance status. The value can be:'
-            subnet_id: '- (Required, String, ForceNew) The subnet ID of the NIC.'
-            tags: '- (Optional, Map, ForceNew) Specifies the key/value pairs to associate with the instance.'
-            vpc_id: '- (Required, String, ForceNew) The VPC ID.'
+            subnet_id: '- (Required, String, ForceNew) Specifies the subnet ID of the NIC.'
+            tags: '- (Optional, Map) Specifies the key/value pairs to associate with the instance.'
+            vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID.'
         importStatements: []
     huaweicloud_dc_hosted_connect:
         subCategory: Direct Connect (DC)
@@ -21141,7 +21269,7 @@ resources:
                     {
                       "storage_engine": "wiredTiger",
                       "type": "DDS-Community",
-                      "version": "3.4"
+                      "version": "4.0"
                     }
                   ],
                   "flavor": [
@@ -21184,7 +21312,7 @@ resources:
                     {
                       "storage_engine": "wiredTiger",
                       "type": "DDS-Community",
-                      "version": "3.4"
+                      "version": "4.0"
                     }
                   ],
                   "flavor": [
@@ -21258,12 +21386,12 @@ resources:
                 this creates a new instance.
             datastore.storage_engine: |-
                 - (Optional, String, ForceNew) Specifies the storage engine of the DB instance.
-                If version is set to 3.2, 3.4, or 4.0, the value is wiredTiger.
+                If version is set to 4.0, the value is wiredTiger.
                 If version is set to 4.2, or 4.4, the value is rocksDB.
             datastore.type: '- (Required, String, ForceNew) Specifies the DB engine. DDS-Community is supported.'
             datastore.version: |-
                 - (Required, String, ForceNew) Specifies the DB instance version. For the Community Edition, the valid
-                values are 3.2, 3.4, 4.0, 4.2, or 4.4.
+                values are 4.0, 4.2, or 4.4.
             db_username: '- Indicates the DB Administrator name.'
             delete: '- Default is 60 minutes.'
             description: '- (Optional, String) Specifies the description of the DDS instance.'
@@ -21666,6 +21794,63 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
             updated_at: '- The update time of the parameter template.'
+        importStatements: []
+    huaweicloud_dds_primary_standby_switch:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS primary standby switch resource within HuaweiCloud.
+        name: huaweicloud_dds_primary_standby_switch
+        title: huaweicloud_dds_primary_standby_switch
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                instance_id: var.instance_id
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "node_id": "${var.node_id}"
+                }
+              references:
+                instance_id: var.instance_id
+                node_id: var.node_id
+        argumentDocs:
+            create: '- Default is 20 minutes.'
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the instance ID.
+                Changing this creates a new resource.
+            node_id: |-
+                - (Optional, String, ForceNew) Specifies the ID of replica set node, shard node or config node.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+        importStatements: []
+    huaweicloud_dds_recycle_policy:
+        subCategory: Document Database Service (DDS)
+        description: Manages a DDS recycle policy resource within HuaweiCloud.
+        name: huaweicloud_dds_recycle_policy
+        title: huaweicloud_dds_recycle_policy
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "retention_period_in_days": 7
+                }
+        argumentDocs:
+            id: '- The resource ID.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            retention_period_in_days: |-
+                - (Required, Int) Specifies the policy retention duration in days.
+                Value ranges from 1 to 7.
         importStatements: []
     huaweicloud_dis_stream:
         subCategory: Data Ingestion Service (DIS)
@@ -23372,6 +23557,68 @@ resources:
                 Defaults to false. Changing this creates a new resource.
             vpc_id: '- (Required, String, ForceNew) Specifies the ID of a VPC. Changing this creates a new instance resource.'
         importStatements: []
+    huaweicloud_dms_kafka_message_diagnosis_task:
+        subCategory: Distributed Message Service (DMS)
+        description: Manage DMS kafka smart message diagnosis task resource within HuaweiCloud.
+        name: huaweicloud_dms_kafka_message_diagnosis_task
+        title: huaweicloud_dms_kafka_message_diagnosis_task
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "group_name": "${var.group_name}",
+                  "instance_id": "${var.instance_id}",
+                  "topic_name": "${var.topic_name}"
+                }
+              references:
+                group_name: var.group_name
+                instance_id: var.instance_id
+                topic_name: var.topic_name
+        argumentDocs:
+            accumulated_partitions: '- Indicates the number of partitions where accumulated messages are found.'
+            begin_time: '- Indicates the diagnosis task start time.'
+            conclusion.id: '- Indicates the diagnosis conclusion ID.'
+            conclusion.params: '- Indicates the diagnosis conclusion parameters.'
+            create: '- Default is 30 minutes.'
+            diagnosis_dimension_list: |-
+                - Indicates the diagnosis dimensions.
+                The diagnosis_dimension_list structure is documented below.
+            diagnosis_dimension_list.abnormal_num: '- Indicates the total number of abnormal items in this diagnosis dimension.'
+            diagnosis_dimension_list.diagnosis_item_list: |-
+                - Indicates the diagnosis items.
+                The diagnosis_item_list structure is documented below.
+            diagnosis_dimension_list.failed_num: '- Indicates the total number of failed items in this diagnosis dimension.'
+            diagnosis_dimension_list.name: '- Indicates the diagnosis dimension name.'
+            diagnosis_item_list.advice_ids: |-
+                - Indicates the suggestions for diagnosis exceptions.
+                The conclusion structure is documented below.
+            diagnosis_item_list.broker_ids: '- Indicates the brokers affected by the diagnosis exceptions.'
+            diagnosis_item_list.cause_ids: |-
+                - Indicates the diagnosis exception causes.
+                The conclusion structure is documented below.
+            diagnosis_item_list.failed_partitions: '- Indicates the partitions that failed to be diagnosed.'
+            diagnosis_item_list.name: '- Indicates the diagnosis item name.'
+            diagnosis_item_list.partitions: '- Indicates the partitions affected by the diagnosis exceptions.'
+            diagnosis_item_list.result: '- Indicates the diagnosis result.'
+            end_time: '- Indicates the diagnosis task end time.'
+            group_name: |-
+                - (Required, String, ForceNew) Specifies the group name.
+                Changing this creates a new resource.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the kafka instance ID.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            status: |-
+                - Indicates the status of a message stack diagnosis task.
+                Value can be as follows:
+            topic_name: |-
+                - (Required, String, ForceNew) Specifies the topic name.
+                Changing this creates a new resource.
+        importStatements: []
     huaweicloud_dms_kafka_partition_reassign:
         subCategory: Distributed Message Service (DMS)
         description: Manages a DMS kafka partition reassign resource within HuaweiCloud.
@@ -23691,7 +23938,7 @@ resources:
         argumentDocs:
             aging_time: |-
                 - (Optional, Int) Specifies the aging time in hours.
-                The value ranges from 1 to 168 and defaults to 72.
+                The value ranges from 1 to 720 and defaults to 72.
             configs: '- (Optional, List) Specifies the other topic configurations.'
             configs.name: '- (Required, String) Specifies the configuration name.'
             configs.value: '- (Required, String) Specifies the configuration value.'
@@ -23702,11 +23949,11 @@ resources:
                 - (Required, String, ForceNew) Specifies the ID of the DMS kafka instance to which the topic belongs.
                 Changing this creates a new resource.
             name: |-
-                - (Required, String, ForceNew) Specifies the name of the topic. The name starts with a letter, consists of 4 to
-                64 characters, and supports only letters, digits, hyphens (-) and underscores (_). Changing this creates a new
-                resource.
+                - (Required, String, ForceNew) Specifies the name of the topic. The name starts with a letter, consists of 3 to
+                200 characters, and supports only letters, digits, hyphens (-), underscores (_) and periods (.).
+                Changing this creates a new resource.
             new_partition_brokers: '- (Optional, List) Specifies the integers list of brokers for new partitions.'
-            partitions: '- (Required, Int) Specifies the partition number. The value ranges from 1 to 100.'
+            partitions: '- (Required, Int) Specifies the partition number. The value ranges from 1 to 200.'
             policies_only: '- Indicates whether this policy is the default policy.'
             region: |-
                 - (Optional, String, ForceNew) The region in which to create the DMS kafka topic resource. If omitted, the
@@ -24155,7 +24402,7 @@ resources:
                   "availability_zones": "${var.availability_zones}",
                   "broker_num": 3,
                   "engine_version": "3.8.35",
-                  "flavor_id": "${data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].flavor.id}",
+                  "flavor_id": "${data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].id}",
                   "name": "instance_1",
                   "network_id": "${var.subnet_id}",
                   "password": "${var.access_password}",
@@ -24165,7 +24412,7 @@ resources:
                 }
               references:
                 availability_zones: var.availability_zones
-                flavor_id: data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].flavor.id
+                flavor_id: data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].id
                 network_id: var.subnet_id
                 password: var.access_password
                 security_group_id: var.security_group_id
@@ -24178,7 +24425,7 @@ resources:
                   "availability_zones": "${var.availability_zones}",
                   "broker_num": 1,
                   "engine_version": "${data.huaweicloud_dms_rabbitmq_flavors.test.versions[0]}",
-                  "flavor_id": "${data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].flavor.id}",
+                  "flavor_id": "${data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].id}",
                   "name": "instance_1",
                   "network_id": "${var.subnet_id}",
                   "password": "${var.access_password}",
@@ -24189,17 +24436,62 @@ resources:
               references:
                 availability_zones: var.availability_zones
                 engine_version: data.huaweicloud_dms_rabbitmq_flavors.test.versions[0]
-                flavor_id: data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].flavor.id
+                flavor_id: data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].id
                 network_id: var.subnet_id
                 password: var.access_password
                 security_group_id: var.security_group_id
                 storage_spec_code: data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].ios[0].storage_spec_code
                 vpc_id: var.vpc_id
+            - name: test
+              manifest: |-
+                {
+                  "availability_zones": [
+                    "${data.huaweicloud_availability_zones.test.names[0]}"
+                  ],
+                  "enable_acl": true,
+                  "engine_version": "AMQP-0-9-1",
+                  "flavor_id": "${local.flavor.id}",
+                  "name": "test-amqp-cluster",
+                  "network_id": "${var.subnet_id}",
+                  "security_group_id": "${var.security_group_id}",
+                  "storage_space": "${2 * local.flavor.properties[0].min_storage_per_node}",
+                  "storage_spec_code": "${local.flavor.ios[0].storage_spec_code}",
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                flavor_id: local.flavor.id
+                network_id: var.subnet_id
+                security_group_id: var.security_group_id
+                storage_spec_code: local.flavor.ios[0].storage_spec_code
+                vpc_id: var.vpc_id
+            - name: test
+              manifest: |-
+                {
+                  "availability_zones": [
+                    "${data.huaweicloud_availability_zones.test.names[0]}"
+                  ],
+                  "enable_acl": true,
+                  "engine_version": "AMQP-0-9-1",
+                  "flavor_id": "${local.flavor.id}",
+                  "name": "test-amqp-single",
+                  "network_id": "${var.subnet_id}",
+                  "security_group_id": "${var.security_group_id}",
+                  "storage_space": "${local.flavor.properties[0].min_storage_per_node}",
+                  "storage_spec_code": "${local.flavor.ios[0].storage_spec_code}",
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                flavor_id: local.flavor.id
+                network_id: var.subnet_id
+                security_group_id: var.security_group_id
+                storage_space: local.flavor.properties[0].min_storage_per_node
+                storage_spec_code: local.flavor.ios[0].storage_spec_code
+                vpc_id: var.vpc_id
             - name: instance_1
               manifest: '{}'
         argumentDocs:
             access_user: |-
-                - (Required, String, ForceNew) Specifies a username. A username consists of 4 to 64 characters and
+                - (Optional, String, ForceNew) Specifies a username. A username consists of 4 to 64 characters and
                 supports only letters, digits, and hyphens (-). Changing this creates a new instance resource.
             auto_renew: '- (Optional, String) Specifies whether auto renew is enabled. Valid values are true and false.'
             availability_zones: |-
@@ -24219,6 +24511,9 @@ resources:
             description: |-
                 - (Optional, String) Specifies the description of the DMS RabbitMQ instance.
                 It is a character string containing not more than 1,024 characters.
+            enable_acl: |-
+                - (Optional, Bool) Whether to enable ACL. Only available when engine_version is AMQP-0-9-1.
+                Default to false.
             enable_public_ip: '- Indicates whether public access to the DMS RabbitMQ instance is enabled.'
             engine: '- Indicates the message engine.'
             engine_version: |-
@@ -24254,7 +24549,7 @@ resources:
                 - (Required, String, ForceNew) Specifies the ID of a subnet. Changing this creates a new instance
                 resource.
             password: |-
-                - (Required, String) Specifies the password of the DMS RabbitMQ instance. A password must meet
+                - (Optional, String) Specifies the password of the DMS RabbitMQ instance. A password must meet
                 the following complexity requirements: Must be 8 to 32 characters long. Must contain at least 2 of the following
                 character types: lowercase letters, uppercase letters, digits,
                 and special characters (`~!@#$%^&*()-_=+\|[{}]:'",<.>/?).
@@ -24445,6 +24740,54 @@ resources:
             vhost: |-
                 - (Required, String, ForceNew) Specifies the vhost name.
                 Changing this creates a new resource.
+        importStatements: []
+    huaweicloud_dms_rabbitmq_user:
+        subCategory: Distributed Message Service (DMS)
+        description: Manages a DMS RabbitMQ user resource within HuaweiCloud.
+        name: huaweicloud_dms_rabbitmq_user
+        title: huaweicloud_dms_rabbitmq_user
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "access_key": "${var.user_name}",
+                  "instance_id": "${var.instance_id}",
+                  "secret_key": "Terraform@123",
+                  "vhosts": [
+                    {
+                      "conf": ".*",
+                      "read": ".*",
+                      "vhost": "default",
+                      "write": ".*"
+                    }
+                  ]
+                }
+              references:
+                access_key: var.user_name
+                instance_id: var.instance_id
+        argumentDocs:
+            access_key: |-
+                - (Required, String, ForceNew) Specifies the user name. It starts with a letter, consists of 7 to 64
+                characters, and contains only letters, digits, hyphens (-), and underscores (_).
+                Changing this creates a new resource.
+            id: '- The resource ID.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the RabbitMQ instance ID.
+                Changing this creates a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            secret_key: |-
+                - (Required, String) Specifies the user password. It consists of 8 to 32 characters.
+                Contain at least three of the following character types:
+            vhosts: |-
+                - (Required, List) Specifies the virtual hosts to be granted permissions for.
+                The vhosts structure is documented below.
+            vhosts.conf: '- (Required, String) Specifies the granting resource permissions using regular expressions.'
+            vhosts.read: '- (Required, String) Specifies the granting resource read permissions using regular expressions.'
+            vhosts.vhost: '- (Required, String) Specifies the name of the virtual host to be granted permissions for.'
+            vhosts.write: '- (Required, String) Specifies the granting resource write permissions using regular expressions.'
         importStatements: []
     huaweicloud_dms_rabbitmq_vhost:
         subCategory: Distributed Message Service (DMS)
@@ -25553,6 +25896,60 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "destination_db": [
+                    {
+                      "engine_type": "mongodb",
+                      "instance_id": "${huaweicloud_dds_instance.test.id}",
+                      "ip": "192.168.0.30:8635",
+                      "password": "${var.destination_db_password}",
+                      "subnet_id": "${huaweicloud_dds_instance.test.subnet_id}",
+                      "user": "${var.destination_db_user}"
+                    }
+                  ],
+                  "destination_db_readnoly": false,
+                  "direction": "up",
+                  "engine_type": "mongodb",
+                  "force_destroy": true,
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${source_db.0.password}",
+                        "${destination_db.0.password}",
+                        "${force_destroy}"
+                      ]
+                    }
+                  ],
+                  "migration_type": "FULL_INCR_TRANS",
+                  "name": "${var.name}",
+                  "net_type": "vpc",
+                  "source_db": [
+                    {
+                      "engine_type": "mongodb",
+                      "ip": "${var.source_db_ip}",
+                      "password": "${var.source_db_password}",
+                      "subnet_id": "${var.source_db_subnet_id}",
+                      "user": "${var.source_db_user}",
+                      "vpc_id": "${var.source_db_vpc_id}"
+                    }
+                  ],
+                  "type": "migration"
+                }
+              references:
+                destination_db.instance_id: huaweicloud_dds_instance.test.id
+                destination_db.password: var.destination_db_password
+                destination_db.subnet_id: huaweicloud_dds_instance.test.subnet_id
+                destination_db.user: var.destination_db_user
+                name: var.name
+                source_db.ip: var.source_db_ip
+                source_db.password: var.source_db_password
+                source_db.subnet_id: var.source_db_subnet_id
+                source_db.user: var.source_db_user
+                source_db.vpc_id: var.source_db_vpc_id
+              dependencies:
+                huaweicloud_dds_instance.test: '{}'
+            - name: test
+              manifest: |-
+                {
                   "databases": [
                     "${var.database_name}"
                   ],
@@ -25582,6 +25979,7 @@ resources:
                   "migration_type": "FULL_INCR_TRANS",
                   "name": "${var.name}",
                   "net_type": "vpc",
+                  "node_type": "${data.huaweicloud_drs_node_types.test.node_types[0]}",
                   "policy_config": [
                     {
                       "conflict_policy": "overwrite",
@@ -25610,6 +26008,7 @@ resources:
                 destination_db.region: huaweicloud_rds_instance.mysql.region
                 destination_db.subnet_id: huaweicloud_rds_instance.mysql.subnet_id
                 name: var.name
+                node_type: data.huaweicloud_drs_node_types.test.node_types[0]
                 source_db.ip: var.source_db_ip
                 source_db.password: var.source_db_password
                 source_db.port: var.source_db_port
@@ -25682,9 +26081,83 @@ resources:
               dependencies:
                 huaweicloud_rds_instance.mysql: '{}'
             - name: test
+              manifest: |-
+                {
+                  "databases": [
+                    "${var.database_name}"
+                  ],
+                  "description": "test for API",
+                  "destination_db": [
+                    {
+                      "engine_type": "kafka",
+                      "ip": "192.168.0.206:9092,192.168.0.3:9092",
+                      "kafka_security_config": [
+                        {
+                          "type": "PLAINTEXT"
+                        }
+                      ],
+                      "subnet_id": "${var.destination_db_subnet_id}",
+                      "vpc_id": "${var.destination_db_vpc_id}"
+                    }
+                  ],
+                  "destination_db_readnoly": false,
+                  "direction": "down",
+                  "engine_type": "mysql-to-kafka",
+                  "force_destroy": true,
+                  "lifecycle": [
+                    {
+                      "ignore_changes": [
+                        "${source_db.0.password}",
+                        "${destination_db.0.password}",
+                        "${source_db.0.kafka_security_config.0.trust_store_password}",
+                        "${destination_db.0.kafka_security_config.0.trust_store_password}",
+                        "${source_db.0.kafka_security_config.0.key_store_password}",
+                        "${destination_db.0.kafka_security_config.0.key_store_password}",
+                        "${source_db.0.kafka_security_config.0.key_password}",
+                        "${destination_db.0.kafka_security_config.0.key_password}"
+                      ]
+                    }
+                  ],
+                  "migration_type": "FULL_INCR_TRANS",
+                  "name": "${var.name}",
+                  "net_type": "vpc",
+                  "policy_config": [
+                    {
+                      "partition_policy": "1",
+                      "topic": "${var.topic_name}",
+                      "topic_policy": "0"
+                    }
+                  ],
+                  "source_db": [
+                    {
+                      "engine_type": "mysql",
+                      "instance_id": "${huaweicloud_rds_instance.mysql.id}",
+                      "ip": "${huaweicloud_rds_instance.mysql.fixed_ip}",
+                      "password": "${var.destination_db_password}",
+                      "port": 3306,
+                      "subnet_id": "${huaweicloud_rds_instance.mysql.subnet_id}",
+                      "user": "root"
+                    }
+                  ],
+                  "type": "sync"
+                }
+              references:
+                destination_db.subnet_id: var.destination_db_subnet_id
+                destination_db.vpc_id: var.destination_db_vpc_id
+                name: var.name
+                policy_config.topic: var.topic_name
+                source_db.instance_id: huaweicloud_rds_instance.mysql.id
+                source_db.ip: huaweicloud_rds_instance.mysql.fixed_ip
+                source_db.password: var.destination_db_password
+                source_db.subnet_id: huaweicloud_rds_instance.mysql.subnet_id
+              dependencies:
+                huaweicloud_rds_instance.mysql: '{}'
+            - name: test
               manifest: '{}'
         argumentDocs:
-            action: '- (Optional, String) Specifies the action of job. The options are as follows:'
+            action: |-
+                to start if you want to start the job immediately. If you want to start the task within 5 minutes
+                of the current time, select start the job immediately.
             alarm_notify: |-
                 - (Optional, List, ForceNew)  Specifies the information body for setting task exception notification.
                 The alarm_notify structure is documented below.
@@ -25717,6 +26190,10 @@ resources:
                 - (Optional, String, ForceNew) Specifies the instance id of database when it is a RDS database.
                 Changing this parameter will create a new resource.
             db_info.ip: '- (Required, String, ForceNew) Specifies the IP of database. Changing this parameter will create a new resource.'
+            db_info.kafka_security_config: |-
+                - (Optional, List, ForceNew) Specifies the kafka security authentication info.
+                Changing this parameter will create a new resource.
+                The kafka_security_config structure is documented below.
             db_info.name: |-
                 - (Optional, String, ForceNew) Specifies the name of database.
                 Changing this parameter will create a new resource.
@@ -25724,9 +26201,9 @@ resources:
                 is vpc, if direction is up, source_db.vpc_id and source_db.subnet_id is mandatory, if
                 direction is down, destination_db.vpc_id and destination_db.subnet_id is mandatory.
             db_info.password: |-
-                - (Required, String, ForceNew) Specifies the password of database.
+                - (Optional, String, ForceNew) Specifies the password of database.
                 Changing this parameter will create a new resource.
-            db_info.port: '- (Required, Int, ForceNew) Specifies the port of database. Changing this parameter will create a new resource.'
+            db_info.port: '- (Optional, Int, ForceNew) Specifies the port of database. Changing this parameter will create a new resource.'
             db_info.region: |-
                 - (Optional, String, ForceNew) Specifies the region which the database belongs when it is a RDS database.
                 Changing this parameter will create a new resource.
@@ -25750,7 +26227,7 @@ resources:
                 - (Optional, String, ForceNew) Specifies subnet ID of database when it is a RDS database.
                 It is mandatory when direction is down. Changing this parameter will create a new resource.
             db_info.user: |-
-                - (Required, String, ForceNew) Specifies the user name of database.
+                - (Optional, String, ForceNew) Specifies the user name of database.
                 Changing this parameter will create a new resource.
             db_info.vpc_id: |-
                 - (Optional, String, ForceNew) Specifies vpc ID of database.
@@ -25784,6 +26261,53 @@ resources:
                 The default value is false.
             id: '- The resource ID in UUID format.'
             is_sync_re_edit: '- (Optional, Bool) Specifies whether to start the sync re-edit job. It''s valid when action is restart.'
+            kafka_security_config.delegation_tokens: |-
+                - (Optional, Bool, ForceNew) Specifies whether to use token authentication. It is valid only when
+                the security protocol is set to SASL_SSL or SASL_PLAINTEXT and the SASL mechanism is set to SCRAM-SHA-256
+                or SCRAM-SHA-512. Defaults to false. Changing this parameter will create a new resource.
+            kafka_security_config.enable_key_store: |-
+                - (Optional, Bool, ForceNew) Specifies Whether to enable two-way SSL authentication.
+                Defaults to false. Changing this parameter will create a new resource.
+            kafka_security_config.endpoint_algorithm: |-
+                - (Optional, String, ForceNew) Specifies the host name endpoint identification algorithm, which
+                specifies the endpoint identification algorithm for verifying the server host name using the server certificate.
+                If it is not specified, host name verification is disabled. The corresponding field for Kafka is
+                ssl.endpoint.identification.algorithm. Changing this parameter will create a new resource.
+            kafka_security_config.key_password: |-
+                - (Optional, String, ForceNew) Specifies the keystore private key password. It is mandatory when
+                two-way SSL authentication is enabled and set_private_key_password is set to true.
+                Changing this parameter will create a new resource.
+            kafka_security_config.key_store_key: |-
+                - (Optional, String, ForceNew) Specifies the keystore certificate. It is mandatory when two-way SSL
+                authentication is enabled. Changing this parameter will create a new resource.
+            kafka_security_config.key_store_key_name: |-
+                - (Optional, String, ForceNew) Specifies the keystore certificate name. It is mandatory when
+                two-way SSL authentication is enabled. Changing this parameter will create a new resource.
+            kafka_security_config.key_store_password: |-
+                - (Optional, String, ForceNew) Specifies the keystore certificate password. It is mandatory when
+                a password is set for the keystore certificate. Changing this parameter will create a new resource.
+            kafka_security_config.sasl_mechanism: |-
+                - (Optional, String, ForceNew) Specifies the SASL mechanism used for client connection.
+                The value can be GSSAPI, PLAIN, SCRAM-SHA-256, SCRAM-SHA-512.
+                Changing this parameter will create a new resource.
+            kafka_security_config.set_private_key_password: |-
+                - (Optional, Bool, ForceNew) Specifies whether to set the keystore private key password.
+                Defaults to false. Changing this parameter will create a new resource.
+            kafka_security_config.trust_store_key: |-
+                - (Optional, String, ForceNew) Specifies the value of the security certificate after Base64 transcoding.
+                It is mandatory when the security protocol is set to SSL or SASL_SSL.
+                Changing this parameter will create a new resource.
+            kafka_security_config.trust_store_key_name: |-
+                - (Optional, String, ForceNew) Specifies the certificate name.
+                It is mandatory when the security protocol is set to SSL or SASL_SSL.
+                Changing this parameter will create a new resource.
+            kafka_security_config.trust_store_password: |-
+                - (Optional, String, ForceNew) Specifies the certificate password.
+                It is mandatory when the security protocol is set to SSL or SASL_SSL.
+                Changing this parameter will create a new resource.
+            kafka_security_config.type: |-
+                - (Optional, String, ForceNew) Specifies the security protocol. It is mandatory for security authentication.
+                Valid values are as follows:
             limit_speed: |-
                 - (Optional, List, ForceNew) Specifies the migration speed by setting a time period.
                 The default is no speed limit. The maximum length is 3. The limit_speed structure is documented
@@ -25817,6 +26341,9 @@ resources:
             net_type: |-
                 - (Optional, String, ForceNew) Specifies the network type.
                 Changing this parameter will create a new resource. The default value is eip. The options are as follows:
+            node_type: |-
+                - (Optional, String, ForceNew) Specifies the node flavor type. Valid values are micro, small,
+                medium, high, xlarge, 2xlarge. Default to high.
             order_id: '- The order ID which will return if charging_mode is prePaid.'
             pause_mode: |-
                 - (Optional, String) Specifies the stop type of job. It's valid when action is stop.
@@ -25825,18 +26352,74 @@ resources:
                 - (Optional, List, ForceNew) Specifies the policy information used to configure migration and
                 synchronization policies. The policy_config structure is documented below.
                 Changing this parameter will create a new resource.
+            policy_config.0.topic_policy: is set to 0, the value can be 0, 1, 2, 3 or 5.
             policy_config.conflict_policy: '- (Optional, String, ForceNew) Specifies the incremental conflict policy.'
+            policy_config.export_snapshot: |-
+                - (Optional, Bool, ForceNew) Specifies Whether to export data in snapshot mode in the PostgreSQL
+                full migration or synchronization phase. Defaults to false.
+                Changing this parameter will create a new resource.
+            policy_config.file_and_position: |-
+                - (Optional, String, ForceNew) Specifies the file and position, The value is in the format of
+                File_name.file_number:Event_position. Changing this parameter will create a new resource.
             policy_config.filter_ddl_policy: |-
                 - (Optional, String, ForceNew) Specifies the DDL filtering policy. Valid value is drop_database.
                 For MySQL synchronization, this parameter can only be set to drop_database.
+                Changing this parameter will create a new resource.
+            policy_config.gtid_set: |-
+                - (Optional, String, ForceNew) Specifies the gtid set. Enter a maximum of 2048 characters. Chinese
+                characters and the following special characters are not allowed: < > & " ' / \.
                 Changing this parameter will create a new resource.
             policy_config.index_trans: |-
                 - (Optional, Bool, ForceNew) Specifies the object synchronization scope, indicating whether to
                 synchronize normal indexes. If it's true, all indexes will be synchronized, otherwise, only primary key or unique
                 indexes are synchronized. Changing this parameter will create a new resource.
+            policy_config.is_fill_materialized_view: |-
+                - (Optional, Bool, ForceNew) Specifies whether to fill the materialized view in the
+                PostgreSQL full migration or synchronization phase. Defaults to false.
+                Changing this parameter will create a new resource.
+            policy_config.kafka_data_format: |-
+                - (Optional, String, ForceNew) Specifies the data format delivered to Kafka.
+                Valid values are json, avro and json_c. Defaults to json.
+            policy_config.partition_policy: |-
+                - (Optional, String, ForceNew) Specifies the policy for synchronizing topics to the Kafka partitions.
+                It is mandatory when the destination database is Kafka.
+            policy_config.partitions_num: |-
+                - (Optional, String, ForceNew) Specifies the number of partitions. The value ranges from 1 to
+                2147483647. It can be specified if policy_config.0.topic_policy is set to 1, 2, or 3.
+                Defaults to 1. Changing this parameter will create a new resource.
+            policy_config.replication_factor: |-
+                - (Optional, String, ForceNew) Specifies the number of replicas. The value ranges from 1 to
+                32767. It can be specified if policy_config.0.topic_policy is set to 1, 2, or 3.
+                Defaults to 1. Changing this parameter will create a new resource.
+            policy_config.slot_name: |-
+                - (Optional, String, ForceNew) Specifies the replication slot name. It is mandatory for primary and standby
+                tasks from GaussDB Primary/Standby to Kafka. Changing this parameter will create a new resource.
+            policy_config.topic: |-
+                - (Optional, String, ForceNew) Specifies the topic name. It is mandatory when policy_config.0.topic_policy
+                is set to 0. Ensure that the topic exists. Changing this parameter will create a new resource.
+            policy_config.topic_name_format: |-
+                - (Optional, String, ForceNew) Specifies the topic name format.
+                Valid value are as follows:
+            policy_config.topic_policy: |-
+                - (Optional, String, ForceNew) Specifies the topic synchronization policy. It is mandatory when
+                destination database is Kafka.
             private_ip: '- Private IP.'
             progress: '- Progress.'
             public_ip: '- Public IP.'
+            public_ip_list: |-
+                - (Optional, List, ForceNew)  Specifies the public IP list.
+                It can be specified when net_type is eip, and if it's not specified, DRS job will automatically bind a public IP.
+                Changing this parameter will create a new resource.
+                The public_ip_list structure is documented below.
+            public_ip_list.id: |-
+                - (Required, String, ForceNew) Specifies the ID of a specified EIP.
+                Changing this parameter will create a new resource.
+            public_ip_list.public_ip: |-
+                - (Required, String, ForceNew) Specifies public IP.
+                Changing this parameter will create a new resource.
+            public_ip_list.type: |-
+                - (Required, String, ForceNew) Specifies the type of a task with an EIP bound.
+                Valid values are master and slave.
             region: |-
                 - (Optional, String, ForceNew) The region in which to create the resource. If omitted, the
                 provider-level region will be used. Changing this parameter will create a new resource.
@@ -25848,7 +26431,7 @@ resources:
                 The db_info structure of the source_db is documented below.
                 Changing this parameter will create a new resource.
             start_time: |-
-                - (Optional, String, ForceNew) Specifies the time to start the job. The time format is a time stamp
+                - (Optional, String) Specifies the time to start the job. The time format is a time stamp
                 accurating to milliseconds, e.g. 1684466549755, which indicates 2023-05-19 11:22:29.755.
                 Start immediately by default. Changing this parameter will create a new resource.
             status: '- Status.'
@@ -26046,6 +26629,7 @@ resources:
                 - The creation time of the cluster.
                 Format: ISO8601: YYYY-MM-DDThh:mm:ssZ.
             delete: '- Default is 60 minutes.'
+            description: '- (Optional, String) Specifies the description of the cluster.'
             dss_pool_id: |-
                 - (Optional, String, ForceNew) Dedicated storage pool ID.
                 Changing this parameter will create a new resource.
@@ -26072,9 +26656,9 @@ resources:
                 - (Optional, String, ForceNew) The KMS key ID.
                 Changing this parameter will create a new resource.
             logical_cluster_enable: |-
-                - (Optional, Bool) Specified whether to enable logical cluster. The switch needs to be turned
+                - (Optional, Bool) Specifies whether to enable logical cluster. The switch needs to be turned
                 on before creating a logical cluster.
-            lts_enable: '- (Optional, Bool) Specified whether to enable LTS. The default value is false.'
+            lts_enable: '- (Optional, Bool) Specifies whether to enable LTS. The default value is false.'
             maintain_window: |-
                 - Cluster maintenance window.
                 The MaintainWindow structure is documented below.
@@ -26110,7 +26694,7 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
             security_group_id: |-
-                - (Required, String, ForceNew) The security group ID.
+                - (Required, String) Specifies the security group ID of the cluster.
                 Changing this parameter will create a new resource.
             status: |-
                 - The cluster status.
@@ -26343,7 +26927,8 @@ resources:
             id: '- The resource ID.'
             name: |-
                 - (Required, String, ForceNew) The name of the external data source.
-                The name can contain 1 to 64 characters. Only letters, digits, and underscores (_) are allowed.
+                The name can contain 3 to 64 characters. Only letters, digits, and underscores (_) are allowed, and must start with
+                a lowercase letter.
             reboot: '- (Optional, Bool) Whether to reboot the cluster.'
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
@@ -26356,8 +26941,9 @@ resources:
             update: '- Default is 60 minutes.'
             updated_at: '- The updated time of the external data source.'
             user_name: |-
-                - (Required, String) The user name of the external data source.
-                It is OBS agency-name when type is MRS.
+                - (Required, String) Specifies the user name of the external data source.
+                It is OBS agency name when type is OBS.
+                This parameter can be modified only when type is OBS.
             user_pwd: '- (Optional, String, ForceNew) The password of the external data source. It is mandatory when type is MRS.'
         importStatements: []
     huaweicloud_dws_logical_cluster:
@@ -26511,6 +27097,48 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used.
                 Changing this creates a new resource.
+        importStatements: []
+    huaweicloud_dws_parameter_configurations:
+        subCategory: GaussDB(DWS)
+        description: Use this resource to modify the parameter configurations of DWS cluster within HuaweiCloud.
+        name: huaweicloud_dws_parameter_configurations
+        title: huaweicloud_dws_parameter_configurations
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "cluster_id": "${var.dws_cluster_id}",
+                  "configurations": [
+                    {
+                      "name": "${var.parameter_name}",
+                      "type": "cn",
+                      "value": "${var.parameter_value}"
+                    }
+                  ]
+                }
+              references:
+                cluster_id: var.dws_cluster_id
+                configurations.name: var.parameter_name
+                configurations.value: var.parameter_value
+        argumentDocs:
+            cluster_id: |-
+                - (Required, String, ForceNew) Specifies the DWS cluster ID.
+                Changing this creates a new resource.
+            configurations: |-
+                - (Required, List) Specifies the list of the DWS cluster parameter configurations.
+                The configurations structure is documented below.
+            configurations.name: '- (Required, String) Specifies the name of the parameter.'
+            configurations.type: |-
+                - (Required, String) Specifies the type of the parameter.
+                The valid values are as follows:
+            configurations.value: '- (Required, String) Specifies the value of the parameter.'
+            create: '- Default is 10 minutes.'
+            id: '- The resource ID.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            update: '- Default is 10 minutes.'
         importStatements: []
     huaweicloud_dws_public_domain_associate:
         subCategory: GaussDB(DWS)
@@ -28333,9 +28961,7 @@ resources:
                 - (Optional, Bool) Specifies whether to enable deletion protection
                 for the load balancer. Value options:
             description: '- (Optional, String) Human-readable description for the load balancer.'
-            enterprise_project_id: |-
-                - (Optional, String, ForceNew) The enterprise project id of the load balancer. Changing this
-                creates a new load balancer.
+            enterprise_project_id: '- (Optional, String) The enterprise project id of the load balancer.'
             force_delete: |-
                 - (Optional, Bool) Specifies whether to forcibly delete the load balancer, remove the load balancer,
                 listeners, unbind associated pools. Defaults to false.
@@ -29524,10 +30150,13 @@ resources:
                 - (Required, String, ForceNew) Specifies the function URN to which the asynchronous invocation belongs.
                 Changing this will create a new resource.
             id: '- Specifies a resource ID in UUID format.'
-            max_async_event_age_in_seconds: '- (Required, Int) Specifies the maximum validity period of a message.'
+            max_async_event_age_in_seconds: |-
+                - (Required, Int) Specifies the maximum validity period of a message.
+                The valid value is range from 1 to 86,400.
             max_async_retry_attempts: |-
                 - (Required, Int) Specifies the maximum number of retry attempts to be made if
                 asynchronous invocation fails.
+                The valid value is range from 0 to 3.
             on_failure: |-
                 - (Optional, List) Specifies the target to be invoked when a function fails to be executed due to a
                 system error or an internal error.
@@ -31607,6 +32236,8 @@ resources:
             configuration_id: '- (Optional, String) Specifies the configuration ID.'
             create: '- Default is 60 minutes.'
             created_at: '- Indicates the creation time in the yyyy-mm-ddThh:mm:ssZ format.'
+            current_kernel_version: '- Indicates the current database kernel version.'
+            current_version: '- Indicates the current database version.'
             datastore: |-
                 - (Optional, List, ForceNew) Specifies the database information. Structure is documented below. Changing
                 this parameter will create a new resource.
@@ -31694,6 +32325,7 @@ resources:
             security_group_id: |-
                 - (Optional, String) Specifies the security group ID. Required if the selected subnet doesn't
                 enable network ACL.
+            slow_log_show_original_switch: '- (Optional, Bool) Specifies the slow log show original switch of the instance.'
             ssl_option: '- (Optional, String) Specifies whether to enable SSL. Value options:'
             status: '- Indicates the DB instance status.'
             subnet_id: |-
@@ -31709,10 +32341,52 @@ resources:
                 will create a new resource.
             update: '- Default is 60 minutes.'
             updated_at: '- Indicates the Update time in the yyyy-mm-ddThh:mm:ssZ format.'
+            upgrade_flag: '- Indicates whether the version can be upgraded.'
             volume_size: |-
                 - (Optional, Int) Specifies the volume size of the instance. The new storage space must be greater than
                 the current storage and must be a multiple of 10 GB. Only valid when in prePaid mode.
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
+        importStatements: []
+    huaweicloud_gaussdb_mysql_instance_node_config:
+        subCategory: GaussDB(for MySQL)
+        description: Manages a GaussDB MySQL instance node config resource within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_instance_node_config
+        title: huaweicloud_gaussdb_mysql_instance_node_config
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "name": "test_name",
+                  "node_id": "${var.node_id}",
+                  "priority": 3
+                }
+              references:
+                instance_id: var.instance_id
+                node_id: var.node_id
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            id: '- The resource ID. The value is node_id.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the GaussDB MySQL instance. Changing this parameter
+                will create a new resource.
+            name: |-
+                - (Optional, String) Specifies the node name. The value can contain 4 to 128 characters. Only digits,
+                letters, hyphens (-), and underscores (_) are allowed.
+            node_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the GaussDB MySQL instance node. Changing this parameter
+                will create a new resource.
+            priority: |-
+                - (Optional, Int) Specifies the fail-over priority. The value can be -1 or any number ranging from 1
+                to 16. If the value is a positive number, a smaller value indicates a higher priority. This priority determines the
+                order in which read replicas are promoted when recovering from a primary node failure. Read replicas with the same
+                priority have the same probability of being promoted to the new primary node. If the value is -1, the read replica
+                does not participate in a fail-over. After the priority of a read replica is set to -1, ensure that a single-AZ
+                instance still has at least one read replica or that the remaining nodes of a cross-AZ instance are in different AZs.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            update: '- Default is 30 minutes.'
         importStatements: []
     huaweicloud_gaussdb_mysql_instance_restart:
         subCategory: GaussDB(for MySQL)
@@ -31749,6 +32423,64 @@ resources:
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+        importStatements: []
+    huaweicloud_gaussdb_mysql_instance_upgrade:
+        subCategory: GaussDB(for MySQL)
+        description: Manages a GaussDB MySQL instance upgrade resource within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_instance_upgrade
+        title: huaweicloud_gaussdb_mysql_instance_upgrade
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}"
+                }
+              references:
+                instance_id: var.instance_id
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            delay: '- (Optional, Bool, ForceNew) Specifies whether the instance will be upgraded with a delay. Value options:'
+            id: '- The resource ID. The value is instance_id.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the GaussDB MySQL instance. Changing this parameter
+                will create a new resource.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+        importStatements: []
+    huaweicloud_gaussdb_mysql_lts_log:
+        subCategory: GaussDB(for MySQL)
+        description: Manages a GaussDB MySQL LTS log resource within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_lts_log
+        title: huaweicloud_gaussdb_mysql_lts_log
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "log_type": "error_log",
+                  "lts_group_id": "${var.lts_group_id}",
+                  "lts_stream_id": "${var.lts_stream_id}"
+                }
+              references:
+                instance_id: var.instance_id
+                lts_group_id: var.lts_group_id
+                lts_stream_id: var.lts_stream_id
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            delete: '- Default is 30 minutes.'
+            id: '- The resource ID in format of <instance_id>/<log_type>.'
+            instance_id: |-
+                - (Required, String, ForceNew) Specifies the ID of the GaussDB MySQL instance.
+                Changing this creates a new resource.
+            log_type: |-
+                - (Required, String, ForceNew) Specifies the type of the LTS log.
+                Value options: error_log, slow_log. Changing this creates a new resource.
+            lts_group_id: '- (Required, String) Specifies the ID of the LTS log group.'
+            lts_stream_id: '- (Required, String) Specifies the ID of the LTS log stream.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
         importStatements: []
     huaweicloud_gaussdb_mysql_parameter_template:
         subCategory: GaussDB(for MySQL)
@@ -31982,6 +32714,47 @@ resources:
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
         importStatements: []
+    huaweicloud_gaussdb_mysql_quota:
+        subCategory: GaussDB(for MySQL)
+        description: Manages a GaussDB MySQL quota resource within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_quota
+        title: huaweicloud_gaussdb_mysql_quota
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "enterprise_project_id": "${var.enterprise_project_id}",
+                  "instance_quota": 10,
+                  "ram_quota": 30,
+                  "vcpus_quota": 0
+                }
+              references:
+                enterprise_project_id: var.enterprise_project_id
+        argumentDocs:
+            availability_instance_quota: '- Indicates the remaining instance quota.'
+            availability_ram_quota: '- Indicates the remaining memory quota.'
+            availability_vcpus_quota: '- Indicates the remaining vCPU quota.'
+            enterprise_project_id: |-
+                - (Required, String, ForceNew) Specifies the enterprise project ID. Changing this parameter
+                will create a new resource.
+            enterprise_project_name: '- Indicates the enterprise project name.'
+            id: '- The resource ID. The value is enterprise_project_id.'
+            instance_quota: |-
+                - (Optional, Int) Specifies the instance quantity quota. Value range: -1 to 100000. The value
+                -1 indicates no limit. If there are already instances created, this parameter value must be greater than the number
+                of existing instances. Defaults to -1.
+            ram_quota: |-
+                - (Optional, Int) Specifies the memory quota in GB. Value range: -1 to 2147483646. The value -1
+                indicates no limit. If there are already instances created, this parameter value must be greater than the used memory
+                size. Defaults to -1.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            vcpus_quota: |-
+                - (Optional, Int) Specifies the vCPU quota. Value range: -1 to 2147483646. The value -1
+                indicates no limit. If there are already instances created, this parameter value must be greater than the number of
+                used vCPUs. Defaults to -1.
+        importStatements: []
     huaweicloud_gaussdb_mysql_recycling_policy:
         subCategory: GaussDB(for MySQL)
         description: Manage a GaussDB MySQL recycling policy resource within HuaweiCloud.
@@ -32045,6 +32818,59 @@ resources:
                 resource.
             type: '- (Required, String, ForceNew) Specifies the restoration type. Value options:'
         importStatements: []
+    huaweicloud_gaussdb_mysql_scheduled_task_cancel:
+        subCategory: GaussDB(for MySQL)
+        description: Manages a GaussDB MySQL scheduled task cancel resource within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_scheduled_task_cancel
+        title: huaweicloud_gaussdb_mysql_scheduled_task_cancel
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "job_id": "${var.job_id}"
+                }
+              references:
+                job_id: var.job_id
+        argumentDocs:
+            create_time: '- Indicates the task creation time in the yyyy-mm-ddThh:mm:ssZ format.'
+            datastore_type: '- Indicates the database type.'
+            end_time: '- Indicates the task end time in the yyyy-mm-ddThh:mm:ssZ format.'
+            id: '- The resource ID. The value is job_id.'
+            instance_id: '- Indicates the instance ID.'
+            instance_name: '- Indicates the instance name.'
+            instance_status: '- Indicates the instance status.'
+            job_id: '- (Required, String, ForceNew) Specifies the task ID. Changing this parameter will create a new resource.'
+            job_name: '- Indicates the task name.'
+            job_status: '- Indicates the task execution status.'
+            project_id: '- Indicates the project ID of a tenant in a region.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            start_time: '- Indicates the task start time in the yyyy-mm-ddThh:mm:ssZ format.'
+        importStatements: []
+    huaweicloud_gaussdb_mysql_scheduled_task_delete:
+        subCategory: GaussDB(for MySQL)
+        description: Manages a GaussDB MySQL scheduled task delete resource within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_scheduled_task_delete
+        title: huaweicloud_gaussdb_mysql_scheduled_task_delete
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "job_id": "${var.job_id}"
+                }
+              references:
+                instance_id: var.instance_id
+                job_id: var.job_id
+        argumentDocs:
+            id: '- The resource ID. The value is job_id.'
+            instance_id: '- (Required, String, ForceNew) Specifies the instance ID. Changing this parameter will create a new resource.'
+            job_id: '- (Required, String, ForceNew) Specifies the task ID. Changing this parameter will create a new resource.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+        importStatements: []
     huaweicloud_gaussdb_mysql_sql_control_rule:
         subCategory: GaussDB(for MySQL)
         description: '""'
@@ -32083,6 +32909,67 @@ resources:
                 - (Required, String, ForceNew) Specifies SQL statement type.
                 Value options: SELECT, UPDATE, DELETE.
             update: '- Default is 10 minutes.'
+        importStatements: []
+    huaweicloud_gaussdb_mysql_table_restore:
+        subCategory: GaussDB(for MySQL)
+        description: Use this resource restore tables to GaussDB MySQL instance within HuaweiCloud.
+        name: huaweicloud_gaussdb_mysql_table_restore
+        title: huaweicloud_gaussdb_mysql_table_restore
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "last_table_info": "true",
+                  "restore_tables": [
+                    {
+                      "database": "test_db",
+                      "tables": [
+                        {
+                          "new_name": "table_new_1",
+                          "old_name": "table_old_1"
+                        },
+                        {
+                          "new_name": "table_new_2",
+                          "old_name": "table_old_2"
+                        }
+                      ]
+                    },
+                    {
+                      "database": "test_db1",
+                      "tables": [
+                        {
+                          "new_name": "table_new_1",
+                          "old_name": "table_old_1"
+                        }
+                      ]
+                    }
+                  ],
+                  "restore_time": "${var.restore_time}"
+                }
+              references:
+                instance_id: var.instance_id
+                restore_time: var.restore_time
+        argumentDocs:
+            create: '- Default is 60 minutes.'
+            id: '- The resource ID. The value is the restore job ID.'
+            instance_id: '- (Required, String, ForceNew) Specifies the GaussDB mysql instance ID.'
+            last_table_info: |-
+                - (Optional, String, ForceNew) Specifies whether the data is restored to the most recent table.
+                Value options:
+            region: |-
+                - (Optional, String, ForceNew) The region in which to create the GaussDB mysql table restore resource. If
+                omitted, the provider-level region will be used. Changing this creates a new resource.
+            restore_tables: |-
+                - (Required, List, ForceNew) Specifies the database information.
+                The restore_tables structure is documented below.
+            restore_tables.database: '- (Required, String, ForceNew) Specifies the database name.'
+            restore_tables.tables: |-
+                - (Required, List, ForceNew) Specifies the tables.
+                The tables structure is documented below.
+            restore_time: '- (Required, String, ForceNew) Specifies the backup time, in timestamp format.'
+            tables.new_name: '- (Required, String, ForceNew) Specifies the name of the table after restoration.'
+            tables.old_name: '- (Required, String, ForceNew) Specifies the name of the table before restoration.'
         importStatements: []
     huaweicloud_gaussdb_opengauss_database:
         subCategory: GaussDB
@@ -32422,6 +33309,16 @@ resources:
                 See Region and Endpoints for more detail.
                 For a three-AZ deployment instance, use commas (,) to separate the AZs, for example, cn-north-4a,cn-north-4b,cn-north-4c.
                 Changing this parameter will create a new resource.
+            availability_zone_detail: |-
+                - (Optional, List, ForceNew) Specifies Multi-AZ details of the active/standby instance.
+                The system ignores this parameter if single-AZ deployment is selected. Currently, only GeminiDB Redis instances are
+                supported.
+            availability_zone_detail.primary_availability_zone: |-
+                - (Required, String, ForceNew) Specifies the primary AZ, it must be a single AZ and be
+                different from the standby AZ. Changing this parameter will create a new resource.
+            availability_zone_detail.secondary_availability_zone: |-
+                - (Required, String, ForceNew) Specifies the standby AZ, it must be a single AZ and be
+                different from the primary AZ. Changing this parameter will create a new resource.
             backup_strategy: |-
                 - (Optional, List) Specifies the advanced backup policy. Structure is documented below. Do nothing
                 in update method if change this parameter.
@@ -34946,11 +35843,12 @@ resources:
                 source_image_id: var.source_image_id
                 target_region: var.target_region
         argumentDocs:
+            active_at: '- The time when the image status changes to active, in RFC3339 format.'
             agency_name: |-
                 - (Optional, String, ForceNew) Specifies the agency name. It is required in the cross-region scene.
                 Changing this parameter will create a new resource.
-            checksum: '- Indicates the checksum of the data associated with the image.'
             create: '- Default is 60 minutes.'
+            created_at: '- The creation time of the image, in RFC3339 format.'
             data_origin: |-
                 - Indicates the image source.
                 The format is image,region,source_image_id, e.g. image,cn-north-4,xxxxxx.
@@ -34970,6 +35868,7 @@ resources:
                 - (Optional, String, ForceNew) Specifies the master key used for encrypting an image.
                 Only copying scene within a region is supported. Changing this parameter will create a new resource.
             max_ram: '- (Optional, Int) Specifies the maximum memory of the copy image in the unit of MB.'
+            min_disk: '- The minimum disk space required to run an image, in GB unit.'
             min_ram: |-
                 - (Optional, Int) Specifies the minimum memory of the copy image in the unit of MB. The default value is
                 0, indicating that the memory is not restricted.
@@ -34991,6 +35890,7 @@ resources:
             target_region: |-
                 - (Optional, String, ForceNew) Specifies the target region name.
                 If specified, it means cross-region replication.
+            updated_at: '- The last update time of the image, in RFC3339 format.'
             vault_id: |-
                 - (Optional, String, ForceNew) Specifies the ID of the vault. It is used in the cross-region scene, it is
                 mandatory if you are replicating a full-ECS image, and the region to which the vault belongs must be consistent with
@@ -35148,6 +36048,7 @@ resources:
                 - (Optional, Bool) Specifies whether to delete the associated CBR backup when deleting image.
                 The value can be true or false.
             max_ram: '- (Optional, Int) Specifies the maximum memory of the image, in MB unit.'
+            min_disk: '- The minimum disk space required to run an image, in GB unit.'
             min_ram: |-
                 - (Optional, Int) Specifies the minimum memory of the image, in MB unit.
                 The default value is 0, indicating that the memory is not restricted.
@@ -35201,6 +36102,7 @@ resources:
             max_ram: |-
                 - (Optional, Int) Specifies the maximum memory of the image, in MB unit.
                 The default value is 0, indicating that the memory is not restricted.
+            min_disk: '- The minimum disk space required to run an image, in GB unit.'
             min_ram: |-
                 - (Optional, Int) Specifies the minimum memory of the image, in MB unit.
                 The default value is 0, indicating that the memory is not restricted.
@@ -35257,6 +36159,7 @@ resources:
                 - (Optional, Bool) Specifies whether to delete the associated CBR backup when deleting image.
                 The value can be true or false.
             max_ram: '- (Optional, Int) Specifies the maximum memory of the image, in MB unit.'
+            min_disk: '- The minimum disk space required to run an image, in GB unit.'
             min_ram: |-
                 - (Optional, Int) Specifies the minimum memory of the image, in MB unit.
                 The default value is 0, indicating that the memory is not restricted.
@@ -35647,6 +36550,34 @@ resources:
                 or Ironic. Defaults to ECS. Changing this parameter will create a new resource.
             updated_at: '- The last update time of the image, in RFC3339 format.'
             visibility: '- Whether the image is visible to other tenants.'
+        importStatements: []
+    huaweicloud_iotda_access_credential:
+        subCategory: IoT Device Access (IoTDA)
+        description: -|Manages an access credential resource within HuaweiCloud.
+        name: huaweicloud_iotda_access_credential
+        title: huaweicloud_iotda_access_credential
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "force_disconnect": false,
+                  "type": "AMQP"
+                }
+        argumentDocs:
+            access_code: '- The access credential.'
+            access_key: '- The access name.'
+            force_disconnect: |-
+                - (Optional, Bool, ForceNew) Specifies whether to disconnect AMQP or MQTT connection when
+                creating access credential.
+                The valid values are as follows:
+            id: '- The resource ID, in UUID format.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the access credential resource.
+                If omitted, the provider-level region will be used.
+                Changing this parameter will create a new resource.
+            type: |-
+                - (Optional, String, ForceNew) Specifies the type of the access credential.
+                The valid values are as follows:
         importStatements: []
     huaweicloud_iotda_amqp:
         subCategory: IoT Device Access (IoTDA)
@@ -36071,6 +37002,11 @@ resources:
                 The description contains a maximum of 64 characters. Only letters, Chinese characters, digits, hyphens (-),
                 underscores (_) and the following special characters are allowed: ?'#().,&%@!.
             device_ids: '- (Optional, List) Specifies the list of device IDs bound to the group.'
+            dynamic_group_rule: |-
+                - (Optional, String, ForceNew) Specifies the dynamic device group rule, just fill in the content
+                of the where clause, the remaining clauses do not need to be filled in.
+                e.g. device_name = 'xxx' or device_name = 'xxx'.
+                More grammar rules, please see API docs.
             id: '- The resource ID in UUID format.'
             name: |-
                 - (Required, String) Specifies the name of device group. The name contains a maximum of 64 characters.
@@ -36084,6 +37020,9 @@ resources:
             space_id: |-
                 - (Required, String, ForceNew) Specifies the resource space ID to which the device group belongs.
                 Changing this parameter will create a new resource.
+            type: |-
+                - (Optional, String, ForceNew) Specifies the device group type.
+                The valid values are as follows:
         importStatements: []
     huaweicloud_iotda_device_linkage_rule:
         subCategory: IoT Device Access (IoTDA)
@@ -36511,31 +37450,32 @@ resources:
         importStatements: []
     huaweicloud_iotda_space:
         subCategory: IoT Device Access (IoTDA)
-        description: '""'
+        description: -|Manages an IoTDA resource space within HuaweiCloud.
         name: huaweicloud_iotda_space
         title: huaweicloud_iotda_space
         examples:
-            - name: space
+            - name: test
               manifest: |-
                 {
-                  "name": "first_space"
+                  "name": "${var.name}"
                 }
+              references:
+                name: var.name
         argumentDocs:
             id: '- The resource ID in UUID format.'
             is_default: |-
                 - Whether it is the default resource space. The IoT platform automatically creates and assigns
                 a default resource space (undeletable) to your account.
             name: |-
-                - (Required, String, ForceNew) Specifies the space name. The name contains a maximum of 64 characters.
+                - (Required, String) Specifies the space name. The name contains a maximum of 64 characters.
                 Only letters, digits, hyphens (-), underscore (_) and the following special characters are allowed: ?'#().,&%@!.
-                Changing this parameter will create a new resource.
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the IoTDA resource space resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
         importStatements: []
     huaweicloud_iotda_upgrade_package:
         subCategory: IoT Device Access (IoTDA)
-        description: '""'
+        description: -|Manages an IoTDA OTA upgrade package within HuaweiCloud.
         name: huaweicloud_iotda_upgrade_package
         title: huaweicloud_iotda_upgrade_package
         examples:
@@ -36598,6 +37538,11 @@ resources:
             file_location.obs_location.region: |-
                 - (Required, String, ForceNew) Specifies the region where OBS is located.
                 Changing this parameter will create a new resource.
+            file_location.obs_location.sign: |-
+                - (Optional, String, ForceNew) Specifies the signature value of the upgrade package calculated by SHA256 algorithm.
+                After added the upgrade package and created the upgrade task, when the IoT platform issues an upgrade notification to the
+                device, it will send the signature to the device.
+                The valid length is 64, only letters a(A) to f(F) and digits are allowed.
             firmwarePackage: ': Firmware package.'
             id: '- The resource ID.'
             product_id: |-
@@ -42637,11 +43582,37 @@ resources:
                 spec: var.gateway_specification
                 subnet_id: var.network_id
                 vpc_id: var.vpc_id
+            - name: test
+              manifest: |-
+                {
+                  "auto_renew": "true",
+                  "charging_mode": "prePaid",
+                  "description": "test for terraform",
+                  "name": "${var.gateway_name}",
+                  "period": "1",
+                  "period_unit": "month",
+                  "spec": "${var.gateway_specification}",
+                  "subnet_id": "${var.network_id}",
+                  "vpc_id": "${var.vpc_id}"
+                }
+              references:
+                name: var.gateway_name
+                spec: var.gateway_specification
+                subnet_id: var.network_id
+                vpc_id: var.vpc_id
+            - name: test
+              manifest: '{}'
         argumentDocs:
             1,000,000: SNAT connections.
             10,000: SNAT connections.
             50,000: SNAT connections.
             200,000: SNAT connections.
+            auto_renew: |-
+                - (Optional, String) Specifies whether auto-renew is enabled. This parameter is only valid when
+                charging_mode is set to prePaid. Valid values are true and false. Defaults to false.
+            charging_mode: |-
+                - (Optional, String, ForceNew) Specifies the charging mode of the NAT gateway.
+                The valid values are as follows:
             create: '- Default is 5 minutes.'
             delete: '- Default is 5 minutes.'
             description: |-
@@ -42659,6 +43630,16 @@ resources:
                 The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
                 If not spacified, it will be automatically allocated.
                 Changing this will creates a new resource.
+            period: |-
+                - (Optional, Int, ForceNew) Specifies the charging period of the NAT gateway.
+                If period_unit is set to month, the value ranges from 1 to 9.
+                If period_unit is set to year, the value ranges from 1 to 3.
+                This parameter is mandatory if charging_mode is set to prePaid.
+                Changing this will create a new resource.
+            period_unit: |-
+                - (Optional, String, ForceNew) Specifies the charging period unit of the NAT gateway.
+                Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
+                Changing this will create a new resource.
             region: |-
                 - (Optional, String, ForceNew) Specifies the region where the NAT gateway is located.
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
@@ -45259,6 +46240,9 @@ resources:
             - name: test
               manifest: '{}'
         argumentDocs:
+            allow_external_principals: |-
+                - (Optional, Bool) Specifies whether resources can be shared with any accounts outside
+                the organization. Defaults to true.
             associated_permissions: |-
                 - The associated permissions of the RAM share.
                 The associated_permissions structure is documented below.
@@ -45488,8 +46472,8 @@ resources:
               manifest: |-
                 {
                   "availability_zone": [
-                    "${var.availability_zone_1}",
-                    "${var.availability_zone_2}"
+                    "${var.availability_zone1}",
+                    "${var.availability_zone2}"
                   ],
                   "backup_strategy": [
                     {
@@ -45773,6 +46757,34 @@ resources:
                 - (Required, String, ForceNew) Specifies the volume type. Its value can be any of the following and is
                 case-sensitive:
             vpc_id: '- (Required, String, ForceNew) Specifies the VPC ID. Changing this parameter will create a new resource.'
+        importStatements: []
+    huaweicloud_rds_instance_eip_associate:
+        subCategory: Relational Database Service (RDS)
+        description: Manages an RDS instance EIP associate resource within HuaweiCloud.
+        name: huaweicloud_rds_instance_eip_associate
+        title: huaweicloud_rds_instance_eip_associate
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "instance_id": "${var.instance_id}",
+                  "public_ip": "${var.public_ip}",
+                  "public_ip_id": "${var.node_id}"
+                }
+              references:
+                instance_id: var.instance_id
+                public_ip: var.public_ip
+                public_ip_id: var.node_id
+        argumentDocs:
+            create: '- Default is 30 minutes.'
+            delete: '- Default is 30 minutes.'
+            id: '- The resource ID. The value is instance_id.'
+            instance_id: '- (Required, String, ForceNew) Specifies the ID of an RDS instance. Changing this creates a new resource.'
+            public_ip: '- (Required, String, ForceNew) Specifies the EIP address to be bound. Changing this creates a new resource.'
+            public_ip_id: '- (Required, String, ForceNew) Specifies the EIP ID. Changing this creates a new resource.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this creates a new resource.
         importStatements: []
     huaweicloud_rds_lts_log:
         subCategory: Relational Database Service (RDS)
@@ -46992,6 +48004,74 @@ resources:
             vars_uri: |-
                 - (Optional, String) Specifies the OBS address where the variable (.tfvars) file corresponding to the
                 HCL/JSON template located, which describes the target status of the deployment resources.
+        importStatements: []
+    huaweicloud_rgc_account:
+        subCategory: Resource Governance Center (RGC)
+        description: Manages an RGC account resource within HuaweiCloud.
+        name: huaweicloud_rgc_account
+        title: huaweicloud_rgc_account
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "email": "test@terraform.com",
+                  "identity_store_email": "test@terraform.com",
+                  "identity_store_user_name": "test",
+                  "name": "test",
+                  "parent_organizational_unit_id": "${var.parent_organizational_unit_id}",
+                  "parent_organizational_unit_name": "${var.parent_organizational_unit_name}"
+                }
+              references:
+                parent_organizational_unit_id: var.parent_organizational_unit_id
+                parent_organizational_unit_name: var.parent_organizational_unit_name
+            - name: test
+              manifest: |-
+                {
+                  "blueprint": [
+                    {
+                      "blueprint_product_id": "${var.blueprint_product_id}",
+                      "blueprint_product_version": "${var.blueprint_product_version}",
+                      "is_blueprint_has_multi_account_resource": false
+                    }
+                  ],
+                  "email": "test@terraform.com",
+                  "identity_store_email": "test@terraform.com",
+                  "identity_store_user_name": "test",
+                  "name": "test",
+                  "parent_organizational_unit_id": "${var.parent_organizational_unit_id}",
+                  "parent_organizational_unit_name": "${var.parent_organizational_unit_name}"
+                }
+              references:
+                blueprint.blueprint_product_id: var.blueprint_product_id
+                blueprint.blueprint_product_version: var.blueprint_product_version
+                parent_organizational_unit_id: var.parent_organizational_unit_id
+                parent_organizational_unit_name: var.parent_organizational_unit_name
+            - name: test
+              manifest: '{}'
+        argumentDocs:
+            blueprint: |-
+                - (Optional, List, NonUpdatable) Specifies the blueprint of the account.
+                The blueprint structure is documented below.
+            blueprint.blueprint_product_id: '- (Optional, String) Specifies the ID of the blueprint.'
+            blueprint.blueprint_product_version: '- (Optional, String) Specifies the version of the blueprint.'
+            blueprint.is_blueprint_has_multi_account_resource: '- (Optional, Bool) Specifies whether the blueprint has multi-account resources.'
+            blueprint.variables: '- (Optional, String) Specifies the variables of the blueprint.'
+            create: '- Default is 15 minutes.'
+            delete: '- Default is 15 minutes.'
+            email: '- (Required, String, NonUpdatable) Specifies the email address of the account.'
+            id: '- The resource ID.'
+            identity_store_email: '- (Required, String, NonUpdatable) Specifies the email address of the account in identity center.'
+            identity_store_user_name: '- (Required, String, NonUpdatable) Specifies the name of the account in identity center.'
+            joined_at: '- Indicates the time when the account was created.'
+            joined_method: '- Indicates how an account joined an organization.'
+            name: '- (Required, String, NonUpdatable) Specifies the name of the account.'
+            parent_organizational_unit_id: '- (Required, String ,NonUpdatable) Specifies the ID of the parent organizational unit.'
+            parent_organizational_unit_name: '- (Required, String, NonUpdatable) Specifies the name of the parent organizational unit.'
+            phone: '- (Optional, String, NonUpdatable) Specifies the mobile number of the account.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+            urn: '- Indicates the uniform resource name of the account.'
         importStatements: []
     huaweicloud_rms_advanced_query:
         subCategory: Config
@@ -48345,6 +49425,23 @@ resources:
                 Changing this creates a new resource.
             workspace_id: '- (Required, String, NonUpdatable) Specifies the ID of the workspace to which the playbook version belongs.'
         importStatements: []
+    huaweicloud_secmaster_playbook_instance_operation:
+        subCategory: SecMaster
+        description: Manages a SecMaster playbook instance operation resource within HuaweiCloud.
+        name: huaweicloud_secmaster_playbook_instance_operation
+        title: huaweicloud_secmaster_playbook_instance_operation
+        argumentDocs:
+            id: '- The resource ID.'
+            instance_id: '- (Required, String, NonUpdatable) Specifies the version ID of the playbook.'
+            operation: |-
+                - (Required, String, NonUpdatable) Specifies the operation of the playbook instance.
+                The value can be RETRY or TERMINATE.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            workspace_id: '- (Required, String, NonUpdatable) Specifies the ID of the workspace to which the playbook instance belongs.'
+        importStatements: []
     huaweicloud_secmaster_playbook_rule:
         subCategory: SecMaster
         description: '""'
@@ -48503,13 +49600,33 @@ resources:
                 version_id: var.version_id
                 workspace_id: var.workspace_id
         argumentDocs:
+            action_strategy: '- The execution policy.'
+            approve_name: '- The reviewer.'
+            created_at: '- The creation time.'
+            creator_id: '- The creator ID.'
+            data_class_id: '- The data class ID.'
+            data_class_name: '- The data class name.'
+            data_object_create: '- Whether to trigger a playbook when a data object is created.'
+            data_object_delete: '- Whether to trigger a playbook when a data object is deleted.'
+            data_object_update: '- Whether to trigger a playbook when a data object is updated.'
+            description: '- The description.'
             enabled: |-
                 - (Optional, Bool, NonUpdatable) Specifies whether the playbook version is enabled.
                 The value can be true(enable version) or false(disable version).
+            id: '- The resource ID.'
+            modifier_id: '- The ID of the user who updated the information.'
+            playbook_id: '- The playbook ID.'
+            project_id: '- The project ID.'
             region: |-
                 - (Optional, String, ForceNew) Specifies the region in which to create the resource.
                 If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
-            status: '- (Optional, String, NonUpdatable) Specifies the playbook version status. The value can only be **APPROVING.'
+            rule_enabled: '- Whether the filtering rule is enabled.'
+            rule_id: '- The rule ID.'
+            status: '- (Optional, String, NonUpdatable) Specifies the playbook version status. The value can only be APPROVING.'
+            trigger_type: '- The triggering type.'
+            type: '- The playbook version type.'
+            updated_at: '- The update time.'
+            version: '- The playbook version.'
             version_id: '- (Required, String, NonUpdatable) Specifies the playbook version ID.'
             workspace_id: '- (Required, String, NonUpdatable) Specifies the ID of the workspace to which the playbook version belongs.'
         importStatements: []
@@ -49170,6 +50287,388 @@ resources:
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
             tags: '- (Optional, Map) Specifies the key/value pairs to associate with the application that used to filter resource.'
             updated_at: '- The latest update time of the application, in RFC3339 format.'
+        importStatements: []
+    huaweicloud_servicestagev3_component:
+        subCategory: ServiceStage
+        description: Manages a component resource within HuaweiCloud.
+        name: huaweicloud_servicestagev3_component
+        title: huaweicloud_servicestagev3_component
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "affinity": [
+                    {
+                      "condition": "required",
+                      "kind": "node",
+                      "match_expressions": [
+                        {
+                          "key": "affinity1",
+                          "operation": "In",
+                          "value": "foo"
+                        }
+                      ],
+                      "weight": 100
+                    },
+                    {
+                      "condition": "preferred",
+                      "kind": "node",
+                      "match_expressions": [
+                        {
+                          "key": "affinity2",
+                          "operation": "NotIn",
+                          "value": "bar"
+                        }
+                      ],
+                      "weight": 1
+                    }
+                  ],
+                  "anti_affinity": [
+                    {
+                      "condition": "required",
+                      "kind": "pod",
+                      "match_expressions": [
+                        {
+                          "key": "anit-affinity1",
+                          "operation": "Exists"
+                        }
+                      ],
+                      "weight": 100
+                    },
+                    {
+                      "condition": "preferred",
+                      "kind": "pod",
+                      "match_expressions": [
+                        {
+                          "key": "anti-affinity2",
+                          "operation": "DoesNotExist"
+                        }
+                      ],
+                      "weight": 1
+                    }
+                  ],
+                  "application_id": "${var.application_id}",
+                  "command": "${jsonencode({\n    \"args\": [\"-a\"],\n    \"command\": [\"ls\"]\n  })}",
+                  "custom_metric": [
+                    {
+                      "dimensions": "cpu_usage,mem_usage",
+                      "path": "/tmp",
+                      "port": 600
+                    }
+                  ],
+                  "description": "Created by terraform script",
+                  "environment_id": "${var.environment_id}",
+                  "envs": [
+                    {
+                      "name": "env_name",
+                      "value": "env_value"
+                    }
+                  ],
+                  "limit_cpu": 0.25,
+                  "limit_memory": 0.5,
+                  "liveness_probe": [
+                    {
+                      "delay": 30,
+                      "port": 800,
+                      "timeout": 30,
+                      "type": "tcp"
+                    }
+                  ],
+                  "logs": [
+                    {
+                      "host_extend_path": "PodName",
+                      "host_path": "/tmp",
+                      "log_path": "/tmp",
+                      "rotate": "Hourly"
+                    }
+                  ],
+                  "mesher": [
+                    {
+                      "port": 60
+                    }
+                  ],
+                  "name": "${var.component_name}",
+                  "post_start": [
+                    {
+                      "command": [
+                        "test"
+                      ],
+                      "type": "command"
+                    }
+                  ],
+                  "pre_stop": [
+                    {
+                      "command": [
+                        "test"
+                      ],
+                      "type": "command"
+                    }
+                  ],
+                  "readiness_probe": [
+                    {
+                      "delay": 30,
+                      "host": "127.0.0.1",
+                      "path": "/v1/test",
+                      "port": 8000,
+                      "scheme": "HTTPS",
+                      "timeout": 30,
+                      "type": "http"
+                    }
+                  ],
+                  "refer_resources": [
+                    {
+                      "id": "${var.associated_cce_cluster_id}",
+                      "parameters": "${jsonencode({\n      \"namespace\": \"default\",\n      \"type\": \"VirtualMachine\"\n    })}",
+                      "type": "cce"
+                    },
+                    {
+                      "id": "${var.associated_cse_engine_id}",
+                      "type": "cse"
+                    }
+                  ],
+                  "replica": 2,
+                  "request_cpu": 0.25,
+                  "request_memory": 0.5,
+                  "runtime_stack": [
+                    {
+                      "deploy_mode": "container",
+                      "name": "Docker",
+                      "type": "Docker"
+                    }
+                  ],
+                  "source": "${jsonencode({\n    \"auth\": \"iam\",\n    \"kind\": \"image\",\n    \"storage\": \"swr\",\n    \"url\": var.ims_docker_image_url\n  })}",
+                  "storages": [
+                    {
+                      "mounts": [
+                        {
+                          "path": "/category",
+                          "read_only": false,
+                          "sub_path": "sub"
+                        }
+                      ],
+                      "name": "%[2]s",
+                      "parameters": "${jsonencode({\n      \"default_mode\": 0,\n      \"path\": \"/tmp\"\n    })}",
+                      "type": "HostPath"
+                    }
+                  ],
+                  "tags": {
+                    "foo": "bar"
+                  },
+                  "timezone": "Asia/Shanghai",
+                  "version": "1.0.1"
+                }
+              references:
+                application_id: var.application_id
+                environment_id: var.environment_id
+                name: var.component_name
+                refer_resources.id: var.associated_cse_engine_id
+            - name: test
+              manifest: '{}'
+        argumentDocs:
+            affinity: |-
+                - (Optional, List) Specifies the affinity configuration of the component.
+                The affinity structure is documented below.
+            affinity.condition: '- (Required, String) Specifies the condition type of the (anti) affinity rule.'
+            affinity.kind: '- (Required, String) Specifies the kind of the (anti) affinity rule.'
+            affinity.match_expressions: |-
+                - (Required, List) Specifies the list of the match rules for (anti) affinity.
+                The match_expressions structure is documented below.
+            affinity.weight: |-
+                - (Optional, Int) Specifies the weight of the (anti) affinity rule.
+                The valid value is range from 1 to 100.
+            anti_affinity: |-
+                - (Optional, List) Specifies the anti-affinity configuration of the component.
+                The anti_affinity structure is documented below.
+            application_id: |-
+                - (Required, String, ForceNew) Specifies the application ID to which the component belongs.
+                Changing this will create a new resource.
+            build: |-
+                - (Optional, String) Specifies the build configuration of the component, in JSON format.
+                For the keys, please refer to the documentation.
+            command: |-
+                - (Optional, String) Specifies the start commands of the component, in JSON format.
+                For the keys, please refer to the documentation.
+            create: '- Default is 20 minutes.'
+            created_at: '- The creation time of the component, in RFC3339 format.'
+            custom_metric: |-
+                - (Optional, List) Specifies the configuration of the monitor metric.
+                The custom_metric structure is documented below.
+            custom_metric.dimensions: |-
+                - (Required, String) Specifies the monitoring dimension, such as cpu_usage, mem_usage or
+                cpu_usage,mem_usage (separated by a comma).
+            custom_metric.path: '- (Required, String) Specifies the collection path, such as ./metrics.'
+            custom_metric.port: '- (Required, Int) Specifies the collection port, such as 9090.'
+            delete: '- Default is 5 minutes.'
+            deploy_strategy: |-
+                - (Optional, List) Specifies the configuration of the deploy strategy.
+                The deploy_strategy structure is documented below.
+            deploy_strategy.gray_release: |-
+                - (Optional, String) Specifies the gray release parameters, in JSON format.
+                Required if the type is GrayRelease.
+                For the keys, please refer to the documentation.
+            deploy_strategy.rolling_release: |-
+                - (Optional, String) Specifies the rolling release parameters, in JSON format.
+                Required if the type is RollingRelease.
+                For the keys, please refer to the documentation.
+            deploy_strategy.type: '- (Required, String) Specifies the deploy type.'
+            description: |-
+                - (Optional, String) Specifies the description of the component.
+                The value can contain a maximum of 128 characters.
+            environment_id: |-
+                - (Required, String, ForceNew) Specifies the environment ID where the component is deployed.
+                Changing this will create a new resource.
+            envs: |-
+                - (Optional, List) Specifies the configuration of the environment variables.
+                The envs structure is documented below.
+            envs.name: '- (Required, String) Specifies the name of the environment variable.'
+            envs.value: '- (Optional, String) Specifies the value of the environment variable.'
+            external_accesses: |-
+                - (Optional, List) Specifies the configuration of the external accesses.
+                The external_accesses structure is documented below.
+            external_accesses.address: '- (Optional, String) Specifies the address of the external access.'
+            external_accesses.forward_port: '- (Optional, Int) Specifies the forward port of the external access.'
+            external_accesses.protocol: '- (Required, String) Specifies the protocol of the external access.'
+            id: '- The resource ID, in UUID format.'
+            jvm_opts: |-
+                - (Optional, String) Specifies the JVM parameters of the component. e.g. -Xms256m -Xmx1024m.
+                If there are multiple parameters, separate them by spaces.
+                If this parameter is left blank, the default value is used.
+            limit_cpu: |-
+                - (Optional, Float) Specifies the maximum number of the CPU limit.
+                The unit is Core.
+            limit_memory: |-
+                - (Optional, Float) Specifies the maximum number of the memory limit.
+                The unit is GiB.
+            liveness_probe: |-
+                - (Optional, List) Specifies the liveness probe configuration of the component.
+                The liveness_probe structure is documented below.
+            liveness_probe.command: |-
+                - (Optional, List) Specifies the command list of the probe.
+                This parameter is only available when the type is set to command.
+            liveness_probe.delay: '- (Required, Int) Specifies the delay time of the probe.'
+            liveness_probe.host: |-
+                - (Optional, String) Specifies the host of the probe.
+                Defaults to pod ID, also custom IP address can be specified.
+                This parameter is only available when the type is set to http.
+            liveness_probe.path: |-
+                - (Optional, String) Specifies the path of the probe.
+                This parameter is only available when the type is set to http.
+            liveness_probe.port: |-
+                - (Optional, Int) Specifies the port of the probe.
+                This parameter is only available when the type is set to tcp or http.
+            liveness_probe.scheme: '- (Optional, String) Specifies the scheme type of the probe.'
+            liveness_probe.timeout: '- (Required, Int) Specifies the timeout of the probe.'
+            liveness_probe.type: '- (Required, String) Specifies the type of the probe.'
+            logs: |-
+                - (Optional, List) Specifies the configuration of the logs collection.
+                The logs structure is documented below.
+            logs.host_extend_path: '- (Required, String) Specifies the extension path of the host.'
+            logs.host_path: '- (Required, String) Specifies the mounted host path, e.g. /tmp.'
+            logs.log_path: '- (Required, String) Specifies the log path of the container, e.g. /tmp.'
+            logs.rotate: '- (Required, String) Specifies the interval for dumping logs.'
+            match_expressions.key: '- (Required, String) Specifies the key of the match rule.'
+            match_expressions.operation: '- (Required, String) Specifies the operation of the match rule.'
+            match_expressions.value: '- (Required, String) Specifies the value of the match rule.'
+            mesher: |-
+                - (Optional, List) Specifies the configuration of the access mesher.
+                The mesher structure is documented below.
+            mesher.port: '- (Required, Int) Specifies the process listening port.'
+            mounts.path: '- (Required, String) Specifies the mount path.'
+            mounts.read_only: '- (Required, Bool) Specifies whether the disk mount is read-only.'
+            mounts.sub_path: '- (Required, String) Specifies the sub mount path.'
+            name: |-
+                - (Required, String, ForceNew) Specifies the name of the component.
+                The valid length is limited from 2 to 64, only letters, digits, hyphens (-) and underscores (_) are allowed.
+                The name must start with a letter and end with a letter or a digit.
+                Changing this will create a new resource.
+            post_start: |-
+                - (Optional, List) Specifies the post start configuration.
+                The post_start structure is documented below.
+            post_start.command: |-
+                - (Optional, List) Specifies the command list of the lifecycle configuration.
+                This parameter is only available when the type is set to command.
+            post_start.host: |-
+                - (Optional, String) Specifies the host (IP) of the lifecycle configuration.
+                If this parameter is left blank, the pod IP address is used.
+                This parameter is only available when the type is set to http.
+            post_start.path: |-
+                - (Optional, String) Specifies the request path of the lifecycle configuration.
+                This parameter is only available when the type is set to http.
+            post_start.port: |-
+                - (Optional, String) Specifies the port number of the lifecycle configuration.
+                This parameter is only available when the type is set to http.
+            post_start.scheme: '- (Optional, String) Specifies the HTTP request type.'
+            post_start.type: '- (Required, String) Specifies the processing method.'
+            pre_stop: |-
+                - (Optional, List) Specifies the pre stop configuration.
+                The pre_stop structure is documented below.
+            readiness_probe: |-
+                - (Optional, List) Specifies the readiness probe configuration of the component.
+                The readiness_probe structure is documented below.
+            refer_resources: |-
+                - (Required, List) Specifies the configuration of the reference resources.
+                The refer_resources structure is documented below.
+            refer_resources.id: '- (Required, String) Specifies the resource ID.'
+            refer_resources.parameters: |-
+                - (Optional, String) Specifies the resource parameters, in JSON format.
+                For the keys, please refer to the documentation.
+            refer_resources.type: '- (Required, String) Specifies the resource type.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region where the component is located.
+                If omitted, the provider-level region will be used. Changing this will create a new resource.
+            replica: |-
+                - (Required, Int, ForceNew) Specifies the replica number of the component.
+                Changing this will create a new resource.
+            request_cpu: |-
+                - (Optional, Float) Specifies the number of the CPU request resources.
+                The unit is Core.
+            request_memory: |-
+                - (Optional, Float) Specifies the number of the memory request resources.
+                The unit is GiB.
+            runtime_stack: |-
+                - (Required, List, ForceNew) Specifies the configuration of the runtime stack.
+                The runtime_stack structure is documented below.
+                Changing this will create a new resource.
+            runtime_stack.deploy_mode: |-
+                - (Required, String, ForceNew) Specifies the deploy mode of the stack.
+                Changing this will create a new resource.
+            runtime_stack.name: |-
+                - (Required, String, ForceNew) Specifies the stack name.
+                Changing this will create a new resource.
+            runtime_stack.type: |-
+                - (Required, String, ForceNew) Specifies the stack type.
+                Changing this will create a new resource.
+            runtime_stack.version: |-
+                - (Optional, String, ForceNew) Specifies the stack version.
+                Changing this will create a new resource.
+            source: |-
+                - (Required, String) Specifies the source configuration of the component, in JSON format.
+                For the keys, please refer to the documentation.
+            status: '- The status of the component.'
+            storages: |-
+                - (Optional, List) Specifies the storage configuration.
+                The storages structure is documented below.
+            storages.mounts: |-
+                - (Required, List) Specifies the configuration of the disk mounts.
+                The mounts structure is documented below.
+            storages.name: |-
+                - (Required, String) Specifies the name of the disk where the data is stored.
+                Only lowercase letters, digits, and hyphens (-) are allowed and must start and end with a lowercase letter or digit.
+            storages.parameters: |-
+                - (Required, String) Specifies the information corresponding to the specific types of data storage,
+                in JSON format.
+                For the keys, please refer to the documentation.
+            storages.type: '- (Required, String) Specifies the type of the data storage.'
+            tags: '- (Optional, Map) Specifies the key/value pairs to associate with the component.'
+            timezone: '- (Optional, String) Specifies the time zone in which the component runs, e.g. Asia/Shanghai.'
+            tomcat_opts: |-
+                - (Optional, String) Specifies the configuration of the tomcat server, in JSON format.
+                For the keys, please refer to the documentation.
+            update: '- Default is 20 minutes.'
+            updated_at: '- The latest update time of the component, in RFC3339 format.'
+            version: |-
+                - (Required, String) Specifies the version of the component.
+                The format is {number}.{number}.{number} or {number}.{number}.{number}.{number}, e.g. 1.0.1.
         importStatements: []
     huaweicloud_servicestagev3_environment:
         subCategory: ServiceStage
@@ -49884,6 +51383,120 @@ resources:
                 Changing this creates a new resource.
             result: '- The message detection result.'
             topic_urn: '- (Required, String, NonUpdatable) Specifies the resource identifier of a topic.'
+        importStatements: []
+    huaweicloud_smn_message_publish:
+        subCategory: Simple Message Notification (SMN)
+        description: Manages a SMN message publishment resource within HuaweiCloud.
+        name: huaweicloud_smn_message_publish
+        title: huaweicloud_smn_message_publish
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "message": "test",
+                  "subject": "${var.subject}",
+                  "topic_urn": "${var.topic_urn}"
+                }
+              references:
+                subject: var.subject
+                topic_urn: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "message_structure": "${jsonencode({\n    default       = \"send default msg\"\n    sms           = \"send msg by sms protocol\"\n    email         = \"send msg by email protocol\"\n    http          = \"send msg by http protocol\"\n    functiongraph = \"send msg by functiongraph protocol\"\n    https         = \"send msg by https protocol\"\n  })}",
+                  "subject": "${var.subject}",
+                  "topic_urn": "${var.topic_urn}"
+                }
+              references:
+                subject: var.subject
+                topic_urn: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "message_template_name": "test",
+                  "subject": "${var.subject}",
+                  "tags": {
+                    "key": "value"
+                  },
+                  "topic_urn": "${var.topic_urn}"
+                }
+              references:
+                subject: var.subject
+                topic_urn: var.topic_urn
+            - name: test
+              manifest: |-
+                {
+                  "message": "test",
+                  "message_attributes": [
+                    {
+                      "name": "test",
+                      "type": "STRING",
+                      "value": "aaa"
+                    },
+                    {
+                      "name": "aaa",
+                      "type": "STRING_ARRAY",
+                      "values": [
+                        "aaa",
+                        "aaaa"
+                      ]
+                    },
+                    {
+                      "name": "smn_protocol",
+                      "type": "PROTOCOL",
+                      "values": [
+                        "https",
+                        "http",
+                        "email",
+                        "sms"
+                      ]
+                    }
+                  ],
+                  "subject": "${var.subject}",
+                  "topic_urn": "${var.topic_urn}"
+                }
+              references:
+                subject: var.subject
+                topic_urn: var.topic_urn
+        argumentDocs:
+            id: '- The resource ID.'
+            message: '- (Optional, String, NonUpdatable) Specifies the message content.'
+            message_attributes: |-
+                - (Optional, List, NonUpdatable) Specifies the message filter policies of a subscriber.
+                The message_attributes structure is documented below.
+            message_attributes.name: '- (Required, String, NonUpdatable) Specifies the property name.'
+            message_attributes.type: |-
+                - (Required, String, NonUpdatable) Specifies the property type.
+                The value can be STRING, STRING_ARRAY or PROTOCOL.
+            message_attributes.value: |-
+                - (Optional, String, NonUpdatable) Specifies the property value.
+                This parameter is valid only when the type set to STRING. The attribute value can only contain Chinese
+                and English, numbers, and underscores, and the length is 1 to 32 characters.
+            message_attributes.values: |-
+                - (Optional, List, NonUpdatable) Specifies the property values.
+                This parameter is valid when the type set to STRING_ARRAY or PROTOCOL.
+            message_structure: '- (Optional, String, NonUpdatable) Specifies the message structure.'
+            message_template_name: '- (Optional, String, NonUpdatable) Specifies the message template name.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            subject: '- (Optional, String, NonUpdatable) Specifies the message title.'
+            tags: |-
+                - (Optional, Map, NonUpdatable) Specifies a dictionary consisting of tag and parameters to replace the tag.
+                The value corresponding to the label in the message template. Message publishing using message template mode must
+                carry this parameter. The key in the dictionary is the parameter name in the message template, which should not
+                exceed 21 characters. The value in the dictionary is the value after replacing the parameters in the message
+                template, which does not exceed 1KB.
+            time_to_live: |-
+                - (Optional, String, NonUpdatable) Specifies the maximum retention time of the message within the SMN system.
+                After this retention time, the system will no longer send the message. The unit is second, and the default value
+                of the variable is 3600 second. The value is a positive integer and less than or equal to 3600*24.
+            topic_urn: '- (Required, String, NonUpdatable) Specifies the resource identifier of a topic.'
+            type: |-
+                is STRING_ARRAY, the values is a string array, the array length is
+                1 to 10, the element content in the array cannot be repeated, each string in the array can only contain
+                Chinese and English, numbers, and underscores, and length is 1 to 32 characters.
         importStatements: []
     huaweicloud_smn_message_template:
         subCategory: Simple Message Notification (SMN)
@@ -51418,12 +53031,31 @@ resources:
                   "ip_version": 6,
                   "name": "group-ipv6"
                 }
+            - name: ipv6
+              manifest: |-
+                {
+                  "ip_extra_set": [
+                    {
+                      "ip": "192.168.3.2",
+                      "remarks": "terraform test 1"
+                    },
+                    {
+                      "ip": "192.168.5.0/24",
+                      "remarks": "terraform test 2"
+                    },
+                    {
+                      "ip": "192.168.3.20-192.168.3.100"
+                    }
+                  ],
+                  "ip_version": 4,
+                  "name": "group-ipv4"
+                }
             - name: test
               manifest: '{}'
         argumentDocs:
             addresses: |-
-                - (Required, List) Specifies an array of one or more IP addresses. The address can be a single IP
-                address, IP address range or IP address CIDR. The maximum length is 20.
+                - (Optional, List) Specifies an array of one or more IP addresses. The address can be a single IP
+                address, IP address range or IP address CIDR. Only one of addresses and ip_extra_set can be specified.
             create: '- Default is 5 minutes.'
             delete: '- Default is 5 minutes.'
             description: |-
@@ -51437,6 +53069,14 @@ resources:
                 a security group rule, the address group and the associated security group rule will be deleted together.
                 The default value is false.
             id: '- The resource ID in UUID format.'
+            ip_extra_set: |-
+                - (Optional, List) Specifies the IP addresses and their remarks in an IP address group.
+                The ip_extra_set structure is documented below.
+                Only one of addresses and ip_extra_set can be specified.
+            ip_extra_set.ip: '- (Required, String) Specifies the IP address, IP address range, or CIDR block.'
+            ip_extra_set.remarks: |-
+                - (Optional, String) Specifies the supplementary information about the IP address,
+                IP address range, or CIDR block.
             ip_version: |-
                 - (Optional, Int, ForceNew) Specifies the IP version, either 4 (default) or 6.
                 Changing this creates a new address group.
@@ -52828,7 +54468,7 @@ resources:
         importStatements: []
     huaweicloud_vpcep_service:
         subCategory: VPC Endpoint (VPCEP)
-        description: '""'
+        description: -|Manages a VPC endpoint service resource within HuaweiCloud.
         name: huaweicloud_vpcep_service
         title: huaweicloud_vpcep_service
         examples:
@@ -52862,6 +54502,9 @@ resources:
                 Changing this creates a new VPC endpoint service resource.
             endpoint_id: '- The unique ID of the VPC endpoint.'
             id: '- The unique ID of the VPC endpoint service.'
+            ip_version: |-
+                - (Optional, String, ForceNew) Specifies the IP version of the VPC endpoint service.
+                The valid values are as follows:
             name: |-
                 - (Optional, String) Specifies the name of the VPC endpoint service. The value contains a maximum of 16
                 characters, including letters, digits, underscores (_), and hyphens (-).
@@ -52890,6 +54533,9 @@ resources:
             server_type: '- (Required, String, ForceNew) Specifies the backend resource type. The valid values are as follows:'
             service_name: '- The full name of the VPC endpoint service in the format: region.name.id or region.id.'
             service_type: '- The type of the VPC endpoint service.'
+            snat_network_id: |-
+                - (Optional, String, ForceNew) Specifies the network ID of any subnet within the VPC used to create
+                the VPC endpoint service.
             status: '- The status of the VPC endpoint service. The value can be available or failed.'
             tags: '- (Optional, Map) The key/value pairs to associate with the VPC endpoint service.'
             tcp option: |-
@@ -52903,6 +54549,41 @@ resources:
             vpc_id: |-
                 - (Required, String, ForceNew) Specifies the ID of the VPC to which the backend resource of the VPC endpoint
                 service belongs. Changing this creates a new VPC endpoint service.
+        importStatements: []
+    huaweicloud_vpn_access_policy:
+        subCategory: Virtual Private Network (VPN)
+        description: Manages a VPN access policy within HuaweiCloud.
+        name: huaweicloud_vpn_access_policy
+        title: huaweicloud_vpn_access_policy
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "dest_ip_cidrs": [
+                    "${var.dest_ip_cidr}"
+                  ],
+                  "name": "${var.name}",
+                  "user_group_id": "${var.user_group_id}",
+                  "vpn_server_id": "${var.vpn_server_id}"
+                }
+              references:
+                name: var.name
+                user_group_id: var.user_group_id
+                vpn_server_id: var.vpn_server_id
+        argumentDocs:
+            created_at: '- The creation time.'
+            description: '- (Optional, String) Specifies the description of the access policy.'
+            dest_ip_cidrs: '- (Required, List) Specifies the list of destination IP CIDRs.'
+            id: '- The resource ID.'
+            name: '- (Required, String) Specifies the access policy name.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            updated_at: '- The update time.'
+            user_group_id: '- (Required, String) Specifies the user group ID.'
+            user_group_name: '- The user group name.'
+            vpn_server_id: '- (Required, String, NonUpdatable) Specifies the VPN server ID.'
         importStatements: []
     huaweicloud_vpn_connection:
         subCategory: Virtual Private Network (VPN)
@@ -53386,6 +55067,97 @@ resources:
             vpc_id: |-
                 - (Optional, String, ForceNew) The ID of the VPC to which the VPN gateway is connected.
                 This parameter is mandatory when attachment_type is vpc.
+        importStatements: []
+    huaweicloud_vpn_user:
+        subCategory: Virtual Private Network (VPN)
+        description: Manages a VPN user resource within HuaweiCloud.
+        name: huaweicloud_vpn_user
+        title: huaweicloud_vpn_user
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "name": "${var.name}",
+                  "password": "${var.password}",
+                  "vpn_server_id": "${var.vpn_server_id}"
+                }
+              references:
+                name: var.name
+                password: var.password
+                vpn_server_id: var.vpn_server_id
+            - name: test
+              manifest: '{}'
+        argumentDocs:
+            created_at: '- The creation time.'
+            description: '- (Optional, String) Specifies the description of the user.'
+            id: '- The resource ID.'
+            name: '- (Required, String, NonUpdatable) Specifies the user name.'
+            password: '- (Required, String) Specifies the user password.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            updated_at: '- The update time.'
+            user_group_id: '- The user group ID.'
+            user_group_name: '- The user group name.'
+            vpn_server_id: '- (Required, String, NonUpdatable) Specifies the VPN server ID.'
+        importStatements: []
+    huaweicloud_vpn_user_group:
+        subCategory: Virtual Private Network (VPN)
+        description: Manages a VPN user group resource within HuaweiCloud.
+        name: huaweicloud_vpn_user_group
+        title: huaweicloud_vpn_user_group
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "description": "${var.description}",
+                  "name": "${var.name}",
+                  "vpn_server_id": "${var.vpn_server_id}"
+                }
+              references:
+                description: var.description
+                name: var.name
+                vpn_server_id: var.vpn_server_id
+            - name: test
+              manifest: |-
+                {
+                  "description": "${var.description}",
+                  "name": "${var.name}",
+                  "users": [
+                    {
+                      "id": "${var.user1_id}"
+                    },
+                    {
+                      "id": "${var.user2_id}"
+                    }
+                  ],
+                  "vpn_server_id": "${var.vpn_server_id}"
+                }
+              references:
+                description: var.description
+                name: var.name
+                users.id: var.user2_id
+                vpn_server_id: var.vpn_server_id
+        argumentDocs:
+            created_at: '- The creation time.'
+            description: '- (Optional, String) Specifies the description of the user group.'
+            id: '- The resource ID.'
+            name: '- (Required, String) Specifies the name of the user group.'
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used.
+                Changing this creates a new resource.
+            type: '- The user group type.'
+            updated_at: '- The update time.'
+            user_number: '- The number of users.'
+            users: |-
+                - (Optional, List) Specifies the user list.
+                The users structure is documented below.
+            users.description: '- The user description.'
+            users.id: '- (Required, String) Specifies the user ID.'
+            users.name: '- The username.'
+            vpn_server_id: '- (Required, String, NonUpdatable) Specifies the VPN server ID.'
         importStatements: []
     huaweicloud_vpnaas_endpoint_group_v2:
         subCategory: Deprecated
@@ -54346,7 +56118,9 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "deep_inspection": true,
                   "enterprise_project_id": "${var.enterprise_project_id}",
+                  "header_inspection": true,
                   "level": 2,
                   "name": "test_policy",
                   "options": [
@@ -54364,7 +56138,8 @@ resources:
                     }
                   ],
                   "protection_mode": "log",
-                  "robot_action": "block"
+                  "robot_action": "block",
+                  "shiro_decryption_check": true
                 }
               references:
                 enterprise_project_id: var.enterprise_project_id
@@ -54376,12 +56151,12 @@ resources:
             bind_hosts.waf_type: |-
                 - The deployment mode of WAF instance that is used for the domain name. The value can be cloud for
                 cloud WAF or premium for dedicated WAF instances.
-            deep_inspection: '- The deep inspection in basic web protection.'
+            deep_inspection: '- (Optional, Bool) Specifies the deep inspection in basic web protection. Defaults to false.'
             enterprise_project_id: |-
                 - (Optional, String, ForceNew) Specifies the enterprise project ID of WAF policy.
                 Changing this parameter will create a new resource.
             full_detection: '- (Optional, Bool) Specifies the detection mode in precise protection. Defaults to false.'
-            header_inspection: '- The header inspection in basic web protection.'
+            header_inspection: '- (Optional, Bool) Specifies the header inspection in basic web protection. Defaults to false.'
             id: '- The policy ID in UUID format.'
             level: '- (Optional, Int) Specifies the protection level. Defaults to 2. Valid values are:'
             name: |-
@@ -54420,7 +56195,7 @@ resources:
                 - (Optional, Bool) Specifies whether the web tamper protection is enabled.
                 Defaults to false.
             options.webshell: |-
-                - (Optional, Bool) Specifies whether the webshell detection in basic web protection is enabled.
+                - (Optional, Bool) Specifies whether the web shell detection in basic web protection is enabled.
                 Defaults to false.
             protection_mode: |-
                 - (Optional, String) Specifies the protective action after a rule is matched. Defaults to log.
@@ -54431,7 +56206,9 @@ resources:
             robot_action: |-
                 - (Optional, String) Specifies the protective actions for each rule in anti-crawler protection.
                 Defaults to log. Valid values are:
-            shiro_decryption_check: '- The shiro decryption check in basic web protection.'
+            shiro_decryption_check: |-
+                - (Optional, Bool) Specifies the shiro decryption check in basic web protection.
+                Defaults to false.
         importStatements: []
     huaweicloud_waf_reference_table:
         subCategory: Web Application Firewall (WAF)
@@ -55139,6 +56916,36 @@ resources:
             region: |-
                 - (Optional, String, ForceNew) The region where the access policy is located.
                 If omitted, the provider-level region will be used. Changing this will create a new resource.
+        importStatements: []
+    huaweicloud_workspace_app_group:
+        subCategory: Workspace
+        description: Manages a Workspace APP group resource within HuaweiCloud.
+        name: huaweicloud_workspace_app_group
+        title: huaweicloud_workspace_app_group
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "name": "${var.app_group_name}"
+                }
+              references:
+                name: var.app_group_name
+        argumentDocs:
+            created_at: '- The creation time of the application group, in RFC3339 format.'
+            description: '- (Optional, String) Specifies the description of the application group.'
+            id: '- The resource ID.'
+            name: |-
+                - (Required, String) Specifies the name of the application group.
+                The valid length is limited from 1 to 64, only Chinese and English characters, digits, underscores (_) and
+                hyphens (-) are allowed.
+            region: |-
+                - (Optional, String, ForceNew) Specifies the region in which to create the resource.
+                If omitted, the provider-level region will be used. Changing this will create new resource.
+            server_group_id: '- (Optional, String) Specifies the server group ID associated with the application group.'
+            type: |-
+                - (Optional, String, ForceNew) Specifies the type of the application group.
+                If omitted, the defult value is COMMON_APP.
+                The valid values are as follows:
         importStatements: []
     huaweicloud_workspace_desktop:
         subCategory: Workspace

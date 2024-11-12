@@ -1,0 +1,18 @@
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/instance
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    flavorId: c7.large.2
+    imageId: 89ac6e18-d938-4b0d-b038-bcdb03a1b87f
+    name: basic
+    network:
+    - uuid: fcc7de56-f312-4534-abe3-70943f5c8f51
+    securityGroupIds:
+    - e46c940a-fc5e-411f-8d61-2ef918be855c

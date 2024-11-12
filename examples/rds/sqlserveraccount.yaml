@@ -1,0 +1,18 @@
+apiVersion: rds.huaweicloud.crossplane.io/v1alpha1
+kind: SqlserverAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha1/sqlserveraccount
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: test_account_name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

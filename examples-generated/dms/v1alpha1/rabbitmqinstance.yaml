@@ -1,0 +1,30 @@
+apiVersion: dms.huaweicloud.crossplane.io/v1alpha1
+kind: RabbitmqInstance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dms/v1alpha1/rabbitmqinstance
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessUser: user
+    availabilityZones: ${var.availability_zones}
+    brokerNum: 3
+    engineVersion: 3.8.35
+    flavorId: ${data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].id}
+    name: instance_1
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    storageSpecCode: ${data.huaweicloud_dms_rabbitmq_flavors.test.flavors[0].ios[0].storage_spec_code}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

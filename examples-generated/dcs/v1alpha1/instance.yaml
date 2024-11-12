@@ -1,0 +1,27 @@
+apiVersion: dcs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/instance
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    availabilityZones:
+    - cn-north-1a
+    capacity: ${data.huaweicloud_dcs_flavors.single_flavors.capacity}
+    engine: Redis
+    engineVersion: "5.0"
+    flavor: ${data.huaweicloud_dcs_flavors.single_flavors.flavors[0].name}
+    name: redis_single_instance
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
