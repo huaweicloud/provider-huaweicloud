@@ -1,0 +1,20 @@
+apiVersion: dcs.huaweicloud.crossplane.io/v1alpha1
+kind: Account
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/account
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accountName: user
+    accountPasswordSecretRef:
+      key: password
+      name: user-password
+      namespace: crossplane-system
+    accountRole: read
+    description: add account
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance

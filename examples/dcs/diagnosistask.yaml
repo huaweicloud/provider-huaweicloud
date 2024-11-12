@@ -1,0 +1,17 @@
+apiVersion: dcs.huaweicloud.crossplane.io/v1alpha1
+kind: DiagnosisTask
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/diagnosistask
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    beginTime: "2024-03-11T01:17:48.998Z"
+    endTime: "2024-03-11T01:27:48.998Z"
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
+    nodeIpList:
+    - 10.168.179.171

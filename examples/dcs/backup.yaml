@@ -1,0 +1,13 @@
+apiVersion: dcs.huaweicloud.crossplane.io/v1alpha1
+kind: Backup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dcs/v1alpha1/backup
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance
