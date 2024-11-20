@@ -11,8 +11,12 @@ spec:
     containerNetworkType: overlay_l2
     flavorId: cce.s1.small
     name: cluster
-    subnetId: ${huaweicloud_vpc_subnet.mysubnet.id}
-    vpcId: ${huaweicloud_vpc.myvpc.id}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: mysubnet
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myvpc
 
 ---
 

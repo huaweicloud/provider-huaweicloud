@@ -1,0 +1,23 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: ClusterLogConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/clusterlogconfig
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    logConfigs:
+    - enable: true
+      name: kube-apiserver
+    - enable: false
+      name: kube-controller-manager
+    - enable: false
+      name: kube-scheduler
+    - enable: true
+      name: audit
+    ttlInDays: 3

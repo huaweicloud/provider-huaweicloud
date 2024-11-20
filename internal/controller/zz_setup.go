@@ -9,8 +9,17 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	addon "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/addon"
+	chart "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/chart"
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
+	clusterlogconfig "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/clusterlogconfig"
+	clusterupgrade "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/clusterupgrade"
+	namespace "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/namespace"
 	node "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/node"
+	nodeattach "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/nodeattach"
+	nodepool "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/nodepool"
+	nodepoolnodesadd "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/nodepoolnodesadd"
+	pvc "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/pvc"
 	account "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/account"
 	backup "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/backup"
 	bigkeyanalysis "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/bigkeyanalysis"
@@ -124,8 +133,17 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		addon.Setup,
+		chart.Setup,
 		cluster.Setup,
+		clusterlogconfig.Setup,
+		clusterupgrade.Setup,
+		namespace.Setup,
 		node.Setup,
+		nodeattach.Setup,
+		nodepool.Setup,
+		nodepoolnodesadd.Setup,
+		pvc.Setup,
 		account.Setup,
 		backup.Setup,
 		bigkeyanalysis.Setup,

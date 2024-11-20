@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Node
-func (mg *Node) GetTerraformResourceType() string {
-	return "huaweicloud_cce_node"
+// GetTerraformResourceType returns Terraform resource type for this NodePool
+func (mg *NodePool) GetTerraformResourceType() string {
+	return "huaweicloud_cce_node_pool"
 }
 
-// GetConnectionDetailsMapping for this Node
-func (tr *Node) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"password": "passwordSecretRef", "private_key": "privateKeySecretRef"}
+// GetConnectionDetailsMapping for this NodePool
+func (tr *NodePool) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"password": "passwordSecretRef"}
 }
 
-// GetObservation of this Node
-func (tr *Node) GetObservation() (map[string]any, error) {
+// GetObservation of this NodePool
+func (tr *NodePool) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *Node) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Node
-func (tr *Node) SetObservation(obs map[string]any) error {
+// SetObservation for this NodePool
+func (tr *NodePool) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *Node) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Node
-func (tr *Node) GetID() string {
+// GetID returns ID of underlying Terraform resource of this NodePool
+func (tr *NodePool) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Node
-func (tr *Node) GetParameters() (map[string]any, error) {
+// GetParameters of this NodePool
+func (tr *NodePool) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *Node) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Node
-func (tr *Node) SetParameters(params map[string]any) error {
+// SetParameters for this NodePool
+func (tr *NodePool) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *Node) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Node
-func (tr *Node) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this NodePool
+func (tr *NodePool) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *Node) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this Node
-func (tr *Node) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this NodePool
+func (tr *NodePool) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,42 +110,31 @@ func (tr *Node) GetMergedParameters(shouldMergeInitProvider bool) (map[string]an
 	return params, nil
 }
 
-// LateInitialize this Node using its observed tfState.
+// LateInitialize this NodePool using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Node) LateInitialize(attrs []byte) (bool, error) {
-	params := &NodeParameters{}
+func (tr *NodePool) LateInitialize(attrs []byte) (bool, error) {
+	params := &NodePoolParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
-	opts = append(opts, resource.WithNameFilter("EIPIds"))
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
 		return false, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
 	}
-	opts = append(opts, resource.WithConditionalFilter("BandwidthChargeMode", initParams))
-	opts = append(opts, resource.WithConditionalFilter("BandwidthSize", initParams))
-	opts = append(opts, resource.WithConditionalFilter("BillingMode", initParams))
-	opts = append(opts, resource.WithConditionalFilter("EcsPerformanceType", initParams))
-	opts = append(opts, resource.WithConditionalFilter("EIPID", initParams))
 	opts = append(opts, resource.WithConditionalFilter("ExtendParam", initParams))
 	opts = append(opts, resource.WithConditionalFilter("ExtendParams", initParams))
-	opts = append(opts, resource.WithConditionalFilter("Iptype", initParams))
 	opts = append(opts, resource.WithConditionalFilter("KeyPair", initParams))
 	opts = append(opts, resource.WithConditionalFilter("MaxPods", initParams))
-	opts = append(opts, resource.WithConditionalFilter("OrderID", initParams))
 	opts = append(opts, resource.WithConditionalFilter("Password", initParams))
 	opts = append(opts, resource.WithConditionalFilter("Postinstall", initParams))
 	opts = append(opts, resource.WithConditionalFilter("Preinstall", initParams))
-	opts = append(opts, resource.WithConditionalFilter("ProductID", initParams))
-	opts = append(opts, resource.WithConditionalFilter("PublicKey", initParams))
-	opts = append(opts, resource.WithConditionalFilter("Sharetype", initParams))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Node) GetTerraformSchemaVersion() int {
+func (tr *NodePool) GetTerraformSchemaVersion() int {
 	return 0
 }

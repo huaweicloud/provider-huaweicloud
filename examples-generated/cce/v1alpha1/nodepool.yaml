@@ -1,0 +1,31 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: NodePool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodepool
+  labels:
+    testing.upbound.io/example-name: node_pool
+  name: node-pool
+spec:
+  forProvider:
+    availabilityZone: ${var.availability_zone}
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    dataVolumes:
+    - size: 100
+      volumetype: SAS
+    flavorId: s3.large.4
+    initialNodeCount: 2
+    keyPair: ${var.keypair}
+    maxNodeCount: 10
+    minNodeCount: 1
+    name: testpool
+    os: EulerOS 2.5
+    priority: 1
+    rootVolume:
+    - size: 40
+      volumetype: SAS
+    scaleDownCooldownTime: 100
+    scallEnable: true
+    type: vm
