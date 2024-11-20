@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: nodes.cce.huaweicloud.crossplane.io
+  name: nodepools.cce.huaweicloud.crossplane.io
 spec:
   group: cce.huaweicloud.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - huaweicloud
-    kind: Node
-    listKind: NodeList
-    plural: nodes
-    singular: node
+    kind: NodePool
+    listKind: NodePoolList
+    plural: nodepools
+    singular: nodepool
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Node is the Schema for the Nodes API. ""
+        description: NodePool is the Schema for the NodePools API. ""
         properties:
           apiVersion:
             description: |-
@@ -54,7 +54,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: NodeSpec defines the desired state of Node
+            description: NodePoolSpec defines the desired state of NodePool
             properties:
               deletionPolicy:
                 default: Delete
@@ -72,43 +72,24 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  annotations:
-                    additionalProperties:
-                      type: string
-                    description: 'schema: Internal'
-                    type: object
-                    x-kubernetes-map-type: granular
-                  autoPay:
-                    type: string
                   autoRenew:
-                    description: Specifies whether auto renew is enabled. Valid values
-                      are "true" and "false".
+                    description: |-
+                      Specifies whether auto renew is enabled. Valid values are "true" and "false".
+                      Changing this parameter will create a new resource.
                     type: string
                   availabilityZone:
                     description: |-
-                      Specifies the name of the available partition (AZ). Changing this
-                      parameter will create a new resource.
+                      Specifies the name of the available partition (AZ). Default value
+                      is random to create nodes in a random AZ in the node pool. Changing this parameter will create a new resource.
                     type: string
-                  bandwidthChargeMode:
-                    description: |-
-                      Specifies the bandwidth billing type.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  bandwidthSize:
-                    description: |-
-                      Specifies the bandwidth size.
-                      Changing this parameter will create a new resource.
-                    type: number
-                  billingMode:
-                    type: number
                   chargingMode:
                     description: |-
-                      Specifies the charging mode of the CCE node. Valid values are prePaid
-                      and postPaid, defaults to postPaid. Changing this creates a new resource.
+                      Specifies the charging mode of the CCE node pool. Valid values are
+                      prePaid and postPaid, defaults to postPaid. Changing this parameter will create a new resource.
                     type: string
                   clusterId:
                     description: |-
-                      Specifies the ID of the cluster.
+                      Specifies the cluster ID.
                       Changing this parameter will create a new resource.
                     type: string
                   clusterIdRef:
@@ -187,14 +168,14 @@ spec:
                     type: object
                   dataVolumes:
                     description: |-
-                      Specifies the configurations of the data disk.
-                      Changing this parameter will create a new resource.
+                      Specifies the configuration of the data disks.
+                      The structure is described below. Changing this parameter will create a new resource.
                     items:
                       properties:
                         dssPoolId:
                           description: |-
-                            Specifies the DSS pool ID. This field is used only for
-                            dedicated storage. Changing this parameter will create a new resource.
+                            Specifies the DSS pool ID. This field is used only for dedicated storage.
+                            Changing this parameter will create a new resource.
                           type: string
                         extendParam:
                           type: string
@@ -211,26 +192,19 @@ spec:
                           type: boolean
                         kmsKeyId:
                           description: |-
-                            Specifies the ID of a KMS key. This is used to encrypt the volume.
+                            Specifies the KMS key ID. This is used to encrypt the volume.
                             Changing this parameter will create a new resource.
                           type: string
                         size:
-                          description: |-
-                            Specifies the disk size in GB.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk size in GB. Changing this
+                            parameter will create a new resource.
                           type: number
                         volumetype:
-                          description: |-
-                            Specifies the disk type.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk type. Changing this parameter
+                            will create a new resource.
                           type: string
                       type: object
                     type: array
-                  dedicatedHostId:
-                    description: |-
-                      Specifies the ID of the DeH to which the node is scheduled.
-                      Changing this parameter will create a new resource.
-                    type: string
                   ecsGroupId:
                     description: |-
                       Specifies the ECS group ID. If specified, the node will be created under
@@ -310,112 +284,22 @@ spec:
                             type: string
                         type: object
                     type: object
-                  ecsPerformanceType:
-                    description: 'schema: Deprecated'
-                    type: string
-                  eipId:
-                    description: |-
-                      Specifies the ID of the EIP.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  eipIdRef:
-                    description: Reference to a VpcEip in eip to populate eipId.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  eipIdSelector:
-                    description: Selector for a VpcEip in eip to populate eipId.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  eipIds:
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
                   enterpriseProjectId:
                     description: |-
-                      Specifies the enterprise project ID of the CCE node.
-                      Changing this parameter will create a new resource.
+                      Specifies the enterprise project ID of the node pool.
+                      If updated, the new value will apply only to new nodes.
                     type: string
                   extendParam:
                     additionalProperties:
                       type: string
-                    description: 'schema: Deprecated'
+                    description: 'schema: Deprecated; This parameter has been replaced
+                      by the ''extend_params'' parameter.'
                     type: object
                     x-kubernetes-map-type: granular
-                  extendParamChargingMode:
-                    description: |-
-                      Specifies the charging mode of the CCE node. Valid values are prePaid
-                      and postPaid, defaults to postPaid. Changing this creates a new resource.
-                    type: number
                   extendParams:
                     description: |-
-                      Specifies the disk expansion parameters.
+                      Specifies the extended parameters.
+                      The object structure is documented below.
                       Changing this parameter will create a new resource.
                     items:
                       properties:
@@ -435,6 +319,8 @@ spec:
                             Kubernetes-related components. Changing this parameter will create a new resource.
                           type: number
                         marketType:
+                          description: 'Specifies the node pool type. Possible values
+                            are: vm and ElasticBMS.'
                           type: string
                         maxPods:
                           description: |-
@@ -475,25 +361,88 @@ spec:
                           type: number
                       type: object
                     type: array
-                  extensionNics:
+                  extensionScaleGroups:
                     description: |-
-                      Specifies extension NICs of the node.
+                      Specifies the configurations of extended scaling groups in the node pool.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
-                        subnetId:
+                        metadata:
                           description: |-
-                            Specifies the ID of the subnet to which the NIC belongs.
-                            Changing this parameter will create a new resource.
-                          type: string
+                            Specifies the basic information about the extended scaling group.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: |-
+                                  Specifies the selector name, used as the index of selector_names in storage group.
+                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                type: string
+                            type: object
+                          type: array
+                        spec:
+                          description: |-
+                            Specifies the configurations of the extended scaling group,
+                            which carry different configurations from those of the default scaling group.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              autoscaling:
+                                description: |-
+                                  Specifies the auto scaling configurations of the extended scaling group.
+                                  The object structure is documented below.
+                                items:
+                                  properties:
+                                    enable:
+                                      description: Specifies whether to enable auto
+                                        scaling for the scaling group, defaults to
+                                        false.
+                                      type: boolean
+                                    extensionPriority:
+                                      description: |-
+                                        Specifies the priority of the scaling group, defaults to 0.
+                                        A higher value indicates a greater priority.
+                                      type: number
+                                    maxNodeCount:
+                                      description: Specifies the maximum number of
+                                        nodes allowed if auto scaling is enabled.
+                                      type: number
+                                    minNodeCount:
+                                      description: Specifies the minimum number of
+                                        nodes allowed if auto scaling is enabled.
+                                      type: number
+                                  type: object
+                                type: array
+                              az:
+                                description: |-
+                                  Specifies the availability zone of a node.
+                                  If this parameter is not specified or left blank, the default scaling group configurations take effect.
+                                type: string
+                              capacityReservationSpecification:
+                                description: |-
+                                  Specifies the capacity reservation
+                                  configurations of the extended scaling group.
+                                  The object structure is documented below.
+                                items:
+                                  properties:
+                                    id:
+                                      description: The resource ID in UUID format.
+                                      type: string
+                                    preference:
+                                      description: |-
+                                        Specifies the capacity of a private storage pool. If the value is none,
+                                        the capacity reservation is not specified. If the value is targeted, the capacity reservation is specified.
+                                        In this case, the id cannot be left blank.
+                                      type: string
+                                  type: object
+                                type: array
+                              flavor:
+                                description: Specifies the node flavor.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
-                  fixedIp:
-                    description: |-
-                      Specifies the fixed IP of the NIC.
-                      Changing this parameter will create a new resource.
-                    type: string
                   flavorId:
                     description: |-
                       Specifies the flavor ID. Changing this parameter will create a new
@@ -514,45 +463,49 @@ spec:
                           type: string
                       type: object
                     type: array
-                  initializedConditions:
+                  initialNodeCount:
                     description: |-
-                      Specifies the custom initialization flags.
-                      Changing this parameter will create a new resource.
+                      Specifies the initial number of expected nodes in the node pool.
+                      This parameter can be also used to manually scale the node count afterwards.
+                    type: number
+                  initializedConditions:
+                    description: Specifies the custom initialization flags.
                     items:
                       type: string
                     type: array
-                  iptype:
-                    description: |-
-                      Specifies the elastic IP type.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  keepEcs:
-                    description: 'schema: Internal'
-                    type: boolean
                   keyPair:
                     description: |-
                       Specifies the key pair name when logging in to select the key pair mode.
-                      This parameter and password are alternative.
+                      This parameter and password are alternative. Changing this parameter will create a new resource.
+                    type: string
+                  labelPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the label policy on existing nodes.
+                      The value can be ignore and refresh, defaults to refresh.
                     type: string
                   labels:
                     additionalProperties:
                       type: string
-                    description: |-
-                      Specifies the tags of a Kubernetes node, key/value pair format.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the tags of a Kubernetes node, key/value
+                      pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  maxNodeCount:
+                    description: Specifies the maximum number of nodes allowed if
+                      auto scaling is enabled.
+                    type: number
                   maxPods:
                     description: |-
                       Specifies the maximum number of instances a node is allowed to create.
                       Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
+                    type: number
+                  minNodeCount:
+                    description: Specifies the minimum number of nodes allowed if
+                      auto scaling is enabled.
                     type: number
                   name:
-                    description: Specifies the node name.
-                    type: string
-                  orderId:
-                    description: The resource ID in UUID format.
+                    description: Specifies the node pool name.
                     type: string
                   os:
                     description: |-
@@ -560,10 +513,6 @@ spec:
                       The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
                       please see documentation.
                       This parameter is required when the node_image_id in extend_params is not specified.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  partition:
-                    description: 'schema: Internal'
                     type: string
                   passwordSecretRef:
                     description: |-
@@ -571,6 +520,7 @@ spec:
                       The password consists of 8 to 26 characters and must contain at least three of following: uppercase letters,
                       lowercase letters, digits, special characters(!@$%^-_=+[{}]:,./?~#*).
                       This parameter can be plain or salted and is alternative to key_pair.
+                      Changing this parameter will create a new resource.
                     properties:
                       key:
                         description: The key to select.
@@ -588,74 +538,55 @@ spec:
                     type: object
                   period:
                     description: |-
-                      Specifies the charging period of the CCE node. If period_unit is set to month
-                      , the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter is
-                      mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                      Specifies the charging period of the CCE node pool. If period_unit is set to
+                      month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+                      is mandatory if charging_mode is set to prePaid. Changing this parameter will create a new resource.
                     type: number
                   periodUnit:
                     description: |-
-                      Specifies the charging period unit of the CCE node.
+                      Specifies the charging period unit of the CCE node pool.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new resource.
+                      Changing this parameter will create a new resource.
                     type: string
+                  podSecurityGroups:
+                    description: |-
+                      Specifies the list of security group IDs for the pod.
+                      Only supported in CCE Turbo clusters of v1.19 and above. Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
                   postinstall:
                     description: |-
                       Specifies the script to be executed after installation.
                       The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   preinstall:
                     description: |-
                       Specifies the script to be executed before installation.
                       The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
-                  privateKeySecretRef:
+                  priority:
                     description: |-
-                      Specifies the private key of the in used key_pair. This parameter is mandatory
-                      when replacing or unbinding a keypair if the CCE node is in Active state.
-                    properties:
-                      key:
-                        description: The key to select.
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                      namespace:
-                        description: Namespace of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    - namespace
-                    type: object
-                  productId:
-                    description: |-
-                      The resource ID in UUID format.
-                      schema: Deprecated
-                    type: string
-                  publicKey:
-                    description: |-
-                      A key must contain 1 to 63 characters starting with a letter or digit.
-                      Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-                      as the prefix of a key. Changing this parameter will create a new resource.
-                      schema: Deprecated
-                    type: string
+                      Specifies the weight of the node pool.
+                      A node pool with a higher weight has a higher priority during scaling.
+                    type: number
                   region:
                     description: |-
-                      Specifies the region in which to create the CCE node resource.
-                      If omitted, the provider-level region will be used. Changing this creates a new CCE node resource.
+                      The region in which to create the CCE pool resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new CCE node pool resource.
                     type: string
                   rootVolume:
                     description: |-
                       Specifies the configuration of the system disk.
-                      Changing this parameter will create a new resource.
+                      The structure is described below. Changing this parameter will create a new resource.
                     items:
                       properties:
                         dssPoolId:
                           description: |-
-                            Specifies the DSS pool ID. This field is used only for
-                            dedicated storage. Changing this parameter will create a new resource.
+                            Specifies the DSS pool ID. This field is used only for dedicated storage.
+                            Changing this parameter will create a new resource.
                           type: string
                         extendParam:
                           type: string
@@ -672,31 +603,42 @@ spec:
                           type: boolean
                         kmsKeyId:
                           description: |-
-                            Specifies the ID of a KMS key. This is used to encrypt the volume.
+                            Specifies the KMS key ID. This is used to encrypt the volume.
                             Changing this parameter will create a new resource.
                           type: string
                         size:
-                          description: |-
-                            Specifies the disk size in GB.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk size in GB. Changing this
+                            parameter will create a new resource.
                           type: number
                         volumetype:
-                          description: |-
-                            Specifies the disk type.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk type. Changing this parameter
+                            will create a new resource.
                           type: string
                       type: object
                     type: array
                   runtime:
                     description: |-
-                      Specifies the runtime of the CCE node. Valid values are docker and
+                      Specifies the runtime of the CCE node pool. Valid values are docker and
                       containerd. Changing this creates a new resource.
                     type: string
-                  sharetype:
+                  scaleDownCooldownTime:
+                    description: Specifies the time interval between two scaling operations,
+                      in minutes.
+                    type: number
+                  scallEnable:
                     description: |-
-                      Specifies the bandwidth sharing type.
-                      Changing this parameter will create a new resource.
-                    type: string
+                      Specifies whether to enable auto scaling.
+                      If Autoscaler is enabled, install the autoscaler add-on to use the auto scaling feature.
+                    type: boolean
+                  securityGroups:
+                    description: |-
+                      Specifies the list of custom security group IDs for the node pool.
+                      If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+                      the rules of the port on which CCE running depends. For details, see
+                      documentation.
+                    items:
+                      type: string
+                    type: array
                   storage:
                     description: |-
                       Specifies the disk initialization management parameter.
@@ -759,7 +701,8 @@ spec:
                                       type: string
                                     size:
                                       description: |-
-                                        Specifies the disk size in GB.
+                                        Specifies the size of a virtual space. Only an integer percentage is supported.
+                                        Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
                                         Changing this parameter will create a new resource.
                                       type: string
                                   type: object
@@ -806,9 +749,8 @@ spec:
                                   The name of each selector must be unique. Changing this parameter will create a new resource.
                                 type: string
                               type:
-                                description: |-
-                                  Specifies the storage type. Currently, only evs (EVS volumes) is supported.
-                                  The default value is evs. Changing this parameter will create a new resource.
+                                description: 'Specifies the node pool type. Possible
+                                  values are: vm and ElasticBMS.'
                                 type: string
                             type: object
                           type: array
@@ -893,37 +835,49 @@ spec:
                             type: string
                         type: object
                     type: object
+                  tagPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the tag policy on existing nodes.
+                      The value can be ignore and refresh, defaults to ignore.
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
                     description: Specifies the tags of a VM node, key/value pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  taintPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the taint policy on existing nodes.
+                      The value can be ignore and refresh, defaults to refresh.
+                    type: string
                   taints:
                     description: |-
                       Specifies the taints configuration of the nodes to set anti-affinity.
-                      Changing this parameter will create a new resource. Each taint contains the following parameters:
+                      The structure is described below.
                     items:
                       properties:
                         effect:
-                          description: |-
-                            Available options are NoSchedule, PreferNoSchedule, and NoExecute.
-                            Changing this parameter will create a new resource.
+                          description: Available options are NoSchedule, PreferNoSchedule,
+                            and NoExecute.
                           type: string
                         key:
                           description: |-
-                            A key must contain 1 to 63 characters starting with a letter or digit.
-                            Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-                            as the prefix of a key. Changing this parameter will create a new resource.
+                            A key must contain 1 to 63 characters starting with a letter or digit. Only letters,
+                            digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used as the
+                            prefix of a key.
                           type: string
                         value:
                           description: |-
-                            A value must start with a letter or digit and can contain a maximum of 63
-                            characters, including letters, digits, hyphens (-), underscores (_), and periods (.). Changing this parameter will
-                            create a new resource.
+                            A value must start with a letter or digit and can contain a maximum of 63 characters,
+                            including letters, digits, hyphens (-), underscores (_), and periods (.).
                           type: string
                       type: object
                     type: array
+                  type:
+                    description: 'Specifies the node pool type. Possible values are:
+                      vm and ElasticBMS.'
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -938,43 +892,24 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  annotations:
-                    additionalProperties:
-                      type: string
-                    description: 'schema: Internal'
-                    type: object
-                    x-kubernetes-map-type: granular
-                  autoPay:
-                    type: string
                   autoRenew:
-                    description: Specifies whether auto renew is enabled. Valid values
-                      are "true" and "false".
+                    description: |-
+                      Specifies whether auto renew is enabled. Valid values are "true" and "false".
+                      Changing this parameter will create a new resource.
                     type: string
                   availabilityZone:
                     description: |-
-                      Specifies the name of the available partition (AZ). Changing this
-                      parameter will create a new resource.
+                      Specifies the name of the available partition (AZ). Default value
+                      is random to create nodes in a random AZ in the node pool. Changing this parameter will create a new resource.
                     type: string
-                  bandwidthChargeMode:
-                    description: |-
-                      Specifies the bandwidth billing type.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  bandwidthSize:
-                    description: |-
-                      Specifies the bandwidth size.
-                      Changing this parameter will create a new resource.
-                    type: number
-                  billingMode:
-                    type: number
                   chargingMode:
                     description: |-
-                      Specifies the charging mode of the CCE node. Valid values are prePaid
-                      and postPaid, defaults to postPaid. Changing this creates a new resource.
+                      Specifies the charging mode of the CCE node pool. Valid values are
+                      prePaid and postPaid, defaults to postPaid. Changing this parameter will create a new resource.
                     type: string
                   clusterId:
                     description: |-
-                      Specifies the ID of the cluster.
+                      Specifies the cluster ID.
                       Changing this parameter will create a new resource.
                     type: string
                   clusterIdRef:
@@ -1053,14 +988,14 @@ spec:
                     type: object
                   dataVolumes:
                     description: |-
-                      Specifies the configurations of the data disk.
-                      Changing this parameter will create a new resource.
+                      Specifies the configuration of the data disks.
+                      The structure is described below. Changing this parameter will create a new resource.
                     items:
                       properties:
                         dssPoolId:
                           description: |-
-                            Specifies the DSS pool ID. This field is used only for
-                            dedicated storage. Changing this parameter will create a new resource.
+                            Specifies the DSS pool ID. This field is used only for dedicated storage.
+                            Changing this parameter will create a new resource.
                           type: string
                         extendParam:
                           type: string
@@ -1077,26 +1012,19 @@ spec:
                           type: boolean
                         kmsKeyId:
                           description: |-
-                            Specifies the ID of a KMS key. This is used to encrypt the volume.
+                            Specifies the KMS key ID. This is used to encrypt the volume.
                             Changing this parameter will create a new resource.
                           type: string
                         size:
-                          description: |-
-                            Specifies the disk size in GB.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk size in GB. Changing this
+                            parameter will create a new resource.
                           type: number
                         volumetype:
-                          description: |-
-                            Specifies the disk type.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk type. Changing this parameter
+                            will create a new resource.
                           type: string
                       type: object
                     type: array
-                  dedicatedHostId:
-                    description: |-
-                      Specifies the ID of the DeH to which the node is scheduled.
-                      Changing this parameter will create a new resource.
-                    type: string
                   ecsGroupId:
                     description: |-
                       Specifies the ECS group ID. If specified, the node will be created under
@@ -1176,112 +1104,22 @@ spec:
                             type: string
                         type: object
                     type: object
-                  ecsPerformanceType:
-                    description: 'schema: Deprecated'
-                    type: string
-                  eipId:
-                    description: |-
-                      Specifies the ID of the EIP.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  eipIdRef:
-                    description: Reference to a VpcEip in eip to populate eipId.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  eipIdSelector:
-                    description: Selector for a VpcEip in eip to populate eipId.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  eipIds:
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
                   enterpriseProjectId:
                     description: |-
-                      Specifies the enterprise project ID of the CCE node.
-                      Changing this parameter will create a new resource.
+                      Specifies the enterprise project ID of the node pool.
+                      If updated, the new value will apply only to new nodes.
                     type: string
                   extendParam:
                     additionalProperties:
                       type: string
-                    description: 'schema: Deprecated'
+                    description: 'schema: Deprecated; This parameter has been replaced
+                      by the ''extend_params'' parameter.'
                     type: object
                     x-kubernetes-map-type: granular
-                  extendParamChargingMode:
-                    description: |-
-                      Specifies the charging mode of the CCE node. Valid values are prePaid
-                      and postPaid, defaults to postPaid. Changing this creates a new resource.
-                    type: number
                   extendParams:
                     description: |-
-                      Specifies the disk expansion parameters.
+                      Specifies the extended parameters.
+                      The object structure is documented below.
                       Changing this parameter will create a new resource.
                     items:
                       properties:
@@ -1301,6 +1139,8 @@ spec:
                             Kubernetes-related components. Changing this parameter will create a new resource.
                           type: number
                         marketType:
+                          description: 'Specifies the node pool type. Possible values
+                            are: vm and ElasticBMS.'
                           type: string
                         maxPods:
                           description: |-
@@ -1341,25 +1181,88 @@ spec:
                           type: number
                       type: object
                     type: array
-                  extensionNics:
+                  extensionScaleGroups:
                     description: |-
-                      Specifies extension NICs of the node.
+                      Specifies the configurations of extended scaling groups in the node pool.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
-                        subnetId:
+                        metadata:
                           description: |-
-                            Specifies the ID of the subnet to which the NIC belongs.
-                            Changing this parameter will create a new resource.
-                          type: string
+                            Specifies the basic information about the extended scaling group.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: |-
+                                  Specifies the selector name, used as the index of selector_names in storage group.
+                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                type: string
+                            type: object
+                          type: array
+                        spec:
+                          description: |-
+                            Specifies the configurations of the extended scaling group,
+                            which carry different configurations from those of the default scaling group.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              autoscaling:
+                                description: |-
+                                  Specifies the auto scaling configurations of the extended scaling group.
+                                  The object structure is documented below.
+                                items:
+                                  properties:
+                                    enable:
+                                      description: Specifies whether to enable auto
+                                        scaling for the scaling group, defaults to
+                                        false.
+                                      type: boolean
+                                    extensionPriority:
+                                      description: |-
+                                        Specifies the priority of the scaling group, defaults to 0.
+                                        A higher value indicates a greater priority.
+                                      type: number
+                                    maxNodeCount:
+                                      description: Specifies the maximum number of
+                                        nodes allowed if auto scaling is enabled.
+                                      type: number
+                                    minNodeCount:
+                                      description: Specifies the minimum number of
+                                        nodes allowed if auto scaling is enabled.
+                                      type: number
+                                  type: object
+                                type: array
+                              az:
+                                description: |-
+                                  Specifies the availability zone of a node.
+                                  If this parameter is not specified or left blank, the default scaling group configurations take effect.
+                                type: string
+                              capacityReservationSpecification:
+                                description: |-
+                                  Specifies the capacity reservation
+                                  configurations of the extended scaling group.
+                                  The object structure is documented below.
+                                items:
+                                  properties:
+                                    id:
+                                      description: The resource ID in UUID format.
+                                      type: string
+                                    preference:
+                                      description: |-
+                                        Specifies the capacity of a private storage pool. If the value is none,
+                                        the capacity reservation is not specified. If the value is targeted, the capacity reservation is specified.
+                                        In this case, the id cannot be left blank.
+                                      type: string
+                                  type: object
+                                type: array
+                              flavor:
+                                description: Specifies the node flavor.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
-                  fixedIp:
-                    description: |-
-                      Specifies the fixed IP of the NIC.
-                      Changing this parameter will create a new resource.
-                    type: string
                   flavorId:
                     description: |-
                       Specifies the flavor ID. Changing this parameter will create a new
@@ -1380,45 +1283,49 @@ spec:
                           type: string
                       type: object
                     type: array
-                  initializedConditions:
+                  initialNodeCount:
                     description: |-
-                      Specifies the custom initialization flags.
-                      Changing this parameter will create a new resource.
+                      Specifies the initial number of expected nodes in the node pool.
+                      This parameter can be also used to manually scale the node count afterwards.
+                    type: number
+                  initializedConditions:
+                    description: Specifies the custom initialization flags.
                     items:
                       type: string
                     type: array
-                  iptype:
-                    description: |-
-                      Specifies the elastic IP type.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  keepEcs:
-                    description: 'schema: Internal'
-                    type: boolean
                   keyPair:
                     description: |-
                       Specifies the key pair name when logging in to select the key pair mode.
-                      This parameter and password are alternative.
+                      This parameter and password are alternative. Changing this parameter will create a new resource.
+                    type: string
+                  labelPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the label policy on existing nodes.
+                      The value can be ignore and refresh, defaults to refresh.
                     type: string
                   labels:
                     additionalProperties:
                       type: string
-                    description: |-
-                      Specifies the tags of a Kubernetes node, key/value pair format.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the tags of a Kubernetes node, key/value
+                      pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  maxNodeCount:
+                    description: Specifies the maximum number of nodes allowed if
+                      auto scaling is enabled.
+                    type: number
                   maxPods:
                     description: |-
                       Specifies the maximum number of instances a node is allowed to create.
                       Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
+                    type: number
+                  minNodeCount:
+                    description: Specifies the minimum number of nodes allowed if
+                      auto scaling is enabled.
                     type: number
                   name:
-                    description: Specifies the node name.
-                    type: string
-                  orderId:
-                    description: The resource ID in UUID format.
+                    description: Specifies the node pool name.
                     type: string
                   os:
                     description: |-
@@ -1426,10 +1333,6 @@ spec:
                       The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
                       please see documentation.
                       This parameter is required when the node_image_id in extend_params is not specified.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  partition:
-                    description: 'schema: Internal'
                     type: string
                   passwordSecretRef:
                     description: |-
@@ -1437,6 +1340,7 @@ spec:
                       The password consists of 8 to 26 characters and must contain at least three of following: uppercase letters,
                       lowercase letters, digits, special characters(!@$%^-_=+[{}]:,./?~#*).
                       This parameter can be plain or salted and is alternative to key_pair.
+                      Changing this parameter will create a new resource.
                     properties:
                       key:
                         description: The key to select.
@@ -1454,74 +1358,55 @@ spec:
                     type: object
                   period:
                     description: |-
-                      Specifies the charging period of the CCE node. If period_unit is set to month
-                      , the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter is
-                      mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                      Specifies the charging period of the CCE node pool. If period_unit is set to
+                      month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+                      is mandatory if charging_mode is set to prePaid. Changing this parameter will create a new resource.
                     type: number
                   periodUnit:
                     description: |-
-                      Specifies the charging period unit of the CCE node.
+                      Specifies the charging period unit of the CCE node pool.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new resource.
+                      Changing this parameter will create a new resource.
                     type: string
+                  podSecurityGroups:
+                    description: |-
+                      Specifies the list of security group IDs for the pod.
+                      Only supported in CCE Turbo clusters of v1.19 and above. Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
                   postinstall:
                     description: |-
                       Specifies the script to be executed after installation.
                       The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   preinstall:
                     description: |-
                       Specifies the script to be executed before installation.
                       The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
-                  privateKeySecretRef:
+                  priority:
                     description: |-
-                      Specifies the private key of the in used key_pair. This parameter is mandatory
-                      when replacing or unbinding a keypair if the CCE node is in Active state.
-                    properties:
-                      key:
-                        description: The key to select.
-                        type: string
-                      name:
-                        description: Name of the secret.
-                        type: string
-                      namespace:
-                        description: Namespace of the secret.
-                        type: string
-                    required:
-                    - key
-                    - name
-                    - namespace
-                    type: object
-                  productId:
-                    description: |-
-                      The resource ID in UUID format.
-                      schema: Deprecated
-                    type: string
-                  publicKey:
-                    description: |-
-                      A key must contain 1 to 63 characters starting with a letter or digit.
-                      Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-                      as the prefix of a key. Changing this parameter will create a new resource.
-                      schema: Deprecated
-                    type: string
+                      Specifies the weight of the node pool.
+                      A node pool with a higher weight has a higher priority during scaling.
+                    type: number
                   region:
                     description: |-
-                      Specifies the region in which to create the CCE node resource.
-                      If omitted, the provider-level region will be used. Changing this creates a new CCE node resource.
+                      The region in which to create the CCE pool resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new CCE node pool resource.
                     type: string
                   rootVolume:
                     description: |-
                       Specifies the configuration of the system disk.
-                      Changing this parameter will create a new resource.
+                      The structure is described below. Changing this parameter will create a new resource.
                     items:
                       properties:
                         dssPoolId:
                           description: |-
-                            Specifies the DSS pool ID. This field is used only for
-                            dedicated storage. Changing this parameter will create a new resource.
+                            Specifies the DSS pool ID. This field is used only for dedicated storage.
+                            Changing this parameter will create a new resource.
                           type: string
                         extendParam:
                           type: string
@@ -1538,31 +1423,42 @@ spec:
                           type: boolean
                         kmsKeyId:
                           description: |-
-                            Specifies the ID of a KMS key. This is used to encrypt the volume.
+                            Specifies the KMS key ID. This is used to encrypt the volume.
                             Changing this parameter will create a new resource.
                           type: string
                         size:
-                          description: |-
-                            Specifies the disk size in GB.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk size in GB. Changing this
+                            parameter will create a new resource.
                           type: number
                         volumetype:
-                          description: |-
-                            Specifies the disk type.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk type. Changing this parameter
+                            will create a new resource.
                           type: string
                       type: object
                     type: array
                   runtime:
                     description: |-
-                      Specifies the runtime of the CCE node. Valid values are docker and
+                      Specifies the runtime of the CCE node pool. Valid values are docker and
                       containerd. Changing this creates a new resource.
                     type: string
-                  sharetype:
+                  scaleDownCooldownTime:
+                    description: Specifies the time interval between two scaling operations,
+                      in minutes.
+                    type: number
+                  scallEnable:
                     description: |-
-                      Specifies the bandwidth sharing type.
-                      Changing this parameter will create a new resource.
-                    type: string
+                      Specifies whether to enable auto scaling.
+                      If Autoscaler is enabled, install the autoscaler add-on to use the auto scaling feature.
+                    type: boolean
+                  securityGroups:
+                    description: |-
+                      Specifies the list of custom security group IDs for the node pool.
+                      If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+                      the rules of the port on which CCE running depends. For details, see
+                      documentation.
+                    items:
+                      type: string
+                    type: array
                   storage:
                     description: |-
                       Specifies the disk initialization management parameter.
@@ -1625,7 +1521,8 @@ spec:
                                       type: string
                                     size:
                                       description: |-
-                                        Specifies the disk size in GB.
+                                        Specifies the size of a virtual space. Only an integer percentage is supported.
+                                        Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
                                         Changing this parameter will create a new resource.
                                       type: string
                                   type: object
@@ -1672,9 +1569,8 @@ spec:
                                   The name of each selector must be unique. Changing this parameter will create a new resource.
                                 type: string
                               type:
-                                description: |-
-                                  Specifies the storage type. Currently, only evs (EVS volumes) is supported.
-                                  The default value is evs. Changing this parameter will create a new resource.
+                                description: 'Specifies the node pool type. Possible
+                                  values are: vm and ElasticBMS.'
                                 type: string
                             type: object
                           type: array
@@ -1759,37 +1655,49 @@ spec:
                             type: string
                         type: object
                     type: object
+                  tagPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the tag policy on existing nodes.
+                      The value can be ignore and refresh, defaults to ignore.
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
                     description: Specifies the tags of a VM node, key/value pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  taintPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the taint policy on existing nodes.
+                      The value can be ignore and refresh, defaults to refresh.
+                    type: string
                   taints:
                     description: |-
                       Specifies the taints configuration of the nodes to set anti-affinity.
-                      Changing this parameter will create a new resource. Each taint contains the following parameters:
+                      The structure is described below.
                     items:
                       properties:
                         effect:
-                          description: |-
-                            Available options are NoSchedule, PreferNoSchedule, and NoExecute.
-                            Changing this parameter will create a new resource.
+                          description: Available options are NoSchedule, PreferNoSchedule,
+                            and NoExecute.
                           type: string
                         key:
                           description: |-
-                            A key must contain 1 to 63 characters starting with a letter or digit.
-                            Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-                            as the prefix of a key. Changing this parameter will create a new resource.
+                            A key must contain 1 to 63 characters starting with a letter or digit. Only letters,
+                            digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used as the
+                            prefix of a key.
                           type: string
                         value:
                           description: |-
-                            A value must start with a letter or digit and can contain a maximum of 63
-                            characters, including letters, digits, hyphens (-), underscores (_), and periods (.). Changing this parameter will
-                            create a new resource.
+                            A value must start with a letter or digit and can contain a maximum of 63 characters,
+                            including letters, digits, hyphens (-), underscores (_), and periods (.).
                           type: string
                       type: object
                     type: array
+                  type:
+                    description: 'Specifies the node pool type. Possible values are:
+                      vm and ElasticBMS.'
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -1959,10 +1867,6 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.availabilityZone is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.availabilityZone)
-                || (has(self.initProvider) && has(self.initProvider.availabilityZone))'
             - message: spec.forProvider.dataVolumes is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.dataVolumes)
@@ -1971,64 +1875,59 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.flavorId)
                 || (has(self.initProvider) && has(self.initProvider.flavorId))'
+            - message: spec.forProvider.initialNodeCount is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.initialNodeCount)
+                || (has(self.initProvider) && has(self.initProvider.initialNodeCount))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.rootVolume is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.rootVolume)
                 || (has(self.initProvider) && has(self.initProvider.rootVolume))'
           status:
-            description: NodeStatus defines the observed state of Node.
+            description: NodePoolStatus defines the observed state of NodePool.
             properties:
               atProvider:
                 properties:
-                  annotations:
-                    additionalProperties:
-                      type: string
-                    description: 'schema: Internal'
-                    type: object
-                    x-kubernetes-map-type: granular
-                  autoPay:
-                    type: string
                   autoRenew:
-                    description: Specifies whether auto renew is enabled. Valid values
-                      are "true" and "false".
+                    description: |-
+                      Specifies whether auto renew is enabled. Valid values are "true" and "false".
+                      Changing this parameter will create a new resource.
                     type: string
                   availabilityZone:
                     description: |-
-                      Specifies the name of the available partition (AZ). Changing this
-                      parameter will create a new resource.
+                      Specifies the name of the available partition (AZ). Default value
+                      is random to create nodes in a random AZ in the node pool. Changing this parameter will create a new resource.
                     type: string
-                  bandwidthChargeMode:
-                    description: |-
-                      Specifies the bandwidth billing type.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  bandwidthSize:
-                    description: |-
-                      Specifies the bandwidth size.
-                      Changing this parameter will create a new resource.
-                    type: number
                   billingMode:
+                    description: Billing mode of a node.
                     type: number
                   chargingMode:
                     description: |-
-                      Specifies the charging mode of the CCE node. Valid values are prePaid
-                      and postPaid, defaults to postPaid. Changing this creates a new resource.
+                      Specifies the charging mode of the CCE node pool. Valid values are
+                      prePaid and postPaid, defaults to postPaid. Changing this parameter will create a new resource.
                     type: string
                   clusterId:
                     description: |-
-                      Specifies the ID of the cluster.
+                      Specifies the cluster ID.
                       Changing this parameter will create a new resource.
                     type: string
+                  currentNodeCount:
+                    description: The current number of the nodes.
+                    type: number
                   dataVolumes:
                     description: |-
-                      Specifies the configurations of the data disk.
-                      Changing this parameter will create a new resource.
+                      Specifies the configuration of the data disks.
+                      The structure is described below. Changing this parameter will create a new resource.
                     items:
                       properties:
                         dssPoolId:
                           description: |-
-                            Specifies the DSS pool ID. This field is used only for
-                            dedicated storage. Changing this parameter will create a new resource.
+                            Specifies the DSS pool ID. This field is used only for dedicated storage.
+                            Changing this parameter will create a new resource.
                           type: string
                         extendParam:
                           type: string
@@ -2045,63 +1944,40 @@ spec:
                           type: boolean
                         kmsKeyId:
                           description: |-
-                            Specifies the ID of a KMS key. This is used to encrypt the volume.
+                            Specifies the KMS key ID. This is used to encrypt the volume.
                             Changing this parameter will create a new resource.
                           type: string
                         size:
-                          description: |-
-                            Specifies the disk size in GB.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk size in GB. Changing this
+                            parameter will create a new resource.
                           type: number
                         volumetype:
-                          description: |-
-                            Specifies the disk type.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk type. Changing this parameter
+                            will create a new resource.
                           type: string
                       type: object
                     type: array
-                  dedicatedHostId:
-                    description: |-
-                      Specifies the ID of the DeH to which the node is scheduled.
-                      Changing this parameter will create a new resource.
-                    type: string
                   ecsGroupId:
                     description: |-
                       Specifies the ECS group ID. If specified, the node will be created under
                       the cloud server group. Changing this parameter will create a new resource.
                     type: string
-                  ecsPerformanceType:
-                    description: 'schema: Deprecated'
-                    type: string
-                  eipId:
-                    description: |-
-                      Specifies the ID of the EIP.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  eipIds:
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
                   enterpriseProjectId:
                     description: |-
-                      Specifies the enterprise project ID of the CCE node.
-                      Changing this parameter will create a new resource.
+                      Specifies the enterprise project ID of the node pool.
+                      If updated, the new value will apply only to new nodes.
                     type: string
                   extendParam:
                     additionalProperties:
                       type: string
-                    description: 'schema: Deprecated'
+                    description: 'schema: Deprecated; This parameter has been replaced
+                      by the ''extend_params'' parameter.'
                     type: object
                     x-kubernetes-map-type: granular
-                  extendParamChargingMode:
-                    description: |-
-                      Specifies the charging mode of the CCE node. Valid values are prePaid
-                      and postPaid, defaults to postPaid. Changing this creates a new resource.
-                    type: number
                   extendParams:
                     description: |-
-                      Specifies the disk expansion parameters.
+                      Specifies the extended parameters.
+                      The object structure is documented below.
                       Changing this parameter will create a new resource.
                     items:
                       properties:
@@ -2121,6 +1997,8 @@ spec:
                             Kubernetes-related components. Changing this parameter will create a new resource.
                           type: number
                         marketType:
+                          description: 'Specifies the node pool type. Possible values
+                            are: vm and ElasticBMS.'
                           type: string
                         maxPods:
                           description: |-
@@ -2161,25 +2039,88 @@ spec:
                           type: number
                       type: object
                     type: array
-                  extensionNics:
+                  extensionScaleGroups:
                     description: |-
-                      Specifies extension NICs of the node.
+                      Specifies the configurations of extended scaling groups in the node pool.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
-                        subnetId:
+                        metadata:
                           description: |-
-                            Specifies the ID of the subnet to which the NIC belongs.
-                            Changing this parameter will create a new resource.
-                          type: string
+                            Specifies the basic information about the extended scaling group.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              name:
+                                description: |-
+                                  Specifies the selector name, used as the index of selector_names in storage group.
+                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                type: string
+                            type: object
+                          type: array
+                        spec:
+                          description: |-
+                            Specifies the configurations of the extended scaling group,
+                            which carry different configurations from those of the default scaling group.
+                            The object structure is documented below.
+                          items:
+                            properties:
+                              autoscaling:
+                                description: |-
+                                  Specifies the auto scaling configurations of the extended scaling group.
+                                  The object structure is documented below.
+                                items:
+                                  properties:
+                                    enable:
+                                      description: Specifies whether to enable auto
+                                        scaling for the scaling group, defaults to
+                                        false.
+                                      type: boolean
+                                    extensionPriority:
+                                      description: |-
+                                        Specifies the priority of the scaling group, defaults to 0.
+                                        A higher value indicates a greater priority.
+                                      type: number
+                                    maxNodeCount:
+                                      description: Specifies the maximum number of
+                                        nodes allowed if auto scaling is enabled.
+                                      type: number
+                                    minNodeCount:
+                                      description: Specifies the minimum number of
+                                        nodes allowed if auto scaling is enabled.
+                                      type: number
+                                  type: object
+                                type: array
+                              az:
+                                description: |-
+                                  Specifies the availability zone of a node.
+                                  If this parameter is not specified or left blank, the default scaling group configurations take effect.
+                                type: string
+                              capacityReservationSpecification:
+                                description: |-
+                                  Specifies the capacity reservation
+                                  configurations of the extended scaling group.
+                                  The object structure is documented below.
+                                items:
+                                  properties:
+                                    id:
+                                      description: The resource ID in UUID format.
+                                      type: string
+                                    preference:
+                                      description: |-
+                                        Specifies the capacity of a private storage pool. If the value is none,
+                                        the capacity reservation is not specified. If the value is targeted, the capacity reservation is specified.
+                                        In this case, the id cannot be left blank.
+                                      type: string
+                                  type: object
+                                type: array
+                              flavor:
+                                description: Specifies the node flavor.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
-                  fixedIp:
-                    description: |-
-                      Specifies the fixed IP of the NIC.
-                      Changing this parameter will create a new resource.
-                    type: string
                   flavorId:
                     description: |-
                       Specifies the flavor ID. Changing this parameter will create a new
@@ -2203,45 +2144,49 @@ spec:
                   id:
                     description: The resource ID in UUID format.
                     type: string
-                  initializedConditions:
+                  initialNodeCount:
                     description: |-
-                      Specifies the custom initialization flags.
-                      Changing this parameter will create a new resource.
+                      Specifies the initial number of expected nodes in the node pool.
+                      This parameter can be also used to manually scale the node count afterwards.
+                    type: number
+                  initializedConditions:
+                    description: Specifies the custom initialization flags.
                     items:
                       type: string
                     type: array
-                  iptype:
-                    description: |-
-                      Specifies the elastic IP type.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  keepEcs:
-                    description: 'schema: Internal'
-                    type: boolean
                   keyPair:
                     description: |-
                       Specifies the key pair name when logging in to select the key pair mode.
-                      This parameter and password are alternative.
+                      This parameter and password are alternative. Changing this parameter will create a new resource.
+                    type: string
+                  labelPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the label policy on existing nodes.
+                      The value can be ignore and refresh, defaults to refresh.
                     type: string
                   labels:
                     additionalProperties:
                       type: string
-                    description: |-
-                      Specifies the tags of a Kubernetes node, key/value pair format.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the tags of a Kubernetes node, key/value
+                      pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  maxNodeCount:
+                    description: Specifies the maximum number of nodes allowed if
+                      auto scaling is enabled.
+                    type: number
                   maxPods:
                     description: |-
                       Specifies the maximum number of instances a node is allowed to create.
                       Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
+                    type: number
+                  minNodeCount:
+                    description: Specifies the minimum number of nodes allowed if
+                      auto scaling is enabled.
                     type: number
                   name:
-                    description: Specifies the node name.
-                    type: string
-                  orderId:
-                    description: The resource ID in UUID format.
+                    description: Specifies the node pool name.
                     type: string
                   os:
                     description: |-
@@ -2249,68 +2194,58 @@ spec:
                       The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
                       please see documentation.
                       This parameter is required when the node_image_id in extend_params is not specified.
-                      Changing this parameter will create a new resource.
-                    type: string
-                  partition:
-                    description: 'schema: Internal'
                     type: string
                   period:
                     description: |-
-                      Specifies the charging period of the CCE node. If period_unit is set to month
-                      , the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter is
-                      mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                      Specifies the charging period of the CCE node pool. If period_unit is set to
+                      month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+                      is mandatory if charging_mode is set to prePaid. Changing this parameter will create a new resource.
                     type: number
                   periodUnit:
                     description: |-
-                      Specifies the charging period unit of the CCE node.
+                      Specifies the charging period unit of the CCE node pool.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new resource.
+                      Changing this parameter will create a new resource.
                     type: string
+                  podSecurityGroups:
+                    description: |-
+                      Specifies the list of security group IDs for the pod.
+                      Only supported in CCE Turbo clusters of v1.19 and above. Changing this parameter will create a new resource.
+                    items:
+                      type: string
+                    type: array
                   postinstall:
                     description: |-
                       Specifies the script to be executed after installation.
                       The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   preinstall:
                     description: |-
                       Specifies the script to be executed before installation.
                       The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
-                      schema: Deprecated
+                      schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
-                  privateIp:
-                    description: Private IP of the CCE node.
-                    type: string
-                  productId:
+                  priority:
                     description: |-
-                      The resource ID in UUID format.
-                      schema: Deprecated
-                    type: string
-                  publicIp:
-                    description: Public IP of the CCE node.
-                    type: string
-                  publicKey:
-                    description: |-
-                      A key must contain 1 to 63 characters starting with a letter or digit.
-                      Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-                      as the prefix of a key. Changing this parameter will create a new resource.
-                      schema: Deprecated
-                    type: string
+                      Specifies the weight of the node pool.
+                      A node pool with a higher weight has a higher priority during scaling.
+                    type: number
                   region:
                     description: |-
-                      Specifies the region in which to create the CCE node resource.
-                      If omitted, the provider-level region will be used. Changing this creates a new CCE node resource.
+                      The region in which to create the CCE pool resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new CCE node pool resource.
                     type: string
                   rootVolume:
                     description: |-
                       Specifies the configuration of the system disk.
-                      Changing this parameter will create a new resource.
+                      The structure is described below. Changing this parameter will create a new resource.
                     items:
                       properties:
                         dssPoolId:
                           description: |-
-                            Specifies the DSS pool ID. This field is used only for
-                            dedicated storage. Changing this parameter will create a new resource.
+                            Specifies the DSS pool ID. This field is used only for dedicated storage.
+                            Changing this parameter will create a new resource.
                           type: string
                         extendParam:
                           type: string
@@ -2327,36 +2262,44 @@ spec:
                           type: boolean
                         kmsKeyId:
                           description: |-
-                            Specifies the ID of a KMS key. This is used to encrypt the volume.
+                            Specifies the KMS key ID. This is used to encrypt the volume.
                             Changing this parameter will create a new resource.
                           type: string
                         size:
-                          description: |-
-                            Specifies the disk size in GB.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk size in GB. Changing this
+                            parameter will create a new resource.
                           type: number
                         volumetype:
-                          description: |-
-                            Specifies the disk type.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk type. Changing this parameter
+                            will create a new resource.
                           type: string
                       type: object
                     type: array
                   runtime:
                     description: |-
-                      Specifies the runtime of the CCE node. Valid values are docker and
+                      Specifies the runtime of the CCE node pool. Valid values are docker and
                       containerd. Changing this creates a new resource.
                     type: string
-                  serverId:
-                    description: ID of the ECS instance associated with the node.
-                    type: string
-                  sharetype:
+                  scaleDownCooldownTime:
+                    description: Specifies the time interval between two scaling operations,
+                      in minutes.
+                    type: number
+                  scallEnable:
                     description: |-
-                      Specifies the bandwidth sharing type.
-                      Changing this parameter will create a new resource.
-                    type: string
+                      Specifies whether to enable auto scaling.
+                      If Autoscaler is enabled, install the autoscaler add-on to use the auto scaling feature.
+                    type: boolean
+                  securityGroups:
+                    description: |-
+                      Specifies the list of custom security group IDs for the node pool.
+                      If specified, the nodes will be put in these security groups. When specifying a security group, do not modify
+                      the rules of the port on which CCE running depends. For details, see
+                      documentation.
+                    items:
+                      type: string
+                    type: array
                   status:
-                    description: The status of the CCE node.
+                    description: Node status information.
                     type: string
                   storage:
                     description: |-
@@ -2420,7 +2363,8 @@ spec:
                                       type: string
                                     size:
                                       description: |-
-                                        Specifies the disk size in GB.
+                                        Specifies the size of a virtual space. Only an integer percentage is supported.
+                                        Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
                                         Changing this parameter will create a new resource.
                                       type: string
                                   type: object
@@ -2467,9 +2411,8 @@ spec:
                                   The name of each selector must be unique. Changing this parameter will create a new resource.
                                 type: string
                               type:
-                                description: |-
-                                  Specifies the storage type. Currently, only evs (EVS volumes) is supported.
-                                  The default value is evs. Changing this parameter will create a new resource.
+                                description: 'Specifies the node pool type. Possible
+                                  values are: vm and ElasticBMS.'
                                 type: string
                             type: object
                           type: array
@@ -2480,37 +2423,49 @@ spec:
                       Specifies the ID of the subnet to which the NIC belongs.
                       Changing this parameter will create a new resource.
                     type: string
+                  tagPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the tag policy on existing nodes.
+                      The value can be ignore and refresh, defaults to ignore.
+                    type: string
                   tags:
                     additionalProperties:
                       type: string
                     description: Specifies the tags of a VM node, key/value pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  taintPolicyOnExistingNodes:
+                    description: |-
+                      Specifies the taint policy on existing nodes.
+                      The value can be ignore and refresh, defaults to refresh.
+                    type: string
                   taints:
                     description: |-
                       Specifies the taints configuration of the nodes to set anti-affinity.
-                      Changing this parameter will create a new resource. Each taint contains the following parameters:
+                      The structure is described below.
                     items:
                       properties:
                         effect:
-                          description: |-
-                            Available options are NoSchedule, PreferNoSchedule, and NoExecute.
-                            Changing this parameter will create a new resource.
+                          description: Available options are NoSchedule, PreferNoSchedule,
+                            and NoExecute.
                           type: string
                         key:
                           description: |-
-                            A key must contain 1 to 63 characters starting with a letter or digit.
-                            Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-                            as the prefix of a key. Changing this parameter will create a new resource.
+                            A key must contain 1 to 63 characters starting with a letter or digit. Only letters,
+                            digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used as the
+                            prefix of a key.
                           type: string
                         value:
                           description: |-
-                            A value must start with a letter or digit and can contain a maximum of 63
-                            characters, including letters, digits, hyphens (-), underscores (_), and periods (.). Changing this parameter will
-                            create a new resource.
+                            A value must start with a letter or digit and can contain a maximum of 63 characters,
+                            including letters, digits, hyphens (-), underscores (_), and periods (.).
                           type: string
                       type: object
                     type: array
+                  type:
+                    description: 'Specifies the node pool type. Possible values are:
+                      vm and ElasticBMS.'
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

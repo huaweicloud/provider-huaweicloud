@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Cluster
-func (mg *Cluster) GetTerraformResourceType() string {
-	return "huaweicloud_cce_cluster"
+// GetTerraformResourceType returns Terraform resource type for this NodePoolNodesAdd
+func (mg *NodePoolNodesAdd) GetTerraformResourceType() string {
+	return "huaweicloud_cce_node_pool_nodes_add"
 }
 
-// GetConnectionDetailsMapping for this Cluster
-func (tr *Cluster) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Cluster
-func (tr *Cluster) GetObservation() (map[string]any, error) {
+// GetObservation of this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *Cluster) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Cluster
-func (tr *Cluster) SetObservation(obs map[string]any) error {
+// SetObservation for this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *Cluster) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Cluster
-func (tr *Cluster) GetID() string {
+// GetID returns ID of underlying Terraform resource of this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Cluster
-func (tr *Cluster) GetParameters() (map[string]any, error) {
+// GetParameters of this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *Cluster) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Cluster
-func (tr *Cluster) SetParameters(params map[string]any) error {
+// SetParameters for this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *Cluster) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Cluster
-func (tr *Cluster) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *Cluster) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this Cluster
-func (tr *Cluster) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this NodePoolNodesAdd
+func (tr *NodePoolNodesAdd) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,34 +110,20 @@ func (tr *Cluster) GetMergedParameters(shouldMergeInitProvider bool) (map[string
 	return params, nil
 }
 
-// LateInitialize this Cluster using its observed tfState.
+// LateInitialize this NodePoolNodesAdd using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Cluster) LateInitialize(attrs []byte) (bool, error) {
-	params := &ClusterParameters{}
+func (tr *NodePoolNodesAdd) LateInitialize(attrs []byte) (bool, error) {
+	params := &NodePoolNodesAddParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
-	initParams, err := tr.GetInitParameters()
-	if err != nil {
-		return false, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
-	}
-	opts = append(opts, resource.WithConditionalFilter("DeleteAll", initParams))
-	opts = append(opts, resource.WithConditionalFilter("DeleteEFS", initParams))
-	opts = append(opts, resource.WithConditionalFilter("DeleteEni", initParams))
-	opts = append(opts, resource.WithConditionalFilter("DeleteEvs", initParams))
-	opts = append(opts, resource.WithConditionalFilter("DeleteNet", initParams))
-	opts = append(opts, resource.WithConditionalFilter("DeleteObs", initParams))
-	opts = append(opts, resource.WithConditionalFilter("DeleteSfs", initParams))
-	opts = append(opts, resource.WithConditionalFilter("ExtendParams", initParams))
-	opts = append(opts, resource.WithConditionalFilter("Masters", initParams))
-	opts = append(opts, resource.WithConditionalFilter("MultiAz", initParams))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Cluster) GetTerraformSchemaVersion() int {
+func (tr *NodePoolNodesAdd) GetTerraformSchemaVersion() int {
 	return 0
 }

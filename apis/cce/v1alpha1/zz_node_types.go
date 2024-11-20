@@ -403,7 +403,7 @@ type NodeInitParameters struct {
 	// Specifies the ID of the cluster.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1.Cluster
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("id",true)
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Reference to a Cluster in cce to populate clusterId.
@@ -424,14 +424,34 @@ type NodeInitParameters struct {
 
 	// Specifies the ID of the EIP.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	EIPID *string `json:"eipId,omitempty" tf:"eip_id,omitempty"`
+
+	// Reference to a VpcEip in eip to populate eipId.
+	// +kubebuilder:validation:Optional
+	EIPIDRef *v1.Reference `json:"eipIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcEip in eip to populate eipId.
+	// +kubebuilder:validation:Optional
+	EIPIDSelector *v1.Selector `json:"eipIdSelector,omitempty" tf:"-"`
 
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Specifies the ECS group ID. If specified, the node will be created under
 	// the cloud server group. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1.Servergroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
+
+	// Reference to a Servergroup in ecs to populate ecsGroupId.
+	// +kubebuilder:validation:Optional
+	EcsGroupIDRef *v1.Reference `json:"ecsGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Servergroup in ecs to populate ecsGroupId.
+	// +kubebuilder:validation:Optional
+	EcsGroupIDSelector *v1.Selector `json:"ecsGroupIdSelector,omitempty" tf:"-"`
 
 	// schema: Deprecated
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
@@ -575,7 +595,17 @@ type NodeInitParameters struct {
 
 	// Specifies the ID of the subnet to which the NIC belongs.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Subnet
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Specifies the tags of a VM node, key/value pair format.
 	// +mapType=granular
@@ -836,7 +866,7 @@ type NodeParameters struct {
 	// Specifies the ID of the cluster.
 	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1.Cluster
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("id",true)
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
@@ -860,8 +890,18 @@ type NodeParameters struct {
 
 	// Specifies the ID of the EIP.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	EIPID *string `json:"eipId,omitempty" tf:"eip_id,omitempty"`
+
+	// Reference to a VpcEip in eip to populate eipId.
+	// +kubebuilder:validation:Optional
+	EIPIDRef *v1.Reference `json:"eipIdRef,omitempty" tf:"-"`
+
+	// Selector for a VpcEip in eip to populate eipId.
+	// +kubebuilder:validation:Optional
+	EIPIDSelector *v1.Selector `json:"eipIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	// +listType=set
@@ -869,8 +909,18 @@ type NodeParameters struct {
 
 	// Specifies the ECS group ID. If specified, the node will be created under
 	// the cloud server group. Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1.Servergroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
+
+	// Reference to a Servergroup in ecs to populate ecsGroupId.
+	// +kubebuilder:validation:Optional
+	EcsGroupIDRef *v1.Reference `json:"ecsGroupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Servergroup in ecs to populate ecsGroupId.
+	// +kubebuilder:validation:Optional
+	EcsGroupIDSelector *v1.Selector `json:"ecsGroupIdSelector,omitempty" tf:"-"`
 
 	// schema: Deprecated
 	// +kubebuilder:validation:Optional
@@ -1046,8 +1096,18 @@ type NodeParameters struct {
 
 	// Specifies the ID of the subnet to which the NIC belongs.
 	// Changing this parameter will create a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Subnet
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Reference to a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDRef *v1.Reference `json:"subnetIdRef,omitempty" tf:"-"`
+
+	// Selector for a Subnet in vpc to populate subnetId.
+	// +kubebuilder:validation:Optional
+	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
 	// Specifies the tags of a VM node, key/value pair format.
 	// +kubebuilder:validation:Optional
