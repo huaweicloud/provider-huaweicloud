@@ -1,0 +1,33 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: ClusterUpgrade
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/clusterupgrade
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    addons:
+    - addonTemplateName: autoscaler
+      operation: batch
+      values:
+      - basicJson: |-
+          "{\r\n  \"cceEndpoint\" : \"https://cce.cn-north-4.myhuaweicloud.com\",\r\n  \"ecsEndpoint\" : \"https://ecs.cn-north-4.myhuaweicloud.com\",\r\n  \"image_version\" : \"1.29.17\",\r\n  \"region\" : \"cn-north-4\",\r\n  \"swr_addr\" : \"swr.cn-north-4.myhuaweicloud.com\",\r\n  \"swr_user\" : \"hwofficial\"\r\n}"
+        customJson: |-
+          "{\r\n  cluster_id = huaweicloud_cce_cluster.test.id\r\n  tenant_id  = var.project_id\r\n  logLevel   = 3\r\n}"
+      version: 1.29.17
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    nodeOrder:
+      DefaultPool: |-
+        "[\r\n  {\r\n    \"nodeSelector\" : {\r\n      \"key\" : \"name\",\r\n      \"value\" : [\r\n        \"${var.node_name_1}\"\r\n      ],\r\n      \"operator\" : \"=\"\r\n    },\r\n    \"priority\" : 1\r\n  },\r\n  {\r\n    \"nodeSelector\" : {\r\n      \"key\" : \"name\",\r\n      \"value\" : [\r\n        \"${var.node_name_2}\"\r\n      ],\r\n      \"operator\" : \"=\"\r\n    },\r\n    \"priority\" : 2\r\n  }\r\n]"
+    nodepoolOrder:
+      ${var.nodepool_id}: 2
+      DefaultPool: 1
+    strategy:
+    - inPlaceRollingUpdate:
+      - userDefinedStep: 20
+      type: inPlaceRollingUpdate
+    targetVersion: v1.29
