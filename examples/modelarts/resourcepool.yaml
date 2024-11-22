@@ -1,0 +1,22 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: ResourcePool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/resourcepool
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: This is a demo
+    name: demo
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    resources:
+    - count: 1
+      flavorId: modelarts.vm.cpu.16u64g.d
+    scope:
+    - Train
+    - Infer
+    - Notebook
