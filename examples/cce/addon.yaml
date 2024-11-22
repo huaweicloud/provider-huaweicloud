@@ -1,0 +1,15 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: Addon
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/addon
+  labels:
+    testing.upbound.io/example-name: addon_test
+  name: addon-test
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: cluster
+    templateName: metrics-server
+    version: 1.3.68

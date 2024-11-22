@@ -1,0 +1,34 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: NodePool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodepool
+  labels:
+    testing.upbound.io/example-name: node_pool
+  name: node-pool
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: cluster
+    dataVolumes:
+    - size: 100
+      volumetype: SSD
+    flavorId: c7t.large.2
+    initialNodeCount: 2
+    passwordSecretRef:
+      key: password
+      name: user-password
+      namespace: crossplane-system
+    maxNodeCount: 10
+    minNodeCount: 1
+    name: testpool
+    os: EulerOS 2.5
+    priority: 1
+    rootVolume:
+    - size: 40
+      volumetype: SSD
+    scaleDownCooldownTime: 100
+    scallEnable: true
+    type: vm

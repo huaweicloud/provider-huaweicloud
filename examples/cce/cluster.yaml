@@ -1,0 +1,71 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/cluster
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    containerNetworkType: overlay_l2
+    flavorId: cce.s1.small
+    name: cluster-crossplane-test
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: mysubnet
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myvpc
+
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/cluster
+  labels:
+    testing.upbound.io/example-name: myvpc
+  name: myvpc
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: vpc-crossplane-test
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/cluster
+  labels:
+    testing.upbound.io/example-name: mysubnet
+  name: mysubnet
+spec:
+  forProvider:
+    cidr: 192.168.0.0/16
+    gatewayIp: 192.168.0.1
+    name: subnet-crossplane-test
+    primaryDns: 100.125.1.250
+    secondaryDns: 100.125.21.250
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myvpc
+
+---
+
+apiVersion: vpc.huaweicloud.crossplane.io/v1alpha1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/cluster
+    crossplane.io/external-name: 4956983c-ba40-4aaf-815f-91e442c3d344
+  labels:
+    testing.upbound.io/example-name: myvpc1
+  name: myvpc1
+spec:
+  deletionPolicy: Orphan
+  forProvider:
+    cidr: 192.168.0.0/16
+    name: vpc-crossplane-test
