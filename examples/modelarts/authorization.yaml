@@ -1,0 +1,34 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: Authorization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/authorization
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    agencyName: ma_agency_crossplane
+    type: agency
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: user-crossplane
+
+---
+
+apiVersion: iam.huaweicloud.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: user-crossplane
+  name: test
+spec:
+  forProvider:
+    description: A user
+    name: user-crossplane
+    passwordSecretRef:
+      key: password
+      name: user-secret
+      namespace: crossplane-system

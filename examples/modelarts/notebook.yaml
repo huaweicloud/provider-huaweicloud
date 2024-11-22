@@ -1,0 +1,18 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: Notebook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/notebook
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    allowedAccessIps: the_allowed_ip_addresses
+    flavorId: modelarts.vm.cpu.2u
+    imageId: the_image_id
+    keyPair: the_key_pair_name
+    name: the_notebook_name
+    volume:
+    - size: 5
+      type: EVS
