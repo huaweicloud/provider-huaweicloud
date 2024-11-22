@@ -1,0 +1,15 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: Authorization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/authorization
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    agencyName: ma_agency_userName
+    type: agency
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

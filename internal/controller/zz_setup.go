@@ -74,6 +74,16 @@ import (
 	userroleassignment "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/userroleassignment"
 	usertoken "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/usertoken"
 	virtualmfadevice "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/virtualmfadevice"
+	authorization "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/authorization"
+	dataset "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/dataset"
+	datasetversion "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/datasetversion"
+	model "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/model"
+	network "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/network"
+	notebook "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/notebook"
+	notebookmountstorage "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/notebookmountstorage"
+	resourcepool "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/resourcepool"
+	service "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/service"
+	workspace "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/workspace"
 	bucket "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucket"
 	bucketacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketacl"
 	bucketobject "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobject"
@@ -198,6 +208,16 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		userroleassignment.Setup,
 		usertoken.Setup,
 		virtualmfadevice.Setup,
+		authorization.Setup,
+		dataset.Setup,
+		datasetversion.Setup,
+		model.Setup,
+		network.Setup,
+		notebook.Setup,
+		notebookmountstorage.Setup,
+		resourcepool.Setup,
+		service.Setup,
+		workspace.Setup,
 		bucket.Setup,
 		bucketacl.Setup,
 		bucketobject.Setup,

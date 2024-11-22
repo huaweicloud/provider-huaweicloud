@@ -1,0 +1,28 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: Service
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/service
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    additionalProperties:
+    - logReportChannels:
+      - type: LTS
+      smnNotification:
+      - events:
+        - 3
+        topicUrn: ${huaweicloud_smn_topic.test.id}
+    config:
+    - envs:
+        a: "1"
+        b: "2"
+      instanceCount: 1
+      modelId: ${var.model_id}
+      specification: modelarts.vm.gpu.p4u8.container
+      weight: 100
+    description: This is a demo
+    inferType: real-time
+    name: demo

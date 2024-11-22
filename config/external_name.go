@@ -87,6 +87,18 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_identity_user_token":            config.IdentifierFromProvider,
 	"huaweicloud_identity_virtual_mfa_device":    config.IdentifierFromProvider,
 
+	// modelarts
+	"huaweicloud_modelarts_authorization":          config.IdentifierFromProvider,
+	"huaweicloud_modelarts_dataset":                config.IdentifierFromProvider,
+	"huaweicloud_modelarts_dataset_version":        config.IdentifierFromProvider,
+	"huaweicloud_modelarts_model":                  config.IdentifierFromProvider,
+	"huaweicloud_modelarts_network":                config.IdentifierFromProvider,
+	"huaweicloud_modelarts_notebook":               config.IdentifierFromProvider,
+	"huaweicloud_modelarts_notebook_mount_storage": config.IdentifierFromProvider,
+	"huaweicloud_modelarts_resource_pool":          config.IdentifierFromProvider,
+	"huaweicloud_modelarts_service":                config.IdentifierFromProvider,
+	"huaweicloud_modelarts_workspace":              config.IdentifierFromProvider,
+
 	// obs
 	"huaweicloud_obs_bucket":            config.IdentifierFromProvider,
 	"huaweicloud_obs_bucket_acl":        config.IdentifierFromProvider,
