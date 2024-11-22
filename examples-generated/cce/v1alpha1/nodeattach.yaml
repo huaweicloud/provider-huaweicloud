@@ -1,0 +1,21 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: NodeAttach
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodeattach
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    keyPair: ${var.keypair_name}
+    os: EulerOS 2.5
+    serverIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tags:
+      foo: bar
+      key: value

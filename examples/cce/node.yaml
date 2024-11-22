@@ -1,0 +1,26 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: Node
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/node
+  labels:
+    testing.upbound.io/example-name: node
+  name: node
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: cluster
+    dataVolumes:
+    - size: 100
+      volumetype: SSD
+    flavorId: c7t.large.2
+    passwordSecretRef:
+      key: password
+      name: user-password
+      namespace: crossplane-system
+    name: node-crossplane-test
+    rootVolume:
+    - size: 40
+      volumetype: SSD

@@ -1,0 +1,1850 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: services.modelarts.huaweicloud.crossplane.io
+spec:
+  group: modelarts.huaweicloud.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - huaweicloud
+    kind: Service
+    listKind: ServiceList
+    plural: services
+    singular: service
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Service is the Schema for the Services API. ""
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ServiceSpec defines the desired state of Service
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  additionalProperties:
+                    description: |-
+                      Additional properties.
+                      The AdditionalProperty structure is documented below.
+                    items:
+                      properties:
+                        logReportChannels:
+                          description: |-
+                            Advanced Log configuration.
+                            The LogReportChannel structure is documented below.
+                          items:
+                            properties:
+                              type:
+                                description: |-
+                                  Scheduling type. Only the value stop is supported.
+                                  The type of log report channel. The valid value is **LTS**.
+                                type: string
+                            type: object
+                          type: array
+                        smnNotification:
+                          description: |-
+                            SMN message notification configuration.
+                            The SmnNotification structure is documented below.
+                          items:
+                            properties:
+                              events:
+                                description: |-
+                                  Event ID.
+                                  Value options are as follows:
+                                  Event ID.
+                                items:
+                                  type: number
+                                type: array
+                              topicUrn:
+                                description: |-
+                                  URN of an SMN topic.
+                                  URN of an SMN topic.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  changeStatusTo:
+                    description: |-
+                      Which status you want to change the service to.
+                      The valid value can be running or stopped.
+                      If this parameter is not configured, the service status is not changed.
+                      Which status you want to change the service to, the valid value can be **running** or **stopped**.
+                    type: string
+                  config:
+                    description: |-
+                      Model running configurations.
+                      If infer_type is batch or edge, you can configure only one model.
+                      If infer_type is real-time, you can configure multiple models and assign weights based on service requirements.
+                      However, the versions of multiple models must be unique.
+                      The Config structure is documented below.
+                    items:
+                      properties:
+                        customSpec:
+                          description: parameter must be specified.
+                          items:
+                            properties:
+                              ascendA310:
+                                description: |-
+                                  Number of Ascend chips. Either this parameter or gpu_p4 is configured.
+                                  Number of Ascend chips. Either this parameter or **gpu_p4** is configured.
+                                type: number
+                              cpu:
+                                description: |-
+                                  Number of CPU cores, which can be a decimal. The value cannot be smaller than 0.01.
+                                  Number of CPU cores, which can be a decimal. The value cannot be smaller than 0.01.
+                                type: number
+                              gpuP4:
+                                description: |-
+                                  Number of GPU cores, which can be a decimal.
+                                  The value cannot be smaller than 0, which allows up to two decimal places.
+                                  Number of GPU cores, which can be a decimal.
+                                type: number
+                              memory:
+                                description: |-
+                                  Memory in MB, which must be an integer.
+                                  Memory in MB, which must be an integer.
+                                type: number
+                            type: object
+                          type: array
+                        destPath:
+                          description: |-
+                            OBS path to the output data of a batch job. Mandatory for batch services.
+                            OBS path to the output data of a batch job. Mandatory for batch services.
+                          type: string
+                        envs:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Environment variable key-value pair required for running a model.
+                            Environment variable key-value pair required for running a model.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        instanceCount:
+                          description: |-
+                            Number of instances deployed for a model.
+                            The maximum number of instances is 5. To use more instances, submit a service ticket.
+                            Number of instances deployed for a model.
+                          type: number
+                        mappingRule:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Mapping between input parameters and CSV data. Optional for batch services.
+                            This parameter is mandatory only when mapping_type is set to csv.
+                            The mapping rule is similar to the definition of the input parameters in the config.json file.
+                            You only need to configure the index parameters under each parameter of the string, number, integer,
+                            or boolean type, and specify the value of this parameter to the values of the index parameters
+                            in the CSV file to send an inference request. Use commas (,) to separate multiple pieces of CSV data.
+                            The values of the index parameters start from 0. If the value of the index parameter is -1, ignore this parameter.
+                            For details, see the sample of creating a batch service.
+                            Mapping between input parameters and CSV data. Optional for batch services.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        mappingType:
+                          description: |-
+                            Mapping type of the input data. Mandatory for batch services.
+                            The value can be file or csv. file indicates that each inference request corresponds to a file
+                            in the input data directory.
+                            If this parameter is set to file, req_uri of the model can have only one input parameter and the type
+                            of this parameter is file.
+                            If this parameter is set to csv, each inference request corresponds to a row of data in the CSV file.
+                            When csv is used, the file in the input data directory can only be suffixed with .csv,
+                            and the mapping_rule parameter must be configured to map the index of each parameter in
+                            the inference request body to the CSV file.
+                            Mapping type of the input data. Mandatory for batch services.
+                          type: string
+                        modelId:
+                          description: |-
+                            Model ID, which can be obtained by calling the API for obtaining a model list.
+                            Model ID, which can be obtained by calling the API for obtaining a model list.
+                          type: string
+                        nodes:
+                          description: |-
+                            Edge node ID array. Mandatory for edge services.
+                            The node ID is the edge node ID on IEF, which can be obtained after the edge node is created on IEF.
+                            Edge node ID array. Mandatory for edge services.
+                          items:
+                            type: string
+                          type: array
+                        poolName:
+                          description: |-
+                            The ID of the new dedicated resource pool.
+                            When using dedicated resource pool to deploy services, ensure that the cluster status is normal.
+                            If both pool_name and config.pool_name are configured, pool_name in real-time config is preferred.
+                            ID of a dedicated resource pool. Optional for real-time services.
+                          type: string
+                        reqUri:
+                          description: |-
+                            Inference API called in a batch task, which is the RESTful API exposed in the model image.
+                            Mandatory for batch services.
+                            You must select an API URL from the config.json file of the model for inference.
+                            If a built-in inference image of ModelArts is used, the API is displayed as /.
+                            Inference API called in a batch task, which is the RESTful API exposed in the model image.
+                          type: string
+                        specification:
+                          description: |-
+                            Resource flavors.
+                            The valid values are modelarts.vm.cpu.2u, modelarts.vm.gpu.p4 (must be requested for),
+                            modelsarts.vm.ai1.a310 (must be requested for),
+                            and custom (available only when the service is deployed in a dedicated resource pool) in the current version.
+                            To request for a flavor, submit a service ticket and obtain permissions from ModelArts O&M engineers.
+                            If this parameter is set to custom, the custom_spec parameter must be specified.
+                            Value options are as follows:
+                            Resource flavors.
+                          type: string
+                        srcPath:
+                          description: |-
+                            OBS path to the input data of a batch job.
+                            Mandatory for batch services.
+                            OBS path to the input data of a batch job.
+                          type: string
+                        srcType:
+                          description: |-
+                            Data source type, which can be ManifestFile. Mandatory for batch services.
+                            By default, this parameter is left blank, indicating that only files in the src_path directory are read.
+                            If this parameter is set to ManifestFile, src_path must be set to a specific manifest path.
+                            Multiple data paths can be specified in the manifest file. For details, see the manifest inference specifications.
+                            Data source type, which can be ManifestFile. Mandatory for batch services.
+                          type: string
+                        weight:
+                          description: |-
+                            Weight of traffic allocated to a model.
+                            This parameter is mandatory only when infer_type is set to real-time.
+                            The sum of all weights must be equal to 100. If multiple model versions are configured with different
+                            traffic weights in a real-time service, ModelArts will continuously access the prediction API of the
+                            service and forward prediction requests to the model instances of the corresponding versions based on the weights.
+                            Weight of traffic allocated to a model.
+                          type: number
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      The description of the service.
+                      The description of the service.
+                    type: string
+                  inferType:
+                    description: |-
+                      Inference mode.
+                      Value options are as follows:
+                      Inference mode.
+                    type: string
+                  name:
+                    description: |-
+                      Service name, which consists of 1 to 64 characters.
+                      Only letters, digits, hyphens (-), and underscores (_) are allowed.
+                      Service name, which consists of 1 to 64 characters.
+                    type: string
+                  poolName:
+                    description: |-
+                      The ID of the new dedicated resource pool.
+                      When using dedicated resource pool to deploy services, ensure that the cluster status is normal.
+                      If both pool_name and config.pool_name are configured, pool_name in real-time config is preferred.
+                      Specifies the ID of the new dedicated resource pool.
+                    type: string
+                  region:
+                    description: |-
+                      Specifies the region in which to create the resource.
+                      If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+                    type: string
+                  schedule:
+                    description: |-
+                      Service scheduling configuration, which can be configured only for real-time services.
+                      If this parameter is configured, the service will be stopped automatically.
+                      By default, the service runs for a long time.
+                      The Schedule structure is documented below.
+                    items:
+                      properties:
+                        duration:
+                          description: |-
+                            Value mapping a time unit.
+                            For example, if the task stops after two hours, set time_unit to HOURS and duration to 2.
+                            Value mapping a time unit.
+                          type: number
+                        timeUnit:
+                          description: |-
+                            Scheduling time unit. Possible values are DAYS, HOURS, and MINUTES.
+                            Scheduling time unit. Possible values are DAYS, HOURS, and MINUTES.
+                          type: string
+                        type:
+                          description: |-
+                            Scheduling type. Only the value stop is supported.
+                            Scheduling type. Only the value **stop** is supported.
+                          type: string
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: |-
+                      The security group ID.
+                      By default, this parameter is left blank.
+                      This parameter is mandatory if vpc_id is configured.
+                      A security group is a virtual firewall that provides secure network access control policies for service instances.
+                      A security group must contain at least one inbound rule to permit the requests whose protocol is TCP,
+                      source address is 0.0.0.0/0, and port number is 8080.
+                      The security group ID.
+                    type: string
+                  securityGroupIdRef:
+                    description: Reference to a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  securityGroupIdSelector:
+                    description: Selector for a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  subnetId:
+                    description: |-
+                      The subnet ID.
+                      By default, this parameter is left blank.
+                      This parameter is mandatory if vpc_id is configured.
+                      Enter the network ID displayed in the subnet details on the VPC management console.
+                      A subnet provides dedicated network resources that are isolated from other networks.
+                      The subnet ID.
+                    type: string
+                  subnetIdRef:
+                    description: Reference to a Subnet in vpc to populate subnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  subnetIdSelector:
+                    description: Selector for a Subnet in vpc to populate subnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  vpcId:
+                    description: |-
+                      The VPC ID to which a real-time service instance is deployed.
+                      By default, this parameter is left blank. In this case, ModelArts allocates a dedicated VPC to each user,
+                      and users are isolated from each other.
+                      To access other service components in the VPC of the service instance,
+                      set this parameter to the ID of the corresponding VPC.
+                      Once a VPC is configured, it cannot be modified. If both vpc_id and pool_name are configured,
+                      only the dedicated resource pool takes effect.
+                      The VPC ID to which a real-time service instance is deployed.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VPC in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VPC in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  workspaceId:
+                    description: |-
+                      ID of the workspace to which a service belongs.
+                      The default value is 0, indicating the default workspace.
+                      ID of the workspace to which a service belongs.
+                    type: string
+                  workspaceIdRef:
+                    description: Reference to a Workspace in modelarts to populate
+                      workspaceId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  workspaceIdSelector:
+                    description: Selector for a Workspace in modelarts to populate
+                      workspaceId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  additionalProperties:
+                    description: |-
+                      Additional properties.
+                      The AdditionalProperty structure is documented below.
+                    items:
+                      properties:
+                        logReportChannels:
+                          description: |-
+                            Advanced Log configuration.
+                            The LogReportChannel structure is documented below.
+                          items:
+                            properties:
+                              type:
+                                description: |-
+                                  Scheduling type. Only the value stop is supported.
+                                  The type of log report channel. The valid value is **LTS**.
+                                type: string
+                            type: object
+                          type: array
+                        smnNotification:
+                          description: |-
+                            SMN message notification configuration.
+                            The SmnNotification structure is documented below.
+                          items:
+                            properties:
+                              events:
+                                description: |-
+                                  Event ID.
+                                  Value options are as follows:
+                                  Event ID.
+                                items:
+                                  type: number
+                                type: array
+                              topicUrn:
+                                description: |-
+                                  URN of an SMN topic.
+                                  URN of an SMN topic.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  changeStatusTo:
+                    description: |-
+                      Which status you want to change the service to.
+                      The valid value can be running or stopped.
+                      If this parameter is not configured, the service status is not changed.
+                      Which status you want to change the service to, the valid value can be **running** or **stopped**.
+                    type: string
+                  config:
+                    description: |-
+                      Model running configurations.
+                      If infer_type is batch or edge, you can configure only one model.
+                      If infer_type is real-time, you can configure multiple models and assign weights based on service requirements.
+                      However, the versions of multiple models must be unique.
+                      The Config structure is documented below.
+                    items:
+                      properties:
+                        customSpec:
+                          description: parameter must be specified.
+                          items:
+                            properties:
+                              ascendA310:
+                                description: |-
+                                  Number of Ascend chips. Either this parameter or gpu_p4 is configured.
+                                  Number of Ascend chips. Either this parameter or **gpu_p4** is configured.
+                                type: number
+                              cpu:
+                                description: |-
+                                  Number of CPU cores, which can be a decimal. The value cannot be smaller than 0.01.
+                                  Number of CPU cores, which can be a decimal. The value cannot be smaller than 0.01.
+                                type: number
+                              gpuP4:
+                                description: |-
+                                  Number of GPU cores, which can be a decimal.
+                                  The value cannot be smaller than 0, which allows up to two decimal places.
+                                  Number of GPU cores, which can be a decimal.
+                                type: number
+                              memory:
+                                description: |-
+                                  Memory in MB, which must be an integer.
+                                  Memory in MB, which must be an integer.
+                                type: number
+                            type: object
+                          type: array
+                        destPath:
+                          description: |-
+                            OBS path to the output data of a batch job. Mandatory for batch services.
+                            OBS path to the output data of a batch job. Mandatory for batch services.
+                          type: string
+                        envs:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Environment variable key-value pair required for running a model.
+                            Environment variable key-value pair required for running a model.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        instanceCount:
+                          description: |-
+                            Number of instances deployed for a model.
+                            The maximum number of instances is 5. To use more instances, submit a service ticket.
+                            Number of instances deployed for a model.
+                          type: number
+                        mappingRule:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Mapping between input parameters and CSV data. Optional for batch services.
+                            This parameter is mandatory only when mapping_type is set to csv.
+                            The mapping rule is similar to the definition of the input parameters in the config.json file.
+                            You only need to configure the index parameters under each parameter of the string, number, integer,
+                            or boolean type, and specify the value of this parameter to the values of the index parameters
+                            in the CSV file to send an inference request. Use commas (,) to separate multiple pieces of CSV data.
+                            The values of the index parameters start from 0. If the value of the index parameter is -1, ignore this parameter.
+                            For details, see the sample of creating a batch service.
+                            Mapping between input parameters and CSV data. Optional for batch services.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        mappingType:
+                          description: |-
+                            Mapping type of the input data. Mandatory for batch services.
+                            The value can be file or csv. file indicates that each inference request corresponds to a file
+                            in the input data directory.
+                            If this parameter is set to file, req_uri of the model can have only one input parameter and the type
+                            of this parameter is file.
+                            If this parameter is set to csv, each inference request corresponds to a row of data in the CSV file.
+                            When csv is used, the file in the input data directory can only be suffixed with .csv,
+                            and the mapping_rule parameter must be configured to map the index of each parameter in
+                            the inference request body to the CSV file.
+                            Mapping type of the input data. Mandatory for batch services.
+                          type: string
+                        modelId:
+                          description: |-
+                            Model ID, which can be obtained by calling the API for obtaining a model list.
+                            Model ID, which can be obtained by calling the API for obtaining a model list.
+                          type: string
+                        nodes:
+                          description: |-
+                            Edge node ID array. Mandatory for edge services.
+                            The node ID is the edge node ID on IEF, which can be obtained after the edge node is created on IEF.
+                            Edge node ID array. Mandatory for edge services.
+                          items:
+                            type: string
+                          type: array
+                        poolName:
+                          description: |-
+                            The ID of the new dedicated resource pool.
+                            When using dedicated resource pool to deploy services, ensure that the cluster status is normal.
+                            If both pool_name and config.pool_name are configured, pool_name in real-time config is preferred.
+                            ID of a dedicated resource pool. Optional for real-time services.
+                          type: string
+                        reqUri:
+                          description: |-
+                            Inference API called in a batch task, which is the RESTful API exposed in the model image.
+                            Mandatory for batch services.
+                            You must select an API URL from the config.json file of the model for inference.
+                            If a built-in inference image of ModelArts is used, the API is displayed as /.
+                            Inference API called in a batch task, which is the RESTful API exposed in the model image.
+                          type: string
+                        specification:
+                          description: |-
+                            Resource flavors.
+                            The valid values are modelarts.vm.cpu.2u, modelarts.vm.gpu.p4 (must be requested for),
+                            modelsarts.vm.ai1.a310 (must be requested for),
+                            and custom (available only when the service is deployed in a dedicated resource pool) in the current version.
+                            To request for a flavor, submit a service ticket and obtain permissions from ModelArts O&M engineers.
+                            If this parameter is set to custom, the custom_spec parameter must be specified.
+                            Value options are as follows:
+                            Resource flavors.
+                          type: string
+                        srcPath:
+                          description: |-
+                            OBS path to the input data of a batch job.
+                            Mandatory for batch services.
+                            OBS path to the input data of a batch job.
+                          type: string
+                        srcType:
+                          description: |-
+                            Data source type, which can be ManifestFile. Mandatory for batch services.
+                            By default, this parameter is left blank, indicating that only files in the src_path directory are read.
+                            If this parameter is set to ManifestFile, src_path must be set to a specific manifest path.
+                            Multiple data paths can be specified in the manifest file. For details, see the manifest inference specifications.
+                            Data source type, which can be ManifestFile. Mandatory for batch services.
+                          type: string
+                        weight:
+                          description: |-
+                            Weight of traffic allocated to a model.
+                            This parameter is mandatory only when infer_type is set to real-time.
+                            The sum of all weights must be equal to 100. If multiple model versions are configured with different
+                            traffic weights in a real-time service, ModelArts will continuously access the prediction API of the
+                            service and forward prediction requests to the model instances of the corresponding versions based on the weights.
+                            Weight of traffic allocated to a model.
+                          type: number
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      The description of the service.
+                      The description of the service.
+                    type: string
+                  inferType:
+                    description: |-
+                      Inference mode.
+                      Value options are as follows:
+                      Inference mode.
+                    type: string
+                  name:
+                    description: |-
+                      Service name, which consists of 1 to 64 characters.
+                      Only letters, digits, hyphens (-), and underscores (_) are allowed.
+                      Service name, which consists of 1 to 64 characters.
+                    type: string
+                  poolName:
+                    description: |-
+                      The ID of the new dedicated resource pool.
+                      When using dedicated resource pool to deploy services, ensure that the cluster status is normal.
+                      If both pool_name and config.pool_name are configured, pool_name in real-time config is preferred.
+                      Specifies the ID of the new dedicated resource pool.
+                    type: string
+                  region:
+                    description: |-
+                      Specifies the region in which to create the resource.
+                      If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+                    type: string
+                  schedule:
+                    description: |-
+                      Service scheduling configuration, which can be configured only for real-time services.
+                      If this parameter is configured, the service will be stopped automatically.
+                      By default, the service runs for a long time.
+                      The Schedule structure is documented below.
+                    items:
+                      properties:
+                        duration:
+                          description: |-
+                            Value mapping a time unit.
+                            For example, if the task stops after two hours, set time_unit to HOURS and duration to 2.
+                            Value mapping a time unit.
+                          type: number
+                        timeUnit:
+                          description: |-
+                            Scheduling time unit. Possible values are DAYS, HOURS, and MINUTES.
+                            Scheduling time unit. Possible values are DAYS, HOURS, and MINUTES.
+                          type: string
+                        type:
+                          description: |-
+                            Scheduling type. Only the value stop is supported.
+                            Scheduling type. Only the value **stop** is supported.
+                          type: string
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: |-
+                      The security group ID.
+                      By default, this parameter is left blank.
+                      This parameter is mandatory if vpc_id is configured.
+                      A security group is a virtual firewall that provides secure network access control policies for service instances.
+                      A security group must contain at least one inbound rule to permit the requests whose protocol is TCP,
+                      source address is 0.0.0.0/0, and port number is 8080.
+                      The security group ID.
+                    type: string
+                  securityGroupIdRef:
+                    description: Reference to a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  securityGroupIdSelector:
+                    description: Selector for a Secgroup in vpc to populate securityGroupId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  subnetId:
+                    description: |-
+                      The subnet ID.
+                      By default, this parameter is left blank.
+                      This parameter is mandatory if vpc_id is configured.
+                      Enter the network ID displayed in the subnet details on the VPC management console.
+                      A subnet provides dedicated network resources that are isolated from other networks.
+                      The subnet ID.
+                    type: string
+                  subnetIdRef:
+                    description: Reference to a Subnet in vpc to populate subnetId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  subnetIdSelector:
+                    description: Selector for a Subnet in vpc to populate subnetId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  vpcId:
+                    description: |-
+                      The VPC ID to which a real-time service instance is deployed.
+                      By default, this parameter is left blank. In this case, ModelArts allocates a dedicated VPC to each user,
+                      and users are isolated from each other.
+                      To access other service components in the VPC of the service instance,
+                      set this parameter to the ID of the corresponding VPC.
+                      Once a VPC is configured, it cannot be modified. If both vpc_id and pool_name are configured,
+                      only the dedicated resource pool takes effect.
+                      The VPC ID to which a real-time service instance is deployed.
+                    type: string
+                  vpcIdRef:
+                    description: Reference to a VPC in vpc to populate vpcId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  vpcIdSelector:
+                    description: Selector for a VPC in vpc to populate vpcId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  workspaceId:
+                    description: |-
+                      ID of the workspace to which a service belongs.
+                      The default value is 0, indicating the default workspace.
+                      ID of the workspace to which a service belongs.
+                    type: string
+                  workspaceIdRef:
+                    description: Reference to a Workspace in modelarts to populate
+                      workspaceId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  workspaceIdSelector:
+                    description: Selector for a Workspace in modelarts to populate
+                      workspaceId.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.config is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.config)
+                || (has(self.initProvider) && has(self.initProvider.config))'
+            - message: spec.forProvider.inferType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.inferType)
+                || (has(self.initProvider) && has(self.initProvider.inferType))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+          status:
+            description: ServiceStatus defines the observed state of Service.
+            properties:
+              atProvider:
+                properties:
+                  accessAddress:
+                    description: |-
+                      Access address of an inference request.
+                      This parameter is available when infer_type is set to real-time.
+                      Access address of an inference request.
+                    type: string
+                  additionalProperties:
+                    description: |-
+                      Additional properties.
+                      The AdditionalProperty structure is documented below.
+                    items:
+                      properties:
+                        logReportChannels:
+                          description: |-
+                            Advanced Log configuration.
+                            The LogReportChannel structure is documented below.
+                          items:
+                            properties:
+                              type:
+                                description: |-
+                                  Scheduling type. Only the value stop is supported.
+                                  The type of log report channel. The valid value is **LTS**.
+                                type: string
+                            type: object
+                          type: array
+                        smnNotification:
+                          description: |-
+                            SMN message notification configuration.
+                            The SmnNotification structure is documented below.
+                          items:
+                            properties:
+                              events:
+                                description: |-
+                                  Event ID.
+                                  Value options are as follows:
+                                  Event ID.
+                                items:
+                                  type: number
+                                type: array
+                              topicUrn:
+                                description: |-
+                                  URN of an SMN topic.
+                                  URN of an SMN topic.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  bindAccessAddress:
+                    description: |-
+                      Request address of a custom domain name.
+                      This parameter is available after a domain name is bound.
+                      Request address of a custom domain name.
+                    type: string
+                  changeStatusTo:
+                    description: |-
+                      Which status you want to change the service to.
+                      The valid value can be running or stopped.
+                      If this parameter is not configured, the service status is not changed.
+                      Which status you want to change the service to, the valid value can be **running** or **stopped**.
+                    type: string
+                  config:
+                    description: |-
+                      Model running configurations.
+                      If infer_type is batch or edge, you can configure only one model.
+                      If infer_type is real-time, you can configure multiple models and assign weights based on service requirements.
+                      However, the versions of multiple models must be unique.
+                      The Config structure is documented below.
+                    items:
+                      properties:
+                        customSpec:
+                          description: parameter must be specified.
+                          items:
+                            properties:
+                              ascendA310:
+                                description: |-
+                                  Number of Ascend chips. Either this parameter or gpu_p4 is configured.
+                                  Number of Ascend chips. Either this parameter or **gpu_p4** is configured.
+                                type: number
+                              cpu:
+                                description: |-
+                                  Number of CPU cores, which can be a decimal. The value cannot be smaller than 0.01.
+                                  Number of CPU cores, which can be a decimal. The value cannot be smaller than 0.01.
+                                type: number
+                              gpuP4:
+                                description: |-
+                                  Number of GPU cores, which can be a decimal.
+                                  The value cannot be smaller than 0, which allows up to two decimal places.
+                                  Number of GPU cores, which can be a decimal.
+                                type: number
+                              memory:
+                                description: |-
+                                  Memory in MB, which must be an integer.
+                                  Memory in MB, which must be an integer.
+                                type: number
+                            type: object
+                          type: array
+                        destPath:
+                          description: |-
+                            OBS path to the output data of a batch job. Mandatory for batch services.
+                            OBS path to the output data of a batch job. Mandatory for batch services.
+                          type: string
+                        envs:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Environment variable key-value pair required for running a model.
+                            Environment variable key-value pair required for running a model.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        instanceCount:
+                          description: |-
+                            Number of instances deployed for a model.
+                            The maximum number of instances is 5. To use more instances, submit a service ticket.
+                            Number of instances deployed for a model.
+                          type: number
+                        mappingRule:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Mapping between input parameters and CSV data. Optional for batch services.
+                            This parameter is mandatory only when mapping_type is set to csv.
+                            The mapping rule is similar to the definition of the input parameters in the config.json file.
+                            You only need to configure the index parameters under each parameter of the string, number, integer,
+                            or boolean type, and specify the value of this parameter to the values of the index parameters
+                            in the CSV file to send an inference request. Use commas (,) to separate multiple pieces of CSV data.
+                            The values of the index parameters start from 0. If the value of the index parameter is -1, ignore this parameter.
+                            For details, see the sample of creating a batch service.
+                            Mapping between input parameters and CSV data. Optional for batch services.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        mappingType:
+                          description: |-
+                            Mapping type of the input data. Mandatory for batch services.
+                            The value can be file or csv. file indicates that each inference request corresponds to a file
+                            in the input data directory.
+                            If this parameter is set to file, req_uri of the model can have only one input parameter and the type
+                            of this parameter is file.
+                            If this parameter is set to csv, each inference request corresponds to a row of data in the CSV file.
+                            When csv is used, the file in the input data directory can only be suffixed with .csv,
+                            and the mapping_rule parameter must be configured to map the index of each parameter in
+                            the inference request body to the CSV file.
+                            Mapping type of the input data. Mandatory for batch services.
+                          type: string
+                        modelId:
+                          description: |-
+                            Model ID, which can be obtained by calling the API for obtaining a model list.
+                            Model ID, which can be obtained by calling the API for obtaining a model list.
+                          type: string
+                        nodes:
+                          description: |-
+                            Edge node ID array. Mandatory for edge services.
+                            The node ID is the edge node ID on IEF, which can be obtained after the edge node is created on IEF.
+                            Edge node ID array. Mandatory for edge services.
+                          items:
+                            type: string
+                          type: array
+                        poolName:
+                          description: |-
+                            The ID of the new dedicated resource pool.
+                            When using dedicated resource pool to deploy services, ensure that the cluster status is normal.
+                            If both pool_name and config.pool_name are configured, pool_name in real-time config is preferred.
+                            ID of a dedicated resource pool. Optional for real-time services.
+                          type: string
+                        reqUri:
+                          description: |-
+                            Inference API called in a batch task, which is the RESTful API exposed in the model image.
+                            Mandatory for batch services.
+                            You must select an API URL from the config.json file of the model for inference.
+                            If a built-in inference image of ModelArts is used, the API is displayed as /.
+                            Inference API called in a batch task, which is the RESTful API exposed in the model image.
+                          type: string
+                        specification:
+                          description: |-
+                            Resource flavors.
+                            The valid values are modelarts.vm.cpu.2u, modelarts.vm.gpu.p4 (must be requested for),
+                            modelsarts.vm.ai1.a310 (must be requested for),
+                            and custom (available only when the service is deployed in a dedicated resource pool) in the current version.
+                            To request for a flavor, submit a service ticket and obtain permissions from ModelArts O&M engineers.
+                            If this parameter is set to custom, the custom_spec parameter must be specified.
+                            Value options are as follows:
+                            Resource flavors.
+                          type: string
+                        srcPath:
+                          description: |-
+                            OBS path to the input data of a batch job.
+                            Mandatory for batch services.
+                            OBS path to the input data of a batch job.
+                          type: string
+                        srcType:
+                          description: |-
+                            Data source type, which can be ManifestFile. Mandatory for batch services.
+                            By default, this parameter is left blank, indicating that only files in the src_path directory are read.
+                            If this parameter is set to ManifestFile, src_path must be set to a specific manifest path.
+                            Multiple data paths can be specified in the manifest file. For details, see the manifest inference specifications.
+                            Data source type, which can be ManifestFile. Mandatory for batch services.
+                          type: string
+                        weight:
+                          description: |-
+                            Weight of traffic allocated to a model.
+                            This parameter is mandatory only when infer_type is set to real-time.
+                            The sum of all weights must be equal to 100. If multiple model versions are configured with different
+                            traffic weights in a real-time service, ModelArts will continuously access the prediction API of the
+                            service and forward prediction requests to the model instances of the corresponding versions based on the weights.
+                            Weight of traffic allocated to a model.
+                          type: number
+                      type: object
+                    type: array
+                  debugUrl:
+                    description: |-
+                      Online debugging address of a real-time service.
+                      This parameter is available only when the model supports online debugging and there is only one instance.
+                      Online debugging address of a real-time service.
+                    type: string
+                  description:
+                    description: |-
+                      The description of the service.
+                      The description of the service.
+                    type: string
+                  failedTimes:
+                    description: |-
+                      Number of failed service calls.
+                      Number of failed service calls.
+                    type: number
+                  id:
+                    description: The resource ID.
+                    type: string
+                  inferType:
+                    description: |-
+                      Inference mode.
+                      Value options are as follows:
+                      Inference mode.
+                    type: string
+                  invocationTimes:
+                    description: |-
+                      Total number of service calls.
+                      Total number of service calls.
+                    type: number
+                  isFree:
+                    description: |-
+                      Whether a free-of-charge flavor is used.
+                      Whether a free-of-charge flavor is used.
+                    type: boolean
+                  isShared:
+                    description: |-
+                      Whether a service is subscribed.
+                      Whether a service is subscribed.
+                    type: boolean
+                  name:
+                    description: |-
+                      Service name, which consists of 1 to 64 characters.
+                      Only letters, digits, hyphens (-), and underscores (_) are allowed.
+                      Service name, which consists of 1 to 64 characters.
+                    type: string
+                  owner:
+                    description: |-
+                      User to which a service belongs
+                      User to which a service belongs
+                    type: string
+                  poolName:
+                    description: |-
+                      The ID of the new dedicated resource pool.
+                      When using dedicated resource pool to deploy services, ensure that the cluster status is normal.
+                      If both pool_name and config.pool_name are configured, pool_name in real-time config is preferred.
+                      Specifies the ID of the new dedicated resource pool.
+                    type: string
+                  region:
+                    description: |-
+                      Specifies the region in which to create the resource.
+                      If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
+                    type: string
+                  schedule:
+                    description: |-
+                      Service scheduling configuration, which can be configured only for real-time services.
+                      If this parameter is configured, the service will be stopped automatically.
+                      By default, the service runs for a long time.
+                      The Schedule structure is documented below.
+                    items:
+                      properties:
+                        duration:
+                          description: |-
+                            Value mapping a time unit.
+                            For example, if the task stops after two hours, set time_unit to HOURS and duration to 2.
+                            Value mapping a time unit.
+                          type: number
+                        timeUnit:
+                          description: |-
+                            Scheduling time unit. Possible values are DAYS, HOURS, and MINUTES.
+                            Scheduling time unit. Possible values are DAYS, HOURS, and MINUTES.
+                          type: string
+                        type:
+                          description: |-
+                            Scheduling type. Only the value stop is supported.
+                            Scheduling type. Only the value **stop** is supported.
+                          type: string
+                      type: object
+                    type: array
+                  securityGroupId:
+                    description: |-
+                      The security group ID.
+                      By default, this parameter is left blank.
+                      This parameter is mandatory if vpc_id is configured.
+                      A security group is a virtual firewall that provides secure network access control policies for service instances.
+                      A security group must contain at least one inbound rule to permit the requests whose protocol is TCP,
+                      source address is 0.0.0.0/0, and port number is 8080.
+                      The security group ID.
+                    type: string
+                  sharedCount:
+                    description: |-
+                      Number of subscribed services.
+                      Number of subscribed services.
+                    type: number
+                  status:
+                    description: |-
+                      Service status.
+                      Value options are as follows:
+                      Service status.
+                    type: string
+                  subnetId:
+                    description: |-
+                      The subnet ID.
+                      By default, this parameter is left blank.
+                      This parameter is mandatory if vpc_id is configured.
+                      Enter the network ID displayed in the subnet details on the VPC management console.
+                      A subnet provides dedicated network resources that are isolated from other networks.
+                      The subnet ID.
+                    type: string
+                  vpcId:
+                    description: |-
+                      The VPC ID to which a real-time service instance is deployed.
+                      By default, this parameter is left blank. In this case, ModelArts allocates a dedicated VPC to each user,
+                      and users are isolated from each other.
+                      To access other service components in the VPC of the service instance,
+                      set this parameter to the ID of the corresponding VPC.
+                      Once a VPC is configured, it cannot be modified. If both vpc_id and pool_name are configured,
+                      only the dedicated resource pool takes effect.
+                      The VPC ID to which a real-time service instance is deployed.
+                    type: string
+                  workspaceId:
+                    description: |-
+                      ID of the workspace to which a service belongs.
+                      The default value is 0, indicating the default workspace.
+                      ID of the workspace to which a service belongs.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

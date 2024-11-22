@@ -1,0 +1,19 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: NodePoolNodesAdd
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/nodepoolnodesadd
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    nodeList:
+    - serverId: ${var.server_id_1}
+    - serverId: ${var.server_id_2}
+    nodepoolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

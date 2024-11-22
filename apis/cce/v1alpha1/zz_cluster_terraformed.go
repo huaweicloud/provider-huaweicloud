@@ -118,6 +118,20 @@ func (tr *Cluster) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	initParams, err := tr.GetInitParameters()
+	if err != nil {
+		return false, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+	}
+	opts = append(opts, resource.WithConditionalFilter("DeleteAll", initParams))
+	opts = append(opts, resource.WithConditionalFilter("DeleteEFS", initParams))
+	opts = append(opts, resource.WithConditionalFilter("DeleteEni", initParams))
+	opts = append(opts, resource.WithConditionalFilter("DeleteEvs", initParams))
+	opts = append(opts, resource.WithConditionalFilter("DeleteNet", initParams))
+	opts = append(opts, resource.WithConditionalFilter("DeleteObs", initParams))
+	opts = append(opts, resource.WithConditionalFilter("DeleteSfs", initParams))
+	opts = append(opts, resource.WithConditionalFilter("ExtendParams", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Masters", initParams))
+	opts = append(opts, resource.WithConditionalFilter("MultiAz", initParams))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

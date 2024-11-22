@@ -1,0 +1,15 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: NotebookMountStorage
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/notebookmountstorage
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    localMountDirectory: /data/test/
+    notebookIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    storagePath: ${var.uri_parallel_obs}

@@ -1,0 +1,14 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: Namespace
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/namespace
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: test-namespace

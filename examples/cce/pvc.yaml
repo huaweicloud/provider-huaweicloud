@@ -1,0 +1,21 @@
+apiVersion: cce.huaweicloud.crossplane.io/v1alpha1
+kind: Pvc
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cce/v1alpha1/pvc
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessModes:
+    - ReadWriteOnce
+    annotations:
+      everest.io/disk-volume-type: SSD
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: the_pvc_name
+    namespace: the_namespace
+    storage: 10Gi
+    storageClassName: csi-disk

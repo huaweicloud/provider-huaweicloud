@@ -11,8 +11,17 @@ import "github.com/crossplane/upjet/pkg/config"
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	// cce
-	"huaweicloud_cce_cluster": config.IdentifierFromProvider,
-	"huaweicloud_cce_node":    config.IdentifierFromProvider,
+	"huaweicloud_cce_addon":               config.IdentifierFromProvider,
+	"huaweicloud_cce_chart":               config.IdentifierFromProvider,
+	"huaweicloud_cce_cluster":             config.IdentifierFromProvider,
+	"huaweicloud_cce_cluster_log_config":  config.IdentifierFromProvider,
+	"huaweicloud_cce_cluster_upgrade":     config.IdentifierFromProvider,
+	"huaweicloud_cce_namespace":           config.IdentifierFromProvider,
+	"huaweicloud_cce_node":                config.IdentifierFromProvider,
+	"huaweicloud_cce_node_attach":         config.IdentifierFromProvider,
+	"huaweicloud_cce_node_pool":           config.IdentifierFromProvider,
+	"huaweicloud_cce_node_pool_nodes_add": config.IdentifierFromProvider,
+	"huaweicloud_cce_pvc":                 config.IdentifierFromProvider,
 
 	// dcs
 	"huaweicloud_dcs_account":          config.IdentifierFromProvider,
@@ -77,6 +86,18 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_identity_user_role_assignment":  config.IdentifierFromProvider,
 	"huaweicloud_identity_user_token":            config.IdentifierFromProvider,
 	"huaweicloud_identity_virtual_mfa_device":    config.IdentifierFromProvider,
+
+	// modelarts
+	"huaweicloud_modelarts_authorization":          config.IdentifierFromProvider,
+	"huaweicloud_modelarts_dataset":                config.IdentifierFromProvider,
+	"huaweicloud_modelarts_dataset_version":        config.IdentifierFromProvider,
+	"huaweicloud_modelarts_model":                  config.IdentifierFromProvider,
+	"huaweicloud_modelarts_network":                config.IdentifierFromProvider,
+	"huaweicloud_modelarts_notebook":               config.IdentifierFromProvider,
+	"huaweicloud_modelarts_notebook_mount_storage": config.IdentifierFromProvider,
+	"huaweicloud_modelarts_resource_pool":          config.IdentifierFromProvider,
+	"huaweicloud_modelarts_service":                config.IdentifierFromProvider,
+	"huaweicloud_modelarts_workspace":              config.IdentifierFromProvider,
 
 	// obs
 	"huaweicloud_obs_bucket":            config.IdentifierFromProvider,

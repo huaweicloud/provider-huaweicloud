@@ -1,0 +1,16 @@
+apiVersion: modelarts.huaweicloud.crossplane.io/v1alpha1
+kind: Model
+metadata:
+  annotations:
+    meta.upbound.io/example-id: modelarts/v1alpha1/model
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: This is a demo
+    modelType: TensorFlow
+    name: demo
+    runtime: python3.6
+    sourceLocation: the_source_obs_path
+    version: 0.0.2

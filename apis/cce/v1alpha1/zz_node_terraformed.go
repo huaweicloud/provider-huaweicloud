@@ -118,6 +118,28 @@ func (tr *Node) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("EIPIds"))
+	initParams, err := tr.GetInitParameters()
+	if err != nil {
+		return false, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+	}
+	opts = append(opts, resource.WithConditionalFilter("BandwidthChargeMode", initParams))
+	opts = append(opts, resource.WithConditionalFilter("BandwidthSize", initParams))
+	opts = append(opts, resource.WithConditionalFilter("BillingMode", initParams))
+	opts = append(opts, resource.WithConditionalFilter("EcsPerformanceType", initParams))
+	opts = append(opts, resource.WithConditionalFilter("EIPID", initParams))
+	opts = append(opts, resource.WithConditionalFilter("ExtendParam", initParams))
+	opts = append(opts, resource.WithConditionalFilter("ExtendParams", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Iptype", initParams))
+	opts = append(opts, resource.WithConditionalFilter("KeyPair", initParams))
+	opts = append(opts, resource.WithConditionalFilter("MaxPods", initParams))
+	opts = append(opts, resource.WithConditionalFilter("OrderID", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Password", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Postinstall", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Preinstall", initParams))
+	opts = append(opts, resource.WithConditionalFilter("ProductID", initParams))
+	opts = append(opts, resource.WithConditionalFilter("PublicKey", initParams))
+	opts = append(opts, resource.WithConditionalFilter("Sharetype", initParams))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
