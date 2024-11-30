@@ -318,10 +318,9 @@ jobs:
           path: _output/**
 
       - name: Publish Artifacts
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
+        if: env.XPKG_TOKEN != ''
         env:
-          UP_USER: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-          UP_PASSWORD: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+          UP_TOKEN: ${{ secrets.XPKG_TOKEN }}
         run: |
           make up.login
           make publish BRANCH_NAME=${GITHUB_REF##*/}
