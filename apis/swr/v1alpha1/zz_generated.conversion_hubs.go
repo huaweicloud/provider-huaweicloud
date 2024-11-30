@@ -7,19 +7,25 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
-func (tr *Bucket) Hub() {}
+func (tr *ImageAutoSync) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *BucketACL) Hub() {}
+func (tr *ImagePermissions) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *BucketObject) Hub() {}
+func (tr *ImageRetentionPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *BucketObjectACL) Hub() {}
+func (tr *ImageTrigger) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *BucketPolicy) Hub() {}
+func (tr *Organization) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *BucketReplication) Hub() {}
+func (tr *OrganizationPermissions) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Repository) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RepositorySharing) Hub() {}

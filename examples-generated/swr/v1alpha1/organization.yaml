@@ -1,0 +1,11 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organization
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: terraform-test

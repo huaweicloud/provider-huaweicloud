@@ -100,10 +100,12 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_modelarts_workspace":              config.IdentifierFromProvider,
 
 	// obs
-	"huaweicloud_obs_bucket":            config.IdentifierFromProvider,
-	"huaweicloud_obs_bucket_acl":        config.IdentifierFromProvider,
-	"huaweicloud_obs_bucket_object":     config.IdentifierFromProvider,
-	"huaweicloud_obs_bucket_object_acl": config.IdentifierFromProvider,
+	"huaweicloud_obs_bucket":             config.IdentifierFromProvider,
+	"huaweicloud_obs_bucket_acl":         config.IdentifierFromProvider,
+	"huaweicloud_obs_bucket_object":      config.IdentifierFromProvider,
+	"huaweicloud_obs_bucket_object_acl":  config.IdentifierFromProvider,
+	"huaweicloud_obs_bucket_policy":      config.IdentifierFromProvider,
+	"huaweicloud_obs_bucket_replication": config.IdentifierFromProvider,
 
 	// rds
 	"huaweicloud_rds_backup":                       config.IdentifierFromProvider,
@@ -136,6 +138,16 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_rds_sqlserver_account":            config.IdentifierFromProvider,
 	"huaweicloud_rds_sqlserver_database":           config.IdentifierFromProvider,
 	"huaweicloud_rds_sqlserver_database_privilege": config.IdentifierFromProvider,
+
+	// swr
+	"huaweicloud_swr_image_auto_sync":          config.IdentifierFromProvider,
+	"huaweicloud_swr_image_permissions":        config.IdentifierFromProvider,
+	"huaweicloud_swr_image_retention_policy":   config.IdentifierFromProvider,
+	"huaweicloud_swr_image_trigger":            config.IdentifierFromProvider,
+	"huaweicloud_swr_organization":             config.IdentifierFromProvider,
+	"huaweicloud_swr_organization_permissions": config.IdentifierFromProvider,
+	"huaweicloud_swr_repository":               config.IdentifierFromProvider,
+	"huaweicloud_swr_repository_sharing":       config.IdentifierFromProvider,
 
 	// vpc
 	"huaweicloud_vpc":                             config.IdentifierFromProvider,

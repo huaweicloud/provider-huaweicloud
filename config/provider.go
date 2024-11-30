@@ -17,6 +17,7 @@ import (
 	"github.com/huaweicloud/provider-huaweicloud/config/modelarts"
 	"github.com/huaweicloud/provider-huaweicloud/config/obs"
 	"github.com/huaweicloud/provider-huaweicloud/config/rds"
+	"github.com/huaweicloud/provider-huaweicloud/config/swr"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
@@ -56,6 +57,7 @@ func GetProvider() *ujconfig.Provider {
 		vpc.Configure,
 		eip.Configure,
 		rds.Configure,
+		swr.Configure,
 	} {
 		configure(pc)
 	}

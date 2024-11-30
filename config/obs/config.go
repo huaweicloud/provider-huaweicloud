@@ -47,4 +47,27 @@ func Configure(p *config.Provider) {
 		}
 	})
 
+	p.AddResourceConfigurator("huaweicloud_obs_bucket_policy", func(r *config.Resource) {
+		r.ShortGroup = shortGroupObs
+
+		r.References["bucket"] = config.Reference{
+			TerraformName: "huaweicloud_obs_bucket",
+			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractParamPath("bucket",true)`,
+		}
+	})
+
+	p.AddResourceConfigurator("huaweicloud_obs_bucket_replication", func(r *config.Resource) {
+		r.ShortGroup = shortGroupObs
+
+		r.References["bucket"] = config.Reference{
+			TerraformName: "huaweicloud_obs_bucket",
+			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractParamPath("bucket",true)`,
+		}
+
+		r.References["destination_bucket"] = config.Reference{
+			TerraformName: "huaweicloud_obs_bucket",
+			Extractor:     `github.com/crossplane/upjet/pkg/resource.ExtractParamPath("bucket",true)`,
+		}
+	})
+
 }

@@ -1,0 +1,39 @@
+apiVersion: obs.huaweicloud.crossplane.io/v1alpha1
+kind: BucketPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketpolicy
+  labels:
+    testing.upbound.io/example-name: policy
+  name: policy
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: bucket
+    policy: |
+      {
+        "Statement": [
+          {
+            "Sid": "AddPerm",
+            "Effect": "Allow",
+            "Principal": {"ID": "*"},
+            "Action": ["GetObject"],
+            "Resource": "my-test-bucket/*"
+          }
+        ]
+      }
+
+---
+
+apiVersion: obs.huaweicloud.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: obs/v1alpha1/bucketpolicy
+  labels:
+    testing.upbound.io/example-name: bucket
+  name: bucket
+spec:
+  forProvider:
+    bucket: my-test-bucket
