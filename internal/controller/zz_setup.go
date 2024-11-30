@@ -88,6 +88,8 @@ import (
 	bucketacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketacl"
 	bucketobject "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobject"
 	bucketobjectacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobjectacl"
+	bucketpolicy "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketpolicy"
+	bucketreplication "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketreplication"
 	providerconfig "github.com/huaweicloud/provider-huaweicloud/internal/controller/providerconfig"
 	backuprds "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/backup"
 	crossregionbackupstrategy "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/crossregionbackupstrategy"
@@ -119,6 +121,14 @@ import (
 	sqlserveraccount "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserveraccount"
 	sqlserverdatabase "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserverdatabase"
 	sqlserverdatabaseprivilege "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserverdatabaseprivilege"
+	imageautosync "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imageautosync"
+	imagepermissions "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imagepermissions"
+	imageretentionpolicy "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imageretentionpolicy"
+	imagetrigger "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imagetrigger"
+	organization "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/organization"
+	organizationpermissions "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/organizationpermissions"
+	repository "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/repository"
+	repositorysharing "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/repositorysharing"
 	addressgroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/addressgroup"
 	flowlog "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/flowlog"
 	networkacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/vpc/networkacl"
@@ -222,6 +232,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		bucketacl.Setup,
 		bucketobject.Setup,
 		bucketobjectacl.Setup,
+		bucketpolicy.Setup,
+		bucketreplication.Setup,
 		providerconfig.Setup,
 		backuprds.Setup,
 		crossregionbackupstrategy.Setup,
@@ -253,6 +265,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		sqlserveraccount.Setup,
 		sqlserverdatabase.Setup,
 		sqlserverdatabaseprivilege.Setup,
+		imageautosync.Setup,
+		imagepermissions.Setup,
+		imageretentionpolicy.Setup,
+		imagetrigger.Setup,
+		organization.Setup,
+		organizationpermissions.Setup,
+		repository.Setup,
+		repositorysharing.Setup,
 		addressgroup.Setup,
 		flowlog.Setup,
 		networkacl.Setup,

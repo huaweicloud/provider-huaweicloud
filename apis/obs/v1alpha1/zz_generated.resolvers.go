@@ -171,3 +171,119 @@ func (mg *BucketObjectACL) ResolveReferences(ctx context.Context, c client.Reade
 
 	return nil
 }
+
+// ResolveReferences of this BucketPolicy.
+func (mg *BucketPolicy) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Bucket),
+		Extract:      resource.ExtractParamPath("bucket", true),
+		Reference:    mg.Spec.ForProvider.BucketRef,
+		Selector:     mg.Spec.ForProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Bucket")
+	}
+	mg.Spec.ForProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Bucket),
+		Extract:      resource.ExtractParamPath("bucket", true),
+		Reference:    mg.Spec.InitProvider.BucketRef,
+		Selector:     mg.Spec.InitProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Bucket")
+	}
+	mg.Spec.InitProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this BucketReplication.
+func (mg *BucketReplication) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Bucket),
+		Extract:      resource.ExtractParamPath("bucket", true),
+		Reference:    mg.Spec.ForProvider.BucketRef,
+		Selector:     mg.Spec.ForProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Bucket")
+	}
+	mg.Spec.ForProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BucketRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationBucket),
+		Extract:      resource.ExtractParamPath("bucket", true),
+		Reference:    mg.Spec.ForProvider.DestinationBucketRef,
+		Selector:     mg.Spec.ForProvider.DestinationBucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DestinationBucket")
+	}
+	mg.Spec.ForProvider.DestinationBucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DestinationBucketRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Bucket),
+		Extract:      resource.ExtractParamPath("bucket", true),
+		Reference:    mg.Spec.InitProvider.BucketRef,
+		Selector:     mg.Spec.InitProvider.BucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Bucket")
+	}
+	mg.Spec.InitProvider.Bucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.BucketRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationBucket),
+		Extract:      resource.ExtractParamPath("bucket", true),
+		Reference:    mg.Spec.InitProvider.DestinationBucketRef,
+		Selector:     mg.Spec.InitProvider.DestinationBucketSelector,
+		To: reference.To{
+			List:    &BucketList{},
+			Managed: &Bucket{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DestinationBucket")
+	}
+	mg.Spec.InitProvider.DestinationBucket = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DestinationBucketRef = rsp.ResolvedReference
+
+	return nil
+}

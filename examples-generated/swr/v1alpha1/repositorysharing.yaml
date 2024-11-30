@@ -1,0 +1,15 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: RepositorySharing
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/repositorysharing
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    deadline: forever
+    organization: ${var.organization_name}
+    permission: pull
+    repository: ${var.repository_name}
+    sharingAccount: ${var.sharing_account}

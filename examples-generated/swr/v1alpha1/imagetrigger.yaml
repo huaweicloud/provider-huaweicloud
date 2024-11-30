@@ -1,0 +1,22 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: ImageTrigger
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/imagetrigger
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    conditionType: all
+    conditionValue: .*
+    enabled: "true"
+    name: ${var.name}
+    namespace: ${var.namespace}
+    organization: ${var.organization_name}
+    repository: ${var.repository_name}
+    workloadName: test_name
+    workloadType: deployments

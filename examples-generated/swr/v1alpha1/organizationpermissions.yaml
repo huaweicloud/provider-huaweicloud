@@ -1,0 +1,22 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: OrganizationPermissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/organizationpermissions
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    organization: ${var.organization_name}
+    users:
+    - permission: Read
+      userIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user_1
+      userName: ${var.user_1.name}
+    - permission: Read
+      userIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user_2
+      userName: ${var.user_2.name}
