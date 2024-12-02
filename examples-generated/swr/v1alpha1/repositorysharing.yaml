@@ -9,7 +9,11 @@ metadata:
 spec:
   forProvider:
     deadline: forever
-    organization: ${var.organization_name}
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     permission: pull
-    repository: ${var.repository_name}
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     sharingAccount: ${var.sharing_account}

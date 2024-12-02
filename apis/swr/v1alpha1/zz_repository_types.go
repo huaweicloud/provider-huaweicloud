@@ -33,7 +33,17 @@ type RepositoryInitParameters struct {
 
 	// Specifies the name of the organization (namespace) the repository
 	// belongs. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/swr/v1alpha1.Organization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("name",true)
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Specifies the region in which to create the resource. If omitted, the
 	// provider-level region will be used. Changing this creates a new resource.
@@ -109,8 +119,18 @@ type RepositoryParameters struct {
 
 	// Specifies the name of the organization (namespace) the repository
 	// belongs. Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/swr/v1alpha1.Organization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Specifies the region in which to create the resource. If omitted, the
 	// provider-level region will be used. Changing this creates a new resource.
@@ -155,7 +175,6 @@ type Repository struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organization) || (has(self.initProvider) && has(self.initProvider.organization))",message="spec.forProvider.organization is a required parameter"
 	Spec   RepositorySpec   `json:"spec"`
 	Status RepositoryStatus `json:"status,omitempty"`
 }

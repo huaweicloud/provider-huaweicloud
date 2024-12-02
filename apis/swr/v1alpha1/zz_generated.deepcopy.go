@@ -332,6 +332,16 @@ func (in *ImagePermissionsInitParameters) DeepCopyInto(out *ImagePermissionsInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -341,6 +351,16 @@ func (in *ImagePermissionsInitParameters) DeepCopyInto(out *ImagePermissionsInit
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
@@ -450,6 +470,16 @@ func (in *ImagePermissionsParameters) DeepCopyInto(out *ImagePermissionsParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -459,6 +489,16 @@ func (in *ImagePermissionsParameters) DeepCopyInto(out *ImagePermissionsParamete
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
@@ -554,6 +594,16 @@ func (in *ImageRetentionPolicyInitParameters) DeepCopyInto(out *ImageRetentionPo
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -563,6 +613,16 @@ func (in *ImageRetentionPolicyInitParameters) DeepCopyInto(out *ImageRetentionPo
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TagSelectors != nil {
 		in, out := &in.TagSelectors, &out.TagSelectors
@@ -685,6 +745,16 @@ func (in *ImageRetentionPolicyParameters) DeepCopyInto(out *ImageRetentionPolicy
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -694,6 +764,16 @@ func (in *ImageRetentionPolicyParameters) DeepCopyInto(out *ImageRetentionPolicy
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TagSelectors != nil {
 		in, out := &in.TagSelectors, &out.TagSelectors
@@ -839,6 +919,16 @@ func (in *ImageTriggerInitParameters) DeepCopyInto(out *ImageTriggerInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -848,6 +938,16 @@ func (in *ImageTriggerInitParameters) DeepCopyInto(out *ImageTriggerInitParamete
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -1066,6 +1166,16 @@ func (in *ImageTriggerParameters) DeepCopyInto(out *ImageTriggerParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1075,6 +1185,16 @@ func (in *ImageTriggerParameters) DeepCopyInto(out *ImageTriggerParameters) {
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -1327,6 +1447,16 @@ func (in *OrganizationPermissionsInitParameters) DeepCopyInto(out *OrganizationP
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1439,6 +1569,16 @@ func (in *OrganizationPermissionsParameters) DeepCopyInto(out *OrganizationPermi
 		in, out := &in.Organization, &out.Organization
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1759,6 +1899,16 @@ func (in *RepositoryInitParameters) DeepCopyInto(out *RepositoryInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1911,6 +2061,16 @@ func (in *RepositoryParameters) DeepCopyInto(out *RepositoryParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1973,6 +2133,16 @@ func (in *RepositorySharingInitParameters) DeepCopyInto(out *RepositorySharingIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
 		*out = new(string)
@@ -1987,6 +2157,16 @@ func (in *RepositorySharingInitParameters) DeepCopyInto(out *RepositorySharingIn
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SharingAccount != nil {
 		in, out := &in.SharingAccount, &out.SharingAccount
@@ -2115,6 +2295,16 @@ func (in *RepositorySharingParameters) DeepCopyInto(out *RepositorySharingParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
 		*out = new(string)
@@ -2129,6 +2319,16 @@ func (in *RepositorySharingParameters) DeepCopyInto(out *RepositorySharingParame
 		in, out := &in.Repository, &out.Repository
 		*out = new(string)
 		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SharingAccount != nil {
 		in, out := &in.SharingAccount, &out.SharingAccount

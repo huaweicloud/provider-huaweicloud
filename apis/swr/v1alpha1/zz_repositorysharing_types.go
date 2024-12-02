@@ -25,7 +25,17 @@ type RepositorySharingInitParameters struct {
 
 	// Specifies the name of the organization (namespace) the repository belongs.
 	// Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/swr/v1alpha1.Organization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("name",true)
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Specifies the permission to be granted. Currently, only the pull permission is supported.
 	// Default value is pull.
@@ -37,7 +47,17 @@ type RepositorySharingInitParameters struct {
 
 	// Specifies the name of the repository to be shared.
 	// Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/swr/v1alpha1.Repository
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("name",true)
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 
 	// Specifies the name of the account for repository sharing.
 	// Changing this creates a new resource
@@ -97,8 +117,18 @@ type RepositorySharingParameters struct {
 
 	// Specifies the name of the organization (namespace) the repository belongs.
 	// Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/swr/v1alpha1.Organization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Organization *string `json:"organization,omitempty" tf:"organization,omitempty"`
+
+	// Reference to a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in swr to populate organization.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Specifies the permission to be granted. Currently, only the pull permission is supported.
 	// Default value is pull.
@@ -112,8 +142,18 @@ type RepositorySharingParameters struct {
 
 	// Specifies the name of the repository to be shared.
 	// Changing this creates a new resource.
+	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/swr/v1alpha1.Repository
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in swr to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 
 	// Specifies the name of the account for repository sharing.
 	// Changing this creates a new resource
@@ -159,8 +199,6 @@ type RepositorySharing struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.deadline) || (has(self.initProvider) && has(self.initProvider.deadline))",message="spec.forProvider.deadline is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organization) || (has(self.initProvider) && has(self.initProvider.organization))",message="spec.forProvider.organization is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.repository) || (has(self.initProvider) && has(self.initProvider.repository))",message="spec.forProvider.repository is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.sharingAccount) || (has(self.initProvider) && has(self.initProvider.sharingAccount))",message="spec.forProvider.sharingAccount is a required parameter"
 	Spec   RepositorySharingSpec   `json:"spec"`
 	Status RepositorySharingStatus `json:"status,omitempty"`

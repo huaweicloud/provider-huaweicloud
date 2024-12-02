@@ -16,7 +16,11 @@ spec:
     enabled: "true"
     name: ${var.name}
     namespace: ${var.namespace}
-    organization: ${var.organization_name}
-    repository: ${var.repository_name}
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     workloadName: test_name
     workloadType: deployments
