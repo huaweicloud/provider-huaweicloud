@@ -34,3 +34,20 @@ spec:
     - uuid: 55534eaa-533a-419d-9b40-ec427ea7195a
     securityGroupIds:
     - ${var.security_group_id}
+
+---
+
+apiVersion: evs.huaweicloud.crossplane.io/v1alpha1
+kind: Volume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha1/volumeattach
+  labels:
+    testing.upbound.io/example-name: myvol
+  name: myvol
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    name: volume
+    size: 10
+    volumeType: SAS

@@ -67,6 +67,13 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_vpc_eipv3_associate":       config.IdentifierFromProvider,
 	"huaweicloud_vpc_internet_gateway":      config.IdentifierFromProvider,
 
+	// evs
+	"huaweicloud_evs_snapshot":                 config.IdentifierFromProvider,
+	"huaweicloud_evs_snapshot_rollback":        config.IdentifierFromProvider,
+	"huaweicloud_evs_volume":                   config.IdentifierFromProvider,
+	"huaweicloud_evs_volume_transfer":          config.IdentifierFromProvider,
+	"huaweicloud_evs_volume_transfer_accepter": config.IdentifierFromProvider,
+
 	// iam
 	"huaweicloud_identity_access_key":            config.IdentifierFromProvider,
 	"huaweicloud_identity_acl":                   config.IdentifierFromProvider,

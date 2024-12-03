@@ -1,0 +1,36 @@
+apiVersion: evs.huaweicloud.crossplane.io/v1alpha1
+kind: Snapshot
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/snapshot
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: Daily backup
+    name: snapshot-001
+    volumeIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+
+---
+
+apiVersion: evs.huaweicloud.crossplane.io/v1alpha1
+kind: Volume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/snapshot
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    description: my volume
+    name: volume
+    size: 20
+    tags:
+      foo: bar
+      key: value
+    volumeType: SATA
