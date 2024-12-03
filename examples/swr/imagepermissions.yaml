@@ -1,0 +1,26 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: ImagePermissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/imagepermissions
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    users:
+    - permission: Manage
+      userIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      userName: test_user1
+    - permission: Read
+      userIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example

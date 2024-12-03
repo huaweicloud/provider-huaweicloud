@@ -1,0 +1,23 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: ImageRetentionPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/imageretentionpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    number: 20
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tagSelectors:
+    - kind: label
+      pattern: abc
+    - kind: regexp
+      pattern: abc*
+    type: date_rule

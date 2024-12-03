@@ -1,0 +1,18 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: ImageAutoSync
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/imageautosync
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    targetOrganization: target_org_name
+    targetRegion: cn-north-4
