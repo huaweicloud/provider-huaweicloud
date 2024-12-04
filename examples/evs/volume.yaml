@@ -1,0 +1,18 @@
+apiVersion: evs.huaweicloud.crossplane.io/v1alpha1
+kind: Volume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/volume
+  labels:
+    testing.upbound.io/example-name: volume
+  name: volume
+spec:
+  forProvider:
+    availabilityZone: cn-north-4a
+    description: my volume
+    name: volume
+    size: 20
+    tags:
+      foo: bar
+      key: value
+    volumeType: SAS
