@@ -1,0 +1,14 @@
+apiVersion: evs.huaweicloud.crossplane.io/v1alpha1
+kind: VolumeTransfer
+metadata:
+  annotations:
+    meta.upbound.io/example-id: evs/v1alpha1/volumetransfer
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: test
+    volumeIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: volume

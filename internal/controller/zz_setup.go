@@ -56,6 +56,11 @@ import (
 	vpceipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpceipassociate"
 	vpceipv3associate "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpceipv3associate"
 	vpcinternetgateway "github.com/huaweicloud/provider-huaweicloud/internal/controller/eip/vpcinternetgateway"
+	snapshot "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/snapshot"
+	snapshotrollback "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/snapshotrollback"
+	volume "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/volume"
+	volumetransfer "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/volumetransfer"
+	volumetransferaccepter "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/volumetransferaccepter"
 	accesskey "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/accesskey"
 	acl "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/acl"
 	agency "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/agency"
@@ -200,6 +205,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vpceipassociate.Setup,
 		vpceipv3associate.Setup,
 		vpcinternetgateway.Setup,
+		snapshot.Setup,
+		snapshotrollback.Setup,
+		volume.Setup,
+		volumetransfer.Setup,
+		volumetransferaccepter.Setup,
 		accesskey.Setup,
 		acl.Setup,
 		agency.Setup,

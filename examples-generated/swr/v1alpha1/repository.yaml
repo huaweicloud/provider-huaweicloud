@@ -11,4 +11,6 @@ spec:
     category: linux
     description: Test repository
     name: '%s'
-    organization: ${var.organization_name}
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

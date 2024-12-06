@@ -3,4 +3,16 @@ kind: Provider
 metadata:
   name: provider-huaweicloud
 spec:
-  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.6
+  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.0-7
+  controllerConfigRef:
+    name: debug-config
+
+---
+
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: debug-config
+spec:
+  args:
+    - --debug

@@ -13,6 +13,7 @@ import (
 	"github.com/huaweicloud/provider-huaweicloud/config/dms"
 	"github.com/huaweicloud/provider-huaweicloud/config/ecs"
 	"github.com/huaweicloud/provider-huaweicloud/config/eip"
+	"github.com/huaweicloud/provider-huaweicloud/config/evs"
 	"github.com/huaweicloud/provider-huaweicloud/config/iam"
 	"github.com/huaweicloud/provider-huaweicloud/config/modelarts"
 	"github.com/huaweicloud/provider-huaweicloud/config/obs"
@@ -58,6 +59,7 @@ func GetProvider() *ujconfig.Provider {
 		eip.Configure,
 		rds.Configure,
 		swr.Configure,
+		evs.Configure,
 	} {
 		configure(pc)
 	}

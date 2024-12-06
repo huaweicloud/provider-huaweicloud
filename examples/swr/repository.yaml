@@ -1,0 +1,16 @@
+apiVersion: swr.huaweicloud.crossplane.io/v1alpha1
+kind: Repository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: swr/v1alpha1/repository
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    category: linux
+    description: Test repository
+    name: test1
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
