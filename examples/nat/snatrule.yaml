@@ -1,0 +1,19 @@
+apiVersion: nat.huaweicloud.crossplane.io/v1alpha1
+kind: SnatRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/snatrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dedicated
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet

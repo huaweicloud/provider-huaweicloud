@@ -10,7 +10,7 @@ kind: Provider
 metadata:
   name: provider-huaweicloud
 spec:
-  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.7
+  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.8
 ```
 
 Define the provider version with `spec.package`.
@@ -22,7 +22,7 @@ Verify the configuration with `kubectl get providers`.
 ```shell
 $ kubectl get providers
 NAME                      INSTALLED   HEALTHY   PACKAGE                                                    AGE
-provider-huaweicloud      True        True      xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.7    54s
+provider-huaweicloud      True        True      xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.8    54s
 ```
 
 View the Crossplane [Provider CRD definition](https://doc.crds.dev/github.com/huaweicloud/provider-huaweicloud) to view all available `Provider` options.
