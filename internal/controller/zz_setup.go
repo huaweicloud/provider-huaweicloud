@@ -89,6 +89,13 @@ import (
 	resourcepool "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/resourcepool"
 	service "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/service"
 	workspace "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/workspace"
+	dnatrule "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/dnatrule"
+	gateway "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/gateway"
+	privatednatrule "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/privatednatrule"
+	privategateway "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/privategateway"
+	privatesnatrule "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/privatesnatrule"
+	privatetransitip "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/privatetransitip"
+	snatrule "github.com/huaweicloud/provider-huaweicloud/internal/controller/nat/snatrule"
 	bucket "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucket"
 	bucketacl "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketacl"
 	bucketobject "github.com/huaweicloud/provider-huaweicloud/internal/controller/obs/bucketobject"
@@ -238,6 +245,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		resourcepool.Setup,
 		service.Setup,
 		workspace.Setup,
+		dnatrule.Setup,
+		gateway.Setup,
+		privatednatrule.Setup,
+		privategateway.Setup,
+		privatesnatrule.Setup,
+		privatetransitip.Setup,
+		snatrule.Setup,
 		bucket.Setup,
 		bucketacl.Setup,
 		bucketobject.Setup,
