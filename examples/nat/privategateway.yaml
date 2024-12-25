@@ -1,0 +1,17 @@
+apiVersion: nat.huaweicloud.crossplane.io/v1alpha1
+kind: PrivateGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/privategateway
+  labels:
+    testing.upbound.io/example-name: test-private
+  name: test-private
+spec:
+  forProvider:
+    description: Created by crossplane
+    enterpriseProjectId: "0"
+    name: crossplane-test
+    spec: Small
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet

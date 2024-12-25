@@ -1,0 +1,42 @@
+apiVersion: nat.huaweicloud.crossplane.io/v1alpha1
+kind: DnatRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/dnatrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  initProvider:
+    privateIp: ""
+  forProvider:
+    externalServicePort: 8023
+    floatingIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dedicated
+    internalServicePort: 23
+    natGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    portId: 0939e3e6-ffaa-467a-930b-fd17ec82d3f5
+    protocol: tcp
+
+---
+
+apiVersion: eip.huaweicloud.crossplane.io/v1alpha1
+kind: VpcEip
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eip/v1alpha1/vpceip
+  labels:
+    testing.upbound.io/example-name: dedicated
+  name: dedicated
+spec:
+  forProvider:
+    bandwidth:
+    - chargeMode: traffic
+      name: crossplane-test
+      shareType: PER
+      size: 10
+    publicip:
+    - type: 5_bgp

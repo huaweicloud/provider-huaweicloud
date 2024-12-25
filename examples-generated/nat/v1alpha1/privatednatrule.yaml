@@ -1,0 +1,33 @@
+apiVersion: nat.huaweicloud.crossplane.io/v1alpha1
+kind: PrivateDnatRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/privatednatrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    backendInterfaceId: ${huaweicloud_compute_instance.test.network[0].port}
+    gatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    internalServicePort: 2000
+    protocol: tcp
+    transitIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    transitServicePort: 1000
+
+---
+
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/privatednatrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider: {}

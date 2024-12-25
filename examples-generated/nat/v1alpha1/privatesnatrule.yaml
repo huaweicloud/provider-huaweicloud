@@ -1,0 +1,19 @@
+apiVersion: nat.huaweicloud.crossplane.io/v1alpha1
+kind: PrivateSnatRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/privatesnatrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    gatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    transitIpIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

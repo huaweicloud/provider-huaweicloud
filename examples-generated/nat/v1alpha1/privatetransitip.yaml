@@ -1,0 +1,17 @@
+apiVersion: nat.huaweicloud.crossplane.io/v1alpha1
+kind: PrivateTransitIP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: nat/v1alpha1/privatetransitip
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    enterpriseProjectId: ${var.enterprise_project_id}
+    ipAddress: ${var.ipv4_address}
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tags:
+      foo: bar

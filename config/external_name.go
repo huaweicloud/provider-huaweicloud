@@ -106,6 +106,15 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_modelarts_service":                config.IdentifierFromProvider,
 	"huaweicloud_modelarts_workspace":              config.IdentifierFromProvider,
 
+	// nat
+	"huaweicloud_nat_dnat_rule":          config.IdentifierFromProvider,
+	"huaweicloud_nat_gateway":            config.IdentifierFromProvider,
+	"huaweicloud_nat_private_dnat_rule":  config.IdentifierFromProvider,
+	"huaweicloud_nat_private_gateway":    config.IdentifierFromProvider,
+	"huaweicloud_nat_private_snat_rule":  config.IdentifierFromProvider,
+	"huaweicloud_nat_private_transit_ip": config.IdentifierFromProvider,
+	"huaweicloud_nat_snat_rule":          config.IdentifierFromProvider,
+
 	// obs
 	"huaweicloud_obs_bucket":             config.IdentifierFromProvider,
 	"huaweicloud_obs_bucket_acl":         config.IdentifierFromProvider,
