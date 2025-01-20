@@ -155,6 +155,14 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_rds_sqlserver_database":           config.IdentifierFromProvider,
 	"huaweicloud_rds_sqlserver_database_privilege": config.IdentifierFromProvider,
 
+	"huaweicloud_smn_logtank":                    config.IdentifierFromProvider,
+	"huaweicloud_smn_message_detection":          config.IdentifierFromProvider,
+	"huaweicloud_smn_message_publish":            config.IdentifierFromProvider,
+	"huaweicloud_smn_message_template":           config.IdentifierFromProvider,
+	"huaweicloud_smn_subscription":               config.IdentifierFromProvider,
+	"huaweicloud_smn_subscription_filter_policy": config.IdentifierFromProvider,
+	"huaweicloud_smn_topic":                      config.IdentifierFromProvider,
+
 	// swr
 	"huaweicloud_swr_image_auto_sync":          config.IdentifierFromProvider,
 	"huaweicloud_swr_image_permissions":        config.IdentifierFromProvider,

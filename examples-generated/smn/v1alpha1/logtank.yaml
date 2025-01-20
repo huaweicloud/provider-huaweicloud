@@ -1,0 +1,29 @@
+apiVersion: smn.huaweicloud.crossplane.io/v1alpha1
+kind: Logtank
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/logtank
+  labels:
+    testing.upbound.io/example-name: logtank_test
+  name: logtank-test
+spec:
+  forProvider:
+    logGroupId: ${huaweicloud_lts_group.lts_group_test.id}
+    logStreamId: ${huaweicloud_lts_stream.lts_stream_test.id}
+    topicUrnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: topic_test
+
+---
+
+apiVersion: smn.huaweicloud.crossplane.io/v1alpha1
+kind: Topic
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/logtank
+  labels:
+    testing.upbound.io/example-name: topic_test
+  name: topic-test
+spec:
+  forProvider:
+    name: topic_test

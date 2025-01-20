@@ -133,6 +133,13 @@ import (
 	sqlserveraccount "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserveraccount"
 	sqlserverdatabase "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserverdatabase"
 	sqlserverdatabaseprivilege "github.com/huaweicloud/provider-huaweicloud/internal/controller/rds/sqlserverdatabaseprivilege"
+	logtank "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/logtank"
+	messagedetection "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/messagedetection"
+	messagepublish "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/messagepublish"
+	messagetemplate "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/messagetemplate"
+	subscription "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/subscription"
+	subscriptionfilterpolicy "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/subscriptionfilterpolicy"
+	topic "github.com/huaweicloud/provider-huaweicloud/internal/controller/smn/topic"
 	imageautosync "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imageautosync"
 	imagepermissions "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imagepermissions"
 	imageretentionpolicy "github.com/huaweicloud/provider-huaweicloud/internal/controller/swr/imageretentionpolicy"
@@ -289,6 +296,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		sqlserveraccount.Setup,
 		sqlserverdatabase.Setup,
 		sqlserverdatabaseprivilege.Setup,
+		logtank.Setup,
+		messagedetection.Setup,
+		messagepublish.Setup,
+		messagetemplate.Setup,
+		subscription.Setup,
+		subscriptionfilterpolicy.Setup,
+		topic.Setup,
 		imageautosync.Setup,
 		imagepermissions.Setup,
 		imageretentionpolicy.Setup,
