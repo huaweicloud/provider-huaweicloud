@@ -1,0 +1,18 @@
+apiVersion: smn.huaweicloud.crossplane.io/v1alpha1
+kind: SubscriptionFilterPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/subscriptionfilterpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    filterPolicies:
+    - name: alarm
+      stringEquals:
+      - os
+      - process
+    subscriptionUrnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subscription_1
