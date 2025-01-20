@@ -1,0 +1,13 @@
+apiVersion: smn.huaweicloud.crossplane.io/v1alpha1
+kind: MessageTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/messagetemplate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    content: this content contains {content1}, {content2}, {content3}
+    name: test
+    protocol: default

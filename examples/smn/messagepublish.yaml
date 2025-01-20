@@ -1,0 +1,15 @@
+apiVersion: smn.huaweicloud.crossplane.io/v1alpha1
+kind: MessagePublish
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/messagepublish
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    message: test
+    subject: test message
+    topicUrnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: topic_1
