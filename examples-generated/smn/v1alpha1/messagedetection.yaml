@@ -1,0 +1,15 @@
+apiVersion: smn.huaweicloud.crossplane.io/v1alpha1
+kind: MessageDetection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: smn/v1alpha1/messagedetection
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    endpoint: https://example.com/notification/action
+    protocol: https
+    topicUrnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

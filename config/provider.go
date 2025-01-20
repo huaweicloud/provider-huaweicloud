@@ -19,6 +19,7 @@ import (
 	"github.com/huaweicloud/provider-huaweicloud/config/nat"
 	"github.com/huaweicloud/provider-huaweicloud/config/obs"
 	"github.com/huaweicloud/provider-huaweicloud/config/rds"
+	"github.com/huaweicloud/provider-huaweicloud/config/smn"
 	"github.com/huaweicloud/provider-huaweicloud/config/swr"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
@@ -62,6 +63,7 @@ func GetProvider() *ujconfig.Provider {
 		swr.Configure,
 		evs.Configure,
 		nat.Configure,
+		smn.Configure,
 	} {
 		configure(pc)
 	}
