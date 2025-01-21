@@ -10,7 +10,8 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1"
+	v1alpha1 "github.com/huaweicloud/provider-huaweicloud/apis/cc/v1alpha1"
+	v1alpha1cce "github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1"
 	v1alpha1dcs "github.com/huaweicloud/provider-huaweicloud/apis/dcs/v1alpha1"
 	v1alpha1dms "github.com/huaweicloud/provider-huaweicloud/apis/dms/v1alpha1"
 	v1alpha1ecs "github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1"
@@ -32,6 +33,7 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1cce.SchemeBuilder.AddToScheme,
 		v1alpha1dcs.SchemeBuilder.AddToScheme,
 		v1alpha1dms.SchemeBuilder.AddToScheme,
 		v1alpha1ecs.SchemeBuilder.AddToScheme,

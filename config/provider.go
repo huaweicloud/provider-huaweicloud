@@ -8,6 +8,7 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	"github.com/huaweicloud/provider-huaweicloud/config/cc"
 	"github.com/huaweicloud/provider-huaweicloud/config/cce"
 	"github.com/huaweicloud/provider-huaweicloud/config/dcs"
 	"github.com/huaweicloud/provider-huaweicloud/config/dms"
@@ -64,6 +65,7 @@ func GetProvider() *ujconfig.Provider {
 		evs.Configure,
 		nat.Configure,
 		smn.Configure,
+		cc.Configure,
 	} {
 		configure(pc)
 	}

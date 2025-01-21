@@ -10,6 +10,20 @@ import "github.com/crossplane/upjet/pkg/config"
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
+	// cc
+	"huaweicloud_cc_authorization":                                  config.IdentifierFromProvider,
+	"huaweicloud_cc_bandwidth_package":                              config.IdentifierFromProvider,
+	"huaweicloud_cc_central_network":                                config.IdentifierFromProvider,
+	"huaweicloud_cc_central_network_attachment":                     config.IdentifierFromProvider,
+	"huaweicloud_cc_central_network_connection_bandwidth_associate": config.IdentifierFromProvider,
+	"huaweicloud_cc_central_network_policy":                         config.IdentifierFromProvider,
+	"huaweicloud_cc_central_network_policy_apply":                   config.IdentifierFromProvider,
+	"huaweicloud_cc_connection":                                     config.IdentifierFromProvider,
+	"huaweicloud_cc_global_connection_bandwidth":                    config.IdentifierFromProvider,
+	"huaweicloud_cc_global_connection_bandwidth_associate":          config.IdentifierFromProvider,
+	"huaweicloud_cc_inter_region_bandwidth":                         config.IdentifierFromProvider,
+	"huaweicloud_cc_network_instance":                               config.IdentifierFromProvider,
+
 	// cce
 	"huaweicloud_cce_addon":               config.IdentifierFromProvider,
 	"huaweicloud_cce_chart":               config.IdentifierFromProvider,
