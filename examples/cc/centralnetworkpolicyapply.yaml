@@ -1,0 +1,16 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: CentralNetworkPolicyApply
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/centralnetworkpolicyapply
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    centralNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    policyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
