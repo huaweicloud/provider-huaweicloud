@@ -9,6 +9,18 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	authorization "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/authorization"
+	bandwidthpackage "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/bandwidthpackage"
+	centralnetwork "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/centralnetwork"
+	centralnetworkattachment "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/centralnetworkattachment"
+	centralnetworkconnectionbandwidthassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/centralnetworkconnectionbandwidthassociate"
+	centralnetworkpolicy "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/centralnetworkpolicy"
+	centralnetworkpolicyapply "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/centralnetworkpolicyapply"
+	connection "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/connection"
+	globalconnectionbandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/globalconnectionbandwidth"
+	globalconnectionbandwidthassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/globalconnectionbandwidthassociate"
+	interregionbandwidth "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/interregionbandwidth"
+	networkinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/cc/networkinstance"
 	addon "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/addon"
 	chart "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/chart"
 	cluster "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/cluster"
@@ -79,7 +91,7 @@ import (
 	userroleassignment "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/userroleassignment"
 	usertoken "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/usertoken"
 	virtualmfadevice "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/virtualmfadevice"
-	authorization "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/authorization"
+	authorizationmodelarts "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/authorization"
 	dataset "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/dataset"
 	datasetversion "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/datasetversion"
 	model "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/model"
@@ -172,6 +184,18 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		authorization.Setup,
+		bandwidthpackage.Setup,
+		centralnetwork.Setup,
+		centralnetworkattachment.Setup,
+		centralnetworkconnectionbandwidthassociate.Setup,
+		centralnetworkpolicy.Setup,
+		centralnetworkpolicyapply.Setup,
+		connection.Setup,
+		globalconnectionbandwidth.Setup,
+		globalconnectionbandwidthassociate.Setup,
+		interregionbandwidth.Setup,
+		networkinstance.Setup,
 		addon.Setup,
 		chart.Setup,
 		cluster.Setup,
@@ -242,7 +266,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		userroleassignment.Setup,
 		usertoken.Setup,
 		virtualmfadevice.Setup,
-		authorization.Setup,
+		authorizationmodelarts.Setup,
 		dataset.Setup,
 		datasetversion.Setup,
 		model.Setup,

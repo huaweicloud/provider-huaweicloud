@@ -1,0 +1,17 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: NetworkInstance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/networkinstance
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    cidrs:
+    - the_cidr
+    cloudConnectionId: the_cloud_connection_id
+    instanceId: the_vpc_instance_id
+    projectId: the_vpc_project_id
+    regionId: the_vpc_region_id
+    type: vpc

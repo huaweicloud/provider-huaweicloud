@@ -1,0 +1,23 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: CentralNetworkPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/centralnetworkpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    centralNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    erInstances:
+    - enterpriseRouterId: the_enterprise_router_id
+      projectId: the_project_id
+      regionId: the_region_id
+    planes:
+    - associateErTables:
+      - enterpriseRouterId: the_enterprise_router_id
+        enterpriseRouterTableId: the_enterprise_router_table_id
+        projectId: the_project_id
+        regionId: the_region_id

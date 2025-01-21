@@ -1,0 +1,21 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: CentralNetworkAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/centralnetworkattachment
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    centralNetworkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    description: This is a demo
+    enterpriseRouterId: the_enterprise_router_id
+    enterpriseRouterProjectId: the_enterprise_router_project_id
+    enterpriseRouterRegionId: the_enterprise_router_region_id
+    globalDcGatewayId: the_global_dc_gateway_id
+    globalDcGatewayProjectId: the_global_dc_gateway_project_id
+    globalDcGatewayRegionId: the_global_dc_gateway_region_id
+    name: demo

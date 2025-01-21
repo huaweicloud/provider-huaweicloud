@@ -1,0 +1,15 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: GlobalConnectionBandwidth
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/globalconnectionbandwidth
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    bordercross: false
+    chargeMode: bwd
+    name: ${var.gcb_name}
+    size: 5
+    type: Region

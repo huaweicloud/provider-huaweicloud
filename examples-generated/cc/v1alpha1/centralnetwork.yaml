@@ -1,0 +1,15 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: CentralNetwork
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/centralnetwork
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: This is a demo
+    name: ${var.central_network_name}
+    tags:
+      foo: bar
+      key: value

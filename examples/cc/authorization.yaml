@@ -1,0 +1,15 @@
+apiVersion: cc.huaweicloud.crossplane.io/v1alpha1
+kind: Authorization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cc/v1alpha1/authorization
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    cloudConnectionDomainId: the_cloud_connection_domain_id
+    cloudConnectionId: the_cloud_connection_id
+    instanceId: the_instance_id
+    instanceType: vpc
+    name: demo
