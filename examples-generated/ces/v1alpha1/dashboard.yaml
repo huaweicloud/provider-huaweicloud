@@ -1,0 +1,12 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/dashboard
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: ${var.name}
+    rowWidgetNum: ${var.row_widget_num}

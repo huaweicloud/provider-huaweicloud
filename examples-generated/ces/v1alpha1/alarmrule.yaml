@@ -1,0 +1,46 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: Alarmrule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/alarmrule
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    alarmActionEnabled: true
+    alarmActions:
+    - notificationList:
+      - ${var.topic_urn}
+      type: notification
+    alarmEnabled: true
+    alarmName: rule-test
+    alarmType: MULTI_INSTANCE
+    condition:
+    - alarmLevel: 4
+      comparisonOperator: '>'
+      count: 1
+      filter: average
+      metricName: network_outgoing_bytes_rate_inband
+      period: 1200
+      suppressDuration: 300
+      unit: B/s
+      value: 6.5
+    - alarmLevel: 4
+      comparisonOperator: '>='
+      count: 1
+      filter: average
+      metricName: network_outgoing_bytes_rate_inband
+      period: 3600
+      suppressDuration: 300
+      unit: B/s
+      value: 20
+    metric:
+    - namespace: SYS.ECS
+    resources:
+    - dimensions:
+      - name: instance_id
+        value: ${var.instance_id_1}
+    - dimensions:
+      - name: instance_id
+        value: ${var.instance_id_2}

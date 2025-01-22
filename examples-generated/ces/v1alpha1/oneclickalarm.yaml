@@ -1,0 +1,26 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: OneClickAlarm
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/oneclickalarm
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    alarmNotifications:
+    - notificationList:
+      - ${var.notification_object}
+      type: notification
+    dimensionNames:
+    - event: true
+      metric:
+      - bucket_name
+    notificationBeginTime: "00:00"
+    notificationEnabled: true
+    notificationEndTime: "23:59"
+    okNotifications:
+    - notificationList:
+      - ${var.notification_object}
+      type: notification
+    oneClickAlarmId: OBSSystemOneClickAlarm
