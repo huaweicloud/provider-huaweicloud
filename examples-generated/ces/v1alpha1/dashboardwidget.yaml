@@ -1,0 +1,29 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: DashboardWidget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/dashboardwidget
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    dashboardIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    location:
+    - height: ${var.height}
+      left: ${var.left}
+      top: ${var.top}
+      width: ${var.width}
+    metricDisplayMode: single
+    metrics:
+    - dimensions:
+      - filterType: specific_instances
+        name: instance_id
+        values:
+        - ${var.instance_id}
+      metricName: cpu_util
+      namespace: SYS.ECS
+    title: ${var.title}
+    view: line

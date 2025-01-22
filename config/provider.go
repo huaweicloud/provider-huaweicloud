@@ -10,6 +10,7 @@ import (
 
 	"github.com/huaweicloud/provider-huaweicloud/config/cc"
 	"github.com/huaweicloud/provider-huaweicloud/config/cce"
+	"github.com/huaweicloud/provider-huaweicloud/config/ces"
 	"github.com/huaweicloud/provider-huaweicloud/config/dcs"
 	"github.com/huaweicloud/provider-huaweicloud/config/dms"
 	"github.com/huaweicloud/provider-huaweicloud/config/ecs"
@@ -66,6 +67,7 @@ func GetProvider() *ujconfig.Provider {
 		nat.Configure,
 		smn.Configure,
 		cc.Configure,
+		ces.Configure,
 	} {
 		configure(pc)
 	}

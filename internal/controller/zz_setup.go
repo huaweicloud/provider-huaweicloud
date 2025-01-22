@@ -32,6 +32,13 @@ import (
 	nodepool "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/nodepool"
 	nodepoolnodesadd "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/nodepoolnodesadd"
 	pvc "github.com/huaweicloud/provider-huaweicloud/internal/controller/cce/pvc"
+	alarmrule "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/alarmrule"
+	alarmtemplate "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/alarmtemplate"
+	dashboard "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/dashboard"
+	dashboardwidget "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/dashboardwidget"
+	eventreport "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/eventreport"
+	oneclickalarm "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/oneclickalarm"
+	resourcegroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/ces/resourcegroup"
 	account "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/account"
 	backup "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/backup"
 	bigkeyanalysis "github.com/huaweicloud/provider-huaweicloud/internal/controller/dcs/bigkeyanalysis"
@@ -207,6 +214,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		nodepool.Setup,
 		nodepoolnodesadd.Setup,
 		pvc.Setup,
+		alarmrule.Setup,
+		alarmtemplate.Setup,
+		dashboard.Setup,
+		dashboardwidget.Setup,
+		eventreport.Setup,
+		oneclickalarm.Setup,
+		resourcegroup.Setup,
 		account.Setup,
 		backup.Setup,
 		bigkeyanalysis.Setup,

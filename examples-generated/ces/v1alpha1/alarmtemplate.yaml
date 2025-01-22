@@ -1,0 +1,23 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: AlarmTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/alarmtemplate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: ${var.name}
+    policies:
+    - alarmLevel: 2
+      comparisonOperator: '>='
+      count: 3
+      dimensionName: api_id
+      filter: average
+      metricName: req_count_2xx
+      namespace: SYS.APIG
+      period: 1
+      suppressDuration: 43200
+      unit: times/minute
+      value: "10"

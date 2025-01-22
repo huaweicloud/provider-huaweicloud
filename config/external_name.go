@@ -37,6 +37,15 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_cce_node_pool_nodes_add": config.IdentifierFromProvider,
 	"huaweicloud_cce_pvc":                 config.IdentifierFromProvider,
 
+	// ces
+	"huaweicloud_ces_alarm_template":   config.IdentifierFromProvider,
+	"huaweicloud_ces_alarmrule":        config.IdentifierFromProvider,
+	"huaweicloud_ces_dashboard":        config.IdentifierFromProvider,
+	"huaweicloud_ces_dashboard_widget": config.IdentifierFromProvider,
+	"huaweicloud_ces_event_report":     config.IdentifierFromProvider,
+	"huaweicloud_ces_one_click_alarm":  config.IdentifierFromProvider,
+	"huaweicloud_ces_resource_group":   config.IdentifierFromProvider,
+
 	// dcs
 	"huaweicloud_dcs_account":          config.IdentifierFromProvider,
 	"huaweicloud_dcs_backup":           config.IdentifierFromProvider,

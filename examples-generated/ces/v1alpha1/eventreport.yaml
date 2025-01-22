@@ -1,0 +1,20 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: EventReport
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/eventreport
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    detail:
+    - content: ${var.content}
+      level: Major
+      resourceId: ${var.resource_id}
+      resourceName: ${var.resource_name}
+      state: normal
+      user: ${var.user}
+    name: ${var.name}
+    source: ${var.source}
+    time: ${var.time}
