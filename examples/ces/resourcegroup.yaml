@@ -1,0 +1,41 @@
+apiVersion: ces.huaweicloud.crossplane.io/v1alpha1
+kind: ResourceGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/resourcegroup
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: test
+    resources:
+    - dimensions:
+      - name: instance_id
+        value: vm_1_id
+      namespace: SYS.ECS
+    - dimensions:
+      - name: disk_name
+        value: vm_1_id-sda
+      namespace: SYS.EVS
+
+---
+
+apiVersion: ecs.huaweicloud.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ces/v1alpha1/resourcegroup
+  labels:
+    testing.upbound.io/example-name: vm_1
+  name: vm-1
+spec:
+  forProvider:
+    availabilityZone: the_availability_zone
+    flavorId: the_flavor_id
+    imageId: the_image_id
+    name: ecs-test
+    network:
+    - uuid: the_subnet_id
+    securityGroupIds:
+    - the_security_group_id

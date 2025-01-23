@@ -3,7 +3,7 @@ kind: Provider
 metadata:
   name: provider-huaweicloud
 spec:
-  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.8
+  package: xpkg.upbound.io/hcs/provider-huaweicloud:v0.0.9
   controllerConfigRef:
     name: debug-config
 
