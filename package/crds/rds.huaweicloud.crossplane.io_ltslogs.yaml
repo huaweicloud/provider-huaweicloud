@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: LtsLog is the Schema for the LtsLogs API. ""
+        description: LtsLog is the Schema for the LtsLogs API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -72,17 +72,13 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   engine:
-                    description: |-
-                      Specifies the engine of the RDS instance.
-                      Value options: mysql, postgresql, sqlserver. Changing this creates a new resource.
-                      Specifies the engine of the RDS instance.
+                    description: Specifies the engine of the RDS instance.
                     type: string
                   instanceId:
-                    description: |-
-                      Specifies the ID of the RDS instance.
-                      Changing this creates a new resource.
-                      Specifies the ID of the RDS instance.
+                    description: Specifies the ID of the RDS instance.
                     type: string
                   instanceIdRef:
                     description: Reference to a Instance in rds to populate instanceId.
@@ -159,25 +155,15 @@ spec:
                         type: object
                     type: object
                   logType:
-                    description: |-
-                      Specifies the type of the LTS log.
-                      Value options: error_log, slow_log, audit_log. Changing this creates a new resource.
-                      Specifies the type of the LTS log.
+                    description: Specifies the type of the LTS log.
                     type: string
                   ltsGroupId:
-                    description: |-
-                      Specifies the ID of the LTS log group.
-                      Specifies the ID of the LTS log group.
+                    description: Specifies the ID of the LTS log group.
                     type: string
                   ltsStreamId:
-                    description: |-
-                      Specifies the ID of the LTS log stream.
-                      Specifies the ID of the LTS log stream.
+                    description: Specifies the ID of the LTS log stream.
                     type: string
                   region:
-                    description: |-
-                      Specifies the region in which to create the resource.
-                      If omitted, the provider-level region will be used. Changing this creates a new resource.
                     type: string
                 type: object
               initProvider:
@@ -193,17 +179,13 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enableForceNew:
+                    type: string
                   engine:
-                    description: |-
-                      Specifies the engine of the RDS instance.
-                      Value options: mysql, postgresql, sqlserver. Changing this creates a new resource.
-                      Specifies the engine of the RDS instance.
+                    description: Specifies the engine of the RDS instance.
                     type: string
                   instanceId:
-                    description: |-
-                      Specifies the ID of the RDS instance.
-                      Changing this creates a new resource.
-                      Specifies the ID of the RDS instance.
+                    description: Specifies the ID of the RDS instance.
                     type: string
                   instanceIdRef:
                     description: Reference to a Instance in rds to populate instanceId.
@@ -280,25 +262,15 @@ spec:
                         type: object
                     type: object
                   logType:
-                    description: |-
-                      Specifies the type of the LTS log.
-                      Value options: error_log, slow_log, audit_log. Changing this creates a new resource.
-                      Specifies the type of the LTS log.
+                    description: Specifies the type of the LTS log.
                     type: string
                   ltsGroupId:
-                    description: |-
-                      Specifies the ID of the LTS log group.
-                      Specifies the ID of the LTS log group.
+                    description: Specifies the ID of the LTS log group.
                     type: string
                   ltsStreamId:
-                    description: |-
-                      Specifies the ID of the LTS log stream.
-                      Specifies the ID of the LTS log stream.
+                    description: Specifies the ID of the LTS log stream.
                     type: string
                   region:
-                    description: |-
-                      Specifies the region in which to create the resource.
-                      If omitted, the provider-level region will be used. Changing this creates a new resource.
                     type: string
                 type: object
               managementPolicies:
@@ -490,41 +462,26 @@ spec:
             properties:
               atProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   engine:
-                    description: |-
-                      Specifies the engine of the RDS instance.
-                      Value options: mysql, postgresql, sqlserver. Changing this creates a new resource.
-                      Specifies the engine of the RDS instance.
+                    description: Specifies the engine of the RDS instance.
                     type: string
                   id:
-                    description: The resource ID in format of <instance_id>/<log_type>.
                     type: string
                   instanceId:
-                    description: |-
-                      Specifies the ID of the RDS instance.
-                      Changing this creates a new resource.
-                      Specifies the ID of the RDS instance.
+                    description: Specifies the ID of the RDS instance.
                     type: string
                   logType:
-                    description: |-
-                      Specifies the type of the LTS log.
-                      Value options: error_log, slow_log, audit_log. Changing this creates a new resource.
-                      Specifies the type of the LTS log.
+                    description: Specifies the type of the LTS log.
                     type: string
                   ltsGroupId:
-                    description: |-
-                      Specifies the ID of the LTS log group.
-                      Specifies the ID of the LTS log group.
+                    description: Specifies the ID of the LTS log group.
                     type: string
                   ltsStreamId:
-                    description: |-
-                      Specifies the ID of the LTS log stream.
-                      Specifies the ID of the LTS log stream.
+                    description: Specifies the ID of the LTS log stream.
                     type: string
                   region:
-                    description: |-
-                      Specifies the region in which to create the resource.
-                      If omitted, the provider-level region will be used. Changing this creates a new resource.
                     type: string
                 type: object
               conditions:

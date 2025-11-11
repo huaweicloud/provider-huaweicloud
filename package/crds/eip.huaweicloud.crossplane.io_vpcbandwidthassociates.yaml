@@ -242,6 +242,18 @@ spec:
                             type: string
                         type: object
                     type: object
+                  fixedIp:
+                    description: Specifies a fixed Ipv6 address to associate with
+                      the bandwidth.
+                    type: string
+                  networkId:
+                    description: |-
+                      Specifies the ID of the network to which the fixed_ip belongs.
+                      It is mandatory when fixed_ip is set.
+                    type: string
+                  portId:
+                    description: Specifies the ID of the Ipv6 port that uses the bandwidth.
+                    type: string
                   region:
                     description: |-
                       Specifies the region in which to associate the bandwidth. If omitted,
@@ -430,6 +442,18 @@ spec:
                             type: string
                         type: object
                     type: object
+                  fixedIp:
+                    description: Specifies a fixed Ipv6 address to associate with
+                      the bandwidth.
+                    type: string
+                  networkId:
+                    description: |-
+                      Specifies the ID of the network to which the fixed_ip belongs.
+                      It is mandatory when fixed_ip is set.
+                    type: string
+                  portId:
+                    description: Specifies the ID of the Ipv6 port that uses the bandwidth.
+                    type: string
                   region:
                     description: |-
                       Specifies the region in which to associate the bandwidth. If omitted,
@@ -633,11 +657,33 @@ spec:
                   eipId:
                     description: Specifies the ID of the EIP that uses the bandwidth.
                     type: string
+                  fixedIp:
+                    description: Specifies a fixed Ipv6 address to associate with
+                      the bandwidth.
+                    type: string
                   id:
-                    description: The resource ID in format of <bandwidth_id>/<eip_id>.
+                    description: The resource ID in format of <bandwidth_id>/<eip_id>
+                      or <bandwidth_id>/<port_id>.
+                    type: string
+                  ipVersion:
+                    description: The IP version.
+                    type: number
+                  networkId:
+                    description: |-
+                      Specifies the ID of the network to which the fixed_ip belongs.
+                      It is mandatory when fixed_ip is set.
+                    type: string
+                  portId:
+                    description: Specifies the ID of the Ipv6 port that uses the bandwidth.
                     type: string
                   publicIp:
-                    description: The EIP address.
+                    description: The public IP address.
+                    type: string
+                  publicIpType:
+                    description: The public IP type.
+                    type: string
+                  publicIpv6:
+                    description: The public IPv6 address.
                     type: string
                   region:
                     description: |-

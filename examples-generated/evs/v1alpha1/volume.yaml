@@ -8,7 +8,7 @@ metadata:
   name: volume
 spec:
   forProvider:
-    availabilityZone: cn-north-4a
+    availabilityZone: ${var.availability_zone}
     description: my volume
     name: volume
     size: 20

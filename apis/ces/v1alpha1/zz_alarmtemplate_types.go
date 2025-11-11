@@ -25,6 +25,13 @@ type AlarmTemplateInitParameters struct {
 	// Specifies the description of the CES alarm template.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies whether to overwrite an existing alarm template with the same
+	// template name when creating a template. Default to false.
+	// Specifies whether to overwrite an existing alarm template with the same template name.
+	IsOverwrite *bool `json:"isOverwrite,omitempty" tf:"is_overwrite,omitempty"`
+
 	// Specifies the name of the CES alarm template.
 	// An alarm template name starts with a letter or Chinese, consists of 1 to 128 characters,
 	// and can contain only letters, Chinese characters, digits, hyphens (-) and hyphens (-).
@@ -62,8 +69,15 @@ type AlarmTemplateObservation struct {
 	// Specifies the description of the CES alarm template.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies whether to overwrite an existing alarm template with the same
+	// template name when creating a template. Default to false.
+	// Specifies whether to overwrite an existing alarm template with the same template name.
+	IsOverwrite *bool `json:"isOverwrite,omitempty" tf:"is_overwrite,omitempty"`
 
 	// Specifies the name of the CES alarm template.
 	// An alarm template name starts with a letter or Chinese, consists of 1 to 128 characters,
@@ -100,6 +114,15 @@ type AlarmTemplateParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies whether to overwrite an existing alarm template with the same
+	// template name when creating a template. Default to false.
+	// Specifies whether to overwrite an existing alarm template with the same template name.
+	// +kubebuilder:validation:Optional
+	IsOverwrite *bool `json:"isOverwrite,omitempty" tf:"is_overwrite,omitempty"`
+
 	// Specifies the name of the CES alarm template.
 	// An alarm template name starts with a letter or Chinese, consists of 1 to 128 characters,
 	// and can contain only letters, Chinese characters, digits, hyphens (-) and hyphens (-).
@@ -125,6 +148,67 @@ type AlarmTemplateParameters struct {
 	Type *float64 `json:"type,omitempty" tf:"type,omitempty"`
 }
 
+type HierarchicalValueInitParameters struct {
+
+	// Specifies the threshold for the critical level.
+	// Specifies the threshold for the critical level.
+	Critical *float64 `json:"critical,omitempty" tf:"critical,omitempty"`
+
+	// Specifies the threshold for the info level.
+	// Specifies the threshold for the info level.
+	Info *float64 `json:"info,omitempty" tf:"info,omitempty"`
+
+	// Specifies the threshold for the major level.
+	// Specifies the threshold for the major level.
+	Major *float64 `json:"major,omitempty" tf:"major,omitempty"`
+
+	// Specifies the threshold for the minor level.
+	// Specifies the threshold for the minor level.
+	Minor *float64 `json:"minor,omitempty" tf:"minor,omitempty"`
+}
+
+type HierarchicalValueObservation struct {
+
+	// Specifies the threshold for the critical level.
+	// Specifies the threshold for the critical level.
+	Critical *float64 `json:"critical,omitempty" tf:"critical,omitempty"`
+
+	// Specifies the threshold for the info level.
+	// Specifies the threshold for the info level.
+	Info *float64 `json:"info,omitempty" tf:"info,omitempty"`
+
+	// Specifies the threshold for the major level.
+	// Specifies the threshold for the major level.
+	Major *float64 `json:"major,omitempty" tf:"major,omitempty"`
+
+	// Specifies the threshold for the minor level.
+	// Specifies the threshold for the minor level.
+	Minor *float64 `json:"minor,omitempty" tf:"minor,omitempty"`
+}
+
+type HierarchicalValueParameters struct {
+
+	// Specifies the threshold for the critical level.
+	// Specifies the threshold for the critical level.
+	// +kubebuilder:validation:Optional
+	Critical *float64 `json:"critical,omitempty" tf:"critical,omitempty"`
+
+	// Specifies the threshold for the info level.
+	// Specifies the threshold for the info level.
+	// +kubebuilder:validation:Optional
+	Info *float64 `json:"info,omitempty" tf:"info,omitempty"`
+
+	// Specifies the threshold for the major level.
+	// Specifies the threshold for the major level.
+	// +kubebuilder:validation:Optional
+	Major *float64 `json:"major,omitempty" tf:"major,omitempty"`
+
+	// Specifies the threshold for the minor level.
+	// Specifies the threshold for the minor level.
+	// +kubebuilder:validation:Optional
+	Minor *float64 `json:"minor,omitempty" tf:"minor,omitempty"`
+}
+
 type PoliciesInitParameters struct {
 
 	// Specifies the alarm level. It means no level if not set.
@@ -133,11 +217,10 @@ type PoliciesInitParameters struct {
 	AlarmLevel *float64 `json:"alarmLevel,omitempty" tf:"alarm_level,omitempty"`
 
 	// Specifies the comparison conditions for alarm threshold.
-	// Value options: >, <, =, >=, <=.
 	// Specifies the comparison conditions for alarm threshold.
 	ComparisonOperator *string `json:"comparisonOperator,omitempty" tf:"comparison_operator,omitempty"`
 
-	// Specifies the number of consecutive triggering of alarms. The value ranges from 1 to 5.
+	// Specifies the number of consecutive alarm triggering times.
 	// Specifies the number of consecutive triggering of alarms.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
@@ -152,6 +235,11 @@ type PoliciesInitParameters struct {
 	// Value options: average, variance, min, max, sum.
 	// Specifies the data rollup methods.
 	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// Specifies the multiple levels of alarm thresholds.
+	// The hierarchical_value structure is documented below.
+	// Specifies the multiple levels of alarm thresholds.
+	HierarchicalValue []HierarchicalValueInitParameters `json:"hierarchicalValue,omitempty" tf:"hierarchical_value,omitempty"`
 
 	// Specifies the alarm metric name.
 	// Specifies the alarm metric name.
@@ -191,11 +279,10 @@ type PoliciesObservation struct {
 	AlarmLevel *float64 `json:"alarmLevel,omitempty" tf:"alarm_level,omitempty"`
 
 	// Specifies the comparison conditions for alarm threshold.
-	// Value options: >, <, =, >=, <=.
 	// Specifies the comparison conditions for alarm threshold.
 	ComparisonOperator *string `json:"comparisonOperator,omitempty" tf:"comparison_operator,omitempty"`
 
-	// Specifies the number of consecutive triggering of alarms. The value ranges from 1 to 5.
+	// Specifies the number of consecutive alarm triggering times.
 	// Specifies the number of consecutive triggering of alarms.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
@@ -210,6 +297,11 @@ type PoliciesObservation struct {
 	// Value options: average, variance, min, max, sum.
 	// Specifies the data rollup methods.
 	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// Specifies the multiple levels of alarm thresholds.
+	// The hierarchical_value structure is documented below.
+	// Specifies the multiple levels of alarm thresholds.
+	HierarchicalValue []HierarchicalValueObservation `json:"hierarchicalValue,omitempty" tf:"hierarchical_value,omitempty"`
 
 	// Specifies the alarm metric name.
 	// Specifies the alarm metric name.
@@ -250,12 +342,11 @@ type PoliciesParameters struct {
 	AlarmLevel *float64 `json:"alarmLevel,omitempty" tf:"alarm_level,omitempty"`
 
 	// Specifies the comparison conditions for alarm threshold.
-	// Value options: >, <, =, >=, <=.
 	// Specifies the comparison conditions for alarm threshold.
 	// +kubebuilder:validation:Optional
 	ComparisonOperator *string `json:"comparisonOperator" tf:"comparison_operator,omitempty"`
 
-	// Specifies the number of consecutive triggering of alarms. The value ranges from 1 to 5.
+	// Specifies the number of consecutive alarm triggering times.
 	// Specifies the number of consecutive triggering of alarms.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
@@ -273,6 +364,12 @@ type PoliciesParameters struct {
 	// Specifies the data rollup methods.
 	// +kubebuilder:validation:Optional
 	Filter *string `json:"filter" tf:"filter,omitempty"`
+
+	// Specifies the multiple levels of alarm thresholds.
+	// The hierarchical_value structure is documented below.
+	// Specifies the multiple levels of alarm thresholds.
+	// +kubebuilder:validation:Optional
+	HierarchicalValue []HierarchicalValueParameters `json:"hierarchicalValue,omitempty" tf:"hierarchical_value,omitempty"`
 
 	// Specifies the alarm metric name.
 	// Specifies the alarm metric name.
@@ -307,7 +404,7 @@ type PoliciesParameters struct {
 	// Specifies the alarm threshold.
 	// Specifies the alarm threshold.
 	// +kubebuilder:validation:Optional
-	Value *float64 `json:"value" tf:"value,omitempty"`
+	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 // AlarmTemplateSpec defines the desired state of AlarmTemplate

@@ -14,6 +14,10 @@ spec:
     description: test agency
     domainRoles:
     - Anti-DDoS Administrator
+    enterpriseProjectRoles:
+    - enterpriseProject: test_enterprise_project
+      roles:
+      - CCE ReadOnlyAccess
     name: test_agency
     projectRole:
     - project: cn-north-1

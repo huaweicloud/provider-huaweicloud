@@ -18,32 +18,93 @@ type AttachmentInitParameters struct {
 
 type AttachmentObservation struct {
 
+	// The time when the disk was attached.
+	AttachedAt *string `json:"attachedAt,omitempty" tf:"attached_at,omitempty"`
+
+	// The ID of the attached disk.
+	AttachedVolumeID *string `json:"attachedVolumeId,omitempty" tf:"attached_volume_id,omitempty"`
+
 	// The device name.
 	Device *string `json:"device,omitempty" tf:"device,omitempty"`
+
+	// The name of the physical host housing the cloud server to which the disk is attached.
+	HostName *string `json:"hostName,omitempty" tf:"host_name,omitempty"`
 
 	// The ID of the attachment information.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The ID of the server to which the disk is attached.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// The disk ID.
+	VolumeID *string `json:"volumeId,omitempty" tf:"volume_id,omitempty"`
 }
 
 type AttachmentParameters struct {
 }
 
+type IopsAttributeInitParameters struct {
+}
+
+type IopsAttributeObservation struct {
+
+	// The frozen tag.
+	Frozened *bool `json:"frozened,omitempty" tf:"frozened,omitempty"`
+
+	// The ID of the disk IOPS.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The IOPS.
+	TotalVal *float64 `json:"totalVal,omitempty" tf:"total_val,omitempty"`
+}
+
+type IopsAttributeParameters struct {
+}
+
+type LinksInitParameters struct {
+}
+
+type LinksObservation struct {
+
+	// The corresponding shortcut link.
+	Href *string `json:"href,omitempty" tf:"href,omitempty"`
+
+	// The shortcut link marker name.
+	Rel *string `json:"rel,omitempty" tf:"rel,omitempty"`
+}
+
+type LinksParameters struct {
+}
+
+type ThroughputAttributeInitParameters struct {
+}
+
+type ThroughputAttributeObservation struct {
+
+	// The frozen tag.
+	Frozened *bool `json:"frozened,omitempty" tf:"frozened,omitempty"`
+
+	// The throughput ID.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The throughput.
+	TotalVal *float64 `json:"totalVal,omitempty" tf:"total_val,omitempty"`
+}
+
+type ThroughputAttributeParameters struct {
+}
+
 type VolumeInitParameters struct {
 	AutoPay *string `json:"autoPay,omitempty" tf:"auto_pay,omitempty"`
 
-	// Specifies whether auto renew is enabled.
-	// Valid values are true and false.
+	// Specifies whether auto-renew is enabled.
+	// Valid values are true and false. Defaults to false.
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the availability zone for the disk. Changing this creates
-	// a new disk.
+	// Specifies the availability zone for the disk.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
-	// Specifies the backup ID from which to create the disk. Changing this
-	// creates a new disk.
+	// Specifies the backup ID from which to create the disk.
 	BackupID *string `json:"backupId,omitempty" tf:"backup_id,omitempty"`
 
 	// Specifies the delete mode of snapshot. The default value is false. All snapshot
@@ -57,57 +118,52 @@ type VolumeInitParameters struct {
 	// Specifies the ID of the DSS storage pool accommodating the disk.
 	DedicatedStorageID *string `json:"dedicatedStorageId,omitempty" tf:"dedicated_storage_id,omitempty"`
 
-	// Specifies the disk description. The value can contain a maximum of 255 bytes.
+	// Specifies the disk description. You can enter up to 85 characters.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the device type of disk to create. Valid options are VBD and
-	// SCSI. Defaults to VBD. Changing this creates a new disk.
+	// SCSI. Defaults to VBD.
 	DeviceType *string `json:"deviceType,omitempty" tf:"device_type,omitempty"`
 
-	// Specifies the enterprise project id of the disk. Changing this
-	// creates a new disk.
+	// Specifies the enterprise project ID of the disk.
+	// For enterprise users, if omitted, default enterprise project will be used.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
-	// Specifies the image ID from which to create the disk. Changing this creates
-	// a new disk.
+	// Specifies the image ID from which to create the disk.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
 	// Specifies the IOPS(Input/Output Operations Per Second) for the volume.
 	// The field is valid and required when volume_type is set to GPSSD2 or ESSD2.
+	// This field can be changed only when the disk status is Available or In-use.
 	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
 
-	// Specifies the Encryption KMS ID to create the disk. Changing this creates a
-	// new disk.
+	// Specifies the Encryption KMS ID to create the disk.
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
-	// Specifies whether the disk is shareable. The default value is false.
-	// Changing this creates a new disk.
+	// be-expanded disk is in-use, the status of the server to which the disk attached
+	// must be ACTIVE, PAUSED, SUSPENDED, or SHUTOFF.
+	// 5. Please refer to Notes and Constraints
+	// to view the limitations of disk capacity expansion.
 	Multiattach *bool `json:"multiattach,omitempty" tf:"multiattach,omitempty"`
 
-	// Specifies the disk name. The value can contain a maximum of 255 bytes.
+	// Specifies the disk name. You can enter up to 64 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the charging period of the disk.
-	// If period_unit is set to month, the value ranges from 1 to 9.
-	// If period_unit is set to year, the valid value is 1.
-	// This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new disk.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the disk.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new disk.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the region in which to create the disk. If omitted, the
-	// provider-level region will be used. Changing this creates a new disk.
+	// provider-level region will be used. Changing this parameter will create a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Specify the server ID to which the cloudvolume is to be mounted.
-	// After specifying the value of this field, the cloudvolume will be automatically attached on the cloudserver.
-	// The charging_mode of the created cloudvolume will be consistent with that of the cloudserver.
-	// Currently, only ECS cloudservers are supported, and BMS bare metal cloudservers are not supported yet.
-	// Changing this creates a new disk.
+	// Specifies the server ID to which the cloud volume is to be mounted.
+	// After specifying the value of this field, the cloud volume will be automatically attached on the cloud server.
+	// The charging_mode of the created cloud volume will be consistent with that of the cloud server.
+	// Currently, only ECS cloud-servers are supported, and BMS bare metal cloud-servers are not supported yet.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	ServerID *string `json:"serverId,omitempty" tf:"server_id,omitempty"`
@@ -120,11 +176,12 @@ type VolumeInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ServerIDSelector *v1.Selector `json:"serverIdSelector,omitempty" tf:"-"`
 
-	// Specifies the disk size, in GB. The valid value is range from:
+	// Specifies the disk size, in GB.
+	// For system disk, the valid value ranges from 1 GB to 1,024 GB.
+	// For data disk, the valid value ranges from 10 GB to 32,768 GB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
-	// Specifies the snapshot ID from which to create the disk. Changing this
-	// creates a new disk.
+	// Specifies the snapshot ID from which to create the disk.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/evs/v1alpha1.Snapshot
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SnapshotID *string `json:"snapshotId,omitempty" tf:"snapshot_id,omitempty"`
@@ -143,32 +200,41 @@ type VolumeInitParameters struct {
 
 	// Specifies the throughput for the volume. The Unit is MiB/s.
 	// The field is valid and required when volume_type is set to GPSSD2.
+	// This field can be changed only when the disk status is Available or In-use.
 	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
 
-	// Specifies the disk type. Changing this creates a new disk.
-	// Valid values are as follows:
+	// Specifies the disk type. Valid values are as follows:
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }
 
 type VolumeObservation struct {
 
-	// If a disk is attached to an instance, this attribute will display the Attachment ID, Instance ID, and
-	// the Device as the Instance sees it. The object structure is documented below.
+	// The key-value pair disk metadata. Valid key-value pairs are as follows:
+	// +mapType=granular
+	AllMetadata map[string]*string `json:"allMetadata,omitempty" tf:"all_metadata,omitempty"`
+
+	// The metadata of the disk image.
+	// +mapType=granular
+	AllVolumeImageMetadata map[string]*string `json:"allVolumeImageMetadata,omitempty" tf:"all_volume_image_metadata,omitempty"`
+
+	// If a disk is attached to an instance, this attribute will display the attachment ID, instance ID, and
+	// the device as the instance sees it. The attachment structure is documented below.
 	Attachment []AttachmentObservation `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	AutoPay *string `json:"autoPay,omitempty" tf:"auto_pay,omitempty"`
 
-	// Specifies whether auto renew is enabled.
-	// Valid values are true and false.
+	// Specifies whether auto-renew is enabled.
+	// Valid values are true and false. Defaults to false.
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the availability zone for the disk. Changing this creates
-	// a new disk.
+	// Specifies the availability zone for the disk.
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
-	// Specifies the backup ID from which to create the disk. Changing this
-	// creates a new disk.
+	// Specifies the backup ID from which to create the disk.
 	BackupID *string `json:"backupId,omitempty" tf:"backup_id,omitempty"`
+
+	// Whether the disk is bootable. true: The disk is bootable. false: The disk is not bootable.
+	Bootable *string `json:"bootable,omitempty" tf:"bootable,omitempty"`
 
 	// Specifies the delete mode of snapshot. The default value is false. All snapshot
 	// associated with the disk will also be deleted when the parameter is set to true.
@@ -178,74 +244,92 @@ type VolumeObservation struct {
 	// The valid values are as follows:
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
+	// The time when the disk was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// Specifies the ID of the DSS storage pool accommodating the disk.
 	DedicatedStorageID *string `json:"dedicatedStorageId,omitempty" tf:"dedicated_storage_id,omitempty"`
 
 	// The name of the DSS storage pool accommodating the disk.
 	DedicatedStorageName *string `json:"dedicatedStorageName,omitempty" tf:"dedicated_storage_name,omitempty"`
 
-	// Specifies the disk description. The value can contain a maximum of 255 bytes.
+	// Specifies the disk description. You can enter up to 85 characters.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the device type of disk to create. Valid options are VBD and
-	// SCSI. Defaults to VBD. Changing this creates a new disk.
+	// SCSI. Defaults to VBD.
 	DeviceType *string `json:"deviceType,omitempty" tf:"device_type,omitempty"`
 
-	// Specifies the enterprise project id of the disk. Changing this
-	// creates a new disk.
+	// Specifies the enterprise project ID of the disk.
+	// For enterprise users, if omitted, default enterprise project will be used.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
-	// A resource ID in UUID format.
+	// The resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the image ID from which to create the disk. Changing this creates
-	// a new disk.
+	// Specifies the image ID from which to create the disk.
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
 	// Specifies the IOPS(Input/Output Operations Per Second) for the volume.
 	// The field is valid and required when volume_type is set to GPSSD2 or ESSD2.
+	// This field can be changed only when the disk status is Available or In-use.
 	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
 
-	// Specifies the Encryption KMS ID to create the disk. Changing this creates a
-	// new disk.
+	// The disk IOPS information. This attribute appears only for a general purpose SSD V2 or an extreme
+	// SSD V2 disk. The iops_attribute structure is documented below.
+	IopsAttribute []IopsAttributeObservation `json:"iopsAttribute,omitempty" tf:"iops_attribute,omitempty"`
+
+	// Specifies the Encryption KMS ID to create the disk.
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
-	// Specifies whether the disk is shareable. The default value is false.
-	// Changing this creates a new disk.
+	// The disk URI.
+	// The links structure is documented below.
+	Links []LinksObservation `json:"links,omitempty" tf:"links,omitempty"`
+
+	// be-expanded disk is in-use, the status of the server to which the disk attached
+	// must be ACTIVE, PAUSED, SUSPENDED, or SHUTOFF.
+	// 5. Please refer to Notes and Constraints
+	// to view the limitations of disk capacity expansion.
 	Multiattach *bool `json:"multiattach,omitempty" tf:"multiattach,omitempty"`
 
-	// Specifies the disk name. The value can contain a maximum of 255 bytes.
+	// Specifies the disk name. You can enter up to 64 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the charging period of the disk.
-	// If period_unit is set to month, the value ranges from 1 to 9.
-	// If period_unit is set to year, the valid value is 1.
-	// This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new disk.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the disk.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new disk.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the region in which to create the disk. If omitted, the
-	// provider-level region will be used. Changing this creates a new disk.
+	// provider-level region will be used. Changing this parameter will create a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Specify the server ID to which the cloudvolume is to be mounted.
-	// After specifying the value of this field, the cloudvolume will be automatically attached on the cloudserver.
-	// The charging_mode of the created cloudvolume will be consistent with that of the cloudserver.
-	// Currently, only ECS cloudservers are supported, and BMS bare metal cloudservers are not supported yet.
-	// Changing this creates a new disk.
+	// The disk serial number. This field is returned only for non-HyperMetro SCSI disks and is used for
+	// disk mapping in the VM.
+	SerialNumber *string `json:"serialNumber,omitempty" tf:"serial_number,omitempty"`
+
+	// Specifies the server ID to which the cloud volume is to be mounted.
+	// After specifying the value of this field, the cloud volume will be automatically attached on the cloud server.
+	// The charging_mode of the created cloud volume will be consistent with that of the cloud server.
+	// Currently, only ECS cloud-servers are supported, and BMS bare metal cloud-servers are not supported yet.
 	ServerID *string `json:"serverId,omitempty" tf:"server_id,omitempty"`
 
-	// Specifies the disk size, in GB. The valid value is range from:
+	// The service type. Supported services are EVS, DSS, and DESS.
+	ServiceType *string `json:"serviceType,omitempty" tf:"service_type,omitempty"`
+
+	// Specifies the disk size, in GB.
+	// For system disk, the valid value ranges from 1 GB to 1,024 GB.
+	// For data disk, the valid value ranges from 10 GB to 32,768 GB.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
-	// Specifies the snapshot ID from which to create the disk. Changing this
-	// creates a new disk.
+	// Specifies the snapshot ID from which to create the disk.
 	SnapshotID *string `json:"snapshotId,omitempty" tf:"snapshot_id,omitempty"`
+
+	// The disk status.
+	// Please refer to EVS Disk Status.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// Specifies the key/value pairs to associate with the disk.
 	// +mapType=granular
@@ -253,10 +337,17 @@ type VolumeObservation struct {
 
 	// Specifies the throughput for the volume. The Unit is MiB/s.
 	// The field is valid and required when volume_type is set to GPSSD2.
+	// This field can be changed only when the disk status is Available or In-use.
 	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
 
-	// Specifies the disk type. Changing this creates a new disk.
-	// Valid values are as follows:
+	// The disk throughput information. This attribute appears only for a general purpose SSD V2 disk.
+	// The throughput_attribute structure is documented below.
+	ThroughputAttribute []ThroughputAttributeObservation `json:"throughputAttribute,omitempty" tf:"throughput_attribute,omitempty"`
+
+	// The time when the disk was updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	// Specifies the disk type. Valid values are as follows:
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 
 	// The unique identifier used for mounting the EVS disk.
@@ -268,18 +359,16 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoPay *string `json:"autoPay,omitempty" tf:"auto_pay,omitempty"`
 
-	// Specifies whether auto renew is enabled.
-	// Valid values are true and false.
+	// Specifies whether auto-renew is enabled.
+	// Valid values are true and false. Defaults to false.
 	// +kubebuilder:validation:Optional
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the availability zone for the disk. Changing this creates
-	// a new disk.
+	// Specifies the availability zone for the disk.
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
-	// Specifies the backup ID from which to create the disk. Changing this
-	// creates a new disk.
+	// Specifies the backup ID from which to create the disk.
 	// +kubebuilder:validation:Optional
 	BackupID *string `json:"backupId,omitempty" tf:"backup_id,omitempty"`
 
@@ -297,68 +386,63 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	DedicatedStorageID *string `json:"dedicatedStorageId,omitempty" tf:"dedicated_storage_id,omitempty"`
 
-	// Specifies the disk description. The value can contain a maximum of 255 bytes.
+	// Specifies the disk description. You can enter up to 85 characters.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Specifies the device type of disk to create. Valid options are VBD and
-	// SCSI. Defaults to VBD. Changing this creates a new disk.
+	// SCSI. Defaults to VBD.
 	// +kubebuilder:validation:Optional
 	DeviceType *string `json:"deviceType,omitempty" tf:"device_type,omitempty"`
 
-	// Specifies the enterprise project id of the disk. Changing this
-	// creates a new disk.
+	// Specifies the enterprise project ID of the disk.
+	// For enterprise users, if omitted, default enterprise project will be used.
 	// +kubebuilder:validation:Optional
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
-	// Specifies the image ID from which to create the disk. Changing this creates
-	// a new disk.
+	// Specifies the image ID from which to create the disk.
 	// +kubebuilder:validation:Optional
 	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
 
 	// Specifies the IOPS(Input/Output Operations Per Second) for the volume.
 	// The field is valid and required when volume_type is set to GPSSD2 or ESSD2.
+	// This field can be changed only when the disk status is Available or In-use.
 	// +kubebuilder:validation:Optional
 	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
 
-	// Specifies the Encryption KMS ID to create the disk. Changing this creates a
-	// new disk.
+	// Specifies the Encryption KMS ID to create the disk.
 	// +kubebuilder:validation:Optional
 	KMSID *string `json:"kmsId,omitempty" tf:"kms_id,omitempty"`
 
-	// Specifies whether the disk is shareable. The default value is false.
-	// Changing this creates a new disk.
+	// be-expanded disk is in-use, the status of the server to which the disk attached
+	// must be ACTIVE, PAUSED, SUSPENDED, or SHUTOFF.
+	// 5. Please refer to Notes and Constraints
+	// to view the limitations of disk capacity expansion.
 	// +kubebuilder:validation:Optional
 	Multiattach *bool `json:"multiattach,omitempty" tf:"multiattach,omitempty"`
 
-	// Specifies the disk name. The value can contain a maximum of 255 bytes.
+	// Specifies the disk name. You can enter up to 64 characters.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the charging period of the disk.
-	// If period_unit is set to month, the value ranges from 1 to 9.
-	// If period_unit is set to year, the valid value is 1.
-	// This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new disk.
 	// +kubebuilder:validation:Optional
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the disk.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new disk.
 	// +kubebuilder:validation:Optional
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the region in which to create the disk. If omitted, the
-	// provider-level region will be used. Changing this creates a new disk.
+	// provider-level region will be used. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Specify the server ID to which the cloudvolume is to be mounted.
-	// After specifying the value of this field, the cloudvolume will be automatically attached on the cloudserver.
-	// The charging_mode of the created cloudvolume will be consistent with that of the cloudserver.
-	// Currently, only ECS cloudservers are supported, and BMS bare metal cloudservers are not supported yet.
-	// Changing this creates a new disk.
+	// Specifies the server ID to which the cloud volume is to be mounted.
+	// After specifying the value of this field, the cloud volume will be automatically attached on the cloud server.
+	// The charging_mode of the created cloud volume will be consistent with that of the cloud server.
+	// Currently, only ECS cloud-servers are supported, and BMS bare metal cloud-servers are not supported yet.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -372,12 +456,13 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	ServerIDSelector *v1.Selector `json:"serverIdSelector,omitempty" tf:"-"`
 
-	// Specifies the disk size, in GB. The valid value is range from:
+	// Specifies the disk size, in GB.
+	// For system disk, the valid value ranges from 1 GB to 1,024 GB.
+	// For data disk, the valid value ranges from 10 GB to 32,768 GB.
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
-	// Specifies the snapshot ID from which to create the disk. Changing this
-	// creates a new disk.
+	// Specifies the snapshot ID from which to create the disk.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/evs/v1alpha1.Snapshot
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -398,11 +483,11 @@ type VolumeParameters struct {
 
 	// Specifies the throughput for the volume. The Unit is MiB/s.
 	// The field is valid and required when volume_type is set to GPSSD2.
+	// This field can be changed only when the disk status is Available or In-use.
 	// +kubebuilder:validation:Optional
 	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
 
-	// Specifies the disk type. Changing this creates a new disk.
-	// Valid values are as follows:
+	// Specifies the disk type. Valid values are as follows:
 	// +kubebuilder:validation:Optional
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
 }
@@ -434,7 +519,7 @@ type VolumeStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Volume is the Schema for the Volumes API. ""
+// Volume is the Schema for the Volumes API. Manages a volume resource within HuaweiCloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

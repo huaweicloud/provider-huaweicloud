@@ -41,7 +41,6 @@ type ResourceGroupInitParameters struct {
 
 	// Specifies the key/value to match resources.
 	// It's required if the value of type is TAG.
-	// Specifies the key/value to match resources.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -86,7 +85,6 @@ type ResourceGroupObservation struct {
 
 	// Specifies the key/value to match resources.
 	// It's required if the value of type is TAG.
-	// Specifies the key/value to match resources.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -129,7 +127,6 @@ type ResourceGroupParameters struct {
 
 	// Specifies the key/value to match resources.
 	// It's required if the value of type is TAG.
-	// Specifies the key/value to match resources.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`

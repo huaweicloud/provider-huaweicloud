@@ -1182,6 +1182,9 @@ spec:
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           type: boolean
+                        iops:
+                          description: The iops of the disk.
+                          type: number
                         kmsKeyId:
                           description: The ID of a KMS key. This is used to encrypt
                             the volume.
@@ -1191,6 +1194,9 @@ spec:
                             Specifies the size of a virtual space. Only an integer percentage is supported.
                             Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
                             Changing this parameter will reset the node.
+                          type: number
+                        throughput:
+                          description: The throughput of the disk.
                           type: number
                         volumetype:
                           description: The disk type.
@@ -1208,6 +1214,17 @@ spec:
                   enterpriseProjectId:
                     description: The enterprise project ID of the CCE node.
                     type: string
+                  extensionNics:
+                    description: |-
+                      The extension NICs of the node.
+                      The object structure is documented below.
+                    items:
+                      properties:
+                        subnetId:
+                          description: The ID of the subnet to which the NIC belongs.
+                          type: string
+                      type: object
+                    type: array
                   flavorId:
                     description: The flavor ID of the CCE node.
                     type: string
@@ -1320,6 +1337,9 @@ spec:
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           type: boolean
+                        iops:
+                          description: The iops of the disk.
+                          type: number
                         kmsKeyId:
                           description: The ID of a KMS key. This is used to encrypt
                             the volume.
@@ -1329,6 +1349,9 @@ spec:
                             Specifies the size of a virtual space. Only an integer percentage is supported.
                             Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
                             Changing this parameter will reset the node.
+                          type: number
+                        throughput:
+                          description: The throughput of the disk.
                           type: number
                         volumetype:
                           description: The disk type.

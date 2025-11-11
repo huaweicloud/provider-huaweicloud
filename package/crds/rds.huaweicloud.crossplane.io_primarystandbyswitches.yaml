@@ -73,10 +73,12 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   force:
                     description: |-
-                      Specifies whether to perform a forcible primary/standby switchover. This parameter
-                      is valid only for the PostgreSQL DB engine.
+                      Specifies whether to perform a forcible primary/standby switchover.
+                      This parameter is valid only for the PostgreSQL DB engine.
                       Specifies whether to perform a forcible primary/standby switchover.
                     type: boolean
                   instanceId:
@@ -177,10 +179,12 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enableForceNew:
+                    type: string
                   force:
                     description: |-
-                      Specifies whether to perform a forcible primary/standby switchover. This parameter
-                      is valid only for the PostgreSQL DB engine.
+                      Specifies whether to perform a forcible primary/standby switchover.
+                      This parameter is valid only for the PostgreSQL DB engine.
                       Specifies whether to perform a forcible primary/standby switchover.
                     type: boolean
                   instanceId:
@@ -441,10 +445,12 @@ spec:
             properties:
               atProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   force:
                     description: |-
-                      Specifies whether to perform a forcible primary/standby switchover. This parameter
-                      is valid only for the PostgreSQL DB engine.
+                      Specifies whether to perform a forcible primary/standby switchover.
+                      This parameter is valid only for the PostgreSQL DB engine.
                       Specifies whether to perform a forcible primary/standby switchover.
                     type: boolean
                   id:

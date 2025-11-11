@@ -118,14 +118,22 @@ spec:
                       Specifies the name of an alarm rule. The value can be a string of 1 to 128
                       characters that can consist of English letters, Chinese characters, digits, underscores (_), hyphens (-).
                     type: string
+                  alarmTemplateId:
+                    description: |-
+                      Specifies the ID of the alarm template.
+                      When using alarm_template_id, the fields alarm_name, alarm_description, alarm_action_enabled, alarm_actions
+                      and ok_actions cannot be updated.
+                      Changing this creates a new resource.
+                    type: string
                   alarmType:
                     description: |-
                       Specifies the alarm type. The value can be EVENT.SYS, EVENT.CUSTOM,
                       MULTI_INSTANCE and ALL_INSTANCE. Defaults to MULTI_INSTANCE.
                     type: string
                   condition:
-                    description: Specifies the alarm triggering condition. The structure
-                      is described below.
+                    description: |-
+                      Specifies the alarm triggering condition.
+                      The condition structure is documented below.
                     items:
                       properties:
                         alarmLevel:
@@ -176,6 +184,11 @@ spec:
                           type: number
                       type: object
                     type: array
+                  effectiveTimezone:
+                    description: |-
+                      Specifies the time zone, for example: GMT-08:00, GMT+08:00 or
+                      GMT+0:00.
+                    type: string
                   enterpriseProjectId:
                     description: Specifies the enterprise project ID of the alarm
                       rule.
@@ -238,14 +251,12 @@ spec:
                       type: object
                     type: array
                   notificationBeginTime:
-                    description: |-
-                      Specifies the alarm notification start time, for
-                      example: 05:30. Changing this creates a new resource.
+                    description: 'Specifies the alarm notification start time, for
+                      example: 05:30.'
                     type: string
                   notificationEndTime:
-                    description: |-
-                      Specifies the alarm notification stop time, for
-                      example: 22:10. Changing this creates a new resource.
+                    description: 'Specifies the alarm notification stop time, for
+                      example: 22:10.'
                     type: string
                   okActions:
                     description: |-
@@ -362,14 +373,22 @@ spec:
                       Specifies the name of an alarm rule. The value can be a string of 1 to 128
                       characters that can consist of English letters, Chinese characters, digits, underscores (_), hyphens (-).
                     type: string
+                  alarmTemplateId:
+                    description: |-
+                      Specifies the ID of the alarm template.
+                      When using alarm_template_id, the fields alarm_name, alarm_description, alarm_action_enabled, alarm_actions
+                      and ok_actions cannot be updated.
+                      Changing this creates a new resource.
+                    type: string
                   alarmType:
                     description: |-
                       Specifies the alarm type. The value can be EVENT.SYS, EVENT.CUSTOM,
                       MULTI_INSTANCE and ALL_INSTANCE. Defaults to MULTI_INSTANCE.
                     type: string
                   condition:
-                    description: Specifies the alarm triggering condition. The structure
-                      is described below.
+                    description: |-
+                      Specifies the alarm triggering condition.
+                      The condition structure is documented below.
                     items:
                       properties:
                         alarmLevel:
@@ -420,6 +439,11 @@ spec:
                           type: number
                       type: object
                     type: array
+                  effectiveTimezone:
+                    description: |-
+                      Specifies the time zone, for example: GMT-08:00, GMT+08:00 or
+                      GMT+0:00.
+                    type: string
                   enterpriseProjectId:
                     description: Specifies the enterprise project ID of the alarm
                       rule.
@@ -482,14 +506,12 @@ spec:
                       type: object
                     type: array
                   notificationBeginTime:
-                    description: |-
-                      Specifies the alarm notification start time, for
-                      example: 05:30. Changing this creates a new resource.
+                    description: 'Specifies the alarm notification start time, for
+                      example: 05:30.'
                     type: string
                   notificationEndTime:
-                    description: |-
-                      Specifies the alarm notification stop time, for
-                      example: 22:10. Changing this creates a new resource.
+                    description: 'Specifies the alarm notification stop time, for
+                      example: 22:10.'
                     type: string
                   okActions:
                     description: |-
@@ -719,10 +741,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.alarmName)
                 || (has(self.initProvider) && has(self.initProvider.alarmName))'
-            - message: spec.forProvider.condition is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.condition)
-                || (has(self.initProvider) && has(self.initProvider.condition))'
             - message: spec.forProvider.metric is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.metric)
@@ -781,14 +799,22 @@ spec:
                   alarmState:
                     description: 'Indicates the alarm status. The value can be:'
                     type: string
+                  alarmTemplateId:
+                    description: |-
+                      Specifies the ID of the alarm template.
+                      When using alarm_template_id, the fields alarm_name, alarm_description, alarm_action_enabled, alarm_actions
+                      and ok_actions cannot be updated.
+                      Changing this creates a new resource.
+                    type: string
                   alarmType:
                     description: |-
                       Specifies the alarm type. The value can be EVENT.SYS, EVENT.CUSTOM,
                       MULTI_INSTANCE and ALL_INSTANCE. Defaults to MULTI_INSTANCE.
                     type: string
                   condition:
-                    description: Specifies the alarm triggering condition. The structure
-                      is described below.
+                    description: |-
+                      Specifies the alarm triggering condition.
+                      The condition structure is documented below.
                     items:
                       properties:
                         alarmLevel:
@@ -839,6 +865,11 @@ spec:
                           type: number
                       type: object
                     type: array
+                  effectiveTimezone:
+                    description: |-
+                      Specifies the time zone, for example: GMT-08:00, GMT+08:00 or
+                      GMT+0:00.
+                    type: string
                   enterpriseProjectId:
                     description: Specifies the enterprise project ID of the alarm
                       rule.
@@ -904,14 +935,12 @@ spec:
                       type: object
                     type: array
                   notificationBeginTime:
-                    description: |-
-                      Specifies the alarm notification start time, for
-                      example: 05:30. Changing this creates a new resource.
+                    description: 'Specifies the alarm notification start time, for
+                      example: 05:30.'
                     type: string
                   notificationEndTime:
-                    description: |-
-                      Specifies the alarm notification stop time, for
-                      example: 22:10. Changing this creates a new resource.
+                    description: 'Specifies the alarm notification stop time, for
+                      example: 22:10.'
                     type: string
                   okActions:
                     description: |-

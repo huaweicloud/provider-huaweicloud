@@ -19,7 +19,8 @@ type GlobalInternetBandwidthInitParameters struct {
 	// Changing this creates a new resource.
 	AccessSite *string `json:"accessSite,omitempty" tf:"access_site,omitempty"`
 
-	// Specifies the charge mode, for example, 95peak_guar.
+	// Specifies the charge mode.
+	// Value can be as follows:
 	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
 
 	// Specifies the description of the global internet bandwidth.
@@ -58,7 +59,8 @@ type GlobalInternetBandwidthObservation struct {
 	// Changing this creates a new resource.
 	AccessSite *string `json:"accessSite,omitempty" tf:"access_site,omitempty"`
 
-	// Specifies the charge mode, for example, 95peak_guar.
+	// Specifies the charge mode.
+	// Value can be as follows:
 	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
 
 	// The create time of the global internet bandwidth.
@@ -116,7 +118,8 @@ type GlobalInternetBandwidthParameters struct {
 	// +kubebuilder:validation:Optional
 	AccessSite *string `json:"accessSite,omitempty" tf:"access_site,omitempty"`
 
-	// Specifies the charge mode, for example, 95peak_guar.
+	// Specifies the charge mode.
+	// Value can be as follows:
 	// +kubebuilder:validation:Optional
 	ChargeMode *string `json:"chargeMode,omitempty" tf:"charge_mode,omitempty"`
 

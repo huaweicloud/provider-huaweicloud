@@ -78,6 +78,8 @@ spec:
                       characters long and is supported only for MySQL 8.0.25 and later versions.
                       Specifies remarks of the DB account.
                     type: string
+                  enableForceNew:
+                    type: string
                   hosts:
                     description: |-
                       Specifies the IP addresses that are allowed to access your DB instance.
@@ -87,7 +89,7 @@ spec:
                     type: array
                   instanceId:
                     description: |-
-                      Specifies the rds instance id. Changing this will create a new resource.
+                      Specifies the rds instance id.
                       Specifies the ID of the RDS Mysql instance.
                     type: string
                   instanceIdRef:
@@ -167,7 +169,7 @@ spec:
                   name:
                     description: |-
                       Specifies the username of the db account. Only lowercase letters, digits,
-                      hyphens (-), and underscores (_) are allowed. Changing this will create a new resource.
+                      hyphens (-), and underscores (_) are allowed.
                       Specifies the username of the DB account.
                     type: string
                   passwordSecretRef:
@@ -216,6 +218,8 @@ spec:
                       characters long and is supported only for MySQL 8.0.25 and later versions.
                       Specifies remarks of the DB account.
                     type: string
+                  enableForceNew:
+                    type: string
                   hosts:
                     description: |-
                       Specifies the IP addresses that are allowed to access your DB instance.
@@ -225,7 +229,7 @@ spec:
                     type: array
                   instanceId:
                     description: |-
-                      Specifies the rds instance id. Changing this will create a new resource.
+                      Specifies the rds instance id.
                       Specifies the ID of the RDS Mysql instance.
                     type: string
                   instanceIdRef:
@@ -305,7 +309,7 @@ spec:
                   name:
                     description: |-
                       Specifies the username of the db account. Only lowercase letters, digits,
-                      hyphens (-), and underscores (_) are allowed. Changing this will create a new resource.
+                      hyphens (-), and underscores (_) are allowed.
                       Specifies the username of the DB account.
                     type: string
                   passwordSecretRef:
@@ -523,6 +527,8 @@ spec:
                       characters long and is supported only for MySQL 8.0.25 and later versions.
                       Specifies remarks of the DB account.
                     type: string
+                  enableForceNew:
+                    type: string
                   hosts:
                     description: |-
                       Specifies the IP addresses that are allowed to access your DB instance.
@@ -535,13 +541,13 @@ spec:
                     type: string
                   instanceId:
                     description: |-
-                      Specifies the rds instance id. Changing this will create a new resource.
+                      Specifies the rds instance id.
                       Specifies the ID of the RDS Mysql instance.
                     type: string
                   name:
                     description: |-
                       Specifies the username of the db account. Only lowercase letters, digits,
-                      hyphens (-), and underscores (_) are allowed. Changing this will create a new resource.
+                      hyphens (-), and underscores (_) are allowed.
                       Specifies the username of the DB account.
                     type: string
                   region:

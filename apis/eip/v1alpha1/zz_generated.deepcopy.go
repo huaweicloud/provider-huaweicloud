@@ -1658,6 +1658,21 @@ func (in *VpcBandwidthAssociateInitParameters) DeepCopyInto(out *VpcBandwidthAss
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.FixedIP != nil {
+		in, out := &in.FixedIP, &out.FixedIP
+		*out = new(string)
+		**out = **in
+	}
+	if in.NetworkID != nil {
+		in, out := &in.NetworkID, &out.NetworkID
+		*out = new(string)
+		**out = **in
+	}
+	if in.PortID != nil {
+		in, out := &in.PortID, &out.PortID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1735,13 +1750,43 @@ func (in *VpcBandwidthAssociateObservation) DeepCopyInto(out *VpcBandwidthAssoci
 		*out = new(string)
 		**out = **in
 	}
+	if in.FixedIP != nil {
+		in, out := &in.FixedIP, &out.FixedIP
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
 	}
+	if in.IPVersion != nil {
+		in, out := &in.IPVersion, &out.IPVersion
+		*out = new(float64)
+		**out = **in
+	}
+	if in.NetworkID != nil {
+		in, out := &in.NetworkID, &out.NetworkID
+		*out = new(string)
+		**out = **in
+	}
+	if in.PortID != nil {
+		in, out := &in.PortID, &out.PortID
+		*out = new(string)
+		**out = **in
+	}
 	if in.PublicIP != nil {
 		in, out := &in.PublicIP, &out.PublicIP
+		*out = new(string)
+		**out = **in
+	}
+	if in.PublicIPType != nil {
+		in, out := &in.PublicIPType, &out.PublicIPType
+		*out = new(string)
+		**out = **in
+	}
+	if in.PublicIPv6 != nil {
+		in, out := &in.PublicIPv6, &out.PublicIPv6
 		*out = new(string)
 		**out = **in
 	}
@@ -1804,6 +1849,21 @@ func (in *VpcBandwidthAssociateParameters) DeepCopyInto(out *VpcBandwidthAssocia
 		in, out := &in.EIPIDSelector, &out.EIPIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.FixedIP != nil {
+		in, out := &in.FixedIP, &out.FixedIP
+		*out = new(string)
+		**out = **in
+	}
+	if in.NetworkID != nil {
+		in, out := &in.NetworkID, &out.NetworkID
+		*out = new(string)
+		**out = **in
+	}
+	if in.PortID != nil {
+		in, out := &in.PortID, &out.PortID
+		*out = new(string)
+		**out = **in
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region

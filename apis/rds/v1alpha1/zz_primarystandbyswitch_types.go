@@ -14,9 +14,10 @@ import (
 )
 
 type PrimaryStandbySwitchInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
-	// Specifies whether to perform a forcible primary/standby switchover. This parameter
-	// is valid only for the PostgreSQL DB engine.
+	// Specifies whether to perform a forcible primary/standby switchover.
+	// This parameter is valid only for the PostgreSQL DB engine.
 	// Specifies whether to perform a forcible primary/standby switchover.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
@@ -40,9 +41,10 @@ type PrimaryStandbySwitchInitParameters struct {
 }
 
 type PrimaryStandbySwitchObservation struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
-	// Specifies whether to perform a forcible primary/standby switchover. This parameter
-	// is valid only for the PostgreSQL DB engine.
+	// Specifies whether to perform a forcible primary/standby switchover.
+	// This parameter is valid only for the PostgreSQL DB engine.
 	// Specifies whether to perform a forcible primary/standby switchover.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
@@ -60,8 +62,11 @@ type PrimaryStandbySwitchObservation struct {
 
 type PrimaryStandbySwitchParameters struct {
 
-	// Specifies whether to perform a forcible primary/standby switchover. This parameter
-	// is valid only for the PostgreSQL DB engine.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies whether to perform a forcible primary/standby switchover.
+	// This parameter is valid only for the PostgreSQL DB engine.
 	// Specifies whether to perform a forcible primary/standby switchover.
 	// +kubebuilder:validation:Optional
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`

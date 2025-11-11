@@ -239,6 +239,16 @@ func (in *AlarmTemplateInitParameters) DeepCopyInto(out *AlarmTemplateInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsOverwrite != nil {
+		in, out := &in.IsOverwrite, &out.IsOverwrite
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -323,9 +333,19 @@ func (in *AlarmTemplateObservation) DeepCopyInto(out *AlarmTemplateObservation) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsOverwrite != nil {
+		in, out := &in.IsOverwrite, &out.IsOverwrite
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -373,6 +393,16 @@ func (in *AlarmTemplateParameters) DeepCopyInto(out *AlarmTemplateParameters) {
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
+		**out = **in
+	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsOverwrite != nil {
+		in, out := &in.IsOverwrite, &out.IsOverwrite
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -506,6 +536,11 @@ func (in *AlarmruleInitParameters) DeepCopyInto(out *AlarmruleInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AlarmTemplateID != nil {
+		in, out := &in.AlarmTemplateID, &out.AlarmTemplateID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AlarmType != nil {
 		in, out := &in.AlarmType, &out.AlarmType
 		*out = new(string)
@@ -517,6 +552,11 @@ func (in *AlarmruleInitParameters) DeepCopyInto(out *AlarmruleInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EffectiveTimezone != nil {
+		in, out := &in.EffectiveTimezone, &out.EffectiveTimezone
+		*out = new(string)
+		**out = **in
 	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
@@ -655,6 +695,11 @@ func (in *AlarmruleObservation) DeepCopyInto(out *AlarmruleObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AlarmTemplateID != nil {
+		in, out := &in.AlarmTemplateID, &out.AlarmTemplateID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AlarmType != nil {
 		in, out := &in.AlarmType, &out.AlarmType
 		*out = new(string)
@@ -666,6 +711,11 @@ func (in *AlarmruleObservation) DeepCopyInto(out *AlarmruleObservation) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EffectiveTimezone != nil {
+		in, out := &in.EffectiveTimezone, &out.EffectiveTimezone
+		*out = new(string)
+		**out = **in
 	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
@@ -777,6 +827,11 @@ func (in *AlarmruleParameters) DeepCopyInto(out *AlarmruleParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AlarmTemplateID != nil {
+		in, out := &in.AlarmTemplateID, &out.AlarmTemplateID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AlarmType != nil {
 		in, out := &in.AlarmType, &out.AlarmType
 		*out = new(string)
@@ -788,6 +843,11 @@ func (in *AlarmruleParameters) DeepCopyInto(out *AlarmruleParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EffectiveTimezone != nil {
+		in, out := &in.EffectiveTimezone, &out.EffectiveTimezone
+		*out = new(string)
+		**out = **in
 	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
@@ -1104,10 +1164,22 @@ func (in *DashboardInitParameters) DeepCopyInto(out *DashboardInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ExtendInfo != nil {
+		in, out := &in.ExtendInfo, &out.ExtendInfo
+		*out = make([]ExtendInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IsFavorite != nil {
 		in, out := &in.IsFavorite, &out.IsFavorite
@@ -1191,10 +1263,27 @@ func (in *DashboardObservation) DeepCopyInto(out *DashboardObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DashboardTemplateID != nil {
+		in, out := &in.DashboardTemplateID, &out.DashboardTemplateID
+		*out = new(string)
+		**out = **in
+	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ExtendInfo != nil {
+		in, out := &in.ExtendInfo, &out.ExtendInfo
+		*out = make([]ExtendInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -1211,6 +1300,11 @@ func (in *DashboardObservation) DeepCopyInto(out *DashboardObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Namespace != nil {
+		in, out := &in.Namespace, &out.Namespace
+		*out = new(string)
+		**out = **in
+	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
@@ -1218,6 +1312,16 @@ func (in *DashboardObservation) DeepCopyInto(out *DashboardObservation) {
 	}
 	if in.RowWidgetNum != nil {
 		in, out := &in.RowWidgetNum, &out.RowWidgetNum
+		*out = new(float64)
+		**out = **in
+	}
+	if in.SubProduct != nil {
+		in, out := &in.SubProduct, &out.SubProduct
+		*out = new(string)
+		**out = **in
+	}
+	if in.WidgetsNum != nil {
+		in, out := &in.WidgetsNum, &out.WidgetsNum
 		*out = new(float64)
 		**out = **in
 	}
@@ -1241,10 +1345,22 @@ func (in *DashboardParameters) DeepCopyInto(out *DashboardParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ExtendInfo != nil {
+		in, out := &in.ExtendInfo, &out.ExtendInfo
+		*out = make([]ExtendInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IsFavorite != nil {
 		in, out := &in.IsFavorite, &out.IsFavorite
@@ -1358,6 +1474,11 @@ func (in *DashboardWidgetInitParameters) DeepCopyInto(out *DashboardWidgetInitPa
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.Location != nil {
 		in, out := &in.Location, &out.Location
 		*out = make([]LocationInitParameters, len(*in))
@@ -1461,6 +1582,11 @@ func (in *DashboardWidgetObservation) DeepCopyInto(out *DashboardWidgetObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -1541,6 +1667,11 @@ func (in *DashboardWidgetParameters) DeepCopyInto(out *DashboardWidgetParameters
 		in, out := &in.DashboardIDSelector, &out.DashboardIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
 	}
 	if in.Location != nil {
 		in, out := &in.Location, &out.Location
@@ -2285,6 +2416,321 @@ func (in *EventReportStatus) DeepCopy() *EventReportStatus {
 		return nil
 	}
 	out := new(EventReportStatus)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ExtendInfoInitParameters) DeepCopyInto(out *ExtendInfoInitParameters) {
+	*out = *in
+	if in.DisplayTime != nil {
+		in, out := &in.DisplayTime, &out.DisplayTime
+		*out = new(float64)
+		**out = **in
+	}
+	if in.EnableLegend != nil {
+		in, out := &in.EnableLegend, &out.EnableLegend
+		*out = new(bool)
+		**out = **in
+	}
+	if in.EnableScreenAutoPlay != nil {
+		in, out := &in.EnableScreenAutoPlay, &out.EnableScreenAutoPlay
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Filter != nil {
+		in, out := &in.Filter, &out.Filter
+		*out = new(string)
+		**out = **in
+	}
+	if in.From != nil {
+		in, out := &in.From, &out.From
+		*out = new(float64)
+		**out = **in
+	}
+	if in.FullScreenWidgetNum != nil {
+		in, out := &in.FullScreenWidgetNum, &out.FullScreenWidgetNum
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Period != nil {
+		in, out := &in.Period, &out.Period
+		*out = new(string)
+		**out = **in
+	}
+	if in.RefreshTime != nil {
+		in, out := &in.RefreshTime, &out.RefreshTime
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ScreenColor != nil {
+		in, out := &in.ScreenColor, &out.ScreenColor
+		*out = new(string)
+		**out = **in
+	}
+	if in.TimeInterval != nil {
+		in, out := &in.TimeInterval, &out.TimeInterval
+		*out = new(float64)
+		**out = **in
+	}
+	if in.To != nil {
+		in, out := &in.To, &out.To
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ExtendInfoInitParameters.
+func (in *ExtendInfoInitParameters) DeepCopy() *ExtendInfoInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ExtendInfoInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ExtendInfoObservation) DeepCopyInto(out *ExtendInfoObservation) {
+	*out = *in
+	if in.DisplayTime != nil {
+		in, out := &in.DisplayTime, &out.DisplayTime
+		*out = new(float64)
+		**out = **in
+	}
+	if in.EnableLegend != nil {
+		in, out := &in.EnableLegend, &out.EnableLegend
+		*out = new(bool)
+		**out = **in
+	}
+	if in.EnableScreenAutoPlay != nil {
+		in, out := &in.EnableScreenAutoPlay, &out.EnableScreenAutoPlay
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Filter != nil {
+		in, out := &in.Filter, &out.Filter
+		*out = new(string)
+		**out = **in
+	}
+	if in.From != nil {
+		in, out := &in.From, &out.From
+		*out = new(float64)
+		**out = **in
+	}
+	if in.FullScreenWidgetNum != nil {
+		in, out := &in.FullScreenWidgetNum, &out.FullScreenWidgetNum
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Period != nil {
+		in, out := &in.Period, &out.Period
+		*out = new(string)
+		**out = **in
+	}
+	if in.RefreshTime != nil {
+		in, out := &in.RefreshTime, &out.RefreshTime
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ScreenColor != nil {
+		in, out := &in.ScreenColor, &out.ScreenColor
+		*out = new(string)
+		**out = **in
+	}
+	if in.TimeInterval != nil {
+		in, out := &in.TimeInterval, &out.TimeInterval
+		*out = new(float64)
+		**out = **in
+	}
+	if in.To != nil {
+		in, out := &in.To, &out.To
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ExtendInfoObservation.
+func (in *ExtendInfoObservation) DeepCopy() *ExtendInfoObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(ExtendInfoObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ExtendInfoParameters) DeepCopyInto(out *ExtendInfoParameters) {
+	*out = *in
+	if in.DisplayTime != nil {
+		in, out := &in.DisplayTime, &out.DisplayTime
+		*out = new(float64)
+		**out = **in
+	}
+	if in.EnableLegend != nil {
+		in, out := &in.EnableLegend, &out.EnableLegend
+		*out = new(bool)
+		**out = **in
+	}
+	if in.EnableScreenAutoPlay != nil {
+		in, out := &in.EnableScreenAutoPlay, &out.EnableScreenAutoPlay
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Filter != nil {
+		in, out := &in.Filter, &out.Filter
+		*out = new(string)
+		**out = **in
+	}
+	if in.From != nil {
+		in, out := &in.From, &out.From
+		*out = new(float64)
+		**out = **in
+	}
+	if in.FullScreenWidgetNum != nil {
+		in, out := &in.FullScreenWidgetNum, &out.FullScreenWidgetNum
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Period != nil {
+		in, out := &in.Period, &out.Period
+		*out = new(string)
+		**out = **in
+	}
+	if in.RefreshTime != nil {
+		in, out := &in.RefreshTime, &out.RefreshTime
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ScreenColor != nil {
+		in, out := &in.ScreenColor, &out.ScreenColor
+		*out = new(string)
+		**out = **in
+	}
+	if in.TimeInterval != nil {
+		in, out := &in.TimeInterval, &out.TimeInterval
+		*out = new(float64)
+		**out = **in
+	}
+	if in.To != nil {
+		in, out := &in.To, &out.To
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ExtendInfoParameters.
+func (in *ExtendInfoParameters) DeepCopy() *ExtendInfoParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ExtendInfoParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *HierarchicalValueInitParameters) DeepCopyInto(out *HierarchicalValueInitParameters) {
+	*out = *in
+	if in.Critical != nil {
+		in, out := &in.Critical, &out.Critical
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Info != nil {
+		in, out := &in.Info, &out.Info
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Major != nil {
+		in, out := &in.Major, &out.Major
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Minor != nil {
+		in, out := &in.Minor, &out.Minor
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new HierarchicalValueInitParameters.
+func (in *HierarchicalValueInitParameters) DeepCopy() *HierarchicalValueInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(HierarchicalValueInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *HierarchicalValueObservation) DeepCopyInto(out *HierarchicalValueObservation) {
+	*out = *in
+	if in.Critical != nil {
+		in, out := &in.Critical, &out.Critical
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Info != nil {
+		in, out := &in.Info, &out.Info
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Major != nil {
+		in, out := &in.Major, &out.Major
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Minor != nil {
+		in, out := &in.Minor, &out.Minor
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new HierarchicalValueObservation.
+func (in *HierarchicalValueObservation) DeepCopy() *HierarchicalValueObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(HierarchicalValueObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *HierarchicalValueParameters) DeepCopyInto(out *HierarchicalValueParameters) {
+	*out = *in
+	if in.Critical != nil {
+		in, out := &in.Critical, &out.Critical
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Info != nil {
+		in, out := &in.Info, &out.Info
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Major != nil {
+		in, out := &in.Major, &out.Major
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Minor != nil {
+		in, out := &in.Minor, &out.Minor
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new HierarchicalValueParameters.
+func (in *HierarchicalValueParameters) DeepCopy() *HierarchicalValueParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(HierarchicalValueParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -3050,6 +3496,11 @@ func (in *OneClickAlarmInitParameters) DeepCopyInto(out *OneClickAlarmInitParame
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.NotificationBeginTime != nil {
 		in, out := &in.NotificationBeginTime, &out.NotificationBeginTime
 		*out = new(string)
@@ -3148,6 +3599,11 @@ func (in *OneClickAlarmObservation) DeepCopyInto(out *OneClickAlarmObservation) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.Enabled != nil {
 		in, out := &in.Enabled, &out.Enabled
 		*out = new(bool)
@@ -3223,6 +3679,11 @@ func (in *OneClickAlarmParameters) DeepCopyInto(out *OneClickAlarmParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
 	}
 	if in.NotificationBeginTime != nil {
 		in, out := &in.NotificationBeginTime, &out.NotificationBeginTime
@@ -3331,6 +3792,13 @@ func (in *PoliciesInitParameters) DeepCopyInto(out *PoliciesInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.HierarchicalValue != nil {
+		in, out := &in.HierarchicalValue, &out.HierarchicalValue
+		*out = make([]HierarchicalValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.MetricName != nil {
 		in, out := &in.MetricName, &out.MetricName
 		*out = new(string)
@@ -3401,6 +3869,13 @@ func (in *PoliciesObservation) DeepCopyInto(out *PoliciesObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.HierarchicalValue != nil {
+		in, out := &in.HierarchicalValue, &out.HierarchicalValue
+		*out = make([]HierarchicalValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.MetricName != nil {
 		in, out := &in.MetricName, &out.MetricName
 		*out = new(string)
@@ -3470,6 +3945,13 @@ func (in *PoliciesParameters) DeepCopyInto(out *PoliciesParameters) {
 		in, out := &in.Filter, &out.Filter
 		*out = new(string)
 		**out = **in
+	}
+	if in.HierarchicalValue != nil {
+		in, out := &in.HierarchicalValue, &out.HierarchicalValue
+		*out = make([]HierarchicalValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.MetricName != nil {
 		in, out := &in.MetricName, &out.MetricName

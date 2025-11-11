@@ -135,6 +135,8 @@ type OneClickAlarmInitParameters struct {
 	// Specifies dimensions in metric and event alarm rules that have one-click monitoring enabled.
 	DimensionNames []DimensionNamesInitParameters `json:"dimensionNames,omitempty" tf:"dimension_names,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the time when the alarm notification was enabled.
 	// Specifies the time when the alarm notification was enabled.
 	NotificationBeginTime *string `json:"notificationBeginTime,omitempty" tf:"notification_begin_time,omitempty"`
@@ -176,6 +178,8 @@ type OneClickAlarmObservation struct {
 	// one-click monitoring enabled.
 	// Specifies dimensions in metric and event alarm rules that have one-click monitoring enabled.
 	DimensionNames []DimensionNamesObservation `json:"dimensionNames,omitempty" tf:"dimension_names,omitempty"`
+
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Whether the one-click monitoring is enabled.
 	// Whether to enable one-click monitoring.
@@ -227,6 +231,9 @@ type OneClickAlarmParameters struct {
 	// Specifies dimensions in metric and event alarm rules that have one-click monitoring enabled.
 	// +kubebuilder:validation:Optional
 	DimensionNames []DimensionNamesParameters `json:"dimensionNames,omitempty" tf:"dimension_names,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the time when the alarm notification was enabled.
 	// Specifies the time when the alarm notification was enabled.

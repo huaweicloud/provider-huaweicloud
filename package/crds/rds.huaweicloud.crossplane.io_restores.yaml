@@ -92,6 +92,8 @@ spec:
                       Specifies the databases that will be restored.
                     type: object
                     x-kubernetes-map-type: granular
+                  enableForceNew:
+                    type: string
                   region:
                     description: |-
                       The region in which to create the rds instance resource. If omitted, the
@@ -299,6 +301,8 @@ spec:
                       Specifies the databases that will be restored.
                     type: object
                     x-kubernetes-map-type: granular
+                  enableForceNew:
+                    type: string
                   region:
                     description: |-
                       The region in which to create the rds instance resource. If omitted, the
@@ -665,6 +669,8 @@ spec:
                       Specifies the databases that will be restored.
                     type: object
                     x-kubernetes-map-type: granular
+                  enableForceNew:
+                    type: string
                   id:
                     description: The resource ID. The value is the restore job ID.
                     type: string

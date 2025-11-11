@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Parametergroup is the Schema for the Parametergroups API. ""
+        description: Parametergroup is the Schema for the Parametergroups API. Manages
+          an RDS parameter group resource within HuaweiCloud.
         properties:
           apiVersion:
             description: |-
@@ -74,14 +75,14 @@ spec:
                 properties:
                   datastore:
                     description: |-
-                      Database object. The database object structure is documented below. Changing
-                      this creates a new parameter group.
+                      Specifies the database object.
+                      The datastore structure is documented below.
                     items:
                       properties:
                         type:
                           description: |-
-                            The DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and MariaDB are supported.
-                            The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
+                            Specifies the DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and
+                            MariaDB are supported. The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
                           type: string
                         version:
                           description: Specifies the database version.
@@ -90,24 +91,26 @@ spec:
                     type: array
                   description:
                     description: |-
-                      The parameter group description. It contains a maximum of 256 characters and cannot
-                      contain the following special characters:>!<"&'= the value is left blank by default.
+                      Specifies the parameter group description. It contains a maximum of 256 characters
+                      and cannot contain the following special characters:>!<"&'= the value is left blank by default.
+                    type: string
+                  enableForceNew:
                     type: string
                   name:
-                    description: The parameter group name. It contains a maximum of
-                      64 characters.
+                    description: Specifies the parameter group name. It contains a
+                      maximum of 64 characters.
                     type: string
                   region:
                     description: |-
-                      The region in which to create the RDS parameter group. If omitted, the
-                      provider-level region will be used. Changing this creates a new parameter group.
+                      Specifies the region in which to create the resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new resource.
                     type: string
                   values:
                     additionalProperties:
                       type: string
                     description: |-
-                      Parameter group values key/value pairs defined by users based on the default parameter
-                      groups.
+                      Specifies the parameter group values key/value pairs defined by users based on the default
+                      parameter groups.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -126,14 +129,14 @@ spec:
                 properties:
                   datastore:
                     description: |-
-                      Database object. The database object structure is documented below. Changing
-                      this creates a new parameter group.
+                      Specifies the database object.
+                      The datastore structure is documented below.
                     items:
                       properties:
                         type:
                           description: |-
-                            The DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and MariaDB are supported.
-                            The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
+                            Specifies the DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and
+                            MariaDB are supported. The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
                           type: string
                         version:
                           description: Specifies the database version.
@@ -142,24 +145,26 @@ spec:
                     type: array
                   description:
                     description: |-
-                      The parameter group description. It contains a maximum of 256 characters and cannot
-                      contain the following special characters:>!<"&'= the value is left blank by default.
+                      Specifies the parameter group description. It contains a maximum of 256 characters
+                      and cannot contain the following special characters:>!<"&'= the value is left blank by default.
+                    type: string
+                  enableForceNew:
                     type: string
                   name:
-                    description: The parameter group name. It contains a maximum of
-                      64 characters.
+                    description: Specifies the parameter group name. It contains a
+                      maximum of 64 characters.
                     type: string
                   region:
                     description: |-
-                      The region in which to create the RDS parameter group. If omitted, the
-                      provider-level region will be used. Changing this creates a new parameter group.
+                      Specifies the region in which to create the resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new resource.
                     type: string
                   values:
                     additionalProperties:
                       type: string
                     description: |-
-                      Parameter group values key/value pairs defined by users based on the default parameter
-                      groups.
+                      Specifies the parameter group values key/value pairs defined by users based on the default
+                      parameter groups.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -346,18 +351,15 @@ spec:
                 properties:
                   configurationParameters:
                     description: |-
-                      Indicates the parameter configuration defined by users based on the default parameters
-                      groups.
+                      Indicates the parameter configuration defined by users based on the default parameters groups.
+                      The configuration_parameters structure is documented below.
                     items:
                       properties:
                         description:
-                          description: |-
-                            The parameter group description. It contains a maximum of 256 characters and cannot
-                            contain the following special characters:>!<"&'= the value is left blank by default.
+                          description: Indicates the parameter description.
                           type: string
                         name:
-                          description: The parameter group name. It contains a maximum
-                            of 64 characters.
+                          description: Indicates the parameter name.
                           type: string
                         readonly:
                           description: Indicates whether the parameter is read-only.
@@ -377,18 +379,18 @@ spec:
                       type: object
                     type: array
                   createdAt:
-                    description: The creation time, in UTC format.
+                    description: Indicates the creation time, in UTC format.
                     type: string
                   datastore:
                     description: |-
-                      Database object. The database object structure is documented below. Changing
-                      this creates a new parameter group.
+                      Specifies the database object.
+                      The datastore structure is documented below.
                     items:
                       properties:
                         type:
                           description: |-
-                            The DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and MariaDB are supported.
-                            The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
+                            Specifies the DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and
+                            MariaDB are supported. The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
                           type: string
                         version:
                           description: Specifies the database version.
@@ -397,30 +399,32 @@ spec:
                     type: array
                   description:
                     description: |-
-                      The parameter group description. It contains a maximum of 256 characters and cannot
-                      contain the following special characters:>!<"&'= the value is left blank by default.
+                      Specifies the parameter group description. It contains a maximum of 256 characters
+                      and cannot contain the following special characters:>!<"&'= the value is left blank by default.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
-                    description: ID of the parameter group.
+                    description: Indicates the resource ID.
                     type: string
                   name:
-                    description: The parameter group name. It contains a maximum of
-                      64 characters.
+                    description: Specifies the parameter group name. It contains a
+                      maximum of 64 characters.
                     type: string
                   region:
                     description: |-
-                      The region in which to create the RDS parameter group. If omitted, the
-                      provider-level region will be used. Changing this creates a new parameter group.
+                      Specifies the region in which to create the resource. If omitted, the
+                      provider-level region will be used. Changing this creates a new resource.
                     type: string
                   updatedAt:
-                    description: The last update time, in UTC format.
+                    description: Indicates the last update time, in UTC format.
                     type: string
                   values:
                     additionalProperties:
                       type: string
                     description: |-
-                      Parameter group values key/value pairs defined by users based on the default parameter
-                      groups.
+                      Specifies the parameter group values key/value pairs defined by users based on the default
+                      parameter groups.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object

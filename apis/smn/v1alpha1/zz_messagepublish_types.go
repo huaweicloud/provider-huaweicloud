@@ -120,7 +120,6 @@ type MessagePublishInitParameters struct {
 	// carry this parameter. The key in the dictionary is the parameter name in the message template, which should not
 	// exceed 21 characters. The value in the dictionary is the value after replacing the parameters in the message
 	// template, which does not exceed 1KB.
-	// Specifies a dictionary consisting of tag and parameters to replace the tag.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -182,7 +181,6 @@ type MessagePublishObservation struct {
 	// carry this parameter. The key in the dictionary is the parameter name in the message template, which should not
 	// exceed 21 characters. The value in the dictionary is the value after replacing the parameters in the message
 	// template, which does not exceed 1KB.
-	// Specifies a dictionary consisting of tag and parameters to replace the tag.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -239,7 +237,6 @@ type MessagePublishParameters struct {
 	// carry this parameter. The key in the dictionary is the parameter name in the message template, which should not
 	// exceed 21 characters. The value in the dictionary is the value after replacing the parameters in the message
 	// template, which does not exceed 1KB.
-	// Specifies a dictionary consisting of tag and parameters to replace the tag.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`

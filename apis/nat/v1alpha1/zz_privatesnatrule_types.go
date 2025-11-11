@@ -61,8 +61,8 @@ type PrivateSnatRuleInitParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
-	// Specifies the ID of the transit IP associated with SNAT rule.
-	// The ID of the transit IP associated with SNAT rule.
+	// The ID of the transit IP associated with the private SNAT rule.
+	// The ID of the transit IP associated with the private SNAT rule, used transit_ip_ids instead.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/nat/v1alpha1.PrivateTransitIP
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	TransitIPID *string `json:"transitIpId,omitempty" tf:"transit_ip_id,omitempty"`
@@ -74,6 +74,11 @@ type PrivateSnatRuleInitParameters struct {
 	// Selector for a PrivateTransitIP in nat to populate transitIpId.
 	// +kubebuilder:validation:Optional
 	TransitIPIDSelector *v1.Selector `json:"transitIpIdSelector,omitempty" tf:"-"`
+
+	// Specifies the IDs of the transit IPs associated with the private SNAT rule.
+	// The maximum of 20 transit IPs can be bound, and the transit IPs must belong the same transit subnet.
+	// The IDs of the transit IPs associated with the private SNAT rule.
+	TransitIPIds []*string `json:"transitIpIds,omitempty" tf:"transit_ip_ids,omitempty"`
 }
 
 type PrivateSnatRuleObservation struct {
@@ -115,13 +120,23 @@ type PrivateSnatRuleObservation struct {
 	// The subnet ID of the match rule.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
-	// The address of the transit IP.
-	// The address of the transit IP
+	// The IP address of the transit IP associated with the private SNAT rule.
+	// The IP address of the transit IP associated with the private SNAT rule
 	TransitIPAddress *string `json:"transitIpAddress,omitempty" tf:"transit_ip_address,omitempty"`
 
-	// Specifies the ID of the transit IP associated with SNAT rule.
-	// The ID of the transit IP associated with SNAT rule.
+	// The transit IP list associate with the private SNAT rule.
+	// The transit_ip_associations structure is documented below.
+	// The transit IP list associate with the private SNAT rule.
+	TransitIPAssociations []TransitIPAssociationsObservation `json:"transitIpAssociations,omitempty" tf:"transit_ip_associations,omitempty"`
+
+	// The ID of the transit IP associated with the private SNAT rule.
+	// The ID of the transit IP associated with the private SNAT rule, used transit_ip_ids instead.
 	TransitIPID *string `json:"transitIpId,omitempty" tf:"transit_ip_id,omitempty"`
+
+	// Specifies the IDs of the transit IPs associated with the private SNAT rule.
+	// The maximum of 20 transit IPs can be bound, and the transit IPs must belong the same transit subnet.
+	// The IDs of the transit IPs associated with the private SNAT rule.
+	TransitIPIds []*string `json:"transitIpIds,omitempty" tf:"transit_ip_ids,omitempty"`
 
 	// The latest update time of the SNAT rule.
 	// The latest update time of the SNAT rule.
@@ -181,8 +196,8 @@ type PrivateSnatRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
-	// Specifies the ID of the transit IP associated with SNAT rule.
-	// The ID of the transit IP associated with SNAT rule.
+	// The ID of the transit IP associated with the private SNAT rule.
+	// The ID of the transit IP associated with the private SNAT rule, used transit_ip_ids instead.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/nat/v1alpha1.PrivateTransitIP
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -195,6 +210,27 @@ type PrivateSnatRuleParameters struct {
 	// Selector for a PrivateTransitIP in nat to populate transitIpId.
 	// +kubebuilder:validation:Optional
 	TransitIPIDSelector *v1.Selector `json:"transitIpIdSelector,omitempty" tf:"-"`
+
+	// Specifies the IDs of the transit IPs associated with the private SNAT rule.
+	// The maximum of 20 transit IPs can be bound, and the transit IPs must belong the same transit subnet.
+	// The IDs of the transit IPs associated with the private SNAT rule.
+	// +kubebuilder:validation:Optional
+	TransitIPIds []*string `json:"transitIpIds,omitempty" tf:"transit_ip_ids,omitempty"`
+}
+
+type TransitIPAssociationsInitParameters struct {
+}
+
+type TransitIPAssociationsObservation struct {
+
+	// The IP address of the transit IP associated with the private SNAT rule.
+	TransitIPAddress *string `json:"transitIpAddress,omitempty" tf:"transit_ip_address,omitempty"`
+
+	// The ID of the transit IP associated with the private SNAT rule.
+	TransitIPID *string `json:"transitIpId,omitempty" tf:"transit_ip_id,omitempty"`
+}
+
+type TransitIPAssociationsParameters struct {
 }
 
 // PrivateSnatRuleSpec defines the desired state of PrivateSnatRule

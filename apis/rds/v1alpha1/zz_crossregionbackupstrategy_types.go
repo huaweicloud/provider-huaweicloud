@@ -28,6 +28,8 @@ type CrossRegionBackupStrategyInitParameters struct {
 	// Specifies the target region ID for the cross-region backup policy.
 	DestinationRegion *string `json:"destinationRegion,omitempty" tf:"destination_region,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of the RDS instance.
 	// Specifies the ID of the RDS instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -67,6 +69,8 @@ type CrossRegionBackupStrategyObservation struct {
 	// Specifies the target region ID for the cross-region backup policy.
 	DestinationRegion *string `json:"destinationRegion,omitempty" tf:"destination_region,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -101,6 +105,9 @@ type CrossRegionBackupStrategyParameters struct {
 	// Specifies the target region ID for the cross-region backup policy.
 	// +kubebuilder:validation:Optional
 	DestinationRegion *string `json:"destinationRegion,omitempty" tf:"destination_region,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS instance.
 	// Specifies the ID of the RDS instance.

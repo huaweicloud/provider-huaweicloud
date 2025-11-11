@@ -26,6 +26,7 @@ type RoutesParameters struct {
 }
 
 type VPCInitParameters struct {
+	BlockServiceEndpointStates *string `json:"blockServiceEndpointStates,omitempty" tf:"block_service_endpoint_states,omitempty"`
 
 	// Specifies the range of available subnets in the VPC. The value ranges from 10.0.0.0/8 to
 	// 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24, or 192.168.0.0/16 to 192.168.255.0/24.
@@ -34,6 +35,10 @@ type VPCInitParameters struct {
 	// Specifies supplementary information about the VPC. The value is a string of
 	// no more than 255 characters and cannot contain angle brackets (< or >).
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies whether to enable local route enhancement function. It can not be
+	// closed if it has been open. Value options: true or false. Defaults to true.
+	EnhancedLocalRoute *string `json:"enhancedLocalRoute,omitempty" tf:"enhanced_local_route,omitempty"`
 
 	// Specifies the enterprise project ID of the VPC.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
@@ -62,6 +67,7 @@ type VPCInitParameters struct {
 }
 
 type VPCObservation struct {
+	BlockServiceEndpointStates *string `json:"blockServiceEndpointStates,omitempty" tf:"block_service_endpoint_states,omitempty"`
 
 	// Specifies the range of available subnets in the VPC. The value ranges from 10.0.0.0/8 to
 	// 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24, or 192.168.0.0/16 to 192.168.255.0/24.
@@ -70,6 +76,10 @@ type VPCObservation struct {
 	// Specifies supplementary information about the VPC. The value is a string of
 	// no more than 255 characters and cannot contain angle brackets (< or >).
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies whether to enable local route enhancement function. It can not be
+	// closed if it has been open. Value options: true or false. Defaults to true.
+	EnhancedLocalRoute *string `json:"enhancedLocalRoute,omitempty" tf:"enhanced_local_route,omitempty"`
 
 	// Specifies the enterprise project ID of the VPC.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
@@ -107,6 +117,9 @@ type VPCObservation struct {
 
 type VPCParameters struct {
 
+	// +kubebuilder:validation:Optional
+	BlockServiceEndpointStates *string `json:"blockServiceEndpointStates,omitempty" tf:"block_service_endpoint_states,omitempty"`
+
 	// Specifies the range of available subnets in the VPC. The value ranges from 10.0.0.0/8 to
 	// 10.255.255.0/24, 172.16.0.0/12 to 172.31.255.0/24, or 192.168.0.0/16 to 192.168.255.0/24.
 	// +kubebuilder:validation:Optional
@@ -116,6 +129,11 @@ type VPCParameters struct {
 	// no more than 255 characters and cannot contain angle brackets (< or >).
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies whether to enable local route enhancement function. It can not be
+	// closed if it has been open. Value options: true or false. Defaults to true.
+	// +kubebuilder:validation:Optional
+	EnhancedLocalRoute *string `json:"enhancedLocalRoute,omitempty" tf:"enhanced_local_route,omitempty"`
 
 	// Specifies the enterprise project ID of the VPC.
 	// +kubebuilder:validation:Optional

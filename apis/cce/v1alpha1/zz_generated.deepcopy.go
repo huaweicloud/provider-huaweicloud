@@ -1202,6 +1202,13 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EncryptionConfig != nil {
+		in, out := &in.EncryptionConfig, &out.EncryptionConfig
+		*out = make([]EncryptionConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.EniSubnetCidr != nil {
 		in, out := &in.EniSubnetCidr, &out.EniSubnetCidr
 		*out = new(string)
@@ -1373,6 +1380,11 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.Timezone != nil {
+		in, out := &in.Timezone, &out.Timezone
+		*out = new(string)
+		**out = **in
 	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
@@ -1834,6 +1846,13 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EncryptionConfig != nil {
+		in, out := &in.EncryptionConfig, &out.EncryptionConfig
+		*out = make([]EncryptionConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.EniSubnetCidr != nil {
 		in, out := &in.EniSubnetCidr, &out.EniSubnetCidr
 		*out = new(string)
@@ -2000,6 +2019,11 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.Timezone != nil {
+		in, out := &in.Timezone, &out.Timezone
+		*out = new(string)
+		**out = **in
 	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
@@ -2180,6 +2204,13 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EncryptionConfig != nil {
+		in, out := &in.EncryptionConfig, &out.EncryptionConfig
+		*out = make([]EncryptionConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.EniSubnetCidr != nil {
 		in, out := &in.EniSubnetCidr, &out.EniSubnetCidr
 		*out = new(string)
@@ -2352,6 +2383,11 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.Timezone != nil {
+		in, out := &in.Timezone, &out.Timezone
+		*out = new(string)
+		**out = **in
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -2466,9 +2502,24 @@ func (in *ClusterUpgradeInitParameters) DeepCopyInto(out *ClusterUpgradeInitPara
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.CurrentVersion != nil {
+		in, out := &in.CurrentVersion, &out.CurrentVersion
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnableForceNew != nil {
 		in, out := &in.EnableForceNew, &out.EnableForceNew
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsPostcheck != nil {
+		in, out := &in.IsPostcheck, &out.IsPostcheck
+		*out = new(bool)
+		**out = **in
+	}
+	if in.IsSnapshot != nil {
+		in, out := &in.IsSnapshot, &out.IsSnapshot
+		*out = new(bool)
 		**out = **in
 	}
 	if in.NodeOrder != nil {
@@ -2579,6 +2630,11 @@ func (in *ClusterUpgradeObservation) DeepCopyInto(out *ClusterUpgradeObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.CurrentVersion != nil {
+		in, out := &in.CurrentVersion, &out.CurrentVersion
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnableForceNew != nil {
 		in, out := &in.EnableForceNew, &out.EnableForceNew
 		*out = new(string)
@@ -2587,6 +2643,16 @@ func (in *ClusterUpgradeObservation) DeepCopyInto(out *ClusterUpgradeObservation
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsPostcheck != nil {
+		in, out := &in.IsPostcheck, &out.IsPostcheck
+		*out = new(bool)
+		**out = **in
+	}
+	if in.IsSnapshot != nil {
+		in, out := &in.IsSnapshot, &out.IsSnapshot
+		*out = new(bool)
 		**out = **in
 	}
 	if in.NodeOrder != nil {
@@ -2675,9 +2741,24 @@ func (in *ClusterUpgradeParameters) DeepCopyInto(out *ClusterUpgradeParameters) 
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.CurrentVersion != nil {
+		in, out := &in.CurrentVersion, &out.CurrentVersion
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnableForceNew != nil {
 		in, out := &in.EnableForceNew, &out.EnableForceNew
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsPostcheck != nil {
+		in, out := &in.IsPostcheck, &out.IsPostcheck
+		*out = new(bool)
+		**out = **in
+	}
+	if in.IsSnapshot != nil {
+		in, out := &in.IsSnapshot, &out.IsSnapshot
+		*out = new(bool)
 		**out = **in
 	}
 	if in.NodeOrder != nil {
@@ -2885,6 +2966,11 @@ func (in *DataVolumesInitParameters) DeepCopyInto(out *DataVolumesInitParameters
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -2892,6 +2978,11 @@ func (in *DataVolumesInitParameters) DeepCopyInto(out *DataVolumesInitParameters
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -2946,6 +3037,11 @@ func (in *DataVolumesObservation) DeepCopyInto(out *DataVolumesObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -2953,6 +3049,11 @@ func (in *DataVolumesObservation) DeepCopyInto(out *DataVolumesObservation) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -3007,6 +3108,11 @@ func (in *DataVolumesParameters) DeepCopyInto(out *DataVolumesParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -3014,6 +3120,11 @@ func (in *DataVolumesParameters) DeepCopyInto(out *DataVolumesParameters) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -3030,6 +3141,81 @@ func (in *DataVolumesParameters) DeepCopy() *DataVolumesParameters {
 		return nil
 	}
 	out := new(DataVolumesParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *EncryptionConfigInitParameters) DeepCopyInto(out *EncryptionConfigInitParameters) {
+	*out = *in
+	if in.KMSKeyID != nil {
+		in, out := &in.KMSKeyID, &out.KMSKeyID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Mode != nil {
+		in, out := &in.Mode, &out.Mode
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new EncryptionConfigInitParameters.
+func (in *EncryptionConfigInitParameters) DeepCopy() *EncryptionConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(EncryptionConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *EncryptionConfigObservation) DeepCopyInto(out *EncryptionConfigObservation) {
+	*out = *in
+	if in.KMSKeyID != nil {
+		in, out := &in.KMSKeyID, &out.KMSKeyID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Mode != nil {
+		in, out := &in.Mode, &out.Mode
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new EncryptionConfigObservation.
+func (in *EncryptionConfigObservation) DeepCopy() *EncryptionConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(EncryptionConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *EncryptionConfigParameters) DeepCopyInto(out *EncryptionConfigParameters) {
+	*out = *in
+	if in.KMSKeyID != nil {
+		in, out := &in.KMSKeyID, &out.KMSKeyID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Mode != nil {
+		in, out := &in.Mode, &out.Mode
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new EncryptionConfigParameters.
+func (in *EncryptionConfigParameters) DeepCopy() *EncryptionConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(EncryptionConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -3848,6 +4034,11 @@ func (in *MetadataObservation) DeepCopyInto(out *MetadataObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.UID != nil {
+		in, out := &in.UID, &out.UID
+		*out = new(string)
+		**out = **in
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new MetadataObservation.
@@ -4313,6 +4504,11 @@ func (in *NodeAttachDataVolumesObservation) DeepCopyInto(out *NodeAttachDataVolu
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -4320,6 +4516,11 @@ func (in *NodeAttachDataVolumesObservation) DeepCopyInto(out *NodeAttachDataVolu
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -4351,6 +4552,56 @@ func (in *NodeAttachDataVolumesParameters) DeepCopy() *NodeAttachDataVolumesPara
 		return nil
 	}
 	out := new(NodeAttachDataVolumesParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NodeAttachExtensionNicsInitParameters) DeepCopyInto(out *NodeAttachExtensionNicsInitParameters) {
+	*out = *in
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NodeAttachExtensionNicsInitParameters.
+func (in *NodeAttachExtensionNicsInitParameters) DeepCopy() *NodeAttachExtensionNicsInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(NodeAttachExtensionNicsInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NodeAttachExtensionNicsObservation) DeepCopyInto(out *NodeAttachExtensionNicsObservation) {
+	*out = *in
+	if in.SubnetID != nil {
+		in, out := &in.SubnetID, &out.SubnetID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NodeAttachExtensionNicsObservation.
+func (in *NodeAttachExtensionNicsObservation) DeepCopy() *NodeAttachExtensionNicsObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(NodeAttachExtensionNicsObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NodeAttachExtensionNicsParameters) DeepCopyInto(out *NodeAttachExtensionNicsParameters) {
+	*out = *in
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NodeAttachExtensionNicsParameters.
+func (in *NodeAttachExtensionNicsParameters) DeepCopy() *NodeAttachExtensionNicsParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(NodeAttachExtensionNicsParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -4675,6 +4926,13 @@ func (in *NodeAttachObservation) DeepCopyInto(out *NodeAttachObservation) {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ExtensionNics != nil {
+		in, out := &in.ExtensionNics, &out.ExtensionNics
+		*out = make([]NodeAttachExtensionNicsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.FlavorID != nil {
 		in, out := &in.FlavorID, &out.FlavorID
@@ -5097,6 +5355,11 @@ func (in *NodeAttachRootVolumeObservation) DeepCopyInto(out *NodeAttachRootVolum
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -5104,6 +5367,11 @@ func (in *NodeAttachRootVolumeObservation) DeepCopyInto(out *NodeAttachRootVolum
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -5404,6 +5672,11 @@ func (in *NodeExtendParamsInitParameters) DeepCopyInto(out *NodeExtendParamsInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityReinforcementType != nil {
+		in, out := &in.SecurityReinforcementType, &out.SecurityReinforcementType
+		*out = new(string)
+		**out = **in
+	}
 	if in.SpotPrice != nil {
 		in, out := &in.SpotPrice, &out.SpotPrice
 		*out = new(string)
@@ -5479,6 +5752,11 @@ func (in *NodeExtendParamsObservation) DeepCopyInto(out *NodeExtendParamsObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityReinforcementType != nil {
+		in, out := &in.SecurityReinforcementType, &out.SecurityReinforcementType
+		*out = new(string)
+		**out = **in
+	}
 	if in.SpotPrice != nil {
 		in, out := &in.SpotPrice, &out.SpotPrice
 		*out = new(string)
@@ -5551,6 +5829,11 @@ func (in *NodeExtendParamsParameters) DeepCopyInto(out *NodeExtendParamsParamete
 	}
 	if in.Preinstall != nil {
 		in, out := &in.Preinstall, &out.Preinstall
+		*out = new(string)
+		**out = **in
+	}
+	if in.SecurityReinforcementType != nil {
+		in, out := &in.SecurityReinforcementType, &out.SecurityReinforcementType
 		*out = new(string)
 		**out = **in
 	}
@@ -5700,6 +5983,11 @@ func (in *NodeInitParameters) DeepCopyInto(out *NodeInitParameters) {
 	}
 	if in.EcsPerformanceType != nil {
 		in, out := &in.EcsPerformanceType, &out.EcsPerformanceType
+		*out = new(string)
+		**out = **in
+	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
 		*out = new(string)
 		**out = **in
 	}
@@ -6135,6 +6423,11 @@ func (in *NodeObservation) DeepCopyInto(out *NodeObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
@@ -6510,6 +6803,11 @@ func (in *NodeParameters) DeepCopyInto(out *NodeParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
@@ -6814,6 +7112,11 @@ func (in *NodePoolDataVolumesInitParameters) DeepCopyInto(out *NodePoolDataVolum
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -6821,6 +7124,11 @@ func (in *NodePoolDataVolumesInitParameters) DeepCopyInto(out *NodePoolDataVolum
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -6875,6 +7183,11 @@ func (in *NodePoolDataVolumesObservation) DeepCopyInto(out *NodePoolDataVolumesO
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -6882,6 +7195,11 @@ func (in *NodePoolDataVolumesObservation) DeepCopyInto(out *NodePoolDataVolumesO
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -6936,6 +7254,11 @@ func (in *NodePoolDataVolumesParameters) DeepCopyInto(out *NodePoolDataVolumesPa
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -6943,6 +7266,11 @@ func (in *NodePoolDataVolumesParameters) DeepCopyInto(out *NodePoolDataVolumesPa
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -7013,6 +7341,11 @@ func (in *NodePoolExtendParamsInitParameters) DeepCopyInto(out *NodePoolExtendPa
 	}
 	if in.Preinstall != nil {
 		in, out := &in.Preinstall, &out.Preinstall
+		*out = new(string)
+		**out = **in
+	}
+	if in.SecurityReinforcementType != nil {
+		in, out := &in.SecurityReinforcementType, &out.SecurityReinforcementType
 		*out = new(string)
 		**out = **in
 	}
@@ -7091,6 +7424,11 @@ func (in *NodePoolExtendParamsObservation) DeepCopyInto(out *NodePoolExtendParam
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurityReinforcementType != nil {
+		in, out := &in.SecurityReinforcementType, &out.SecurityReinforcementType
+		*out = new(string)
+		**out = **in
+	}
 	if in.SpotPrice != nil {
 		in, out := &in.SpotPrice, &out.SpotPrice
 		*out = new(string)
@@ -7163,6 +7501,11 @@ func (in *NodePoolExtendParamsParameters) DeepCopyInto(out *NodePoolExtendParams
 	}
 	if in.Preinstall != nil {
 		in, out := &in.Preinstall, &out.Preinstall
+		*out = new(string)
+		**out = **in
+	}
+	if in.SecurityReinforcementType != nil {
+		in, out := &in.SecurityReinforcementType, &out.SecurityReinforcementType
 		*out = new(string)
 		**out = **in
 	}
@@ -7303,6 +7646,11 @@ func (in *NodePoolInitParameters) DeepCopyInto(out *NodePoolInitParameters) {
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
@@ -7349,6 +7697,11 @@ func (in *NodePoolInitParameters) DeepCopyInto(out *NodePoolInitParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.IgnoreInitialNodeCount != nil {
+		in, out := &in.IgnoreInitialNodeCount, &out.IgnoreInitialNodeCount
+		*out = new(bool)
+		**out = **in
 	}
 	if in.InitialNodeCount != nil {
 		in, out := &in.InitialNodeCount, &out.InitialNodeCount
@@ -7414,6 +7767,11 @@ func (in *NodePoolInitParameters) DeepCopyInto(out *NodePoolInitParameters) {
 	}
 	if in.Os != nil {
 		in, out := &in.Os, &out.Os
+		*out = new(string)
+		**out = **in
+	}
+	if in.Partition != nil {
+		in, out := &in.Partition, &out.Partition
 		*out = new(string)
 		**out = **in
 	}
@@ -7517,6 +7875,17 @@ func (in *NodePoolInitParameters) DeepCopyInto(out *NodePoolInitParameters) {
 		in, out := &in.SubnetIDSelector, &out.SubnetIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetList != nil {
+		in, out := &in.SubnetList, &out.SubnetList
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.TagPolicyOnExistingNodes != nil {
 		in, out := &in.TagPolicyOnExistingNodes, &out.TagPolicyOnExistingNodes
@@ -7677,6 +8046,11 @@ func (in *NodePoolNodesAddInitParameters) DeepCopyInto(out *NodePoolNodesAddInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoveNodesOnDelete != nil {
+		in, out := &in.RemoveNodesOnDelete, &out.RemoveNodesOnDelete
+		*out = new(bool)
+		**out = **in
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NodePoolNodesAddInitParameters.
@@ -7756,6 +8130,11 @@ func (in *NodePoolNodesAddObservation) DeepCopyInto(out *NodePoolNodesAddObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.RemoveNodesOnDelete != nil {
+		in, out := &in.RemoveNodesOnDelete, &out.RemoveNodesOnDelete
+		*out = new(bool)
+		**out = **in
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NodePoolNodesAddObservation.
@@ -7816,6 +8195,11 @@ func (in *NodePoolNodesAddParameters) DeepCopyInto(out *NodePoolNodesAddParamete
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
+		**out = **in
+	}
+	if in.RemoveNodesOnDelete != nil {
+		in, out := &in.RemoveNodesOnDelete, &out.RemoveNodesOnDelete
+		*out = new(bool)
 		**out = **in
 	}
 }
@@ -7910,6 +8294,11 @@ func (in *NodePoolObservation) DeepCopyInto(out *NodePoolObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
@@ -7960,6 +8349,11 @@ func (in *NodePoolObservation) DeepCopyInto(out *NodePoolObservation) {
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
+		**out = **in
+	}
+	if in.IgnoreInitialNodeCount != nil {
+		in, out := &in.IgnoreInitialNodeCount, &out.IgnoreInitialNodeCount
+		*out = new(bool)
 		**out = **in
 	}
 	if in.InitialNodeCount != nil {
@@ -8026,6 +8420,11 @@ func (in *NodePoolObservation) DeepCopyInto(out *NodePoolObservation) {
 	}
 	if in.Os != nil {
 		in, out := &in.Os, &out.Os
+		*out = new(string)
+		**out = **in
+	}
+	if in.Partition != nil {
+		in, out := &in.Partition, &out.Partition
 		*out = new(string)
 		**out = **in
 	}
@@ -8119,6 +8518,17 @@ func (in *NodePoolObservation) DeepCopyInto(out *NodePoolObservation) {
 		in, out := &in.SubnetID, &out.SubnetID
 		*out = new(string)
 		**out = **in
+	}
+	if in.SubnetList != nil {
+		in, out := &in.SubnetList, &out.SubnetList
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.TagPolicyOnExistingNodes != nil {
 		in, out := &in.TagPolicyOnExistingNodes, &out.TagPolicyOnExistingNodes
@@ -8225,6 +8635,11 @@ func (in *NodePoolParameters) DeepCopyInto(out *NodePoolParameters) {
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.EnableForceNew != nil {
+		in, out := &in.EnableForceNew, &out.EnableForceNew
+		*out = new(string)
+		**out = **in
+	}
 	if in.EnterpriseProjectID != nil {
 		in, out := &in.EnterpriseProjectID, &out.EnterpriseProjectID
 		*out = new(string)
@@ -8271,6 +8686,11 @@ func (in *NodePoolParameters) DeepCopyInto(out *NodePoolParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.IgnoreInitialNodeCount != nil {
+		in, out := &in.IgnoreInitialNodeCount, &out.IgnoreInitialNodeCount
+		*out = new(bool)
+		**out = **in
 	}
 	if in.InitialNodeCount != nil {
 		in, out := &in.InitialNodeCount, &out.InitialNodeCount
@@ -8336,6 +8756,11 @@ func (in *NodePoolParameters) DeepCopyInto(out *NodePoolParameters) {
 	}
 	if in.Os != nil {
 		in, out := &in.Os, &out.Os
+		*out = new(string)
+		**out = **in
+	}
+	if in.Partition != nil {
+		in, out := &in.Partition, &out.Partition
 		*out = new(string)
 		**out = **in
 	}
@@ -8440,6 +8865,17 @@ func (in *NodePoolParameters) DeepCopyInto(out *NodePoolParameters) {
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.SubnetList != nil {
+		in, out := &in.SubnetList, &out.SubnetList
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.TagPolicyOnExistingNodes != nil {
 		in, out := &in.TagPolicyOnExistingNodes, &out.TagPolicyOnExistingNodes
 		*out = new(string)
@@ -8524,6 +8960,11 @@ func (in *NodePoolRootVolumeInitParameters) DeepCopyInto(out *NodePoolRootVolume
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -8531,6 +8972,11 @@ func (in *NodePoolRootVolumeInitParameters) DeepCopyInto(out *NodePoolRootVolume
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -8585,6 +9031,11 @@ func (in *NodePoolRootVolumeObservation) DeepCopyInto(out *NodePoolRootVolumeObs
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -8592,6 +9043,11 @@ func (in *NodePoolRootVolumeObservation) DeepCopyInto(out *NodePoolRootVolumeObs
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -8646,6 +9102,11 @@ func (in *NodePoolRootVolumeParameters) DeepCopyInto(out *NodePoolRootVolumePara
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -8653,6 +9114,11 @@ func (in *NodePoolRootVolumeParameters) DeepCopyInto(out *NodePoolRootVolumePara
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -9626,6 +10092,11 @@ func (in *RootVolumeInitParameters) DeepCopyInto(out *RootVolumeInitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -9633,6 +10104,11 @@ func (in *RootVolumeInitParameters) DeepCopyInto(out *RootVolumeInitParameters) 
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -9687,6 +10163,11 @@ func (in *RootVolumeObservation) DeepCopyInto(out *RootVolumeObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -9694,6 +10175,11 @@ func (in *RootVolumeObservation) DeepCopyInto(out *RootVolumeObservation) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}
@@ -9748,6 +10234,11 @@ func (in *RootVolumeParameters) DeepCopyInto(out *RootVolumeParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Iops != nil {
+		in, out := &in.Iops, &out.Iops
+		*out = new(float64)
+		**out = **in
+	}
 	if in.KMSKeyID != nil {
 		in, out := &in.KMSKeyID, &out.KMSKeyID
 		*out = new(string)
@@ -9755,6 +10246,11 @@ func (in *RootVolumeParameters) DeepCopyInto(out *RootVolumeParameters) {
 	}
 	if in.Size != nil {
 		in, out := &in.Size, &out.Size
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Throughput != nil {
+		in, out := &in.Throughput, &out.Throughput
 		*out = new(float64)
 		**out = **in
 	}

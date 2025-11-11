@@ -29,6 +29,8 @@ type DashboardWidgetInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardIDSelector *v1.Selector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the dashboard widget coordinates.
 	// Specifies the dashboard widget coordinates.
 	Location []LocationInitParameters `json:"location,omitempty" tf:"location,omitempty"`
@@ -74,6 +76,8 @@ type DashboardWidgetObservation struct {
 	// Specifies the dashboard ID.
 	// Specifies the dashboard ID.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -130,6 +134,9 @@ type DashboardWidgetParameters struct {
 	// Selector for a Dashboard in ces to populate dashboardId.
 	// +kubebuilder:validation:Optional
 	DashboardIDSelector *v1.Selector `json:"dashboardIdSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the dashboard widget coordinates.
 	// Specifies the dashboard widget coordinates.

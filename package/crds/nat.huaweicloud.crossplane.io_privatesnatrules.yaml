@@ -255,8 +255,8 @@ spec:
                     type: object
                   transitIpId:
                     description: |-
-                      Specifies the ID of the transit IP associated with SNAT rule.
-                      The ID of the transit IP associated with SNAT rule.
+                      The ID of the transit IP associated with the private SNAT rule.
+                      The ID of the transit IP associated with the private SNAT rule, used transit_ip_ids instead.
                     type: string
                   transitIpIdRef:
                     description: Reference to a PrivateTransitIP in nat to populate
@@ -334,6 +334,14 @@ spec:
                             type: string
                         type: object
                     type: object
+                  transitIpIds:
+                    description: |-
+                      Specifies the IDs of the transit IPs associated with the private SNAT rule.
+                      The maximum of 20 transit IPs can be bound, and the transit IPs must belong the same transit subnet.
+                      The IDs of the transit IPs associated with the private SNAT rule.
+                    items:
+                      type: string
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -531,8 +539,8 @@ spec:
                     type: object
                   transitIpId:
                     description: |-
-                      Specifies the ID of the transit IP associated with SNAT rule.
-                      The ID of the transit IP associated with SNAT rule.
+                      The ID of the transit IP associated with the private SNAT rule.
+                      The ID of the transit IP associated with the private SNAT rule, used transit_ip_ids instead.
                     type: string
                   transitIpIdRef:
                     description: Reference to a PrivateTransitIP in nat to populate
@@ -610,6 +618,14 @@ spec:
                             type: string
                         type: object
                     type: object
+                  transitIpIds:
+                    description: |-
+                      Specifies the IDs of the transit IPs associated with the private SNAT rule.
+                      The maximum of 20 transit IPs can be bound, and the transit IPs must belong the same transit subnet.
+                      The IDs of the transit IPs associated with the private SNAT rule.
+                    items:
+                      type: string
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -829,14 +845,39 @@ spec:
                     type: string
                   transitIpAddress:
                     description: |-
-                      The address of the transit IP.
-                      The address of the transit IP
+                      The IP address of the transit IP associated with the private SNAT rule.
+                      The IP address of the transit IP associated with the private SNAT rule
                     type: string
+                  transitIpAssociations:
+                    description: |-
+                      The transit IP list associate with the private SNAT rule.
+                      The transit_ip_associations structure is documented below.
+                      The transit IP list associate with the private SNAT rule.
+                    items:
+                      properties:
+                        transitIpAddress:
+                          description: The IP address of the transit IP associated
+                            with the private SNAT rule.
+                          type: string
+                        transitIpId:
+                          description: The ID of the transit IP associated with the
+                            private SNAT rule.
+                          type: string
+                      type: object
+                    type: array
                   transitIpId:
                     description: |-
-                      Specifies the ID of the transit IP associated with SNAT rule.
-                      The ID of the transit IP associated with SNAT rule.
+                      The ID of the transit IP associated with the private SNAT rule.
+                      The ID of the transit IP associated with the private SNAT rule, used transit_ip_ids instead.
                     type: string
+                  transitIpIds:
+                    description: |-
+                      Specifies the IDs of the transit IPs associated with the private SNAT rule.
+                      The maximum of 20 transit IPs can be bound, and the transit IPs must belong the same transit subnet.
+                      The IDs of the transit IPs associated with the private SNAT rule.
+                    items:
+                      type: string
+                    type: array
                   updatedAt:
                     description: |-
                       The latest update time of the SNAT rule.

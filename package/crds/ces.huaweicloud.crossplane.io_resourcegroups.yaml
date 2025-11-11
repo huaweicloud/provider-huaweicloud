@@ -143,7 +143,6 @@ spec:
                     description: |-
                       Specifies the key/value to match resources.
                       It's required if the value of type is TAG.
-                      Specifies the key/value to match resources.
                     type: object
                     x-kubernetes-map-type: granular
                   type:
@@ -237,7 +236,6 @@ spec:
                     description: |-
                       Specifies the key/value to match resources.
                       It's required if the value of type is TAG.
-                      Specifies the key/value to match resources.
                     type: object
                     x-kubernetes-map-type: granular
                   type:
@@ -503,7 +501,6 @@ spec:
                     description: |-
                       Specifies the key/value to match resources.
                       It's required if the value of type is TAG.
-                      Specifies the key/value to match resources.
                     type: object
                     x-kubernetes-map-type: granular
                   type:

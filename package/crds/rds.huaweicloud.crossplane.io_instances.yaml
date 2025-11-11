@@ -79,9 +79,7 @@ spec:
                       are "true" and "false".
                     type: string
                   availabilityZone:
-                    description: |-
-                      Specifies the list of AZ name. Changing this parameter will create a
-                      new resource.
+                    description: Specifies the list of AZ name.
                     items:
                       type: string
                     type: array
@@ -119,8 +117,8 @@ spec:
                     type: number
                   chargingMode:
                     description: |-
-                      Specifies the charging mode of the RDS DB instance. Valid values are
-                      prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+                      Specifies the charging mode of the RDS DB instance. Valid values are prePaid
+                      and postPaid, defaults to postPaid.
                     type: string
                   collation:
                     description: Specifies the Character Set, only available to Microsoft
@@ -187,12 +185,18 @@ spec:
                       DB instance.
                     type: string
                   flavor:
-                    description: Specifies the specification code.
+                    description: |-
+                      will be changed to the ha mode value, so the value of flavor in the script should be changed
+                      to the ha mode value too.
                     type: string
                   haReplicationMode:
                     description: Specifies the replication mode for the standby DB
                       instance.
                     type: string
+                  isFlexus:
+                    description: Specifies whether to create flexus RDS instance.
+                      Defaults to false.
+                    type: boolean
                   lowerCaseTableNames:
                     description: |-
                       Specifies the case-sensitive state of the database table name,
@@ -206,6 +210,9 @@ spec:
                     description: Specifies the time at which the maintenance time
                       window ends, for example, 01:00.
                     type: string
+                  minorVersionAutoUpgradeEnabled:
+                    description: Specifies whether to enable minor version auto upgrade.
+                    type: boolean
                   msdtcHosts:
                     description: |-
                       Specify the host information for MSDTC.
@@ -323,15 +330,14 @@ spec:
                     type: array
                   period:
                     description: |-
-                      Specifies the charging period of the RDS DB instance. If period_unit is set
-                      to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
-                      This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                      Specifies the charging period of the RDS DB instance. If period_unit is set to month,
+                      the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+                      is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
-                      Specifies the charging period unit of the RDS DB instance. Valid values
-                      are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
-                      creates a new resource.
+                      Specifies the charging period unit of the RDS DB instance. Valid values are month
+                      and year. This parameter is mandatory if charging_mode is set to prePaid.
                     type: string
                   powerAction:
                     description: |-
@@ -716,9 +722,7 @@ spec:
                       are "true" and "false".
                     type: string
                   availabilityZone:
-                    description: |-
-                      Specifies the list of AZ name. Changing this parameter will create a
-                      new resource.
+                    description: Specifies the list of AZ name.
                     items:
                       type: string
                     type: array
@@ -756,8 +760,8 @@ spec:
                     type: number
                   chargingMode:
                     description: |-
-                      Specifies the charging mode of the RDS DB instance. Valid values are
-                      prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+                      Specifies the charging mode of the RDS DB instance. Valid values are prePaid
+                      and postPaid, defaults to postPaid.
                     type: string
                   collation:
                     description: Specifies the Character Set, only available to Microsoft
@@ -824,12 +828,18 @@ spec:
                       DB instance.
                     type: string
                   flavor:
-                    description: Specifies the specification code.
+                    description: |-
+                      will be changed to the ha mode value, so the value of flavor in the script should be changed
+                      to the ha mode value too.
                     type: string
                   haReplicationMode:
                     description: Specifies the replication mode for the standby DB
                       instance.
                     type: string
+                  isFlexus:
+                    description: Specifies whether to create flexus RDS instance.
+                      Defaults to false.
+                    type: boolean
                   lowerCaseTableNames:
                     description: |-
                       Specifies the case-sensitive state of the database table name,
@@ -843,6 +853,9 @@ spec:
                     description: Specifies the time at which the maintenance time
                       window ends, for example, 01:00.
                     type: string
+                  minorVersionAutoUpgradeEnabled:
+                    description: Specifies whether to enable minor version auto upgrade.
+                    type: boolean
                   msdtcHosts:
                     description: |-
                       Specify the host information for MSDTC.
@@ -960,15 +973,14 @@ spec:
                     type: array
                   period:
                     description: |-
-                      Specifies the charging period of the RDS DB instance. If period_unit is set
-                      to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
-                      This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                      Specifies the charging period of the RDS DB instance. If period_unit is set to month,
+                      the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+                      is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
-                      Specifies the charging period unit of the RDS DB instance. Valid values
-                      are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
-                      creates a new resource.
+                      Specifies the charging period unit of the RDS DB instance. Valid values are month
+                      and year. This parameter is mandatory if charging_mode is set to prePaid.
                     type: string
                   powerAction:
                     description: |-
@@ -1533,9 +1545,7 @@ spec:
                       are "true" and "false".
                     type: string
                   availabilityZone:
-                    description: |-
-                      Specifies the list of AZ name. Changing this parameter will create a
-                      new resource.
+                    description: Specifies the list of AZ name.
                     items:
                       type: string
                     type: array
@@ -1573,8 +1583,8 @@ spec:
                     type: number
                   chargingMode:
                     description: |-
-                      Specifies the charging mode of the RDS DB instance. Valid values are
-                      prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+                      Specifies the charging mode of the RDS DB instance. Valid values are prePaid
+                      and postPaid, defaults to postPaid.
                     type: string
                   collation:
                     description: Specifies the Character Set, only available to Microsoft
@@ -1630,7 +1640,9 @@ spec:
                       DB instance.
                     type: string
                   flavor:
-                    description: Specifies the specification code.
+                    description: |-
+                      will be changed to the ha mode value, so the value of flavor in the script should be changed
+                      to the ha mode value too.
                     type: string
                   haReplicationMode:
                     description: Specifies the replication mode for the standby DB
@@ -1639,6 +1651,10 @@ spec:
                   id:
                     description: Indicates the DB instance ID.
                     type: string
+                  isFlexus:
+                    description: Specifies whether to create flexus RDS instance.
+                      Defaults to false.
+                    type: boolean
                   lowerCaseTableNames:
                     description: |-
                       Specifies the case-sensitive state of the database table name,
@@ -1652,6 +1668,9 @@ spec:
                     description: Specifies the time at which the maintenance time
                       window ends, for example, 01:00.
                     type: string
+                  minorVersionAutoUpgradeEnabled:
+                    description: Specifies whether to enable minor version auto upgrade.
+                    type: boolean
                   msdtcHosts:
                     description: |-
                       Specify the host information for MSDTC.
@@ -1676,8 +1695,9 @@ spec:
                       contain only letters, digits, hyphens (-), and underscores (_).
                     type: string
                   nodes:
-                    description: Indicates the instance nodes information. Structure
-                      is documented below.
+                    description: |-
+                      Indicates the instance nodes information.
+                      The nodes structure is documented below.
                     items:
                       properties:
                         availabilityZone:
@@ -1720,15 +1740,14 @@ spec:
                     type: array
                   period:
                     description: |-
-                      Specifies the charging period of the RDS DB instance. If period_unit is set
-                      to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
-                      This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+                      Specifies the charging period of the RDS DB instance. If period_unit is set to month,
+                      the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+                      is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
-                      Specifies the charging period unit of the RDS DB instance. Valid values
-                      are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
-                      creates a new resource.
+                      Specifies the charging period unit of the RDS DB instance. Valid values are month
+                      and year. This parameter is mandatory if charging_mode is set to prePaid.
                     type: string
                   powerAction:
                     description: |-
@@ -1765,6 +1784,9 @@ spec:
                     description: |-
                       The region in which to create the rds instance resource. If omitted, the
                       provider-level region will be used. Changing this creates a new rds instance resource.
+                    type: string
+                  replicationStatus:
+                    description: Indicates the replication status of the instance.
                     type: string
                   restore:
                     description: |-
@@ -1827,6 +1849,20 @@ spec:
                   status:
                     description: Indicates the DB instance status.
                     type: string
+                  storageUsedSpace:
+                    description: |-
+                      Indicates the storage usage of the instance.
+                      The storage_used_space structure is documented below.
+                    items:
+                      properties:
+                        nodeId:
+                          description: Indicates the instance node ID.
+                          type: string
+                        used:
+                          description: Indicates the used storage, in GB.
+                          type: string
+                      type: object
+                    type: array
                   subnetId:
                     description: |-
                       Specifies the network id of a subnet. Changing this parameter will create a

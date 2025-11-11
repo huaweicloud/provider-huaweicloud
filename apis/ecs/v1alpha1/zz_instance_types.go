@@ -187,6 +187,28 @@ type DataDisksParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type EnclaveOptionsInitParameters struct {
+
+	// Specifies whether to enable Enclave.
+	// Changing this creates a new instance.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type EnclaveOptionsObservation struct {
+
+	// Specifies whether to enable Enclave.
+	// Changing this creates a new instance.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type EnclaveOptionsParameters struct {
+
+	// Specifies whether to enable Enclave.
+	// Changing this creates a new instance.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+}
+
 type InstanceInitParameters struct {
 
 	// Specifies the administrative password to assign to the instance.
@@ -202,7 +224,7 @@ type InstanceInitParameters struct {
 
 	AutoPay *string `json:"autoPay,omitempty" tf:"auto_pay,omitempty"`
 
-	// Specifies whether auto renew is enabled.
+	// Specifies whether auto-renew is enabled.
 	// Valid values are true and false. Defaults to false.
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
@@ -224,7 +246,7 @@ type InstanceInitParameters struct {
 	Bandwidth []BandwidthInitParameters `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies the charging mode of the instance. Valid values are prePaid,
-	// postPaid and spot, defaults to postPaid. Changing this creates a new instance.
+	// postPaid and spot, defaults to postPaid.
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// Specifies an array of one or more data disks to attach to the instance.
@@ -252,6 +274,13 @@ type InstanceInitParameters struct {
 	// Available values are 5_bgp (dynamic BGP) and 5_sbgp (static BGP). Changing this creates a new instance.
 	EIPType *string `json:"eipType,omitempty" tf:"eip_type,omitempty"`
 
+	// schema: Internal
+	EnableJumboFrame *bool `json:"enableJumboFrame,omitempty" tf:"enable_jumbo_frame,omitempty"`
+
+	// Specifies the custom enclave options.
+	// The object structure is documented below. Changing this creates a new instance.
+	EnclaveOptions []EnclaveOptionsInitParameters `json:"enclaveOptions,omitempty" tf:"enclave_options,omitempty"`
+
 	// Specifies a unique id in UUID format of enterprise project.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
@@ -263,7 +292,7 @@ type InstanceInitParameters struct {
 	// schema: Computed
 	FlavorName *string `json:"flavorName,omitempty" tf:"flavor_name,omitempty"`
 
-	// Specifies the hostname of the instance.
+	// The hostname of the instance.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
 	// Required if image_name is empty. Specifies the image ID of the desired
@@ -273,6 +302,14 @@ type InstanceInitParameters struct {
 	// Required if image_id is empty. Specifies the name of the desired image
 	// for the instance. Changing this creates a new instance.
 	ImageName *string `json:"imageName,omitempty" tf:"image_name,omitempty"`
+
+	// Specifies whether to change the billing modes of all pay-per-use data
+	// disks to yearly/monthly. Defaults to false.
+	IncludeDataDisksOnUpdate *bool `json:"includeDataDisksOnUpdate,omitempty" tf:"include_data_disks_on_update,omitempty"`
+
+	// Specifies whether to change the billing modes of EIPs that are exclusive
+	// and billed by bandwidth to yearly/monthly. Defaults to false.
+	IncludePublicipsOnUpdate *bool `json:"includePublicipsOnUpdate,omitempty" tf:"include_publicips_on_update,omitempty"`
 
 	// Specifies the SSH keypair name used for logging in to the instance.
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
@@ -291,13 +328,11 @@ type InstanceInitParameters struct {
 
 	// Specifies the charging period of the instance.
 	// If period_unit is set to month , the value ranges from 1 to 9. If period_unit is set to year, the value
-	// ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a
-	// new resource.
+	// ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the instance.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new instance.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the power action to be done for the instance.
@@ -401,7 +436,7 @@ type InstanceObservation struct {
 
 	AutoPay *string `json:"autoPay,omitempty" tf:"auto_pay,omitempty"`
 
-	// Specifies whether auto renew is enabled.
+	// Specifies whether auto-renew is enabled.
 	// Valid values are true and false. Defaults to false.
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
@@ -423,7 +458,7 @@ type InstanceObservation struct {
 	Bandwidth []BandwidthObservation `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies the charging mode of the instance. Valid values are prePaid,
-	// postPaid and spot, defaults to postPaid. Changing this creates a new instance.
+	// postPaid and spot, defaults to postPaid.
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// The creation time, in UTC format.
@@ -454,6 +489,13 @@ type InstanceObservation struct {
 	// Available values are 5_bgp (dynamic BGP) and 5_sbgp (static BGP). Changing this creates a new instance.
 	EIPType *string `json:"eipType,omitempty" tf:"eip_type,omitempty"`
 
+	// schema: Internal
+	EnableJumboFrame *bool `json:"enableJumboFrame,omitempty" tf:"enable_jumbo_frame,omitempty"`
+
+	// Specifies the custom enclave options.
+	// The object structure is documented below. Changing this creates a new instance.
+	EnclaveOptions []EnclaveOptionsObservation `json:"enclaveOptions,omitempty" tf:"enclave_options,omitempty"`
+
 	// Specifies a unique id in UUID format of enterprise project.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
@@ -468,7 +510,7 @@ type InstanceObservation struct {
 	// schema: Computed
 	FlavorName *string `json:"flavorName,omitempty" tf:"flavor_name,omitempty"`
 
-	// Specifies the hostname of the instance.
+	// The hostname of the instance.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
 	// A resource ID in UUID format.
@@ -481,6 +523,14 @@ type InstanceObservation struct {
 	// Required if image_id is empty. Specifies the name of the desired image
 	// for the instance. Changing this creates a new instance.
 	ImageName *string `json:"imageName,omitempty" tf:"image_name,omitempty"`
+
+	// Specifies whether to change the billing modes of all pay-per-use data
+	// disks to yearly/monthly. Defaults to false.
+	IncludeDataDisksOnUpdate *bool `json:"includeDataDisksOnUpdate,omitempty" tf:"include_data_disks_on_update,omitempty"`
+
+	// Specifies whether to change the billing modes of EIPs that are exclusive
+	// and billed by bandwidth to yearly/monthly. Defaults to false.
+	IncludePublicipsOnUpdate *bool `json:"includePublicipsOnUpdate,omitempty" tf:"include_publicips_on_update,omitempty"`
 
 	// Specifies the SSH keypair name used for logging in to the instance.
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
@@ -499,13 +549,11 @@ type InstanceObservation struct {
 
 	// Specifies the charging period of the instance.
 	// If period_unit is set to month , the value ranges from 1 to 9. If period_unit is set to year, the value
-	// ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a
-	// new resource.
+	// ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the instance.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new instance.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the power action to be done for the instance.
@@ -622,7 +670,7 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoPay *string `json:"autoPay,omitempty" tf:"auto_pay,omitempty"`
 
-	// Specifies whether auto renew is enabled.
+	// Specifies whether auto-renew is enabled.
 	// Valid values are true and false. Defaults to false.
 	// +kubebuilder:validation:Optional
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
@@ -648,7 +696,7 @@ type InstanceParameters struct {
 	Bandwidth []BandwidthParameters `json:"bandwidth,omitempty" tf:"bandwidth,omitempty"`
 
 	// Specifies the charging mode of the instance. Valid values are prePaid,
-	// postPaid and spot, defaults to postPaid. Changing this creates a new instance.
+	// postPaid and spot, defaults to postPaid.
 	// +kubebuilder:validation:Optional
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
@@ -683,6 +731,15 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	EIPType *string `json:"eipType,omitempty" tf:"eip_type,omitempty"`
 
+	// schema: Internal
+	// +kubebuilder:validation:Optional
+	EnableJumboFrame *bool `json:"enableJumboFrame,omitempty" tf:"enable_jumbo_frame,omitempty"`
+
+	// Specifies the custom enclave options.
+	// The object structure is documented below. Changing this creates a new instance.
+	// +kubebuilder:validation:Optional
+	EnclaveOptions []EnclaveOptionsParameters `json:"enclaveOptions,omitempty" tf:"enclave_options,omitempty"`
+
 	// Specifies a unique id in UUID format of enterprise project.
 	// +kubebuilder:validation:Optional
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
@@ -697,7 +754,7 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	FlavorName *string `json:"flavorName,omitempty" tf:"flavor_name,omitempty"`
 
-	// Specifies the hostname of the instance.
+	// The hostname of the instance.
 	// +kubebuilder:validation:Optional
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
@@ -710,6 +767,16 @@ type InstanceParameters struct {
 	// for the instance. Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	ImageName *string `json:"imageName,omitempty" tf:"image_name,omitempty"`
+
+	// Specifies whether to change the billing modes of all pay-per-use data
+	// disks to yearly/monthly. Defaults to false.
+	// +kubebuilder:validation:Optional
+	IncludeDataDisksOnUpdate *bool `json:"includeDataDisksOnUpdate,omitempty" tf:"include_data_disks_on_update,omitempty"`
+
+	// Specifies whether to change the billing modes of EIPs that are exclusive
+	// and billed by bandwidth to yearly/monthly. Defaults to false.
+	// +kubebuilder:validation:Optional
+	IncludePublicipsOnUpdate *bool `json:"includePublicipsOnUpdate,omitempty" tf:"include_publicips_on_update,omitempty"`
 
 	// Specifies the SSH keypair name used for logging in to the instance.
 	// +kubebuilder:validation:Optional
@@ -732,14 +799,12 @@ type InstanceParameters struct {
 
 	// Specifies the charging period of the instance.
 	// If period_unit is set to month , the value ranges from 1 to 9. If period_unit is set to year, the value
-	// ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a
-	// new resource.
+	// ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid.
 	// +kubebuilder:validation:Optional
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the instance.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
@@ -852,7 +917,6 @@ type NetworkInitParameters struct {
 	AccessNetwork *bool `json:"accessNetwork,omitempty" tf:"access_network,omitempty"`
 
 	// Specifies a fixed IPv4 address to be used on this network.
-	// Changing this creates a new instance.
 	FixedIPV4 *string `json:"fixedIpV4,omitempty" tf:"fixed_ip_v4,omitempty"`
 
 	// The Fixed IPv6 address of the instance on that network.
@@ -873,7 +937,6 @@ type NetworkInitParameters struct {
 	SourceDestCheck *bool `json:"sourceDestCheck,omitempty" tf:"source_dest_check,omitempty"`
 
 	// Specifies the network UUID to attach to the instance.
-	// Changing this creates a new instance.
 	// schema: Required
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 }
@@ -885,7 +948,6 @@ type NetworkObservation struct {
 	AccessNetwork *bool `json:"accessNetwork,omitempty" tf:"access_network,omitempty"`
 
 	// Specifies a fixed IPv4 address to be used on this network.
-	// Changing this creates a new instance.
 	FixedIPV4 *string `json:"fixedIpV4,omitempty" tf:"fixed_ip_v4,omitempty"`
 
 	// The Fixed IPv6 address of the instance on that network.
@@ -909,7 +971,6 @@ type NetworkObservation struct {
 	SourceDestCheck *bool `json:"sourceDestCheck,omitempty" tf:"source_dest_check,omitempty"`
 
 	// Specifies the network UUID to attach to the instance.
-	// Changing this creates a new instance.
 	// schema: Required
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 }
@@ -922,7 +983,6 @@ type NetworkParameters struct {
 	AccessNetwork *bool `json:"accessNetwork,omitempty" tf:"access_network,omitempty"`
 
 	// Specifies a fixed IPv4 address to be used on this network.
-	// Changing this creates a new instance.
 	// +kubebuilder:validation:Optional
 	FixedIPV4 *string `json:"fixedIpV4,omitempty" tf:"fixed_ip_v4,omitempty"`
 
@@ -948,7 +1008,6 @@ type NetworkParameters struct {
 	SourceDestCheck *bool `json:"sourceDestCheck,omitempty" tf:"source_dest_check,omitempty"`
 
 	// Specifies the network UUID to attach to the instance.
-	// Changing this creates a new instance.
 	// schema: Required
 	// +kubebuilder:validation:Optional
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
@@ -956,8 +1015,8 @@ type NetworkParameters struct {
 
 type SchedulerHintsInitParameters struct {
 
-	// Specifies the ID of DeH.
-	// This parameter takes effect only when the value of tenancy is dedicated. Changing this creates a new instance.
+	// Specifies the ID of DeH. This parameter takes effect only when the value of tenancy is
+	// dedicated.
 	DehID *string `json:"dehId,omitempty" tf:"deh_id,omitempty"`
 
 	// schema: Internal
@@ -967,16 +1026,15 @@ type SchedulerHintsInitParameters struct {
 	// The instance will be placed into that group. Changing this creates a new instance.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// Specifies the tenancy specifies whether the ECS is to be created on a
-	// Dedicated Host
-	// (DeH) or in a shared pool. Changing this creates a new instance.
+	// Specifies the tenancy specifies whether the ECS is to be created on a Dedicated Host(DeH)
+	// or in a shared pool. Value options: share, dedicate.
 	Tenancy *string `json:"tenancy,omitempty" tf:"tenancy,omitempty"`
 }
 
 type SchedulerHintsObservation struct {
 
-	// Specifies the ID of DeH.
-	// This parameter takes effect only when the value of tenancy is dedicated. Changing this creates a new instance.
+	// Specifies the ID of DeH. This parameter takes effect only when the value of tenancy is
+	// dedicated.
 	DehID *string `json:"dehId,omitempty" tf:"deh_id,omitempty"`
 
 	// schema: Internal
@@ -986,16 +1044,15 @@ type SchedulerHintsObservation struct {
 	// The instance will be placed into that group. Changing this creates a new instance.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// Specifies the tenancy specifies whether the ECS is to be created on a
-	// Dedicated Host
-	// (DeH) or in a shared pool. Changing this creates a new instance.
+	// Specifies the tenancy specifies whether the ECS is to be created on a Dedicated Host(DeH)
+	// or in a shared pool. Value options: share, dedicate.
 	Tenancy *string `json:"tenancy,omitempty" tf:"tenancy,omitempty"`
 }
 
 type SchedulerHintsParameters struct {
 
-	// Specifies the ID of DeH.
-	// This parameter takes effect only when the value of tenancy is dedicated. Changing this creates a new instance.
+	// Specifies the ID of DeH. This parameter takes effect only when the value of tenancy is
+	// dedicated.
 	// +kubebuilder:validation:Optional
 	DehID *string `json:"dehId,omitempty" tf:"deh_id,omitempty"`
 
@@ -1008,9 +1065,8 @@ type SchedulerHintsParameters struct {
 	// +kubebuilder:validation:Optional
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// Specifies the tenancy specifies whether the ECS is to be created on a
-	// Dedicated Host
-	// (DeH) or in a shared pool. Changing this creates a new instance.
+	// Specifies the tenancy specifies whether the ECS is to be created on a Dedicated Host(DeH)
+	// or in a shared pool. Value options: share, dedicate.
 	// +kubebuilder:validation:Optional
 	Tenancy *string `json:"tenancy,omitempty" tf:"tenancy,omitempty"`
 }

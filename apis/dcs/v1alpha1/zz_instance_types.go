@@ -161,6 +161,12 @@ type InstanceInitParameters struct {
 	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
 	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
 
+	// Specifies whether to enable scheduled cache analysis for big key.
+	BigKeyEnableAutoScan *bool `json:"bigKeyEnableAutoScan,omitempty" tf:"big_key_enable_auto_scan,omitempty"`
+
+	// Specifies the UTC time of the day that cache analysis is scheduled for big key.
+	BigKeyScheduleAt []*string `json:"bigKeyScheduleAt,omitempty" tf:"big_key_schedule_at,omitempty"`
+
 	// Specifies the cache capacity. Unit: GB.
 	Capacity *float64 `json:"capacity,omitempty" tf:"capacity,omitempty"`
 
@@ -194,11 +200,37 @@ type InstanceInitParameters struct {
 	// Only chinese, letters (case-insensitive), digits, underscores (_) ,and hyphens (-) are allowed.
 	EnterpriseProjectName *string `json:"enterpriseProjectName,omitempty" tf:"enterprise_project_name,omitempty"`
 
+	// Specifies whether to enable scheduled cache analysis for expire key.
+	ExpireKeyEnableAutoScan *bool `json:"expireKeyEnableAutoScan,omitempty" tf:"expire_key_enable_auto_scan,omitempty"`
+
+	// Specifies the first scan time for expire key, for example,
+	// 2023-07-07T15:00:05.000z. It is mandatory when expire_key_enable_auto_scan is set to true.
+	ExpireKeyFirstScanAt *string `json:"expireKeyFirstScanAt,omitempty" tf:"expire_key_first_scan_at,omitempty"`
+
+	// Specifies the scan interval for expire key, in seconds. It is mandatory when
+	// expire_key_enable_auto_scan is set to true.
+	ExpireKeyInterval *float64 `json:"expireKeyInterval,omitempty" tf:"expire_key_interval,omitempty"`
+
+	// Specifies the number of keys scanned in iteration for expire key. It is
+	// mandatory when expire_key_enable_auto_scan is set to true.
+	ExpireKeyScanKeysCount *float64 `json:"expireKeyScanKeysCount,omitempty" tf:"expire_key_scan_keys_count,omitempty"`
+
+	// Specifies the Scan timeout for expire key, in seconds. If one scan times out, a
+	// failure message is returned, and the next scan can continue. The value at least twice the interval. It is mandatory when
+	// expire_key_enable_auto_scan is set to true.
+	ExpireKeyTimeout *float64 `json:"expireKeyTimeout,omitempty" tf:"expire_key_timeout,omitempty"`
+
 	// The flavor of the cache instance, which including the total memory, available memory,
 	// maximum number of connections allowed, maximum/assured bandwidth and reference performance.
 	// It also includes the modes of Redis instances. You can query the flavor as follows:
 	// schema: Required
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies whether to enable scheduled cache analysis for hot key.
+	HotKeyEnableAutoScan *bool `json:"hotKeyEnableAutoScan,omitempty" tf:"hot_key_enable_auto_scan,omitempty"`
+
+	// Specifies the UTC time of the day that cache analysis is scheduled for hot key.
+	HotKeyScheduleAt []*string `json:"hotKeyScheduleAt,omitempty" tf:"hot_key_schedule_at,omitempty"`
 
 	// Time at which the maintenance time window starts. Defaults to 02:00:00.
 	MaintainBegin *string `json:"maintainBegin,omitempty" tf:"maintain_begin,omitempty"`
@@ -211,7 +243,7 @@ type InstanceInitParameters struct {
 	// Only chinese, letters (case-insensitive), digits, underscores (_) ,and hyphens (-) are allowed.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specify an array of one or more parameters to be set to the DCS instance after
+	// Specifies an array of one or more parameters to be set to the DCS instance after
 	// launched. You can check on console to see which parameters supported.
 	// The parameters structure is documented below.
 	Parameters []ParametersInitParameters `json:"parameters,omitempty" tf:"parameters,omitempty"`
@@ -256,7 +288,8 @@ type InstanceInitParameters struct {
 
 	// Critical command renaming, which is supported only by Redis 4.0 and
 	// Redis 5.0 instances but not by Redis 3.0 instance.
-	// The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+	// The valid commands that can be renamed are: command, keys, flushdb, flushall, hgetall, scan,
+	// hscan, sscan and zscan.
 	// +mapType=granular
 	RenameCommands map[string]*string `json:"renameCommands,omitempty" tf:"rename_commands,omitempty"`
 
@@ -306,6 +339,9 @@ type InstanceInitParameters struct {
 	// The Parameter Template ID.
 	// Changing this creates a new instance resource.
 	TemplateID *string `json:"templateId,omitempty" tf:"template_id,omitempty"`
+
+	// Specifies whether client IP pass-through is enabled.
+	TransparentClientIPEnable *bool `json:"transparentClientIpEnable,omitempty" tf:"transparent_client_ip_enable,omitempty"`
 
 	// The ID of VPC which the instance belongs to.
 	// Changing this creates a new instance resource.
@@ -372,6 +408,15 @@ type InstanceObservation struct {
 	// Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
 	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
 
+	// Specifies whether to enable scheduled cache analysis for big key.
+	BigKeyEnableAutoScan *bool `json:"bigKeyEnableAutoScan,omitempty" tf:"big_key_enable_auto_scan,omitempty"`
+
+	// Specifies the UTC time of the day that cache analysis is scheduled for big key.
+	BigKeyScheduleAt []*string `json:"bigKeyScheduleAt,omitempty" tf:"big_key_schedule_at,omitempty"`
+
+	// Indicates the time when the configuration is updated for big key.
+	BigKeyUpdatedAt *string `json:"bigKeyUpdatedAt,omitempty" tf:"big_key_updated_at,omitempty"`
+
 	// Indicates the CPU type of the instance. The value can be x86_64 or aarch64.
 	CPUType *string `json:"cpuType,omitempty" tf:"cpu_type,omitempty"`
 
@@ -417,11 +462,43 @@ type InstanceObservation struct {
 	// Only chinese, letters (case-insensitive), digits, underscores (_) ,and hyphens (-) are allowed.
 	EnterpriseProjectName *string `json:"enterpriseProjectName,omitempty" tf:"enterprise_project_name,omitempty"`
 
+	// Specifies whether to enable scheduled cache analysis for expire key.
+	ExpireKeyEnableAutoScan *bool `json:"expireKeyEnableAutoScan,omitempty" tf:"expire_key_enable_auto_scan,omitempty"`
+
+	// Specifies the first scan time for expire key, for example,
+	// 2023-07-07T15:00:05.000z. It is mandatory when expire_key_enable_auto_scan is set to true.
+	ExpireKeyFirstScanAt *string `json:"expireKeyFirstScanAt,omitempty" tf:"expire_key_first_scan_at,omitempty"`
+
+	// Specifies the scan interval for expire key, in seconds. It is mandatory when
+	// expire_key_enable_auto_scan is set to true.
+	ExpireKeyInterval *float64 `json:"expireKeyInterval,omitempty" tf:"expire_key_interval,omitempty"`
+
+	// Specifies the number of keys scanned in iteration for expire key. It is
+	// mandatory when expire_key_enable_auto_scan is set to true.
+	ExpireKeyScanKeysCount *float64 `json:"expireKeyScanKeysCount,omitempty" tf:"expire_key_scan_keys_count,omitempty"`
+
+	// Specifies the Scan timeout for expire key, in seconds. If one scan times out, a
+	// failure message is returned, and the next scan can continue. The value at least twice the interval. It is mandatory when
+	// expire_key_enable_auto_scan is set to true.
+	ExpireKeyTimeout *float64 `json:"expireKeyTimeout,omitempty" tf:"expire_key_timeout,omitempty"`
+
+	// Indicates the time when the configuration is updated for expire key.
+	ExpireKeyUpdatedAt *string `json:"expireKeyUpdatedAt,omitempty" tf:"expire_key_updated_at,omitempty"`
+
 	// The flavor of the cache instance, which including the total memory, available memory,
 	// maximum number of connections allowed, maximum/assured bandwidth and reference performance.
 	// It also includes the modes of Redis instances. You can query the flavor as follows:
 	// schema: Required
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies whether to enable scheduled cache analysis for hot key.
+	HotKeyEnableAutoScan *bool `json:"hotKeyEnableAutoScan,omitempty" tf:"hot_key_enable_auto_scan,omitempty"`
+
+	// Specifies the UTC time of the day that cache analysis is scheduled for hot key.
+	HotKeyScheduleAt []*string `json:"hotKeyScheduleAt,omitempty" tf:"hot_key_schedule_at,omitempty"`
+
+	// Indicates the time when the configuration is updated for hot key.
+	HotKeyUpdatedAt *string `json:"hotKeyUpdatedAt,omitempty" tf:"hot_key_updated_at,omitempty"`
 
 	// A resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -450,7 +527,7 @@ type InstanceObservation struct {
 	// The ID of the order that created the instance.
 	OrderID *string `json:"orderId,omitempty" tf:"order_id,omitempty"`
 
-	// Specify an array of one or more parameters to be set to the DCS instance after
+	// Specifies an array of one or more parameters to be set to the DCS instance after
 	// launched. You can check on console to see which parameters supported.
 	// The parameters structure is documented below.
 	Parameters []ParametersObservation `json:"parameters,omitempty" tf:"parameters,omitempty"`
@@ -498,7 +575,8 @@ type InstanceObservation struct {
 
 	// Critical command renaming, which is supported only by Redis 4.0 and
 	// Redis 5.0 instances but not by Redis 3.0 instance.
-	// The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+	// The valid commands that can be renamed are: command, keys, flushdb, flushall, hgetall, scan,
+	// hscan, sscan and zscan.
 	// +mapType=granular
 	RenameCommands map[string]*string `json:"renameCommands,omitempty" tf:"rename_commands,omitempty"`
 
@@ -547,7 +625,7 @@ type InstanceObservation struct {
 	// Changing this creates a new instance resource.
 	TemplateID *string `json:"templateId,omitempty" tf:"template_id,omitempty"`
 
-	// Indicates whether client IP pass-through is enabled.
+	// Specifies whether client IP pass-through is enabled.
 	TransparentClientIPEnable *bool `json:"transparentClientIpEnable,omitempty" tf:"transparent_client_ip_enable,omitempty"`
 
 	// Size of the used memory. Unit: MB.
@@ -624,6 +702,14 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	BeginAt *string `json:"beginAt,omitempty" tf:"begin_at,omitempty"`
 
+	// Specifies whether to enable scheduled cache analysis for big key.
+	// +kubebuilder:validation:Optional
+	BigKeyEnableAutoScan *bool `json:"bigKeyEnableAutoScan,omitempty" tf:"big_key_enable_auto_scan,omitempty"`
+
+	// Specifies the UTC time of the day that cache analysis is scheduled for big key.
+	// +kubebuilder:validation:Optional
+	BigKeyScheduleAt []*string `json:"bigKeyScheduleAt,omitempty" tf:"big_key_schedule_at,omitempty"`
+
 	// Specifies the cache capacity. Unit: GB.
 	// +kubebuilder:validation:Optional
 	Capacity *float64 `json:"capacity,omitempty" tf:"capacity,omitempty"`
@@ -665,12 +751,45 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	EnterpriseProjectName *string `json:"enterpriseProjectName,omitempty" tf:"enterprise_project_name,omitempty"`
 
+	// Specifies whether to enable scheduled cache analysis for expire key.
+	// +kubebuilder:validation:Optional
+	ExpireKeyEnableAutoScan *bool `json:"expireKeyEnableAutoScan,omitempty" tf:"expire_key_enable_auto_scan,omitempty"`
+
+	// Specifies the first scan time for expire key, for example,
+	// 2023-07-07T15:00:05.000z. It is mandatory when expire_key_enable_auto_scan is set to true.
+	// +kubebuilder:validation:Optional
+	ExpireKeyFirstScanAt *string `json:"expireKeyFirstScanAt,omitempty" tf:"expire_key_first_scan_at,omitempty"`
+
+	// Specifies the scan interval for expire key, in seconds. It is mandatory when
+	// expire_key_enable_auto_scan is set to true.
+	// +kubebuilder:validation:Optional
+	ExpireKeyInterval *float64 `json:"expireKeyInterval,omitempty" tf:"expire_key_interval,omitempty"`
+
+	// Specifies the number of keys scanned in iteration for expire key. It is
+	// mandatory when expire_key_enable_auto_scan is set to true.
+	// +kubebuilder:validation:Optional
+	ExpireKeyScanKeysCount *float64 `json:"expireKeyScanKeysCount,omitempty" tf:"expire_key_scan_keys_count,omitempty"`
+
+	// Specifies the Scan timeout for expire key, in seconds. If one scan times out, a
+	// failure message is returned, and the next scan can continue. The value at least twice the interval. It is mandatory when
+	// expire_key_enable_auto_scan is set to true.
+	// +kubebuilder:validation:Optional
+	ExpireKeyTimeout *float64 `json:"expireKeyTimeout,omitempty" tf:"expire_key_timeout,omitempty"`
+
 	// The flavor of the cache instance, which including the total memory, available memory,
 	// maximum number of connections allowed, maximum/assured bandwidth and reference performance.
 	// It also includes the modes of Redis instances. You can query the flavor as follows:
 	// schema: Required
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
+
+	// Specifies whether to enable scheduled cache analysis for hot key.
+	// +kubebuilder:validation:Optional
+	HotKeyEnableAutoScan *bool `json:"hotKeyEnableAutoScan,omitempty" tf:"hot_key_enable_auto_scan,omitempty"`
+
+	// Specifies the UTC time of the day that cache analysis is scheduled for hot key.
+	// +kubebuilder:validation:Optional
+	HotKeyScheduleAt []*string `json:"hotKeyScheduleAt,omitempty" tf:"hot_key_schedule_at,omitempty"`
 
 	// Time at which the maintenance time window starts. Defaults to 02:00:00.
 	// +kubebuilder:validation:Optional
@@ -686,7 +805,7 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specify an array of one or more parameters to be set to the DCS instance after
+	// Specifies an array of one or more parameters to be set to the DCS instance after
 	// launched. You can check on console to see which parameters supported.
 	// The parameters structure is documented below.
 	// +kubebuilder:validation:Optional
@@ -740,7 +859,8 @@ type InstanceParameters struct {
 
 	// Critical command renaming, which is supported only by Redis 4.0 and
 	// Redis 5.0 instances but not by Redis 3.0 instance.
-	// The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+	// The valid commands that can be renamed are: command, keys, flushdb, flushall, hgetall, scan,
+	// hscan, sscan and zscan.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	RenameCommands map[string]*string `json:"renameCommands,omitempty" tf:"rename_commands,omitempty"`
@@ -798,6 +918,10 @@ type InstanceParameters struct {
 	// Changing this creates a new instance resource.
 	// +kubebuilder:validation:Optional
 	TemplateID *string `json:"templateId,omitempty" tf:"template_id,omitempty"`
+
+	// Specifies whether client IP pass-through is enabled.
+	// +kubebuilder:validation:Optional
+	TransparentClientIPEnable *bool `json:"transparentClientIpEnable,omitempty" tf:"transparent_client_ip_enable,omitempty"`
 
 	// The ID of VPC which the instance belongs to.
 	// Changing this creates a new instance resource.

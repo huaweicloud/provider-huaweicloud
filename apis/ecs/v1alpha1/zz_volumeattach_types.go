@@ -15,6 +15,10 @@ import (
 
 type VolumeAttachInitParameters struct {
 
+	// Specifies whether the disk attached to the ECS is deleted when the ECS is
+	// deleted. Value options:
+	DeleteOnTermination *string `json:"deleteOnTermination,omitempty" tf:"delete_on_termination,omitempty"`
+
 	// Specifies the device of the volume attachment (ex: /dev/vdc).
 	Device *string `json:"device,omitempty" tf:"device,omitempty"`
 
@@ -41,6 +45,10 @@ type VolumeAttachInitParameters struct {
 
 type VolumeAttachObservation struct {
 
+	// Specifies whether the disk attached to the ECS is deleted when the ECS is
+	// deleted. Value options:
+	DeleteOnTermination *string `json:"deleteOnTermination,omitempty" tf:"delete_on_termination,omitempty"`
+
 	// Specifies the device of the volume attachment (ex: /dev/vdc).
 	Device *string `json:"device,omitempty" tf:"device,omitempty"`
 
@@ -62,6 +70,11 @@ type VolumeAttachObservation struct {
 }
 
 type VolumeAttachParameters struct {
+
+	// Specifies whether the disk attached to the ECS is deleted when the ECS is
+	// deleted. Value options:
+	// +kubebuilder:validation:Optional
+	DeleteOnTermination *string `json:"deleteOnTermination,omitempty" tf:"delete_on_termination,omitempty"`
 
 	// Specifies the device of the volume attachment (ex: /dev/vdc).
 	// +kubebuilder:validation:Optional

@@ -52,6 +52,11 @@ type NetworkInterfaceInitParameters struct {
 	// Selector for a Subnet in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+
+	// Specifies the network interface tags in the format of key-value pairs.
+	// This parameter can only be used in cn-south-2 for now.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type NetworkInterfaceObservation struct {
@@ -120,6 +125,11 @@ type NetworkInterfaceObservation struct {
 	// Specifies the ID of the subnet to which the network interface belongs.
 	// Changing this creates a new resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Specifies the network interface tags in the format of key-value pairs.
+	// This parameter can only be used in cn-south-2 for now.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type NetworkInterfaceParameters struct {
@@ -168,6 +178,12 @@ type NetworkInterfaceParameters struct {
 	// Selector for a Subnet in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+
+	// Specifies the network interface tags in the format of key-value pairs.
+	// This parameter can only be used in cn-south-2 for now.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 // NetworkInterfaceSpec defines the desired state of NetworkInterface

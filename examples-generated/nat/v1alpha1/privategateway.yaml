@@ -8,10 +8,8 @@ metadata:
   name: test
 spec:
   forProvider:
-    description: Created by terraform script
-    enterpriseProjectId: "0"
     name: ${var.gateway_name}
-    spec: Small
+    spec: ${var.gateway_spec}
     subnetIdSelector:
       matchLabels:
         testing.upbound.io/example-name: example

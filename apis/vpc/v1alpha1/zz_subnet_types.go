@@ -17,7 +17,6 @@ type SubnetInitParameters struct {
 
 	// Specifies the availability zone (AZ) to which the subnet belongs.
 	// The value must be an existing AZ in the system. Changing this creates a new subnet.
-	// schema: Required
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the network segment on which the subnet resides. The value must be in
@@ -25,8 +24,19 @@ type SubnetInitParameters struct {
 	// new subnet.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Specifies the domain name configured for DNS and is used to obtain the IP address
+	// from the DNS server. A domain name can contain only letters, digits, and hyphens (-) and cannot start or end with a
+	// hyphen (-). Each domain name contains at least two labels separated by periods (.). Max total: 254 characters. Max
+	// label: 63 characters.
+	DHCPDomainName *string `json:"dhcpDomainName,omitempty" tf:"dhcp_domain_name,omitempty"`
+
 	// Specifies whether the DHCP function is enabled for the subnet. Defaults to true.
 	DHCPEnable *bool `json:"dhcpEnable,omitempty" tf:"dhcp_enable,omitempty"`
+
+	// Specifies the DHCP lease expiration time of the IPv6 subnet. The value can
+	// be -1, which indicates unlimited lease time, or Number+h. the number ranges from 1 to 175200. For example, the value
+	// can be 5h. The default value is 2h.
+	DHCPIPv6LeaseTime *string `json:"dhcpIpv6LeaseTime,omitempty" tf:"dhcp_ipv6_lease_time,omitempty"`
 
 	// Specifies the DHCP lease expiration time. The value can be -1, which indicates
 	// unlimited lease time, or Number+h. the number ranges from 1 to 30,000. For example, the value can be 5h. The default
@@ -93,7 +103,6 @@ type SubnetObservation struct {
 
 	// Specifies the availability zone (AZ) to which the subnet belongs.
 	// The value must be an existing AZ in the system. Changing this creates a new subnet.
-	// schema: Required
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the network segment on which the subnet resides. The value must be in
@@ -101,8 +110,19 @@ type SubnetObservation struct {
 	// new subnet.
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Specifies the domain name configured for DNS and is used to obtain the IP address
+	// from the DNS server. A domain name can contain only letters, digits, and hyphens (-) and cannot start or end with a
+	// hyphen (-). Each domain name contains at least two labels separated by periods (.). Max total: 254 characters. Max
+	// label: 63 characters.
+	DHCPDomainName *string `json:"dhcpDomainName,omitempty" tf:"dhcp_domain_name,omitempty"`
+
 	// Specifies whether the DHCP function is enabled for the subnet. Defaults to true.
 	DHCPEnable *bool `json:"dhcpEnable,omitempty" tf:"dhcp_enable,omitempty"`
+
+	// Specifies the DHCP lease expiration time of the IPv6 subnet. The value can
+	// be -1, which indicates unlimited lease time, or Number+h. the number ranges from 1 to 175200. For example, the value
+	// can be 5h. The default value is 2h.
+	DHCPIPv6LeaseTime *string `json:"dhcpIpv6LeaseTime,omitempty" tf:"dhcp_ipv6_lease_time,omitempty"`
 
 	// Specifies the DHCP lease expiration time. The value can be -1, which indicates
 	// unlimited lease time, or Number+h. the number ranges from 1 to 30,000. For example, the value can be 5h. The default
@@ -178,7 +198,6 @@ type SubnetParameters struct {
 
 	// Specifies the availability zone (AZ) to which the subnet belongs.
 	// The value must be an existing AZ in the system. Changing this creates a new subnet.
-	// schema: Required
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
@@ -188,9 +207,22 @@ type SubnetParameters struct {
 	// +kubebuilder:validation:Optional
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Specifies the domain name configured for DNS and is used to obtain the IP address
+	// from the DNS server. A domain name can contain only letters, digits, and hyphens (-) and cannot start or end with a
+	// hyphen (-). Each domain name contains at least two labels separated by periods (.). Max total: 254 characters. Max
+	// label: 63 characters.
+	// +kubebuilder:validation:Optional
+	DHCPDomainName *string `json:"dhcpDomainName,omitempty" tf:"dhcp_domain_name,omitempty"`
+
 	// Specifies whether the DHCP function is enabled for the subnet. Defaults to true.
 	// +kubebuilder:validation:Optional
 	DHCPEnable *bool `json:"dhcpEnable,omitempty" tf:"dhcp_enable,omitempty"`
+
+	// Specifies the DHCP lease expiration time of the IPv6 subnet. The value can
+	// be -1, which indicates unlimited lease time, or Number+h. the number ranges from 1 to 175200. For example, the value
+	// can be 5h. The default value is 2h.
+	// +kubebuilder:validation:Optional
+	DHCPIPv6LeaseTime *string `json:"dhcpIpv6LeaseTime,omitempty" tf:"dhcp_ipv6_lease_time,omitempty"`
 
 	// Specifies the DHCP lease expiration time. The value can be -1, which indicates
 	// unlimited lease time, or Number+h. the number ranges from 1 to 30,000. For example, the value can be 5h. The default

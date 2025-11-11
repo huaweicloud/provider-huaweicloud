@@ -75,12 +75,14 @@ spec:
                 properties:
                   dbName:
                     description: |-
-                      Specifies the database name. Changing this creates a new resource.
                       Specifies the database name.
+                      Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
                     description: |-
-                      Specifies the RDS instance ID. Changing this will create a new resource.
+                      Specifies the RDS instance ID.
                       Specifies the ID of the RDS Mysql instance.
                     type: string
                   instanceIdRef:
@@ -196,12 +198,14 @@ spec:
                 properties:
                   dbName:
                     description: |-
-                      Specifies the database name. Changing this creates a new resource.
                       Specifies the database name.
+                      Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
                     description: |-
-                      Specifies the RDS instance ID. Changing this will create a new resource.
+                      Specifies the RDS instance ID.
                       Specifies the ID of the RDS Mysql instance.
                     type: string
                   instanceIdRef:
@@ -486,8 +490,10 @@ spec:
                 properties:
                   dbName:
                     description: |-
-                      Specifies the database name. Changing this creates a new resource.
                       Specifies the database name.
+                      Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID of database privilege which is formatted
@@ -495,7 +501,7 @@ spec:
                     type: string
                   instanceId:
                     description: |-
-                      Specifies the RDS instance ID. Changing this will create a new resource.
+                      Specifies the RDS instance ID.
                       Specifies the ID of the RDS Mysql instance.
                     type: string
                   region:

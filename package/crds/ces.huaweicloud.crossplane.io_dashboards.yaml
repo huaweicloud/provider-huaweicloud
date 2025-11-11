@@ -78,11 +78,82 @@ spec:
                       Specifies the copied dashboard ID.
                       Specifies the copied dashboard ID.
                     type: string
+                  enableForceNew:
+                    type: string
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID of the dashboard.
                       Specifies the enterprise project ID of the dashboard.
                     type: string
+                  extendInfo:
+                    description: |-
+                      Specifies the information about the extension.
+                      The extend_info structure is documented below.
+                    items:
+                      properties:
+                        displayTime:
+                          description: |-
+                            Specifies the display time.
+                            Values can be as follows:
+                            Specifies the display time.
+                          type: number
+                        enableLegend:
+                          description: |-
+                            Specifies whether to enable the legend.
+                            Specifies whether to enable the legend.
+                          type: boolean
+                        enableScreenAutoPlay:
+                          description: |-
+                            Specifies whether the monitoring screen switches automatically.
+                            Specifies whether the monitoring screen switches automatically.
+                          type: boolean
+                        filter:
+                          description: |-
+                            Specifies the metric aggregation method.
+                            Values can be as follows:
+                            Specifies the metric aggregation method.
+                          type: string
+                        from:
+                          description: |-
+                            Specifies the start time.
+                            Specifies the start time.
+                          type: number
+                        fullScreenWidgetNum:
+                          description: |-
+                            Specifies the number of large screen display views.
+                            Values can be 1, 4, 9, 16 and 25.
+                            Specifies the number of large screen display views.
+                          type: number
+                        period:
+                          description: |-
+                            Specifies the metric aggregation period.
+                            Values can be as follows:
+                            Specifies the metric aggregation period.
+                          type: string
+                        refreshTime:
+                          description: |-
+                            Specifies the refresh time.
+                            Values can be as follows:
+                            Specifies the refresh time.
+                          type: number
+                        screenColor:
+                          description: |-
+                            Specifies the monitoring screen background color.
+                            Specifies the monitoring screen background color.
+                          type: string
+                        timeInterval:
+                          description: |-
+                            Specifies the automatic switching time interval of the monitoring screen.
+                            Values can be as follows:
+                            Specifies the automatic switching time interval of the monitoring screen.
+                          type: number
+                        to:
+                          description: |-
+                            Specifies the end time.
+                            Specifies the end time.
+                          type: number
+                      type: object
+                    type: array
                   isFavorite:
                     description: |-
                       Specifies whether the dashboard is favorite.
@@ -124,11 +195,82 @@ spec:
                       Specifies the copied dashboard ID.
                       Specifies the copied dashboard ID.
                     type: string
+                  enableForceNew:
+                    type: string
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID of the dashboard.
                       Specifies the enterprise project ID of the dashboard.
                     type: string
+                  extendInfo:
+                    description: |-
+                      Specifies the information about the extension.
+                      The extend_info structure is documented below.
+                    items:
+                      properties:
+                        displayTime:
+                          description: |-
+                            Specifies the display time.
+                            Values can be as follows:
+                            Specifies the display time.
+                          type: number
+                        enableLegend:
+                          description: |-
+                            Specifies whether to enable the legend.
+                            Specifies whether to enable the legend.
+                          type: boolean
+                        enableScreenAutoPlay:
+                          description: |-
+                            Specifies whether the monitoring screen switches automatically.
+                            Specifies whether the monitoring screen switches automatically.
+                          type: boolean
+                        filter:
+                          description: |-
+                            Specifies the metric aggregation method.
+                            Values can be as follows:
+                            Specifies the metric aggregation method.
+                          type: string
+                        from:
+                          description: |-
+                            Specifies the start time.
+                            Specifies the start time.
+                          type: number
+                        fullScreenWidgetNum:
+                          description: |-
+                            Specifies the number of large screen display views.
+                            Values can be 1, 4, 9, 16 and 25.
+                            Specifies the number of large screen display views.
+                          type: number
+                        period:
+                          description: |-
+                            Specifies the metric aggregation period.
+                            Values can be as follows:
+                            Specifies the metric aggregation period.
+                          type: string
+                        refreshTime:
+                          description: |-
+                            Specifies the refresh time.
+                            Values can be as follows:
+                            Specifies the refresh time.
+                          type: number
+                        screenColor:
+                          description: |-
+                            Specifies the monitoring screen background color.
+                            Specifies the monitoring screen background color.
+                          type: string
+                        timeInterval:
+                          description: |-
+                            Specifies the automatic switching time interval of the monitoring screen.
+                            Values can be as follows:
+                            Specifies the automatic switching time interval of the monitoring screen.
+                          type: number
+                        to:
+                          description: |-
+                            Specifies the end time.
+                            Specifies the end time.
+                          type: number
+                      type: object
+                    type: array
                   isFavorite:
                     description: |-
                       Specifies whether the dashboard is favorite.
@@ -335,24 +477,100 @@ spec:
                 properties:
                   createdAt:
                     description: |-
-                      The creation time of the dashboard.
-                      The creation time of the dashboard.
+                      Indicates the creation time of the dashboard.
+                      Indicates the creation time of the dashboard.
                     type: string
                   creatorName:
                     description: |-
-                      The creator name of the dashboard.
-                      The creator name of the dashboard.
+                      Indicates the creator name of the dashboard.
+                      Indicates the creator name of the dashboard.
                     type: string
                   dashboardId:
                     description: |-
                       Specifies the copied dashboard ID.
                       Specifies the copied dashboard ID.
                     type: string
+                  dashboardTemplateId:
+                    description: |-
+                      Indicates the monitoring disk template ID.
+                      Indicates the monitoring disk template ID.
+                    type: string
+                  enableForceNew:
+                    type: string
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID of the dashboard.
                       Specifies the enterprise project ID of the dashboard.
                     type: string
+                  extendInfo:
+                    description: |-
+                      Specifies the information about the extension.
+                      The extend_info structure is documented below.
+                    items:
+                      properties:
+                        displayTime:
+                          description: |-
+                            Specifies the display time.
+                            Values can be as follows:
+                            Specifies the display time.
+                          type: number
+                        enableLegend:
+                          description: |-
+                            Specifies whether to enable the legend.
+                            Specifies whether to enable the legend.
+                          type: boolean
+                        enableScreenAutoPlay:
+                          description: |-
+                            Specifies whether the monitoring screen switches automatically.
+                            Specifies whether the monitoring screen switches automatically.
+                          type: boolean
+                        filter:
+                          description: |-
+                            Specifies the metric aggregation method.
+                            Values can be as follows:
+                            Specifies the metric aggregation method.
+                          type: string
+                        from:
+                          description: |-
+                            Specifies the start time.
+                            Specifies the start time.
+                          type: number
+                        fullScreenWidgetNum:
+                          description: |-
+                            Specifies the number of large screen display views.
+                            Values can be 1, 4, 9, 16 and 25.
+                            Specifies the number of large screen display views.
+                          type: number
+                        period:
+                          description: |-
+                            Specifies the metric aggregation period.
+                            Values can be as follows:
+                            Specifies the metric aggregation period.
+                          type: string
+                        refreshTime:
+                          description: |-
+                            Specifies the refresh time.
+                            Values can be as follows:
+                            Specifies the refresh time.
+                          type: number
+                        screenColor:
+                          description: |-
+                            Specifies the monitoring screen background color.
+                            Specifies the monitoring screen background color.
+                          type: string
+                        timeInterval:
+                          description: |-
+                            Specifies the automatic switching time interval of the monitoring screen.
+                            Values can be as follows:
+                            Specifies the automatic switching time interval of the monitoring screen.
+                          type: number
+                        to:
+                          description: |-
+                            Specifies the end time.
+                            Specifies the end time.
+                          type: number
+                      type: object
+                    type: array
                   id:
                     description: The resource ID.
                     type: string
@@ -366,6 +584,11 @@ spec:
                       Specifies the dashboard name.
                       Specifies the dashboard name.
                     type: string
+                  namespace:
+                    description: |-
+                      Indicates the namespace.
+                      Indicates the namespace.
+                    type: string
                   region:
                     description: |-
                       Specifies the region in which to create the resource.
@@ -377,6 +600,16 @@ spec:
                       Specifies the monitoring view display mode.
                       The valid values are as follows:
                       Specifies the monitoring view display mode.
+                    type: number
+                  subProduct:
+                    description: |-
+                      Indicates the sub-product ID.
+                      Indicates the sub-product ID.
+                    type: string
+                  widgetsNum:
+                    description: |-
+                      Indicates the total number of views under the board.
+                      Indicates the total number of views under the board.
                     type: number
                 type: object
               conditions:

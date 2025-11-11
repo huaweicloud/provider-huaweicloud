@@ -84,6 +84,8 @@ spec:
                       Specifies the database description. The value contains 0 to 512 characters.
                       Specifies the database description.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS PostgreSQL instance.
@@ -165,8 +167,8 @@ spec:
                     type: object
                   isRevokePublicPrivilege:
                     description: |-
-                      Specifies whether to revoke the PUBLIC CREATE permission of
-                      the public schema.
+                      Specifies whether to revoke the PUBLIC CREATE
+                      permission of the public schema.
                       Specifies whether to revoke the PUBLIC CREATE permission of the public schema.
                     type: boolean
                   lcCollate:
@@ -234,6 +236,8 @@ spec:
                       Specifies the database description. The value contains 0 to 512 characters.
                       Specifies the database description.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS PostgreSQL instance.
@@ -315,8 +319,8 @@ spec:
                     type: object
                   isRevokePublicPrivilege:
                     description: |-
-                      Specifies whether to revoke the PUBLIC CREATE permission of
-                      the public schema.
+                      Specifies whether to revoke the PUBLIC CREATE
+                      permission of the public schema.
                       Specifies whether to revoke the PUBLIC CREATE permission of the public schema.
                     type: boolean
                   lcCollate:
@@ -548,6 +552,8 @@ spec:
                       Specifies the database description. The value contains 0 to 512 characters.
                       Specifies the database description.
                     type: string
+                  enableForceNew:
+                    type: string
                   id:
                     description: The resource ID of database which is formatted <instance_id>/<name>.
                     type: string
@@ -558,8 +564,8 @@ spec:
                     type: string
                   isRevokePublicPrivilege:
                     description: |-
-                      Specifies whether to revoke the PUBLIC CREATE permission of
-                      the public schema.
+                      Specifies whether to revoke the PUBLIC CREATE
+                      permission of the public schema.
                       Specifies whether to revoke the PUBLIC CREATE permission of the public schema.
                     type: boolean
                   lcCollate:

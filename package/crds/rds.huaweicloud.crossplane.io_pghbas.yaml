@@ -72,6 +72,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   hostBasedAuthentications:
                     description: |-
                       Specifies the list of host based authentications.
@@ -211,6 +213,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enableForceNew:
+                    type: string
                   hostBasedAuthentications:
                     description: |-
                       Specifies the list of host based authentications.
@@ -514,6 +518,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   hostBasedAuthentications:
                     description: |-
                       Specifies the list of host based authentications.

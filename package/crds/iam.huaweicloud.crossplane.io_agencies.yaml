@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Agency is the Schema for the Agencys API. ""
+        description: Agency is the Schema for the Agencys API. Manages an agency resource
+          within HuaweiCloud.
         properties:
           apiVersion:
             description: |-
@@ -110,6 +111,23 @@ spec:
                       Specifies the validity period of an agency. The valid value are FOREVER, ONEDAY
                       or the specific days, for example, "20". The default value is FOREVER.
                     type: string
+                  enterpriseProjectRoles:
+                    description: |-
+                      Specifies an array of one or more roles and enterprise projects which
+                      are used to grant permissions to agency on project. The structure is documented below.
+                    items:
+                      properties:
+                        enterpriseProject:
+                          description: Specifies the name of enterprise project.
+                          type: string
+                        roles:
+                          description: Specifies an array of role names.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
                   name:
                     description: |-
                       Specifies the name of agency. The name is a string of 1 to 64 characters.
@@ -184,6 +202,23 @@ spec:
                       Specifies the validity period of an agency. The valid value are FOREVER, ONEDAY
                       or the specific days, for example, "20". The default value is FOREVER.
                     type: string
+                  enterpriseProjectRoles:
+                    description: |-
+                      Specifies an array of one or more roles and enterprise projects which
+                      are used to grant permissions to agency on project. The structure is documented below.
+                    items:
+                      properties:
+                        enterpriseProject:
+                          description: Specifies the name of enterprise project.
+                          type: string
+                        roles:
+                          description: Specifies an array of role names.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
                   name:
                     description: |-
                       Specifies the name of agency. The name is a string of 1 to 64 characters.
@@ -425,6 +460,23 @@ spec:
                       Specifies the validity period of an agency. The valid value are FOREVER, ONEDAY
                       or the specific days, for example, "20". The default value is FOREVER.
                     type: string
+                  enterpriseProjectRoles:
+                    description: |-
+                      Specifies an array of one or more roles and enterprise projects which
+                      are used to grant permissions to agency on project. The structure is documented below.
+                    items:
+                      properties:
+                        enterpriseProject:
+                          description: Specifies the name of enterprise project.
+                          type: string
+                        roles:
+                          description: Specifies an array of role names.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
                   expireTime:
                     description: The expiration time of agency.
                     type: string

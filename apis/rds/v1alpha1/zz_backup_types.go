@@ -26,6 +26,8 @@ type BackupInitParameters struct {
 	// The description about the backup.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Instance ID.
 	// Instance ID.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -72,6 +74,8 @@ type BackupObservation struct {
 	// The description about the backup.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Backup end time in the "yyyy-mm-ddThh:mm:ssZ" format.
 	// Backup end time in the "yyyy-mm-ddThh:mm:ssZ" format.
 	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
@@ -117,6 +121,9 @@ type BackupParameters struct {
 	// The description about the backup.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Instance ID.
 	// Instance ID.

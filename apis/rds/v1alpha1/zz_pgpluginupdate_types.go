@@ -19,6 +19,8 @@ type PgPluginUpdateInitParameters struct {
 	// Specifies the database name.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the extension name.
 	// Specifies the extension name.
 	ExtensionName *string `json:"extensionName,omitempty" tf:"extension_name,omitempty"`
@@ -48,6 +50,8 @@ type PgPluginUpdateObservation struct {
 	// Specifies the database name.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the extension name.
 	// Specifies the extension name.
 	ExtensionName *string `json:"extensionName,omitempty" tf:"extension_name,omitempty"`
@@ -70,6 +74,9 @@ type PgPluginUpdateParameters struct {
 	// Specifies the database name.
 	// +kubebuilder:validation:Optional
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the extension name.
 	// Specifies the extension name.

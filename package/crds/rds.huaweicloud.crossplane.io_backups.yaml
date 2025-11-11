@@ -95,6 +95,8 @@ spec:
                       It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=.
                       The description about the backup.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Instance ID.
@@ -222,6 +224,8 @@ spec:
                       The description about the backup.
                       It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=.
                       The description about the backup.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
                     description: |-
@@ -524,6 +528,8 @@ spec:
                       The description about the backup.
                       It contains a maximum of 256 characters and cannot contain the following special characters: >!<"&'=.
                       The description about the backup.
+                    type: string
+                  enableForceNew:
                     type: string
                   endTime:
                     description: |-

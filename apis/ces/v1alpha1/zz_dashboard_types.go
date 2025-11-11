@@ -19,9 +19,15 @@ type DashboardInitParameters struct {
 	// Specifies the copied dashboard ID.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the enterprise project ID of the dashboard.
 	// Specifies the enterprise project ID of the dashboard.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the information about the extension.
+	// The extend_info structure is documented below.
+	ExtendInfo []ExtendInfoInitParameters `json:"extendInfo,omitempty" tf:"extend_info,omitempty"`
 
 	// Specifies whether the dashboard is favorite.
 	// Specifies whether the dashboard is favorite.
@@ -44,21 +50,31 @@ type DashboardInitParameters struct {
 
 type DashboardObservation struct {
 
-	// The creation time of the dashboard.
-	// The creation time of the dashboard.
+	// Indicates the creation time of the dashboard.
+	// Indicates the creation time of the dashboard.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// The creator name of the dashboard.
-	// The creator name of the dashboard.
+	// Indicates the creator name of the dashboard.
+	// Indicates the creator name of the dashboard.
 	CreatorName *string `json:"creatorName,omitempty" tf:"creator_name,omitempty"`
 
 	// Specifies the copied dashboard ID.
 	// Specifies the copied dashboard ID.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	// Indicates the monitoring disk template ID.
+	// Indicates the monitoring disk template ID.
+	DashboardTemplateID *string `json:"dashboardTemplateId,omitempty" tf:"dashboard_template_id,omitempty"`
+
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the enterprise project ID of the dashboard.
 	// Specifies the enterprise project ID of the dashboard.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the information about the extension.
+	// The extend_info structure is documented below.
+	ExtendInfo []ExtendInfoObservation `json:"extendInfo,omitempty" tf:"extend_info,omitempty"`
 
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -71,6 +87,10 @@ type DashboardObservation struct {
 	// Specifies the dashboard name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Indicates the namespace.
+	// Indicates the namespace.
+	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used.
 	// Changing this creates a new resource.
@@ -80,6 +100,14 @@ type DashboardObservation struct {
 	// The valid values are as follows:
 	// Specifies the monitoring view display mode.
 	RowWidgetNum *float64 `json:"rowWidgetNum,omitempty" tf:"row_widget_num,omitempty"`
+
+	// Indicates the sub-product ID.
+	// Indicates the sub-product ID.
+	SubProduct *string `json:"subProduct,omitempty" tf:"sub_product,omitempty"`
+
+	// Indicates the total number of views under the board.
+	// Indicates the total number of views under the board.
+	WidgetsNum *float64 `json:"widgetsNum,omitempty" tf:"widgets_num,omitempty"`
 }
 
 type DashboardParameters struct {
@@ -89,10 +117,18 @@ type DashboardParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the enterprise project ID of the dashboard.
 	// Specifies the enterprise project ID of the dashboard.
 	// +kubebuilder:validation:Optional
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// Specifies the information about the extension.
+	// The extend_info structure is documented below.
+	// +kubebuilder:validation:Optional
+	ExtendInfo []ExtendInfoParameters `json:"extendInfo,omitempty" tf:"extend_info,omitempty"`
 
 	// Specifies whether the dashboard is favorite.
 	// Specifies whether the dashboard is favorite.
@@ -115,6 +151,176 @@ type DashboardParameters struct {
 	// Specifies the monitoring view display mode.
 	// +kubebuilder:validation:Optional
 	RowWidgetNum *float64 `json:"rowWidgetNum,omitempty" tf:"row_widget_num,omitempty"`
+}
+
+type ExtendInfoInitParameters struct {
+
+	// Specifies the display time.
+	// Values can be as follows:
+	// Specifies the display time.
+	DisplayTime *float64 `json:"displayTime,omitempty" tf:"display_time,omitempty"`
+
+	// Specifies whether to enable the legend.
+	// Specifies whether to enable the legend.
+	EnableLegend *bool `json:"enableLegend,omitempty" tf:"enable_legend,omitempty"`
+
+	// Specifies whether the monitoring screen switches automatically.
+	// Specifies whether the monitoring screen switches automatically.
+	EnableScreenAutoPlay *bool `json:"enableScreenAutoPlay,omitempty" tf:"enable_screen_auto_play,omitempty"`
+
+	// Specifies the metric aggregation method.
+	// Values can be as follows:
+	// Specifies the metric aggregation method.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// Specifies the start time.
+	// Specifies the start time.
+	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+	// Specifies the number of large screen display views.
+	// Values can be 1, 4, 9, 16 and 25.
+	// Specifies the number of large screen display views.
+	FullScreenWidgetNum *float64 `json:"fullScreenWidgetNum,omitempty" tf:"full_screen_widget_num,omitempty"`
+
+	// Specifies the metric aggregation period.
+	// Values can be as follows:
+	// Specifies the metric aggregation period.
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
+
+	// Specifies the refresh time.
+	// Values can be as follows:
+	// Specifies the refresh time.
+	RefreshTime *float64 `json:"refreshTime,omitempty" tf:"refresh_time,omitempty"`
+
+	// Specifies the monitoring screen background color.
+	// Specifies the monitoring screen background color.
+	ScreenColor *string `json:"screenColor,omitempty" tf:"screen_color,omitempty"`
+
+	// Specifies the automatic switching time interval of the monitoring screen.
+	// Values can be as follows:
+	// Specifies the automatic switching time interval of the monitoring screen.
+	TimeInterval *float64 `json:"timeInterval,omitempty" tf:"time_interval,omitempty"`
+
+	// Specifies the end time.
+	// Specifies the end time.
+	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type ExtendInfoObservation struct {
+
+	// Specifies the display time.
+	// Values can be as follows:
+	// Specifies the display time.
+	DisplayTime *float64 `json:"displayTime,omitempty" tf:"display_time,omitempty"`
+
+	// Specifies whether to enable the legend.
+	// Specifies whether to enable the legend.
+	EnableLegend *bool `json:"enableLegend,omitempty" tf:"enable_legend,omitempty"`
+
+	// Specifies whether the monitoring screen switches automatically.
+	// Specifies whether the monitoring screen switches automatically.
+	EnableScreenAutoPlay *bool `json:"enableScreenAutoPlay,omitempty" tf:"enable_screen_auto_play,omitempty"`
+
+	// Specifies the metric aggregation method.
+	// Values can be as follows:
+	// Specifies the metric aggregation method.
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// Specifies the start time.
+	// Specifies the start time.
+	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+	// Specifies the number of large screen display views.
+	// Values can be 1, 4, 9, 16 and 25.
+	// Specifies the number of large screen display views.
+	FullScreenWidgetNum *float64 `json:"fullScreenWidgetNum,omitempty" tf:"full_screen_widget_num,omitempty"`
+
+	// Specifies the metric aggregation period.
+	// Values can be as follows:
+	// Specifies the metric aggregation period.
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
+
+	// Specifies the refresh time.
+	// Values can be as follows:
+	// Specifies the refresh time.
+	RefreshTime *float64 `json:"refreshTime,omitempty" tf:"refresh_time,omitempty"`
+
+	// Specifies the monitoring screen background color.
+	// Specifies the monitoring screen background color.
+	ScreenColor *string `json:"screenColor,omitempty" tf:"screen_color,omitempty"`
+
+	// Specifies the automatic switching time interval of the monitoring screen.
+	// Values can be as follows:
+	// Specifies the automatic switching time interval of the monitoring screen.
+	TimeInterval *float64 `json:"timeInterval,omitempty" tf:"time_interval,omitempty"`
+
+	// Specifies the end time.
+	// Specifies the end time.
+	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type ExtendInfoParameters struct {
+
+	// Specifies the display time.
+	// Values can be as follows:
+	// Specifies the display time.
+	// +kubebuilder:validation:Optional
+	DisplayTime *float64 `json:"displayTime,omitempty" tf:"display_time,omitempty"`
+
+	// Specifies whether to enable the legend.
+	// Specifies whether to enable the legend.
+	// +kubebuilder:validation:Optional
+	EnableLegend *bool `json:"enableLegend,omitempty" tf:"enable_legend,omitempty"`
+
+	// Specifies whether the monitoring screen switches automatically.
+	// Specifies whether the monitoring screen switches automatically.
+	// +kubebuilder:validation:Optional
+	EnableScreenAutoPlay *bool `json:"enableScreenAutoPlay,omitempty" tf:"enable_screen_auto_play,omitempty"`
+
+	// Specifies the metric aggregation method.
+	// Values can be as follows:
+	// Specifies the metric aggregation method.
+	// +kubebuilder:validation:Optional
+	Filter *string `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// Specifies the start time.
+	// Specifies the start time.
+	// +kubebuilder:validation:Optional
+	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+	// Specifies the number of large screen display views.
+	// Values can be 1, 4, 9, 16 and 25.
+	// Specifies the number of large screen display views.
+	// +kubebuilder:validation:Optional
+	FullScreenWidgetNum *float64 `json:"fullScreenWidgetNum,omitempty" tf:"full_screen_widget_num,omitempty"`
+
+	// Specifies the metric aggregation period.
+	// Values can be as follows:
+	// Specifies the metric aggregation period.
+	// +kubebuilder:validation:Optional
+	Period *string `json:"period,omitempty" tf:"period,omitempty"`
+
+	// Specifies the refresh time.
+	// Values can be as follows:
+	// Specifies the refresh time.
+	// +kubebuilder:validation:Optional
+	RefreshTime *float64 `json:"refreshTime,omitempty" tf:"refresh_time,omitempty"`
+
+	// Specifies the monitoring screen background color.
+	// Specifies the monitoring screen background color.
+	// +kubebuilder:validation:Optional
+	ScreenColor *string `json:"screenColor,omitempty" tf:"screen_color,omitempty"`
+
+	// Specifies the automatic switching time interval of the monitoring screen.
+	// Values can be as follows:
+	// Specifies the automatic switching time interval of the monitoring screen.
+	// +kubebuilder:validation:Optional
+	TimeInterval *float64 `json:"timeInterval,omitempty" tf:"time_interval,omitempty"`
+
+	// Specifies the end time.
+	// Specifies the end time.
+	// +kubebuilder:validation:Optional
+	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
 }
 
 // DashboardSpec defines the desired state of Dashboard

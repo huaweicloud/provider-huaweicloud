@@ -78,6 +78,8 @@ spec:
                       Specifies the database name.
                       Specifies the database name.
                     type: string
+                  enableForceNew:
+                    type: string
                   extensionName:
                     description: |-
                       Specifies the extension name.
@@ -185,6 +187,8 @@ spec:
                     description: |-
                       Specifies the database name.
                       Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   extensionName:
                     description: |-
@@ -461,6 +465,8 @@ spec:
                     description: |-
                       Specifies the database name.
                       Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   extensionName:
                     description: |-

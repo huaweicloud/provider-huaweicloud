@@ -16,65 +16,70 @@ import (
 type DataVolumesInitParameters struct {
 
 	// Specifies the DSS pool ID. This field is used only for
-	// dedicated storage. Changing this parameter will create a new resource.
 	DssPoolID *string `json:"dssPoolId,omitempty" tf:"dss_pool_id,omitempty"`
 
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// schema: Internal
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// Specifies the iops of the disk,
+	// required when volumetype is GPSSD2 or ESSD2.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the ID of a KMS key. This is used to encrypt the volume.
-	// Changing this parameter will create a new resource.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Specifies the throughput of the disk in MiB/s,
+	// required when volumetype is GPSSD2.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the disk type.
-	// Changing this parameter will create a new resource.
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
 type DataVolumesObservation struct {
 
 	// Specifies the DSS pool ID. This field is used only for
-	// dedicated storage. Changing this parameter will create a new resource.
 	DssPoolID *string `json:"dssPoolId,omitempty" tf:"dss_pool_id,omitempty"`
 
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// schema: Internal
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// Specifies the iops of the disk,
+	// required when volumetype is GPSSD2 or ESSD2.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the ID of a KMS key. This is used to encrypt the volume.
-	// Changing this parameter will create a new resource.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Specifies the throughput of the disk in MiB/s,
+	// required when volumetype is GPSSD2.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the disk type.
-	// Changing this parameter will create a new resource.
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
 type DataVolumesParameters struct {
 
 	// Specifies the DSS pool ID. This field is used only for
-	// dedicated storage. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DssPoolID *string `json:"dssPoolId,omitempty" tf:"dss_pool_id,omitempty"`
 
@@ -82,7 +87,6 @@ type DataVolumesParameters struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
@@ -91,18 +95,25 @@ type DataVolumesParameters struct {
 	// +kubebuilder:validation:Optional
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// Specifies the iops of the disk,
+	// required when volumetype is GPSSD2 or ESSD2.
+	// +kubebuilder:validation:Optional
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the ID of a KMS key. This is used to encrypt the volume.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size" tf:"size,omitempty"`
 
+	// Specifies the throughput of the disk in MiB/s,
+	// required when volumetype is GPSSD2.
+	// +kubebuilder:validation:Optional
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the disk type.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Volumetype *string `json:"volumetype" tf:"volumetype,omitempty"`
 }
@@ -110,21 +121,18 @@ type DataVolumesParameters struct {
 type ExtensionNicsInitParameters struct {
 
 	// Specifies the ID of the subnet to which the NIC belongs.
-	// Changing this parameter will create a new resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 }
 
 type ExtensionNicsObservation struct {
 
 	// Specifies the ID of the subnet to which the NIC belongs.
-	// Changing this parameter will create a new resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 }
 
 type ExtensionNicsParameters struct {
 
 	// Specifies the ID of the subnet to which the NIC belongs.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId" tf:"subnet_id,omitempty"`
 }
@@ -133,20 +141,18 @@ type GroupsInitParameters struct {
 
 	// Specifies the whether the storage space is for kubernetes and
 	// runtime components. Only one group can be set to true. The default value is false.
-	// Changing this parameter will create a new resource.
 	CceManaged *bool `json:"cceManaged,omitempty" tf:"cce_managed,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the list of names of selectors to match.
 	// This parameter corresponds to name in selectors. A group can match multiple selectors,
-	// but a selector can match only one group. Changing this parameter will create a new resource.
+	// but a selector can match only one group.
 	SelectorNames []*string `json:"selectorNames,omitempty" tf:"selector_names,omitempty"`
 
 	// Specifies the detailed management of space configuration in a group.
-	// Changing this parameter will create a new resource.
 	VirtualSpaces []VirtualSpacesInitParameters `json:"virtualSpaces,omitempty" tf:"virtual_spaces,omitempty"`
 }
 
@@ -154,20 +160,18 @@ type GroupsObservation struct {
 
 	// Specifies the whether the storage space is for kubernetes and
 	// runtime components. Only one group can be set to true. The default value is false.
-	// Changing this parameter will create a new resource.
 	CceManaged *bool `json:"cceManaged,omitempty" tf:"cce_managed,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the list of names of selectors to match.
 	// This parameter corresponds to name in selectors. A group can match multiple selectors,
-	// but a selector can match only one group. Changing this parameter will create a new resource.
+	// but a selector can match only one group.
 	SelectorNames []*string `json:"selectorNames,omitempty" tf:"selector_names,omitempty"`
 
 	// Specifies the detailed management of space configuration in a group.
-	// Changing this parameter will create a new resource.
 	VirtualSpaces []VirtualSpacesObservation `json:"virtualSpaces,omitempty" tf:"virtual_spaces,omitempty"`
 }
 
@@ -175,23 +179,21 @@ type GroupsParameters struct {
 
 	// Specifies the whether the storage space is for kubernetes and
 	// runtime components. Only one group can be set to true. The default value is false.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	CceManaged *bool `json:"cceManaged,omitempty" tf:"cce_managed,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// Specifies the list of names of selectors to match.
 	// This parameter corresponds to name in selectors. A group can match multiple selectors,
-	// but a selector can match only one group. Changing this parameter will create a new resource.
+	// but a selector can match only one group.
 	// +kubebuilder:validation:Optional
 	SelectorNames []*string `json:"selectorNames" tf:"selector_names,omitempty"`
 
 	// Specifies the detailed management of space configuration in a group.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	VirtualSpaces []VirtualSpacesParameters `json:"virtualSpaces" tf:"virtual_spaces,omitempty"`
 }
@@ -221,152 +223,165 @@ type HostnameConfigParameters struct {
 type NodeExtendParamsInitParameters struct {
 
 	// Specifies the agency name.
-	// Changing this parameter will create a new resource.
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Specifies the available disk space of a single container on a node,
-	// in GB. Changing this parameter will create a new resource.
+	// in GB.
 	DockerBaseSize *float64 `json:"dockerBaseSize,omitempty" tf:"docker_base_size,omitempty"`
 
 	// Specifies the reserved node memory, which is reserved for
-	// Kubernetes-related components. Changing this parameter will create a new resource.
+	// Kubernetes-related components.
 	KubeReservedMem *float64 `json:"kubeReservedMem,omitempty" tf:"kube_reserved_mem,omitempty"`
 
+	// Specifies the market type. When creating a spot node,
+	// this parameter should be set to spot.
 	MarketType *string `json:"marketType,omitempty" tf:"market_type,omitempty"`
 
 	// Specifies the maximum number of instances a node is allowed to create.
-	// Changing this parameter will create a new resource.
 	MaxPods *float64 `json:"maxPods,omitempty" tf:"max_pods,omitempty"`
 
 	// Specifies the ENI pre-binding thresholds.
-	// Example setting: "0.3:0.6". Changing this parameter will create a new resource.
+	// Example setting: "0.3:0.6".
 	NicThreshold *string `json:"nicThreshold,omitempty" tf:"nic_threshold,omitempty"`
 
 	// Specifies the image ID to create the node.
-	// Changing this parameter will create a new resource.
 	NodeImageID *string `json:"nodeImageId,omitempty" tf:"node_image_id,omitempty"`
 
 	// Specifies the number of ENI queues.
-	// Example setting: "[{"queue":4}]". Changing this parameter will create a new resource.
+	// Example setting: "[{"queue":4}]".
 	NodeMultiQueue *string `json:"nodeMultiQueue,omitempty" tf:"node_multi_queue,omitempty"`
 
 	// Specifies the script to be executed after installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	Postinstall *string `json:"postinstall,omitempty" tf:"postinstall,omitempty"`
 
 	// Specifies the script to be executed before installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	Preinstall *string `json:"preinstall,omitempty" tf:"preinstall,omitempty"`
 
+	// Specifies the security reinforcement type.
+	// The value can be: null or cybersecurity.
+	SecurityReinforcementType *string `json:"securityReinforcementType,omitempty" tf:"security_reinforcement_type,omitempty"`
+
+	// Specifies the highest price per hour a user accepts for a spot node.
 	SpotPrice *string `json:"spotPrice,omitempty" tf:"spot_price,omitempty"`
 
 	// Specifies the reserved node memory, which is reserved
-	// value for system components. Changing this parameter will create a new resource.
+	// value for system components.
 	SystemReservedMem *float64 `json:"systemReservedMem,omitempty" tf:"system_reserved_mem,omitempty"`
 }
 
 type NodeExtendParamsObservation struct {
 
 	// Specifies the agency name.
-	// Changing this parameter will create a new resource.
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Specifies the available disk space of a single container on a node,
-	// in GB. Changing this parameter will create a new resource.
+	// in GB.
 	DockerBaseSize *float64 `json:"dockerBaseSize,omitempty" tf:"docker_base_size,omitempty"`
 
 	// Specifies the reserved node memory, which is reserved for
-	// Kubernetes-related components. Changing this parameter will create a new resource.
+	// Kubernetes-related components.
 	KubeReservedMem *float64 `json:"kubeReservedMem,omitempty" tf:"kube_reserved_mem,omitempty"`
 
+	// Specifies the market type. When creating a spot node,
+	// this parameter should be set to spot.
 	MarketType *string `json:"marketType,omitempty" tf:"market_type,omitempty"`
 
 	// Specifies the maximum number of instances a node is allowed to create.
-	// Changing this parameter will create a new resource.
 	MaxPods *float64 `json:"maxPods,omitempty" tf:"max_pods,omitempty"`
 
 	// Specifies the ENI pre-binding thresholds.
-	// Example setting: "0.3:0.6". Changing this parameter will create a new resource.
+	// Example setting: "0.3:0.6".
 	NicThreshold *string `json:"nicThreshold,omitempty" tf:"nic_threshold,omitempty"`
 
 	// Specifies the image ID to create the node.
-	// Changing this parameter will create a new resource.
 	NodeImageID *string `json:"nodeImageId,omitempty" tf:"node_image_id,omitempty"`
 
 	// Specifies the number of ENI queues.
-	// Example setting: "[{"queue":4}]". Changing this parameter will create a new resource.
+	// Example setting: "[{"queue":4}]".
 	NodeMultiQueue *string `json:"nodeMultiQueue,omitempty" tf:"node_multi_queue,omitempty"`
 
 	// Specifies the script to be executed after installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	Postinstall *string `json:"postinstall,omitempty" tf:"postinstall,omitempty"`
 
 	// Specifies the script to be executed before installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	Preinstall *string `json:"preinstall,omitempty" tf:"preinstall,omitempty"`
 
+	// Specifies the security reinforcement type.
+	// The value can be: null or cybersecurity.
+	SecurityReinforcementType *string `json:"securityReinforcementType,omitempty" tf:"security_reinforcement_type,omitempty"`
+
+	// Specifies the highest price per hour a user accepts for a spot node.
 	SpotPrice *string `json:"spotPrice,omitempty" tf:"spot_price,omitempty"`
 
 	// Specifies the reserved node memory, which is reserved
-	// value for system components. Changing this parameter will create a new resource.
+	// value for system components.
 	SystemReservedMem *float64 `json:"systemReservedMem,omitempty" tf:"system_reserved_mem,omitempty"`
 }
 
 type NodeExtendParamsParameters struct {
 
 	// Specifies the agency name.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	AgencyName *string `json:"agencyName,omitempty" tf:"agency_name,omitempty"`
 
 	// Specifies the available disk space of a single container on a node,
-	// in GB. Changing this parameter will create a new resource.
+	// in GB.
 	// +kubebuilder:validation:Optional
 	DockerBaseSize *float64 `json:"dockerBaseSize,omitempty" tf:"docker_base_size,omitempty"`
 
 	// Specifies the reserved node memory, which is reserved for
-	// Kubernetes-related components. Changing this parameter will create a new resource.
+	// Kubernetes-related components.
 	// +kubebuilder:validation:Optional
 	KubeReservedMem *float64 `json:"kubeReservedMem,omitempty" tf:"kube_reserved_mem,omitempty"`
 
+	// Specifies the market type. When creating a spot node,
+	// this parameter should be set to spot.
 	// +kubebuilder:validation:Optional
 	MarketType *string `json:"marketType,omitempty" tf:"market_type,omitempty"`
 
 	// Specifies the maximum number of instances a node is allowed to create.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	MaxPods *float64 `json:"maxPods,omitempty" tf:"max_pods,omitempty"`
 
 	// Specifies the ENI pre-binding thresholds.
-	// Example setting: "0.3:0.6". Changing this parameter will create a new resource.
+	// Example setting: "0.3:0.6".
 	// +kubebuilder:validation:Optional
 	NicThreshold *string `json:"nicThreshold,omitempty" tf:"nic_threshold,omitempty"`
 
 	// Specifies the image ID to create the node.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	NodeImageID *string `json:"nodeImageId,omitempty" tf:"node_image_id,omitempty"`
 
 	// Specifies the number of ENI queues.
-	// Example setting: "[{"queue":4}]". Changing this parameter will create a new resource.
+	// Example setting: "[{"queue":4}]".
 	// +kubebuilder:validation:Optional
 	NodeMultiQueue *string `json:"nodeMultiQueue,omitempty" tf:"node_multi_queue,omitempty"`
 
 	// Specifies the script to be executed after installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// +kubebuilder:validation:Optional
 	Postinstall *string `json:"postinstall,omitempty" tf:"postinstall,omitempty"`
 
 	// Specifies the script to be executed before installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// +kubebuilder:validation:Optional
 	Preinstall *string `json:"preinstall,omitempty" tf:"preinstall,omitempty"`
 
+	// Specifies the security reinforcement type.
+	// The value can be: null or cybersecurity.
+	// +kubebuilder:validation:Optional
+	SecurityReinforcementType *string `json:"securityReinforcementType,omitempty" tf:"security_reinforcement_type,omitempty"`
+
+	// Specifies the highest price per hour a user accepts for a spot node.
 	// +kubebuilder:validation:Optional
 	SpotPrice *string `json:"spotPrice,omitempty" tf:"spot_price,omitempty"`
 
 	// Specifies the reserved node memory, which is reserved
-	// value for system components. Changing this parameter will create a new resource.
+	// value for system components.
 	// +kubebuilder:validation:Optional
 	SystemReservedMem *float64 `json:"systemReservedMem,omitempty" tf:"system_reserved_mem,omitempty"`
 }
@@ -382,26 +397,22 @@ type NodeInitParameters struct {
 	// Specifies whether auto renew is enabled. Valid values are "true" and "false".
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the name of the available partition (AZ). Changing this
-	// parameter will create a new resource.
+	// Specifies the name of the available partition (AZ).
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the bandwidth billing type.
-	// Changing this parameter will create a new resource.
 	BandwidthChargeMode *string `json:"bandwidthChargeMode,omitempty" tf:"bandwidth_charge_mode,omitempty"`
 
 	// Specifies the bandwidth size.
-	// Changing this parameter will create a new resource.
 	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
 
 	BillingMode *float64 `json:"billingMode,omitempty" tf:"billing_mode,omitempty"`
 
 	// Specifies the charging mode of the CCE node. Valid values are prePaid
-	// and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// and postPaid, defaults to postPaid.
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// Specifies the ID of the cluster.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1.Cluster
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
@@ -415,15 +426,12 @@ type NodeInitParameters struct {
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Specifies the configurations of the data disk.
-	// Changing this parameter will create a new resource.
 	DataVolumes []DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
 	// Specifies the ID of the DeH to which the node is scheduled.
-	// Changing this parameter will create a new resource.
 	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
 
 	// Specifies the ID of the EIP.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	EIPID *string `json:"eipId,omitempty" tf:"eip_id,omitempty"`
@@ -440,7 +448,7 @@ type NodeInitParameters struct {
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Specifies the ECS group ID. If specified, the node will be created under
-	// the cloud server group. Changing this parameter will create a new resource.
+	// the cloud server group.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1.Servergroup
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
@@ -456,8 +464,9 @@ type NodeInitParameters struct {
 	// schema: Deprecated
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the enterprise project ID of the CCE node.
-	// Changing this parameter will create a new resource.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// schema: Deprecated
@@ -465,38 +474,32 @@ type NodeInitParameters struct {
 	ExtendParam map[string]*string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the charging mode of the CCE node. Valid values are prePaid
-	// and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// and postPaid, defaults to postPaid.
 	ExtendParamChargingMode *float64 `json:"extendParamChargingMode,omitempty" tf:"extend_param_charging_mode,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	ExtendParams []NodeExtendParamsInitParameters `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// Specifies extension NICs of the node.
 	// The object structure is documented below.
-	// Changing this parameter will create a new resource.
 	ExtensionNics []ExtensionNicsInitParameters `json:"extensionNics,omitempty" tf:"extension_nics,omitempty"`
 
 	// Specifies the fixed IP of the NIC.
-	// Changing this parameter will create a new resource.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specifies the flavor ID. Changing this parameter will create a new
+	// Specifies the flavor ID.
 	// resource.
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
 
 	// Specifies the hostname config of the kubernetes node,
 	// which is supported by clusters of v1.23.6-r0 to v1.25 or clusters of v1.25.2-r0 or later versions.
 	// The object structure is documented below.
-	// Changing this parameter will create a new resource.
 	HostnameConfig []HostnameConfigInitParameters `json:"hostnameConfig,omitempty" tf:"hostname_config,omitempty"`
 
 	// Specifies the custom initialization flags.
-	// Changing this parameter will create a new resource.
 	InitializedConditions []*string `json:"initializedConditions,omitempty" tf:"initialized_conditions,omitempty"`
 
 	// Specifies the elastic IP type.
-	// Changing this parameter will create a new resource.
 	Iptype *string `json:"iptype,omitempty" tf:"iptype,omitempty"`
 
 	// schema: Internal
@@ -507,12 +510,10 @@ type NodeInitParameters struct {
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Specifies the tags of a Kubernetes node, key/value pair format.
-	// Changing this parameter will create a new resource.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Specifies the maximum number of instances a node is allowed to create.
-	// Changing this parameter will create a new resource.
 	// schema: Deprecated
 	MaxPods *float64 `json:"maxPods,omitempty" tf:"max_pods,omitempty"`
 
@@ -526,10 +527,9 @@ type NodeInitParameters struct {
 	// The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
 	// please see documentation.
 	// This parameter is required when the node_image_id in extend_params is not specified.
-	// Changing this parameter will create a new resource.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
-	// schema: Internal
+	// Specifies the partition to which the node belongs. Value options:
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
 	// Specifies the root password when logging in to select the password mode.
@@ -540,21 +540,20 @@ type NodeInitParameters struct {
 
 	// Specifies the charging period of the CCE node. If period_unit is set to month
 	// , the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter is
-	// mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+	// mandatory if charging_mode is set to prePaid.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the CCE node.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new resource.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the script to be executed after installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// schema: Deprecated
 	Postinstall *string `json:"postinstall,omitempty" tf:"postinstall,omitempty"`
 
 	// Specifies the script to be executed before installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// schema: Deprecated
 	Preinstall *string `json:"preinstall,omitempty" tf:"preinstall,omitempty"`
 
@@ -568,7 +567,7 @@ type NodeInitParameters struct {
 
 	// A key must contain 1 to 63 characters starting with a letter or digit.
 	// Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-	// as the prefix of a key. Changing this parameter will create a new resource.
+	// as the prefix of a key.
 	// schema: Deprecated
 	PublicKey *string `json:"publicKey,omitempty" tf:"public_key,omitempty"`
 
@@ -577,24 +576,27 @@ type NodeInitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the configuration of the system disk.
-	// Changing this parameter will create a new resource.
 	RootVolume []RootVolumeInitParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Specifies the runtime of the CCE node. Valid values are docker and
-	// containerd. Changing this creates a new resource.
+	// containerd.
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
 
 	// Specifies the bandwidth sharing type.
-	// Changing this parameter will create a new resource.
 	Sharetype *string `json:"sharetype,omitempty" tf:"sharetype,omitempty"`
 
 	// Specifies the disk initialization management parameter.
 	// If omitted, disks are managed based on the DockerLVMConfigOverride parameter in extendParam.
-	// This parameter is supported for clusters of v1.15.11 and later. Changing this parameter will create a new resource.
+	// This parameter is supported for clusters of v1.15.11 and later.
+	// If the node has both local and EVS disks attached,
+	// this parameter must be specified, or it may result in unexpected disk partitions.
+	// If you want to change the value range of a data disk to 20 to 32768, this parameter must be specified.
+	// If you want to use the shared disk space (with the runtime and Kubernetes partitions cancelled),
+	// this parameter must be specified.
+	// If you want to store system components in the system disk, this parameter must be specified.
 	Storage []StorageInitParameters `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// Specifies the ID of the subnet to which the NIC belongs.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Subnet
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
@@ -612,7 +614,7 @@ type NodeInitParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the taints configuration of the nodes to set anti-affinity.
-	// Changing this parameter will create a new resource. Each taint contains the following parameters:
+	// Each taint contains the following parameters:
 	Taints []TaintsInitParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 }
 
@@ -627,52 +629,46 @@ type NodeObservation struct {
 	// Specifies whether auto renew is enabled. Valid values are "true" and "false".
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the name of the available partition (AZ). Changing this
-	// parameter will create a new resource.
+	// Specifies the name of the available partition (AZ).
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the bandwidth billing type.
-	// Changing this parameter will create a new resource.
 	BandwidthChargeMode *string `json:"bandwidthChargeMode,omitempty" tf:"bandwidth_charge_mode,omitempty"`
 
 	// Specifies the bandwidth size.
-	// Changing this parameter will create a new resource.
 	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
 
 	BillingMode *float64 `json:"billingMode,omitempty" tf:"billing_mode,omitempty"`
 
 	// Specifies the charging mode of the CCE node. Valid values are prePaid
-	// and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// and postPaid, defaults to postPaid.
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// Specifies the ID of the cluster.
-	// Changing this parameter will create a new resource.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Specifies the configurations of the data disk.
-	// Changing this parameter will create a new resource.
 	DataVolumes []DataVolumesObservation `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
 	// Specifies the ID of the DeH to which the node is scheduled.
-	// Changing this parameter will create a new resource.
 	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
 
 	// Specifies the ID of the EIP.
-	// Changing this parameter will create a new resource.
 	EIPID *string `json:"eipId,omitempty" tf:"eip_id,omitempty"`
 
 	// +listType=set
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Specifies the ECS group ID. If specified, the node will be created under
-	// the cloud server group. Changing this parameter will create a new resource.
+	// the cloud server group.
 	EcsGroupID *string `json:"ecsGroupId,omitempty" tf:"ecs_group_id,omitempty"`
 
 	// schema: Deprecated
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the enterprise project ID of the CCE node.
-	// Changing this parameter will create a new resource.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
 	// schema: Deprecated
@@ -680,41 +676,35 @@ type NodeObservation struct {
 	ExtendParam map[string]*string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the charging mode of the CCE node. Valid values are prePaid
-	// and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// and postPaid, defaults to postPaid.
 	ExtendParamChargingMode *float64 `json:"extendParamChargingMode,omitempty" tf:"extend_param_charging_mode,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	ExtendParams []NodeExtendParamsObservation `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// Specifies extension NICs of the node.
 	// The object structure is documented below.
-	// Changing this parameter will create a new resource.
 	ExtensionNics []ExtensionNicsObservation `json:"extensionNics,omitempty" tf:"extension_nics,omitempty"`
 
 	// Specifies the fixed IP of the NIC.
-	// Changing this parameter will create a new resource.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specifies the flavor ID. Changing this parameter will create a new
+	// Specifies the flavor ID.
 	// resource.
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
 
 	// Specifies the hostname config of the kubernetes node,
 	// which is supported by clusters of v1.23.6-r0 to v1.25 or clusters of v1.25.2-r0 or later versions.
 	// The object structure is documented below.
-	// Changing this parameter will create a new resource.
 	HostnameConfig []HostnameConfigObservation `json:"hostnameConfig,omitempty" tf:"hostname_config,omitempty"`
 
 	// The resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Specifies the custom initialization flags.
-	// Changing this parameter will create a new resource.
 	InitializedConditions []*string `json:"initializedConditions,omitempty" tf:"initialized_conditions,omitempty"`
 
 	// Specifies the elastic IP type.
-	// Changing this parameter will create a new resource.
 	Iptype *string `json:"iptype,omitempty" tf:"iptype,omitempty"`
 
 	// schema: Internal
@@ -725,12 +715,10 @@ type NodeObservation struct {
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Specifies the tags of a Kubernetes node, key/value pair format.
-	// Changing this parameter will create a new resource.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Specifies the maximum number of instances a node is allowed to create.
-	// Changing this parameter will create a new resource.
 	// schema: Deprecated
 	MaxPods *float64 `json:"maxPods,omitempty" tf:"max_pods,omitempty"`
 
@@ -744,29 +732,27 @@ type NodeObservation struct {
 	// The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
 	// please see documentation.
 	// This parameter is required when the node_image_id in extend_params is not specified.
-	// Changing this parameter will create a new resource.
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
-	// schema: Internal
+	// Specifies the partition to which the node belongs. Value options:
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
 	// Specifies the charging period of the CCE node. If period_unit is set to month
 	// , the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter is
-	// mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+	// mandatory if charging_mode is set to prePaid.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the CCE node.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new resource.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the script to be executed after installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// schema: Deprecated
 	Postinstall *string `json:"postinstall,omitempty" tf:"postinstall,omitempty"`
 
 	// Specifies the script to be executed before installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// schema: Deprecated
 	Preinstall *string `json:"preinstall,omitempty" tf:"preinstall,omitempty"`
 
@@ -782,7 +768,7 @@ type NodeObservation struct {
 
 	// A key must contain 1 to 63 characters starting with a letter or digit.
 	// Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-	// as the prefix of a key. Changing this parameter will create a new resource.
+	// as the prefix of a key.
 	// schema: Deprecated
 	PublicKey *string `json:"publicKey,omitempty" tf:"public_key,omitempty"`
 
@@ -791,18 +777,16 @@ type NodeObservation struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the configuration of the system disk.
-	// Changing this parameter will create a new resource.
 	RootVolume []RootVolumeObservation `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Specifies the runtime of the CCE node. Valid values are docker and
-	// containerd. Changing this creates a new resource.
+	// containerd.
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
 
 	// ID of the ECS instance associated with the node.
 	ServerID *string `json:"serverId,omitempty" tf:"server_id,omitempty"`
 
 	// Specifies the bandwidth sharing type.
-	// Changing this parameter will create a new resource.
 	Sharetype *string `json:"sharetype,omitempty" tf:"sharetype,omitempty"`
 
 	// The status of the CCE node.
@@ -810,11 +794,16 @@ type NodeObservation struct {
 
 	// Specifies the disk initialization management parameter.
 	// If omitted, disks are managed based on the DockerLVMConfigOverride parameter in extendParam.
-	// This parameter is supported for clusters of v1.15.11 and later. Changing this parameter will create a new resource.
+	// This parameter is supported for clusters of v1.15.11 and later.
+	// If the node has both local and EVS disks attached,
+	// this parameter must be specified, or it may result in unexpected disk partitions.
+	// If you want to change the value range of a data disk to 20 to 32768, this parameter must be specified.
+	// If you want to use the shared disk space (with the runtime and Kubernetes partitions cancelled),
+	// this parameter must be specified.
+	// If you want to store system components in the system disk, this parameter must be specified.
 	Storage []StorageObservation `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// Specifies the ID of the subnet to which the NIC belongs.
-	// Changing this parameter will create a new resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
 	// Specifies the tags of a VM node, key/value pair format.
@@ -822,7 +811,7 @@ type NodeObservation struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the taints configuration of the nodes to set anti-affinity.
-	// Changing this parameter will create a new resource. Each taint contains the following parameters:
+	// Each taint contains the following parameters:
 	Taints []TaintsObservation `json:"taints,omitempty" tf:"taints,omitempty"`
 }
 
@@ -840,18 +829,15 @@ type NodeParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the name of the available partition (AZ). Changing this
-	// parameter will create a new resource.
+	// Specifies the name of the available partition (AZ).
 	// +kubebuilder:validation:Optional
 	AvailabilityZone *string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the bandwidth billing type.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	BandwidthChargeMode *string `json:"bandwidthChargeMode,omitempty" tf:"bandwidth_charge_mode,omitempty"`
 
 	// Specifies the bandwidth size.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	BandwidthSize *float64 `json:"bandwidthSize,omitempty" tf:"bandwidth_size,omitempty"`
 
@@ -859,12 +845,11 @@ type NodeParameters struct {
 	BillingMode *float64 `json:"billingMode,omitempty" tf:"billing_mode,omitempty"`
 
 	// Specifies the charging mode of the CCE node. Valid values are prePaid
-	// and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// and postPaid, defaults to postPaid.
 	// +kubebuilder:validation:Optional
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// Specifies the ID of the cluster.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/cce/v1alpha1.Cluster
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -879,17 +864,14 @@ type NodeParameters struct {
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Specifies the configurations of the data disk.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DataVolumes []DataVolumesParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
 
 	// Specifies the ID of the DeH to which the node is scheduled.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DedicatedHostID *string `json:"dedicatedHostId,omitempty" tf:"dedicated_host_id,omitempty"`
 
 	// Specifies the ID of the EIP.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -908,7 +890,7 @@ type NodeParameters struct {
 	EIPIds []*string `json:"eipIds,omitempty" tf:"eip_ids,omitempty"`
 
 	// Specifies the ECS group ID. If specified, the node will be created under
-	// the cloud server group. Changing this parameter will create a new resource.
+	// the cloud server group.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1.Servergroup
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -926,8 +908,10 @@ type NodeParameters struct {
 	// +kubebuilder:validation:Optional
 	EcsPerformanceType *string `json:"ecsPerformanceType,omitempty" tf:"ecs_performance_type,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the enterprise project ID of the CCE node.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
 
@@ -937,27 +921,24 @@ type NodeParameters struct {
 	ExtendParam map[string]*string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the charging mode of the CCE node. Valid values are prePaid
-	// and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// and postPaid, defaults to postPaid.
 	// +kubebuilder:validation:Optional
 	ExtendParamChargingMode *float64 `json:"extendParamChargingMode,omitempty" tf:"extend_param_charging_mode,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	ExtendParams []NodeExtendParamsParameters `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// Specifies extension NICs of the node.
 	// The object structure is documented below.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	ExtensionNics []ExtensionNicsParameters `json:"extensionNics,omitempty" tf:"extension_nics,omitempty"`
 
 	// Specifies the fixed IP of the NIC.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specifies the flavor ID. Changing this parameter will create a new
+	// Specifies the flavor ID.
 	// resource.
 	// +kubebuilder:validation:Optional
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
@@ -965,17 +946,14 @@ type NodeParameters struct {
 	// Specifies the hostname config of the kubernetes node,
 	// which is supported by clusters of v1.23.6-r0 to v1.25 or clusters of v1.25.2-r0 or later versions.
 	// The object structure is documented below.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	HostnameConfig []HostnameConfigParameters `json:"hostnameConfig,omitempty" tf:"hostname_config,omitempty"`
 
 	// Specifies the custom initialization flags.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	InitializedConditions []*string `json:"initializedConditions,omitempty" tf:"initialized_conditions,omitempty"`
 
 	// Specifies the elastic IP type.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Iptype *string `json:"iptype,omitempty" tf:"iptype,omitempty"`
 
@@ -989,13 +967,11 @@ type NodeParameters struct {
 	KeyPair *string `json:"keyPair,omitempty" tf:"key_pair,omitempty"`
 
 	// Specifies the tags of a Kubernetes node, key/value pair format.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Specifies the maximum number of instances a node is allowed to create.
-	// Changing this parameter will create a new resource.
 	// schema: Deprecated
 	// +kubebuilder:validation:Optional
 	MaxPods *float64 `json:"maxPods,omitempty" tf:"max_pods,omitempty"`
@@ -1012,11 +988,10 @@ type NodeParameters struct {
 	// The value can be EulerOS 2.9 and CentOS 7.6 e.g. For more details,
 	// please see documentation.
 	// This parameter is required when the node_image_id in extend_params is not specified.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Os *string `json:"os,omitempty" tf:"os,omitempty"`
 
-	// schema: Internal
+	// Specifies the partition to which the node belongs. Value options:
 	// +kubebuilder:validation:Optional
 	Partition *string `json:"partition,omitempty" tf:"partition,omitempty"`
 
@@ -1029,24 +1004,23 @@ type NodeParameters struct {
 
 	// Specifies the charging period of the CCE node. If period_unit is set to month
 	// , the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter is
-	// mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+	// mandatory if charging_mode is set to prePaid.
 	// +kubebuilder:validation:Optional
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
 	// Specifies the charging period unit of the CCE node.
 	// Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-	// Changing this creates a new resource.
 	// +kubebuilder:validation:Optional
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the script to be executed after installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// schema: Deprecated
 	// +kubebuilder:validation:Optional
 	Postinstall *string `json:"postinstall,omitempty" tf:"postinstall,omitempty"`
 
 	// Specifies the script to be executed before installation.
-	// The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+	// The input value can be a Base64 encoded string or not.
 	// schema: Deprecated
 	// +kubebuilder:validation:Optional
 	Preinstall *string `json:"preinstall,omitempty" tf:"preinstall,omitempty"`
@@ -1063,7 +1037,7 @@ type NodeParameters struct {
 
 	// A key must contain 1 to 63 characters starting with a letter or digit.
 	// Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-	// as the prefix of a key. Changing this parameter will create a new resource.
+	// as the prefix of a key.
 	// schema: Deprecated
 	// +kubebuilder:validation:Optional
 	PublicKey *string `json:"publicKey,omitempty" tf:"public_key,omitempty"`
@@ -1074,28 +1048,31 @@ type NodeParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the configuration of the system disk.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	RootVolume []RootVolumeParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Specifies the runtime of the CCE node. Valid values are docker and
-	// containerd. Changing this creates a new resource.
+	// containerd.
 	// +kubebuilder:validation:Optional
 	Runtime *string `json:"runtime,omitempty" tf:"runtime,omitempty"`
 
 	// Specifies the bandwidth sharing type.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Sharetype *string `json:"sharetype,omitempty" tf:"sharetype,omitempty"`
 
 	// Specifies the disk initialization management parameter.
 	// If omitted, disks are managed based on the DockerLVMConfigOverride parameter in extendParam.
-	// This parameter is supported for clusters of v1.15.11 and later. Changing this parameter will create a new resource.
+	// This parameter is supported for clusters of v1.15.11 and later.
+	// If the node has both local and EVS disks attached,
+	// this parameter must be specified, or it may result in unexpected disk partitions.
+	// If you want to change the value range of a data disk to 20 to 32768, this parameter must be specified.
+	// If you want to use the shared disk space (with the runtime and Kubernetes partitions cancelled),
+	// this parameter must be specified.
+	// If you want to store system components in the system disk, this parameter must be specified.
 	// +kubebuilder:validation:Optional
 	Storage []StorageParameters `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// Specifies the ID of the subnet to which the NIC belongs.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/vpc/v1alpha1.Subnet
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -1115,7 +1092,7 @@ type NodeParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Specifies the taints configuration of the nodes to set anti-affinity.
-	// Changing this parameter will create a new resource. Each taint contains the following parameters:
+	// Each taint contains the following parameters:
 	// +kubebuilder:validation:Optional
 	Taints []TaintsParameters `json:"taints,omitempty" tf:"taints,omitempty"`
 }
@@ -1123,65 +1100,70 @@ type NodeParameters struct {
 type RootVolumeInitParameters struct {
 
 	// Specifies the DSS pool ID. This field is used only for
-	// dedicated storage. Changing this parameter will create a new resource.
 	DssPoolID *string `json:"dssPoolId,omitempty" tf:"dss_pool_id,omitempty"`
 
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// schema: Internal
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// Specifies the iops of the disk,
+	// required when volumetype is GPSSD2 or ESSD2.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the ID of a KMS key. This is used to encrypt the volume.
-	// Changing this parameter will create a new resource.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Specifies the throughput of the disk in MiB/s,
+	// required when volumetype is GPSSD2.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the disk type.
-	// Changing this parameter will create a new resource.
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
 type RootVolumeObservation struct {
 
 	// Specifies the DSS pool ID. This field is used only for
-	// dedicated storage. Changing this parameter will create a new resource.
 	DssPoolID *string `json:"dssPoolId,omitempty" tf:"dss_pool_id,omitempty"`
 
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// schema: Internal
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// Specifies the iops of the disk,
+	// required when volumetype is GPSSD2 or ESSD2.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the ID of a KMS key. This is used to encrypt the volume.
-	// Changing this parameter will create a new resource.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// Specifies the throughput of the disk in MiB/s,
+	// required when volumetype is GPSSD2.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the disk type.
-	// Changing this parameter will create a new resource.
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
 type RootVolumeParameters struct {
 
 	// Specifies the DSS pool ID. This field is used only for
-	// dedicated storage. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DssPoolID *string `json:"dssPoolId,omitempty" tf:"dss_pool_id,omitempty"`
 
@@ -1189,7 +1171,6 @@ type RootVolumeParameters struct {
 	ExtendParam *string `json:"extendParam,omitempty" tf:"extend_param,omitempty"`
 
 	// Specifies the disk expansion parameters.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	ExtendParams map[string]*string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
@@ -1198,18 +1179,25 @@ type RootVolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// Specifies the iops of the disk,
+	// required when volumetype is GPSSD2 or ESSD2.
+	// +kubebuilder:validation:Optional
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// Specifies the ID of a KMS key. This is used to encrypt the volume.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size" tf:"size,omitempty"`
 
+	// Specifies the throughput of the disk in MiB/s,
+	// required when volumetype is GPSSD2.
+	// +kubebuilder:validation:Optional
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// Specifies the disk type.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Volumetype *string `json:"volumetype" tf:"volumetype,omitempty"`
 }
@@ -1217,105 +1205,102 @@ type RootVolumeParameters struct {
 type SelectorsInitParameters struct {
 
 	// Specifies the number of disks to be selected. If omitted,
-	// all disks of this type are selected. Changing this parameter will create a new resource.
+	// all disks of this type are selected.
 	MatchLabelCount *string `json:"matchLabelCount,omitempty" tf:"match_label_count,omitempty"`
 
 	// Specifies the customer master key ID of an encrypted
-	// disk. Changing this parameter will create a new resource.
+	// disk.
 	MatchLabelMetadataCmkid *string `json:"matchLabelMetadataCmkid,omitempty" tf:"match_label_metadata_cmkid,omitempty"`
 
 	// Specifies the disk encryption identifier.
 	// Values can be: 0 indicates that the disk is not encrypted and 1 indicates that the disk is encrypted.
-	// If omitted, whether the disk is encrypted is not limited. Changing this parameter will create a new resource.
+	// If omitted, whether the disk is encrypted is not limited.
 	MatchLabelMetadataEncrypted *string `json:"matchLabelMetadataEncrypted,omitempty" tf:"match_label_metadata_encrypted,omitempty"`
 
 	// Specifies the matched disk size. If omitted,
-	// the disk size is not limited. Example: 100. Changing this parameter will create a new resource.
+	// the disk size is not limited. Example: 100.
 	MatchLabelSize *string `json:"matchLabelSize,omitempty" tf:"match_label_size,omitempty"`
 
 	// Specifies the EVS disk type. Currently,
 	// SSD, GPSSD, and SAS are supported. If omitted, the disk type is not limited.
-	// Changing this parameter will create a new resource.
 	MatchLabelVolumeType *string `json:"matchLabelVolumeType,omitempty" tf:"match_label_volume_type,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the storage type. Currently, only evs (EVS volumes) is supported.
-	// The default value is evs. Changing this parameter will create a new resource.
+	// The default value is evs.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type SelectorsObservation struct {
 
 	// Specifies the number of disks to be selected. If omitted,
-	// all disks of this type are selected. Changing this parameter will create a new resource.
+	// all disks of this type are selected.
 	MatchLabelCount *string `json:"matchLabelCount,omitempty" tf:"match_label_count,omitempty"`
 
 	// Specifies the customer master key ID of an encrypted
-	// disk. Changing this parameter will create a new resource.
+	// disk.
 	MatchLabelMetadataCmkid *string `json:"matchLabelMetadataCmkid,omitempty" tf:"match_label_metadata_cmkid,omitempty"`
 
 	// Specifies the disk encryption identifier.
 	// Values can be: 0 indicates that the disk is not encrypted and 1 indicates that the disk is encrypted.
-	// If omitted, whether the disk is encrypted is not limited. Changing this parameter will create a new resource.
+	// If omitted, whether the disk is encrypted is not limited.
 	MatchLabelMetadataEncrypted *string `json:"matchLabelMetadataEncrypted,omitempty" tf:"match_label_metadata_encrypted,omitempty"`
 
 	// Specifies the matched disk size. If omitted,
-	// the disk size is not limited. Example: 100. Changing this parameter will create a new resource.
+	// the disk size is not limited. Example: 100.
 	MatchLabelSize *string `json:"matchLabelSize,omitempty" tf:"match_label_size,omitempty"`
 
 	// Specifies the EVS disk type. Currently,
 	// SSD, GPSSD, and SAS are supported. If omitted, the disk type is not limited.
-	// Changing this parameter will create a new resource.
 	MatchLabelVolumeType *string `json:"matchLabelVolumeType,omitempty" tf:"match_label_volume_type,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the storage type. Currently, only evs (EVS volumes) is supported.
-	// The default value is evs. Changing this parameter will create a new resource.
+	// The default value is evs.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type SelectorsParameters struct {
 
 	// Specifies the number of disks to be selected. If omitted,
-	// all disks of this type are selected. Changing this parameter will create a new resource.
+	// all disks of this type are selected.
 	// +kubebuilder:validation:Optional
 	MatchLabelCount *string `json:"matchLabelCount,omitempty" tf:"match_label_count,omitempty"`
 
 	// Specifies the customer master key ID of an encrypted
-	// disk. Changing this parameter will create a new resource.
+	// disk.
 	// +kubebuilder:validation:Optional
 	MatchLabelMetadataCmkid *string `json:"matchLabelMetadataCmkid,omitempty" tf:"match_label_metadata_cmkid,omitempty"`
 
 	// Specifies the disk encryption identifier.
 	// Values can be: 0 indicates that the disk is not encrypted and 1 indicates that the disk is encrypted.
-	// If omitted, whether the disk is encrypted is not limited. Changing this parameter will create a new resource.
+	// If omitted, whether the disk is encrypted is not limited.
 	// +kubebuilder:validation:Optional
 	MatchLabelMetadataEncrypted *string `json:"matchLabelMetadataEncrypted,omitempty" tf:"match_label_metadata_encrypted,omitempty"`
 
 	// Specifies the matched disk size. If omitted,
-	// the disk size is not limited. Example: 100. Changing this parameter will create a new resource.
+	// the disk size is not limited. Example: 100.
 	// +kubebuilder:validation:Optional
 	MatchLabelSize *string `json:"matchLabelSize,omitempty" tf:"match_label_size,omitempty"`
 
 	// Specifies the EVS disk type. Currently,
 	// SSD, GPSSD, and SAS are supported. If omitted, the disk type is not limited.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	MatchLabelVolumeType *string `json:"matchLabelVolumeType,omitempty" tf:"match_label_volume_type,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// Specifies the storage type. Currently, only evs (EVS volumes) is supported.
-	// The default value is evs. Changing this parameter will create a new resource.
+	// The default value is evs.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
@@ -1324,12 +1309,10 @@ type StorageInitParameters struct {
 
 	// Specifies the storage group consists of multiple storage devices.
 	// This is used to divide storage space. Structure is documented below.
-	// Changing this parameter will create a new resource.
 	Groups []GroupsInitParameters `json:"groups,omitempty" tf:"groups,omitempty"`
 
 	// Specifies the disk selection.
 	// Matched disks are managed according to match labels and storage type. Structure is documented below.
-	// Changing this parameter will create a new resource.
 	Selectors []SelectorsInitParameters `json:"selectors,omitempty" tf:"selectors,omitempty"`
 }
 
@@ -1337,12 +1320,10 @@ type StorageObservation struct {
 
 	// Specifies the storage group consists of multiple storage devices.
 	// This is used to divide storage space. Structure is documented below.
-	// Changing this parameter will create a new resource.
 	Groups []GroupsObservation `json:"groups,omitempty" tf:"groups,omitempty"`
 
 	// Specifies the disk selection.
 	// Matched disks are managed according to match labels and storage type. Structure is documented below.
-	// Changing this parameter will create a new resource.
 	Selectors []SelectorsObservation `json:"selectors,omitempty" tf:"selectors,omitempty"`
 }
 
@@ -1350,13 +1331,11 @@ type StorageParameters struct {
 
 	// Specifies the storage group consists of multiple storage devices.
 	// This is used to divide storage space. Structure is documented below.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Groups []GroupsParameters `json:"groups" tf:"groups,omitempty"`
 
 	// Specifies the disk selection.
 	// Matched disks are managed according to match labels and storage type. Structure is documented below.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Selectors []SelectorsParameters `json:"selectors" tf:"selectors,omitempty"`
 }
@@ -1364,53 +1343,47 @@ type StorageParameters struct {
 type TaintsInitParameters struct {
 
 	// Available options are NoSchedule, PreferNoSchedule, and NoExecute.
-	// Changing this parameter will create a new resource.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
 
 	// A key must contain 1 to 63 characters starting with a letter or digit.
 	// Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-	// as the prefix of a key. Changing this parameter will create a new resource.
+	// as the prefix of a key.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// A value must start with a letter or digit and can contain a maximum of 63
-	// characters, including letters, digits, hyphens (-), underscores (_), and periods (.). Changing this parameter will
-	// create a new resource.
+	// characters, including letters, digits, hyphens (-), underscores (_), and periods (.).
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type TaintsObservation struct {
 
 	// Available options are NoSchedule, PreferNoSchedule, and NoExecute.
-	// Changing this parameter will create a new resource.
 	Effect *string `json:"effect,omitempty" tf:"effect,omitempty"`
 
 	// A key must contain 1 to 63 characters starting with a letter or digit.
 	// Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-	// as the prefix of a key. Changing this parameter will create a new resource.
+	// as the prefix of a key.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// A value must start with a letter or digit and can contain a maximum of 63
-	// characters, including letters, digits, hyphens (-), underscores (_), and periods (.). Changing this parameter will
-	// create a new resource.
+	// characters, including letters, digits, hyphens (-), underscores (_), and periods (.).
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type TaintsParameters struct {
 
 	// Available options are NoSchedule, PreferNoSchedule, and NoExecute.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Effect *string `json:"effect" tf:"effect,omitempty"`
 
 	// A key must contain 1 to 63 characters starting with a letter or digit.
 	// Only letters, digits, hyphens (-), underscores (_), and periods (.) are allowed. A DNS subdomain name can be used
-	// as the prefix of a key. Changing this parameter will create a new resource.
+	// as the prefix of a key.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// A value must start with a letter or digit and can contain a maximum of 63
-	// characters, including letters, digits, hyphens (-), underscores (_), and periods (.). Changing this parameter will
-	// create a new resource.
+	// characters, including letters, digits, hyphens (-), underscores (_), and periods (.).
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
@@ -1418,76 +1391,70 @@ type TaintsParameters struct {
 type VirtualSpacesInitParameters struct {
 
 	// Specifies the LVM write mode, values can be linear and striped.
-	// This parameter takes effect only in kubernetes and user configuration. Changing this parameter will create
-	// a new resource.
+	// This parameter takes effect only in kubernetes and user configuration.
 	LvmLvType *string `json:"lvmLvType,omitempty" tf:"lvm_lv_type,omitempty"`
 
 	// Specifies the absolute path to which the disk is attached.
-	// This parameter takes effect only in user configuration. Changing this parameter will create a new resource.
+	// This parameter takes effect only in user configuration.
 	LvmPath *string `json:"lvmPath,omitempty" tf:"lvm_path,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the LVM write mode, values can be linear and striped.
-	// This parameter takes effect only in runtime configuration. Changing this parameter will create a new resource.
+	// This parameter takes effect only in runtime configuration.
 	RuntimeLvType *string `json:"runtimeLvType,omitempty" tf:"runtime_lv_type,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	Size *string `json:"size,omitempty" tf:"size,omitempty"`
 }
 
 type VirtualSpacesObservation struct {
 
 	// Specifies the LVM write mode, values can be linear and striped.
-	// This parameter takes effect only in kubernetes and user configuration. Changing this parameter will create
-	// a new resource.
+	// This parameter takes effect only in kubernetes and user configuration.
 	LvmLvType *string `json:"lvmLvType,omitempty" tf:"lvm_lv_type,omitempty"`
 
 	// Specifies the absolute path to which the disk is attached.
-	// This parameter takes effect only in user configuration. Changing this parameter will create a new resource.
+	// This parameter takes effect only in user configuration.
 	LvmPath *string `json:"lvmPath,omitempty" tf:"lvm_path,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the LVM write mode, values can be linear and striped.
-	// This parameter takes effect only in runtime configuration. Changing this parameter will create a new resource.
+	// This parameter takes effect only in runtime configuration.
 	RuntimeLvType *string `json:"runtimeLvType,omitempty" tf:"runtime_lv_type,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	Size *string `json:"size,omitempty" tf:"size,omitempty"`
 }
 
 type VirtualSpacesParameters struct {
 
 	// Specifies the LVM write mode, values can be linear and striped.
-	// This parameter takes effect only in kubernetes and user configuration. Changing this parameter will create
-	// a new resource.
+	// This parameter takes effect only in kubernetes and user configuration.
 	// +kubebuilder:validation:Optional
 	LvmLvType *string `json:"lvmLvType,omitempty" tf:"lvm_lv_type,omitempty"`
 
 	// Specifies the absolute path to which the disk is attached.
-	// This parameter takes effect only in user configuration. Changing this parameter will create a new resource.
+	// This parameter takes effect only in user configuration.
 	// +kubebuilder:validation:Optional
 	LvmPath *string `json:"lvmPath,omitempty" tf:"lvm_path,omitempty"`
 
-	// Specifies the selector name, used as the index of selector_names in storage group.
-	// The name of each selector must be unique. Changing this parameter will create a new resource.
+	// Specifies the selector name, used as the index of selector_names
+	// in storage group. The name of each selector must be unique.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// Specifies the LVM write mode, values can be linear and striped.
-	// This parameter takes effect only in runtime configuration. Changing this parameter will create a new resource.
+	// This parameter takes effect only in runtime configuration.
 	// +kubebuilder:validation:Optional
 	RuntimeLvType *string `json:"runtimeLvType,omitempty" tf:"runtime_lv_type,omitempty"`
 
 	// Specifies the disk size in GB.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Size *string `json:"size" tf:"size,omitempty"`
 }
@@ -1529,7 +1496,6 @@ type Node struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.availabilityZone) || (has(self.initProvider) && has(self.initProvider.availabilityZone))",message="spec.forProvider.availabilityZone is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataVolumes) || (has(self.initProvider) && has(self.initProvider.dataVolumes))",message="spec.forProvider.dataVolumes is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flavorId) || (has(self.initProvider) && has(self.initProvider.flavorId))",message="spec.forProvider.flavorId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rootVolume) || (has(self.initProvider) && has(self.initProvider.rootVolume))",message="spec.forProvider.rootVolume is a required parameter"
 	Spec   NodeSpec   `json:"spec"`

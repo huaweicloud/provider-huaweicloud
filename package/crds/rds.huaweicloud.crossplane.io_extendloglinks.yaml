@@ -73,6 +73,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   fileName:
                     description: |-
                       Specifies the name of the file to be downloaded.
@@ -176,6 +178,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enableForceNew:
+                    type: string
                   fileName:
                     description: |-
                       Specifies the name of the file to be downloaded.
@@ -447,6 +451,8 @@ spec:
                     description: |-
                       Indicates the creation time.
                       Indicates the creation time.
+                    type: string
+                  enableForceNew:
                     type: string
                   fileLink:
                     description: |-

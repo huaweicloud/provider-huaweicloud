@@ -185,6 +185,14 @@ spec:
                             type: string
                         type: object
                     type: object
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the network interface tags in the format of key-value pairs.
+                      This parameter can only be used in cn-south-2 for now.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               initProvider:
                 description: |-
@@ -311,6 +319,14 @@ spec:
                             type: string
                         type: object
                     type: object
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the network interface tags in the format of key-value pairs.
+                      This parameter can only be used in cn-south-2 for now.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               managementPolicies:
                 default:
@@ -567,6 +583,14 @@ spec:
                       Specifies the ID of the subnet to which the network interface belongs.
                       Changing this creates a new resource.
                     type: string
+                  tags:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      Specifies the network interface tags in the format of key-value pairs.
+                      This parameter can only be used in cn-south-2 for now.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               conditions:
                 description: Conditions of the resource.

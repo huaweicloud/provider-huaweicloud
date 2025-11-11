@@ -77,6 +77,8 @@ spec:
                       Specifies the remarks of the DB account. The parameter must be 1 to 512 characters.
                       Specifies the remarks of the DB account.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS PostgreSQL instance.
@@ -214,6 +216,8 @@ spec:
                     description: |-
                       Specifies the remarks of the DB account. The parameter must be 1 to 512 characters.
                       Specifies the remarks of the DB account.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
                     description: |-
@@ -560,6 +564,8 @@ spec:
                     description: |-
                       Specifies the remarks of the DB account. The parameter must be 1 to 512 characters.
                       Specifies the remarks of the DB account.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID of account which is formatted <instance_id>/<name>.

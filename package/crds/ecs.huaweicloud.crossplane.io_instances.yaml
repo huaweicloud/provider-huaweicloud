@@ -104,7 +104,7 @@ spec:
                     type: string
                   autoRenew:
                     description: |-
-                      Specifies whether auto renew is enabled.
+                      Specifies whether auto-renew is enabled.
                       Valid values are true and false. Defaults to false.
                     type: string
                   autoTerminateTime:
@@ -161,7 +161,7 @@ spec:
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the instance. Valid values are prePaid,
-                      postPaid and spot, defaults to postPaid. Changing this creates a new instance.
+                      postPaid and spot, defaults to postPaid.
                     type: string
                   dataDisks:
                     description: |-
@@ -231,6 +231,22 @@ spec:
                       Specifies the type of an EIP that will be automatically assigned to the instance.
                       Available values are 5_bgp (dynamic BGP) and 5_sbgp (static BGP). Changing this creates a new instance.
                     type: string
+                  enableJumboFrame:
+                    description: 'schema: Internal'
+                    type: boolean
+                  enclaveOptions:
+                    description: |-
+                      Specifies the custom enclave options.
+                      The object structure is documented below. Changing this creates a new instance.
+                    items:
+                      properties:
+                        enabled:
+                          description: |-
+                            Specifies whether to enable Enclave.
+                            Changing this creates a new instance.
+                          type: boolean
+                      type: object
+                    type: array
                   enterpriseProjectId:
                     description: Specifies a unique id in UUID format of enterprise
                       project.
@@ -246,7 +262,7 @@ spec:
                       schema: Computed
                     type: string
                   hostname:
-                    description: Specifies the hostname of the instance.
+                    description: The hostname of the instance.
                     type: string
                   imageId:
                     description: |-
@@ -258,6 +274,16 @@ spec:
                       Required if image_id is empty. Specifies the name of the desired image
                       for the instance. Changing this creates a new instance.
                     type: string
+                  includeDataDisksOnUpdate:
+                    description: |-
+                      Specifies whether to change the billing modes of all pay-per-use data
+                      disks to yearly/monthly. Defaults to false.
+                    type: boolean
+                  includePublicipsOnUpdate:
+                    description: |-
+                      Specifies whether to change the billing modes of EIPs that are exclusive
+                      and billed by bandwidth to yearly/monthly. Defaults to false.
+                    type: boolean
                   keyPair:
                     description: Specifies the SSH keypair name used for logging in
                       to the instance.
@@ -285,9 +311,8 @@ spec:
                             Accepts true or false. Defaults to false.
                           type: boolean
                         fixedIpV4:
-                          description: |-
-                            Specifies a fixed IPv4 address to be used on this network.
-                            Changing this creates a new instance.
+                          description: Specifies a fixed IPv4 address to be used on
+                            this network.
                           type: string
                         fixedIpV6:
                           description: |-
@@ -313,7 +338,6 @@ spec:
                         uuid:
                           description: |-
                             Specifies the network UUID to attach to the instance.
-                            Changing this creates a new instance.
                             schema: Required
                           type: string
                       type: object
@@ -322,14 +346,12 @@ spec:
                     description: |-
                       Specifies the charging period of the instance.
                       If period_unit is set to month , the value ranges from 1 to 9. If period_unit is set to year, the value
-                      ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a
-                      new resource.
+                      ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the instance.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new instance.
                     type: string
                   powerAction:
                     description: |-
@@ -368,8 +390,8 @@ spec:
                       properties:
                         dehId:
                           description: |-
-                            Specifies the ID of DeH.
-                            This parameter takes effect only when the value of tenancy is dedicated. Changing this creates a new instance.
+                            Specifies the ID of DeH. This parameter takes effect only when the value of tenancy is
+                            dedicated.
                           type: string
                         faultDomain:
                           description: 'schema: Internal'
@@ -381,9 +403,8 @@ spec:
                           type: string
                         tenancy:
                           description: |-
-                            Specifies the tenancy specifies whether the ECS is to be created on a
-                            Dedicated Host
-                            (DeH) or in a shared pool. Changing this creates a new instance.
+                            Specifies the tenancy specifies whether the ECS is to be created on a Dedicated Host(DeH)
+                            or in a shared pool. Value options: share, dedicate.
                           type: string
                       type: object
                     type: array
@@ -520,7 +541,7 @@ spec:
                     type: string
                   autoRenew:
                     description: |-
-                      Specifies whether auto renew is enabled.
+                      Specifies whether auto-renew is enabled.
                       Valid values are true and false. Defaults to false.
                     type: string
                   autoTerminateTime:
@@ -577,7 +598,7 @@ spec:
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the instance. Valid values are prePaid,
-                      postPaid and spot, defaults to postPaid. Changing this creates a new instance.
+                      postPaid and spot, defaults to postPaid.
                     type: string
                   dataDisks:
                     description: |-
@@ -647,6 +668,22 @@ spec:
                       Specifies the type of an EIP that will be automatically assigned to the instance.
                       Available values are 5_bgp (dynamic BGP) and 5_sbgp (static BGP). Changing this creates a new instance.
                     type: string
+                  enableJumboFrame:
+                    description: 'schema: Internal'
+                    type: boolean
+                  enclaveOptions:
+                    description: |-
+                      Specifies the custom enclave options.
+                      The object structure is documented below. Changing this creates a new instance.
+                    items:
+                      properties:
+                        enabled:
+                          description: |-
+                            Specifies whether to enable Enclave.
+                            Changing this creates a new instance.
+                          type: boolean
+                      type: object
+                    type: array
                   enterpriseProjectId:
                     description: Specifies a unique id in UUID format of enterprise
                       project.
@@ -662,7 +699,7 @@ spec:
                       schema: Computed
                     type: string
                   hostname:
-                    description: Specifies the hostname of the instance.
+                    description: The hostname of the instance.
                     type: string
                   imageId:
                     description: |-
@@ -674,6 +711,16 @@ spec:
                       Required if image_id is empty. Specifies the name of the desired image
                       for the instance. Changing this creates a new instance.
                     type: string
+                  includeDataDisksOnUpdate:
+                    description: |-
+                      Specifies whether to change the billing modes of all pay-per-use data
+                      disks to yearly/monthly. Defaults to false.
+                    type: boolean
+                  includePublicipsOnUpdate:
+                    description: |-
+                      Specifies whether to change the billing modes of EIPs that are exclusive
+                      and billed by bandwidth to yearly/monthly. Defaults to false.
+                    type: boolean
                   keyPair:
                     description: Specifies the SSH keypair name used for logging in
                       to the instance.
@@ -701,9 +748,8 @@ spec:
                             Accepts true or false. Defaults to false.
                           type: boolean
                         fixedIpV4:
-                          description: |-
-                            Specifies a fixed IPv4 address to be used on this network.
-                            Changing this creates a new instance.
+                          description: Specifies a fixed IPv4 address to be used on
+                            this network.
                           type: string
                         fixedIpV6:
                           description: |-
@@ -729,7 +775,6 @@ spec:
                         uuid:
                           description: |-
                             Specifies the network UUID to attach to the instance.
-                            Changing this creates a new instance.
                             schema: Required
                           type: string
                       type: object
@@ -738,14 +783,12 @@ spec:
                     description: |-
                       Specifies the charging period of the instance.
                       If period_unit is set to month , the value ranges from 1 to 9. If period_unit is set to year, the value
-                      ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a
-                      new resource.
+                      ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the instance.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new instance.
                     type: string
                   powerAction:
                     description: |-
@@ -784,8 +827,8 @@ spec:
                       properties:
                         dehId:
                           description: |-
-                            Specifies the ID of DeH.
-                            This parameter takes effect only when the value of tenancy is dedicated. Changing this creates a new instance.
+                            Specifies the ID of DeH. This parameter takes effect only when the value of tenancy is
+                            dedicated.
                           type: string
                         faultDomain:
                           description: 'schema: Internal'
@@ -797,9 +840,8 @@ spec:
                           type: string
                         tenancy:
                           description: |-
-                            Specifies the tenancy specifies whether the ECS is to be created on a
-                            Dedicated Host
-                            (DeH) or in a shared pool. Changing this creates a new instance.
+                            Specifies the tenancy specifies whether the ECS is to be created on a Dedicated Host(DeH)
+                            or in a shared pool. Value options: share, dedicate.
                           type: string
                       type: object
                     type: array
@@ -1093,7 +1135,7 @@ spec:
                     type: string
                   autoRenew:
                     description: |-
-                      Specifies whether auto renew is enabled.
+                      Specifies whether auto-renew is enabled.
                       Valid values are true and false. Defaults to false.
                     type: string
                   autoTerminateTime:
@@ -1150,7 +1192,7 @@ spec:
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the instance. Valid values are prePaid,
-                      postPaid and spot, defaults to postPaid. Changing this creates a new instance.
+                      postPaid and spot, defaults to postPaid.
                     type: string
                   createdAt:
                     description: The creation time, in UTC format.
@@ -1223,6 +1265,22 @@ spec:
                       Specifies the type of an EIP that will be automatically assigned to the instance.
                       Available values are 5_bgp (dynamic BGP) and 5_sbgp (static BGP). Changing this creates a new instance.
                     type: string
+                  enableJumboFrame:
+                    description: 'schema: Internal'
+                    type: boolean
+                  enclaveOptions:
+                    description: |-
+                      Specifies the custom enclave options.
+                      The object structure is documented below. Changing this creates a new instance.
+                    items:
+                      properties:
+                        enabled:
+                          description: |-
+                            Specifies whether to enable Enclave.
+                            Changing this creates a new instance.
+                          type: boolean
+                      type: object
+                    type: array
                   enterpriseProjectId:
                     description: Specifies a unique id in UUID format of enterprise
                       project.
@@ -1241,7 +1299,7 @@ spec:
                       schema: Computed
                     type: string
                   hostname:
-                    description: Specifies the hostname of the instance.
+                    description: The hostname of the instance.
                     type: string
                   id:
                     description: A resource ID in UUID format.
@@ -1256,6 +1314,16 @@ spec:
                       Required if image_id is empty. Specifies the name of the desired image
                       for the instance. Changing this creates a new instance.
                     type: string
+                  includeDataDisksOnUpdate:
+                    description: |-
+                      Specifies whether to change the billing modes of all pay-per-use data
+                      disks to yearly/monthly. Defaults to false.
+                    type: boolean
+                  includePublicipsOnUpdate:
+                    description: |-
+                      Specifies whether to change the billing modes of EIPs that are exclusive
+                      and billed by bandwidth to yearly/monthly. Defaults to false.
+                    type: boolean
                   keyPair:
                     description: Specifies the SSH keypair name used for logging in
                       to the instance.
@@ -1283,9 +1351,8 @@ spec:
                             Accepts true or false. Defaults to false.
                           type: boolean
                         fixedIpV4:
-                          description: |-
-                            Specifies a fixed IPv4 address to be used on this network.
-                            Changing this creates a new instance.
+                          description: Specifies a fixed IPv4 address to be used on
+                            this network.
                           type: string
                         fixedIpV6:
                           description: |-
@@ -1314,7 +1381,6 @@ spec:
                         uuid:
                           description: |-
                             Specifies the network UUID to attach to the instance.
-                            Changing this creates a new instance.
                             schema: Required
                           type: string
                       type: object
@@ -1323,14 +1389,12 @@ spec:
                     description: |-
                       Specifies the charging period of the instance.
                       If period_unit is set to month , the value ranges from 1 to 9. If period_unit is set to year, the value
-                      ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a
-                      new resource.
+                      ranges from 1 to 3. This parameter is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the instance.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new instance.
                     type: string
                   powerAction:
                     description: |-
@@ -1353,8 +1417,8 @@ spec:
                       properties:
                         dehId:
                           description: |-
-                            Specifies the ID of DeH.
-                            This parameter takes effect only when the value of tenancy is dedicated. Changing this creates a new instance.
+                            Specifies the ID of DeH. This parameter takes effect only when the value of tenancy is
+                            dedicated.
                           type: string
                         faultDomain:
                           description: 'schema: Internal'
@@ -1366,9 +1430,8 @@ spec:
                           type: string
                         tenancy:
                           description: |-
-                            Specifies the tenancy specifies whether the ECS is to be created on a
-                            Dedicated Host
-                            (DeH) or in a shared pool. Changing this creates a new instance.
+                            Specifies the tenancy specifies whether the ECS is to be created on a Dedicated Host(DeH)
+                            or in a shared pool. Value options: share, dedicate.
                           type: string
                       type: object
                     type: array

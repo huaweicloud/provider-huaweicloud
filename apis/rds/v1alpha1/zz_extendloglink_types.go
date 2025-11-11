@@ -14,6 +14,7 @@ import (
 )
 
 type ExtendLogLinkInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the name of the file to be downloaded.
 	// Specifies the name of the file to be downloaded.
@@ -44,6 +45,8 @@ type ExtendLogLinkObservation struct {
 	// Indicates the creation time.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Indicates the download link.
 	// Indicates the download link.
 	FileLink *string `json:"fileLink,omitempty" tf:"file_link,omitempty"`
@@ -73,6 +76,9 @@ type ExtendLogLinkObservation struct {
 }
 
 type ExtendLogLinkParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the name of the file to be downloaded.
 	// Specifies the name of the file to be downloaded.

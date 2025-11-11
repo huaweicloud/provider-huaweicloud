@@ -18,7 +18,9 @@ type MySQLBinlogInitParameters struct {
 	// Specifies the binlog retention period. Value range: 1 to 168 (7x24).
 	BinlogRetentionHours *float64 `json:"binlogRetentionHours,omitempty" tf:"binlog_retention_hours,omitempty"`
 
-	// Specifies the RDS MySQL instance ID. Changing this will create a new resource.
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the RDS MySQL instance ID.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
@@ -41,10 +43,12 @@ type MySQLBinlogObservation struct {
 	// Specifies the binlog retention period. Value range: 1 to 168 (7x24).
 	BinlogRetentionHours *float64 `json:"binlogRetentionHours,omitempty" tf:"binlog_retention_hours,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID .
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the RDS MySQL instance ID. Changing this will create a new resource.
+	// Specifies the RDS MySQL instance ID.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// The region in which to create the RDS binlog resource. If omitted, the
@@ -58,7 +62,10 @@ type MySQLBinlogParameters struct {
 	// +kubebuilder:validation:Optional
 	BinlogRetentionHours *float64 `json:"binlogRetentionHours,omitempty" tf:"binlog_retention_hours,omitempty"`
 
-	// Specifies the RDS MySQL instance ID. Changing this will create a new resource.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the RDS MySQL instance ID.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional

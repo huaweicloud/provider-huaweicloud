@@ -36,11 +36,18 @@ type BindingsParameters struct {
 
 type RabbitmqExchangeInitParameters struct {
 
+	// Specifies the argument configuration of the exchange, in JSON format.
+	// Changing this creates a new resource.
+	// Currently, this parameter is available only when type is set to x-delayed-message.
+	// The argument configuration of the exchange, in JSON format.
+	Arguments *string `json:"arguments,omitempty" tf:"arguments,omitempty"`
+
 	// Specifies whether to enable auto delete. Changing this creates a new resource.
 	AutoDelete *bool `json:"autoDelete,omitempty" tf:"auto_delete,omitempty"`
 
 	// Specifies whether to enable durable. Defaults to false.
 	// Changing this creates a new resource.
+	// This parameter is only valid for RabbitMQ 3.x.x exchange. It is enabled by default for RabbitMQ AMQP-0-9-1 exchange.
 	Durable *bool `json:"durable,omitempty" tf:"durable,omitempty"`
 
 	// Specifies the DMS RabbitMQ instance ID.
@@ -59,6 +66,7 @@ type RabbitmqExchangeInitParameters struct {
 
 	// Specifies whether the exchange is internal. Defaults to false.
 	// Changing this creates a new resource.
+	// This parameter is only valid for RabbitMQ 3.x.x exchange.
 	Internal *bool `json:"internal,omitempty" tf:"internal,omitempty"`
 
 	// Specifies the exchange name. Changing this creates a new resource.
@@ -68,8 +76,9 @@ type RabbitmqExchangeInitParameters struct {
 	// If omitted, the provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Specifies the exchange type. Valid values are direct, fanout, topic
-	// and headers. Changing this creates a new resource.
+	// Specifies the routing type of the exchange.
+	// Changing this creates a new resource.
+	// The valid values are as follows:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the vhost name. Changing this creates a new resource.
@@ -77,6 +86,12 @@ type RabbitmqExchangeInitParameters struct {
 }
 
 type RabbitmqExchangeObservation struct {
+
+	// Specifies the argument configuration of the exchange, in JSON format.
+	// Changing this creates a new resource.
+	// Currently, this parameter is available only when type is set to x-delayed-message.
+	// The argument configuration of the exchange, in JSON format.
+	Arguments *string `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// Specifies whether to enable auto delete. Changing this creates a new resource.
 	AutoDelete *bool `json:"autoDelete,omitempty" tf:"auto_delete,omitempty"`
@@ -87,6 +102,7 @@ type RabbitmqExchangeObservation struct {
 
 	// Specifies whether to enable durable. Defaults to false.
 	// Changing this creates a new resource.
+	// This parameter is only valid for RabbitMQ 3.x.x exchange. It is enabled by default for RabbitMQ AMQP-0-9-1 exchange.
 	Durable *bool `json:"durable,omitempty" tf:"durable,omitempty"`
 
 	// The resource ID.
@@ -98,6 +114,7 @@ type RabbitmqExchangeObservation struct {
 
 	// Specifies whether the exchange is internal. Defaults to false.
 	// Changing this creates a new resource.
+	// This parameter is only valid for RabbitMQ 3.x.x exchange.
 	Internal *bool `json:"internal,omitempty" tf:"internal,omitempty"`
 
 	// Specifies the exchange name. Changing this creates a new resource.
@@ -107,8 +124,9 @@ type RabbitmqExchangeObservation struct {
 	// If omitted, the provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Specifies the exchange type. Valid values are direct, fanout, topic
-	// and headers. Changing this creates a new resource.
+	// Specifies the routing type of the exchange.
+	// Changing this creates a new resource.
+	// The valid values are as follows:
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the vhost name. Changing this creates a new resource.
@@ -117,12 +135,20 @@ type RabbitmqExchangeObservation struct {
 
 type RabbitmqExchangeParameters struct {
 
+	// Specifies the argument configuration of the exchange, in JSON format.
+	// Changing this creates a new resource.
+	// Currently, this parameter is available only when type is set to x-delayed-message.
+	// The argument configuration of the exchange, in JSON format.
+	// +kubebuilder:validation:Optional
+	Arguments *string `json:"arguments,omitempty" tf:"arguments,omitempty"`
+
 	// Specifies whether to enable auto delete. Changing this creates a new resource.
 	// +kubebuilder:validation:Optional
 	AutoDelete *bool `json:"autoDelete,omitempty" tf:"auto_delete,omitempty"`
 
 	// Specifies whether to enable durable. Defaults to false.
 	// Changing this creates a new resource.
+	// This parameter is only valid for RabbitMQ 3.x.x exchange. It is enabled by default for RabbitMQ AMQP-0-9-1 exchange.
 	// +kubebuilder:validation:Optional
 	Durable *bool `json:"durable,omitempty" tf:"durable,omitempty"`
 
@@ -143,6 +169,7 @@ type RabbitmqExchangeParameters struct {
 
 	// Specifies whether the exchange is internal. Defaults to false.
 	// Changing this creates a new resource.
+	// This parameter is only valid for RabbitMQ 3.x.x exchange.
 	// +kubebuilder:validation:Optional
 	Internal *bool `json:"internal,omitempty" tf:"internal,omitempty"`
 
@@ -155,8 +182,9 @@ type RabbitmqExchangeParameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Specifies the exchange type. Valid values are direct, fanout, topic
-	// and headers. Changing this creates a new resource.
+	// Specifies the routing type of the exchange.
+	// Changing this creates a new resource.
+	// The valid values are as follows:
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 

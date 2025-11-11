@@ -32,7 +32,6 @@ type CentralNetworkInitParameters struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// The key/value pairs to associate with the central network.
-	// The key/value pairs to associate with the central network.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -64,7 +63,6 @@ type CentralNetworkObservation struct {
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// The key/value pairs to associate with the central network.
-	// The key/value pairs to associate with the central network.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -91,7 +89,6 @@ type CentralNetworkParameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// The key/value pairs to associate with the central network.
 	// The key/value pairs to associate with the central network.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular

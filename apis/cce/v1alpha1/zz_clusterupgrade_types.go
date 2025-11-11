@@ -129,7 +129,16 @@ type ClusterUpgradeInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
+	// Specifies the current version, e.g. v1.28.15-r30.
+	CurrentVersion *string `json:"currentVersion,omitempty" tf:"current_version,omitempty"`
+
 	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies whether to run postcheck.
+	IsPostcheck *bool `json:"isPostcheck,omitempty" tf:"is_postcheck,omitempty"`
+
+	// Specifies whether the cluster is snapshotted.
+	IsSnapshot *bool `json:"isSnapshot,omitempty" tf:"is_snapshot,omitempty"`
 
 	// Specifies the upgrade sequence of nodes in the node pools.
 	// The key is the node pool ID, DefaultPool indicates the default pool.
@@ -152,7 +161,7 @@ type ClusterUpgradeInitParameters struct {
 	// The strategy structure is documented below.
 	Strategy []StrategyInitParameters `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// Specifies the target version.
+	// Specifies the target version, e.g. v1.29.13-r10.
 	TargetVersion *string `json:"targetVersion,omitempty" tf:"target_version,omitempty"`
 }
 
@@ -165,10 +174,19 @@ type ClusterUpgradeObservation struct {
 	// Specifies the cluster ID.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
+	// Specifies the current version, e.g. v1.28.15-r30.
+	CurrentVersion *string `json:"currentVersion,omitempty" tf:"current_version,omitempty"`
+
 	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// The resource ID in UUID format.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies whether to run postcheck.
+	IsPostcheck *bool `json:"isPostcheck,omitempty" tf:"is_postcheck,omitempty"`
+
+	// Specifies whether the cluster is snapshotted.
+	IsSnapshot *bool `json:"isSnapshot,omitempty" tf:"is_snapshot,omitempty"`
 
 	// Specifies the upgrade sequence of nodes in the node pools.
 	// The key is the node pool ID, DefaultPool indicates the default pool.
@@ -191,7 +209,7 @@ type ClusterUpgradeObservation struct {
 	// The strategy structure is documented below.
 	Strategy []StrategyObservation `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// Specifies the target version.
+	// Specifies the target version, e.g. v1.29.13-r10.
 	TargetVersion *string `json:"targetVersion,omitempty" tf:"target_version,omitempty"`
 }
 
@@ -216,8 +234,20 @@ type ClusterUpgradeParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
+	// Specifies the current version, e.g. v1.28.15-r30.
+	// +kubebuilder:validation:Optional
+	CurrentVersion *string `json:"currentVersion,omitempty" tf:"current_version,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies whether to run postcheck.
+	// +kubebuilder:validation:Optional
+	IsPostcheck *bool `json:"isPostcheck,omitempty" tf:"is_postcheck,omitempty"`
+
+	// Specifies whether the cluster is snapshotted.
+	// +kubebuilder:validation:Optional
+	IsSnapshot *bool `json:"isSnapshot,omitempty" tf:"is_snapshot,omitempty"`
 
 	// Specifies the upgrade sequence of nodes in the node pools.
 	// The key is the node pool ID, DefaultPool indicates the default pool.
@@ -244,7 +274,7 @@ type ClusterUpgradeParameters struct {
 	// +kubebuilder:validation:Optional
 	Strategy []StrategyParameters `json:"strategy,omitempty" tf:"strategy,omitempty"`
 
-	// Specifies the target version.
+	// Specifies the target version, e.g. v1.29.13-r10.
 	// +kubebuilder:validation:Optional
 	TargetVersion *string `json:"targetVersion,omitempty" tf:"target_version,omitempty"`
 }

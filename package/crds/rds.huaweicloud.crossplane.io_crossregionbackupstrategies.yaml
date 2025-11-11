@@ -90,6 +90,8 @@ spec:
                       Specifies the target region ID for the cross-region backup policy.
                       Specifies the target region ID for the cross-region backup policy.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS instance.
@@ -209,6 +211,8 @@ spec:
                     description: |-
                       Specifies the target region ID for the cross-region backup policy.
                       Specifies the target region ID for the cross-region backup policy.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
                     description: |-
@@ -506,6 +510,8 @@ spec:
                     description: |-
                       Specifies the target region ID for the cross-region backup policy.
                       Specifies the target region ID for the cross-region backup policy.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID.

@@ -80,12 +80,23 @@ type AlarmruleInitParameters struct {
 	// characters that can consist of English letters, Chinese characters, digits, underscores (_), hyphens (-).
 	AlarmName *string `json:"alarmName,omitempty" tf:"alarm_name,omitempty"`
 
+	// Specifies the ID of the alarm template.
+	// When using alarm_template_id, the fields alarm_name, alarm_description, alarm_action_enabled, alarm_actions
+	// and ok_actions cannot be updated.
+	// Changing this creates a new resource.
+	AlarmTemplateID *string `json:"alarmTemplateId,omitempty" tf:"alarm_template_id,omitempty"`
+
 	// Specifies the alarm type. The value can be EVENT.SYS, EVENT.CUSTOM,
 	// MULTI_INSTANCE and ALL_INSTANCE. Defaults to MULTI_INSTANCE.
 	AlarmType *string `json:"alarmType,omitempty" tf:"alarm_type,omitempty"`
 
-	// Specifies the alarm triggering condition. The structure is described below.
+	// Specifies the alarm triggering condition.
+	// The condition structure is documented below.
 	Condition []ConditionInitParameters `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// Specifies the time zone, for example: GMT-08:00, GMT+08:00 or
+	// GMT+0:00.
+	EffectiveTimezone *string `json:"effectiveTimezone,omitempty" tf:"effective_timezone,omitempty"`
 
 	// Specifies the enterprise project ID of the alarm rule.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
@@ -96,12 +107,10 @@ type AlarmruleInitParameters struct {
 	// creates a new resource.
 	Metric []MetricInitParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// Specifies the alarm notification start time, for
-	// example: 05:30. Changing this creates a new resource.
+	// Specifies the alarm notification start time, for example: 05:30.
 	NotificationBeginTime *string `json:"notificationBeginTime,omitempty" tf:"notification_begin_time,omitempty"`
 
-	// Specifies the alarm notification stop time, for
-	// example: 22:10. Changing this creates a new resource.
+	// Specifies the alarm notification stop time, for example: 22:10.
 	NotificationEndTime *string `json:"notificationEndTime,omitempty" tf:"notification_end_time,omitempty"`
 
 	// Specifies the action triggered by the clearing of an alarm. The structure is
@@ -150,12 +159,23 @@ type AlarmruleObservation struct {
 	// Indicates the alarm status. The value can be:
 	AlarmState *string `json:"alarmState,omitempty" tf:"alarm_state,omitempty"`
 
+	// Specifies the ID of the alarm template.
+	// When using alarm_template_id, the fields alarm_name, alarm_description, alarm_action_enabled, alarm_actions
+	// and ok_actions cannot be updated.
+	// Changing this creates a new resource.
+	AlarmTemplateID *string `json:"alarmTemplateId,omitempty" tf:"alarm_template_id,omitempty"`
+
 	// Specifies the alarm type. The value can be EVENT.SYS, EVENT.CUSTOM,
 	// MULTI_INSTANCE and ALL_INSTANCE. Defaults to MULTI_INSTANCE.
 	AlarmType *string `json:"alarmType,omitempty" tf:"alarm_type,omitempty"`
 
-	// Specifies the alarm triggering condition. The structure is described below.
+	// Specifies the alarm triggering condition.
+	// The condition structure is documented below.
 	Condition []ConditionObservation `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// Specifies the time zone, for example: GMT-08:00, GMT+08:00 or
+	// GMT+0:00.
+	EffectiveTimezone *string `json:"effectiveTimezone,omitempty" tf:"effective_timezone,omitempty"`
 
 	// Specifies the enterprise project ID of the alarm rule.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
@@ -169,12 +189,10 @@ type AlarmruleObservation struct {
 	// creates a new resource.
 	Metric []MetricObservation `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// Specifies the alarm notification start time, for
-	// example: 05:30. Changing this creates a new resource.
+	// Specifies the alarm notification start time, for example: 05:30.
 	NotificationBeginTime *string `json:"notificationBeginTime,omitempty" tf:"notification_begin_time,omitempty"`
 
-	// Specifies the alarm notification stop time, for
-	// example: 22:10. Changing this creates a new resource.
+	// Specifies the alarm notification stop time, for example: 22:10.
 	NotificationEndTime *string `json:"notificationEndTime,omitempty" tf:"notification_end_time,omitempty"`
 
 	// Specifies the action triggered by the clearing of an alarm. The structure is
@@ -229,14 +247,27 @@ type AlarmruleParameters struct {
 	// +kubebuilder:validation:Optional
 	AlarmName *string `json:"alarmName,omitempty" tf:"alarm_name,omitempty"`
 
+	// Specifies the ID of the alarm template.
+	// When using alarm_template_id, the fields alarm_name, alarm_description, alarm_action_enabled, alarm_actions
+	// and ok_actions cannot be updated.
+	// Changing this creates a new resource.
+	// +kubebuilder:validation:Optional
+	AlarmTemplateID *string `json:"alarmTemplateId,omitempty" tf:"alarm_template_id,omitempty"`
+
 	// Specifies the alarm type. The value can be EVENT.SYS, EVENT.CUSTOM,
 	// MULTI_INSTANCE and ALL_INSTANCE. Defaults to MULTI_INSTANCE.
 	// +kubebuilder:validation:Optional
 	AlarmType *string `json:"alarmType,omitempty" tf:"alarm_type,omitempty"`
 
-	// Specifies the alarm triggering condition. The structure is described below.
+	// Specifies the alarm triggering condition.
+	// The condition structure is documented below.
 	// +kubebuilder:validation:Optional
 	Condition []ConditionParameters `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// Specifies the time zone, for example: GMT-08:00, GMT+08:00 or
+	// GMT+0:00.
+	// +kubebuilder:validation:Optional
+	EffectiveTimezone *string `json:"effectiveTimezone,omitempty" tf:"effective_timezone,omitempty"`
 
 	// Specifies the enterprise project ID of the alarm rule.
 	// +kubebuilder:validation:Optional
@@ -250,13 +281,11 @@ type AlarmruleParameters struct {
 	// +kubebuilder:validation:Optional
 	Metric []MetricParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// Specifies the alarm notification start time, for
-	// example: 05:30. Changing this creates a new resource.
+	// Specifies the alarm notification start time, for example: 05:30.
 	// +kubebuilder:validation:Optional
 	NotificationBeginTime *string `json:"notificationBeginTime,omitempty" tf:"notification_begin_time,omitempty"`
 
-	// Specifies the alarm notification stop time, for
-	// example: 22:10. Changing this creates a new resource.
+	// Specifies the alarm notification stop time, for example: 22:10.
 	// +kubebuilder:validation:Optional
 	NotificationEndTime *string `json:"notificationEndTime,omitempty" tf:"notification_end_time,omitempty"`
 
@@ -666,7 +695,6 @@ type Alarmrule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.alarmName) || (has(self.initProvider) && has(self.initProvider.alarmName))",message="spec.forProvider.alarmName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.condition) || (has(self.initProvider) && has(self.initProvider.condition))",message="spec.forProvider.condition is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metric) || (has(self.initProvider) && has(self.initProvider.metric))",message="spec.forProvider.metric is a required parameter"
 	Spec   AlarmruleSpec   `json:"spec"`
 	Status AlarmruleStatus `json:"status,omitempty"`
