@@ -97,6 +97,13 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"huaweicloud_evs_volume_transfer":          config.IdentifierFromProvider,
 	"huaweicloud_evs_volume_transfer_accepter": config.IdentifierFromProvider,
 
+	// geminidb
+	"huaweicloud_gaussdb_cassandra_instance":  config.IdentifierFromProvider,
+	"huaweicloud_gaussdb_influx_instance":     config.IdentifierFromProvider,
+	"huaweicloud_gaussdb_mongo_instance":      config.IdentifierFromProvider,
+	"huaweicloud_gaussdb_redis_eip_associate": config.IdentifierFromProvider,
+	"huaweicloud_gaussdb_redis_instance":      config.IdentifierFromProvider,
+
 	// iam
 	"huaweicloud_identity_access_key":            config.IdentifierFromProvider,
 	"huaweicloud_identity_acl":                   config.IdentifierFromProvider,

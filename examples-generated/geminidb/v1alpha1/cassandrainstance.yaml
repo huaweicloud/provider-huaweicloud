@@ -1,0 +1,30 @@
+apiVersion: geminidb.huaweicloud.crossplane.io/v1alpha1
+kind: CassandraInstance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: geminidb/v1alpha1/cassandrainstance
+  labels:
+    testing.upbound.io/example-name: instance_1
+  name: instance-1
+spec:
+  forProvider:
+    availabilityZone: ${var.availability_zone}
+    flavor: geminidb.cassandra.xlarge.4
+    name: gaussdb_cassandra_instance_1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tags:
+      foo: bar
+      key: value
+    volumeSize: 100
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
