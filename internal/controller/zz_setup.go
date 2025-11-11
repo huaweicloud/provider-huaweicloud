@@ -80,6 +80,11 @@ import (
 	volume "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/volume"
 	volumetransfer "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/volumetransfer"
 	volumetransferaccepter "github.com/huaweicloud/provider-huaweicloud/internal/controller/evs/volumetransferaccepter"
+	cassandrainstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/geminidb/cassandrainstance"
+	influxinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/geminidb/influxinstance"
+	mongoinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/geminidb/mongoinstance"
+	rediseipassociate "github.com/huaweicloud/provider-huaweicloud/internal/controller/geminidb/rediseipassociate"
+	redisinstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/geminidb/redisinstance"
 	accesskey "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/accesskey"
 	acl "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/acl"
 	agency "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/agency"
@@ -262,6 +267,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		volume.Setup,
 		volumetransfer.Setup,
 		volumetransferaccepter.Setup,
+		cassandrainstance.Setup,
+		influxinstance.Setup,
+		mongoinstance.Setup,
+		rediseipassociate.Setup,
+		redisinstance.Setup,
 		accesskey.Setup,
 		acl.Setup,
 		agency.Setup,

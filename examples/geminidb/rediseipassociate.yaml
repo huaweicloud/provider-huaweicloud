@@ -1,0 +1,15 @@
+apiVersion: geminidb.huaweicloud.crossplane.io/v1alpha1
+kind: RedisEIPAssociate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: geminidb/v1alpha1/rediseipassociate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    nodeId: the_node_id
+    publicIp: the_public_ip

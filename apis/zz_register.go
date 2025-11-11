@@ -18,6 +18,7 @@ import (
 	v1alpha1ecs "github.com/huaweicloud/provider-huaweicloud/apis/ecs/v1alpha1"
 	v1alpha1eip "github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1"
 	v1alpha1evs "github.com/huaweicloud/provider-huaweicloud/apis/evs/v1alpha1"
+	v1alpha1geminidb "github.com/huaweicloud/provider-huaweicloud/apis/geminidb/v1alpha1"
 	v1alpha1iam "github.com/huaweicloud/provider-huaweicloud/apis/iam/v1alpha1"
 	v1alpha1modelarts "github.com/huaweicloud/provider-huaweicloud/apis/modelarts/v1alpha1"
 	v1alpha1nat "github.com/huaweicloud/provider-huaweicloud/apis/nat/v1alpha1"
@@ -41,6 +42,7 @@ func init() {
 		v1alpha1ecs.SchemeBuilder.AddToScheme,
 		v1alpha1eip.SchemeBuilder.AddToScheme,
 		v1alpha1evs.SchemeBuilder.AddToScheme,
+		v1alpha1geminidb.SchemeBuilder.AddToScheme,
 		v1alpha1iam.SchemeBuilder.AddToScheme,
 		v1alpha1modelarts.SchemeBuilder.AddToScheme,
 		v1alpha1nat.SchemeBuilder.AddToScheme,
