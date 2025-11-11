@@ -162,6 +162,8 @@ type RocketmqInstanceInitParameters struct {
 
 	// Specifies whether the RocketMQ SASL_SSL is enabled. Defaults to false.
 	// Changing this parameter will create a new resource.
+	// If this parameter is set to true, tls_mode can be omitted or must be set to SSL.
+	// If this parameter is set to false, tls_mode cannot be set to SSL.
 	// Specifies whether the RocketMQ SASL_SSL is enabled.
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
@@ -204,6 +206,11 @@ type RocketmqInstanceInitParameters struct {
 	// Selector for a Subnet in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+
+	// Specifies TLS mode of the instance.
+	// The valid values are as follows:
+	// The TLS mode of the instance.
+	TLSMode *string `json:"tlsMode,omitempty" tf:"tls_mode,omitempty"`
 
 	// Specifies the key/value pairs to associate with the instance.
 	// +mapType=granular
@@ -358,6 +365,8 @@ type RocketmqInstanceObservation struct {
 
 	// Specifies whether the RocketMQ SASL_SSL is enabled. Defaults to false.
 	// Changing this parameter will create a new resource.
+	// If this parameter is set to true, tls_mode can be omitted or must be set to SSL.
+	// If this parameter is set to false, tls_mode cannot be set to SSL.
 	// Specifies whether the RocketMQ SASL_SSL is enabled.
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
 
@@ -390,6 +399,11 @@ type RocketmqInstanceObservation struct {
 	// Changing this parameter will create a new resource.
 	// Specifies the ID of a subnet
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+
+	// Specifies TLS mode of the instance.
+	// The valid values are as follows:
+	// The TLS mode of the instance.
+	TLSMode *string `json:"tlsMode,omitempty" tf:"tls_mode,omitempty"`
 
 	// Specifies the key/value pairs to associate with the instance.
 	// +mapType=granular
@@ -524,6 +538,8 @@ type RocketmqInstanceParameters struct {
 
 	// Specifies whether the RocketMQ SASL_SSL is enabled. Defaults to false.
 	// Changing this parameter will create a new resource.
+	// If this parameter is set to true, tls_mode can be omitted or must be set to SSL.
+	// If this parameter is set to false, tls_mode cannot be set to SSL.
 	// Specifies whether the RocketMQ SASL_SSL is enabled.
 	// +kubebuilder:validation:Optional
 	SSLEnable *bool `json:"sslEnable,omitempty" tf:"ssl_enable,omitempty"`
@@ -571,6 +587,12 @@ type RocketmqInstanceParameters struct {
 	// Selector for a Subnet in vpc to populate subnetId.
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
+
+	// Specifies TLS mode of the instance.
+	// The valid values are as follows:
+	// The TLS mode of the instance.
+	// +kubebuilder:validation:Optional
+	TLSMode *string `json:"tlsMode,omitempty" tf:"tls_mode,omitempty"`
 
 	// Specifies the key/value pairs to associate with the instance.
 	// +kubebuilder:validation:Optional

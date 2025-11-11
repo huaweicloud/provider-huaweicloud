@@ -73,6 +73,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of RDS instance.
@@ -184,6 +186,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of RDS instance.
@@ -470,6 +474,8 @@ spec:
                     items:
                       type: string
                     type: array
+                  enableForceNew:
+                    type: string
                   id:
                     description: Indicates the resource ID. The format is <instance_id>/<name>.
                     type: string

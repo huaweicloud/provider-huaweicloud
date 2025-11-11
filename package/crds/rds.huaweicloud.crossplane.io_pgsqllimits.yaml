@@ -78,6 +78,8 @@ spec:
                       Specifies the name of the database.
                       Specifies the name of the database.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of RDS PostgreSQL instance.
@@ -170,7 +172,8 @@ spec:
                     type: number
                   queryId:
                     description: |-
-                      Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.
+                      Specifies the query ID.
+                      Value ranges: -9223372036854775808~9223372036854775807.
                       Specifies the query ID
                     type: string
                   queryString:
@@ -213,6 +216,8 @@ spec:
                       Specifies the name of the database.
                       Specifies the name of the database.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of RDS PostgreSQL instance.
@@ -305,7 +310,8 @@ spec:
                     type: number
                   queryId:
                     description: |-
-                      Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.
+                      Specifies the query ID.
+                      Value ranges: -9223372036854775808~9223372036854775807.
                       Specifies the query ID
                     type: string
                   queryString:
@@ -520,6 +526,8 @@ spec:
                       Specifies the name of the database.
                       Specifies the name of the database.
                     type: string
+                  enableForceNew:
+                    type: string
                   id:
                     description: Indicates the resource ID. The format is <instance_id>/<db_name>/<sql_limit_id>.
                     type: string
@@ -546,7 +554,8 @@ spec:
                     type: number
                   queryId:
                     description: |-
-                      Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.
+                      Specifies the query ID.
+                      Value ranges: -9223372036854775808~9223372036854775807.
                       Specifies the query ID
                     type: string
                   queryString:

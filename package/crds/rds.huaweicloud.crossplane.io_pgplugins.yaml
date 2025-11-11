@@ -73,14 +73,12 @@ spec:
               forProvider:
                 properties:
                   databaseName:
-                    description: |-
-                      Specifies the database name.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
-                    description: |-
-                      Specifies the PostgreSQL instance ID.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the PostgreSQL instance ID.
                     type: string
                   instanceIdRef:
                     description: Reference to a Instance in rds to populate instanceId.
@@ -157,9 +155,7 @@ spec:
                         type: object
                     type: object
                   name:
-                    description: |-
-                      Specifies the plugin name.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the plugin name.
                     type: string
                   region:
                     description: |-
@@ -181,14 +177,12 @@ spec:
                   autoscaler.
                 properties:
                   databaseName:
-                    description: |-
-                      Specifies the database name.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the database name.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
-                    description: |-
-                      Specifies the PostgreSQL instance ID.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the PostgreSQL instance ID.
                     type: string
                   instanceIdRef:
                     description: Reference to a Instance in rds to populate instanceId.
@@ -265,9 +259,7 @@ spec:
                         type: object
                     type: object
                   name:
-                    description: |-
-                      Specifies the plugin name.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the plugin name.
                     type: string
                   region:
                     description: |-
@@ -457,26 +449,22 @@ spec:
               atProvider:
                 properties:
                   databaseName:
-                    description: |-
-                      Specifies the database name.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the database name.
                     type: string
                   description:
                     description: The plugin description.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID of PostgreSQL plugin which is formatted
                       <instance_id>/<database_name>/<name>.
                     type: string
                   instanceId:
-                    description: |-
-                      Specifies the PostgreSQL instance ID.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the PostgreSQL instance ID.
                     type: string
                   name:
-                    description: |-
-                      Specifies the plugin name.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the plugin name.
                     type: string
                   region:
                     description: |-

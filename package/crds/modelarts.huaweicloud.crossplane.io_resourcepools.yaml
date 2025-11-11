@@ -100,8 +100,25 @@ spec:
                   description:
                     description: |-
                       Specifies the description of the dedicated resource pool.
+                      This parameter and os.modelarts/description in metadata.annotations are set at the same time, the former will
+                      take precedence.
                       The description of the resource pool.
                     type: string
+                  metadata:
+                    description: |-
+                      Specifies the metadata of the dedicated resource pool.
+                      The metadata structure is documented below.
+                      The metadata of the resource pool.
+                    items:
+                      properties:
+                        annotations:
+                          description: |-
+                            Specifies the annotations of the resource pool, in JSON format.
+                            For details, please refer to the document.
+                            The annotations of the resource pool, in JSON format.
+                          type: string
+                      type: object
+                    type: array
                   name:
                     description: |-
                       Specifies the name of the dedicated resource pool.
@@ -235,6 +252,9 @@ spec:
                               count:
                                 description: |-
                                   Specifies the number of resources of the corresponding flavors.
+                                  This parameter must be an integer multiple of resources.creating_step.step.
+                                  If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                                  based on the current parameter value.
                                   Number of nodes.
                                 type: number
                             type: object
@@ -242,8 +262,83 @@ spec:
                         count:
                           description: |-
                             Specifies the number of resources of the corresponding flavors.
+                            This parameter must be an integer multiple of resources.creating_step.step.
+                            If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                            based on the current parameter value.
                             Number of resources of the corresponding flavors.
                           type: number
+                        creatingStep:
+                          description: |-
+                            Specifies the creation step configuration of the resource pool nodes.
+                            The creating_step structure is documented below.
+                            The creation step configuration of the resource pool nodes.
+                          items:
+                            properties:
+                              step:
+                                description: |-
+                                  Specifies the creation step of the resource pool nodes.
+                                  The creation step of the resource pool nodes.
+                                type: number
+                              type:
+                                description: |-
+                                  Specifies the type of the resource pool nodes.
+                                  The valid values are as follows:
+                                  The type of the resource pool nodes.
+                                type: string
+                            type: object
+                          type: array
+                        dataVolumes:
+                          description: |-
+                            Specifies the data volumes of the resource pool nodes.
+                            The data_volumes structure is documented below.
+                            The data volumes of the resource pool nodes.
+                          items:
+                            properties:
+                              count:
+                                description: |-
+                                  Specifies the number of resources of the corresponding flavors.
+                                  This parameter must be an integer multiple of resources.creating_step.step.
+                                  If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                                  based on the current parameter value.
+                                  The count of the current data volume configuration.
+                                type: number
+                              extendParams:
+                                description: |-
+                                  The extend parameters of the root volume, in JSON format.
+                                  The extend parameters of the data volume.
+                                type: string
+                              size:
+                                description: |-
+                                  Specifies the size of the root volume, e.g. 100Gi.
+                                  The size of the data volume.
+                                type: string
+                              volumeType:
+                                description: |-
+                                  Specifies the type of the root volume.
+                                  The valid values are as follows:
+                                  The type of the data volume.
+                                type: string
+                            type: object
+                          type: array
+                        driver:
+                          description: |-
+                            Specifies the driver information.
+                            The driver structure is documented below.
+                            The driver information.
+                          items:
+                            properties:
+                              version:
+                                description: |-
+                                  Specifies the driver version.
+                                  The driver version.
+                                type: string
+                            type: object
+                          type: array
+                        extendParams:
+                          description: |-
+                            Specifies the extend parameters of the resource pool.
+                            The extend parameters of the resource pool.
+                          type: string
                         flavorId:
                           description: |-
                             Specifies the resource flavor ID.
@@ -260,6 +355,7 @@ spec:
                         maxCount:
                           description: |-
                             Specifies the max number of resources of the corresponding flavors.
+                            This parameter must be an integer multiple of resources.creating_step.step.
                             The max number of resources of the corresponding flavors.
                           type: number
                         nodePool:
@@ -269,12 +365,58 @@ spec:
                             hyphens (-) are allowed, and cannot end with a hyphen (-).
                             The name of resource pool nodes.
                           type: string
-                        postInstall:
+                        os:
                           description: |-
-                            Specifies the script to be executed after security. The value should be a Base64
-                            encoded string.
-                            The script to be executed after security.
+                            Specifies the image information for the specified OS.
+                            The os structure is documented below.
+                            The image information for the specified OS.
+                          items:
+                            properties:
+                              imageId:
+                                description: |-
+                                  Specifies the image ID.
+                                  The image ID.
+                                type: string
+                              imageType:
+                                description: |-
+                                  Specifies the image type.
+                                  The image type.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the OS name of the image.
+                                  The OS name of the image.
+                                type: string
+                            type: object
+                          type: array
+                        postInstall:
+                          description: The script to be executed after security.
                           type: string
+                        rootVolume:
+                          description: |-
+                            Specifies the root volume of the resource pool nodes.
+                            The root_volume structure is documented below.
+                            The root volume of the resource pool nodes.
+                          items:
+                            properties:
+                              extendParams:
+                                description: |-
+                                  The extend parameters of the root volume, in JSON format.
+                                  The extend parameters of the root volume, in JSON format.
+                                type: string
+                              size:
+                                description: |-
+                                  Specifies the size of the root volume, e.g. 100Gi.
+                                  The size of the root volume.
+                                type: string
+                              volumeType:
+                                description: |-
+                                  Specifies the type of the root volume.
+                                  The valid values are as follows:
+                                  The type of the root volume.
+                                type: string
+                            type: object
+                          type: array
                         securityGroupIds:
                           description: |-
                             Specifies the security group IDs. It can not be specified when network_id is
@@ -283,6 +425,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         subnetId:
                           description: |-
                             Specifies the network ID of a subnet. It is mandatory when
@@ -319,6 +462,54 @@ spec:
                                 description: |-
                                   Specifies the value of the taint.
                                   The value of the taint.
+                                type: string
+                            type: object
+                          type: array
+                        volumeGroupConfigs:
+                          description: |-
+                            Specifies the extend configurations of the volume groups.
+                            The volume_group_configs structure is documented below.
+                            The extend configurations of the volume groups.
+                          items:
+                            properties:
+                              dockerThinPool:
+                                description: |-
+                                  Specifies the percentage of container volumes to data volumes on resource pool nodes.
+                                  The percentage of container volumes to data volumes on resource pool nodes.
+                                type: number
+                              lvmConfig:
+                                description: |-
+                                  Specifies the configuration of the LVM management.
+                                  The lvm_config structure is documented below.
+                                  The configuration of the LVM management.
+                                items:
+                                  properties:
+                                    lvType:
+                                      description: |-
+                                        Specifies the LVM write mode.
+                                        The valid values are as follows:
+                                        The LVM write mode.
+                                      type: string
+                                    path:
+                                      description: |-
+                                        Specifies the volume mount path.
+                                        The volume mount path.
+                                      type: string
+                                  type: object
+                                type: array
+                              types:
+                                description: |-
+                                  Specifies the storage types of the volume group.
+                                  The valid values for the list elements are as follows:
+                                  The storage types of the volume group.
+                                items:
+                                  type: string
+                                type: array
+                              volumeGroup:
+                                description: |-
+                                  Specifies the name of the volume group.
+                                  The valid values are as follows:
+                                  The name of the volume group.
                                 type: string
                             type: object
                           type: array
@@ -656,8 +847,25 @@ spec:
                   description:
                     description: |-
                       Specifies the description of the dedicated resource pool.
+                      This parameter and os.modelarts/description in metadata.annotations are set at the same time, the former will
+                      take precedence.
                       The description of the resource pool.
                     type: string
+                  metadata:
+                    description: |-
+                      Specifies the metadata of the dedicated resource pool.
+                      The metadata structure is documented below.
+                      The metadata of the resource pool.
+                    items:
+                      properties:
+                        annotations:
+                          description: |-
+                            Specifies the annotations of the resource pool, in JSON format.
+                            For details, please refer to the document.
+                            The annotations of the resource pool, in JSON format.
+                          type: string
+                      type: object
+                    type: array
                   name:
                     description: |-
                       Specifies the name of the dedicated resource pool.
@@ -791,6 +999,9 @@ spec:
                               count:
                                 description: |-
                                   Specifies the number of resources of the corresponding flavors.
+                                  This parameter must be an integer multiple of resources.creating_step.step.
+                                  If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                                  based on the current parameter value.
                                   Number of nodes.
                                 type: number
                             type: object
@@ -798,8 +1009,83 @@ spec:
                         count:
                           description: |-
                             Specifies the number of resources of the corresponding flavors.
+                            This parameter must be an integer multiple of resources.creating_step.step.
+                            If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                            based on the current parameter value.
                             Number of resources of the corresponding flavors.
                           type: number
+                        creatingStep:
+                          description: |-
+                            Specifies the creation step configuration of the resource pool nodes.
+                            The creating_step structure is documented below.
+                            The creation step configuration of the resource pool nodes.
+                          items:
+                            properties:
+                              step:
+                                description: |-
+                                  Specifies the creation step of the resource pool nodes.
+                                  The creation step of the resource pool nodes.
+                                type: number
+                              type:
+                                description: |-
+                                  Specifies the type of the resource pool nodes.
+                                  The valid values are as follows:
+                                  The type of the resource pool nodes.
+                                type: string
+                            type: object
+                          type: array
+                        dataVolumes:
+                          description: |-
+                            Specifies the data volumes of the resource pool nodes.
+                            The data_volumes structure is documented below.
+                            The data volumes of the resource pool nodes.
+                          items:
+                            properties:
+                              count:
+                                description: |-
+                                  Specifies the number of resources of the corresponding flavors.
+                                  This parameter must be an integer multiple of resources.creating_step.step.
+                                  If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                                  based on the current parameter value.
+                                  The count of the current data volume configuration.
+                                type: number
+                              extendParams:
+                                description: |-
+                                  The extend parameters of the root volume, in JSON format.
+                                  The extend parameters of the data volume.
+                                type: string
+                              size:
+                                description: |-
+                                  Specifies the size of the root volume, e.g. 100Gi.
+                                  The size of the data volume.
+                                type: string
+                              volumeType:
+                                description: |-
+                                  Specifies the type of the root volume.
+                                  The valid values are as follows:
+                                  The type of the data volume.
+                                type: string
+                            type: object
+                          type: array
+                        driver:
+                          description: |-
+                            Specifies the driver information.
+                            The driver structure is documented below.
+                            The driver information.
+                          items:
+                            properties:
+                              version:
+                                description: |-
+                                  Specifies the driver version.
+                                  The driver version.
+                                type: string
+                            type: object
+                          type: array
+                        extendParams:
+                          description: |-
+                            Specifies the extend parameters of the resource pool.
+                            The extend parameters of the resource pool.
+                          type: string
                         flavorId:
                           description: |-
                             Specifies the resource flavor ID.
@@ -816,6 +1102,7 @@ spec:
                         maxCount:
                           description: |-
                             Specifies the max number of resources of the corresponding flavors.
+                            This parameter must be an integer multiple of resources.creating_step.step.
                             The max number of resources of the corresponding flavors.
                           type: number
                         nodePool:
@@ -825,12 +1112,58 @@ spec:
                             hyphens (-) are allowed, and cannot end with a hyphen (-).
                             The name of resource pool nodes.
                           type: string
-                        postInstall:
+                        os:
                           description: |-
-                            Specifies the script to be executed after security. The value should be a Base64
-                            encoded string.
-                            The script to be executed after security.
+                            Specifies the image information for the specified OS.
+                            The os structure is documented below.
+                            The image information for the specified OS.
+                          items:
+                            properties:
+                              imageId:
+                                description: |-
+                                  Specifies the image ID.
+                                  The image ID.
+                                type: string
+                              imageType:
+                                description: |-
+                                  Specifies the image type.
+                                  The image type.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the OS name of the image.
+                                  The OS name of the image.
+                                type: string
+                            type: object
+                          type: array
+                        postInstall:
+                          description: The script to be executed after security.
                           type: string
+                        rootVolume:
+                          description: |-
+                            Specifies the root volume of the resource pool nodes.
+                            The root_volume structure is documented below.
+                            The root volume of the resource pool nodes.
+                          items:
+                            properties:
+                              extendParams:
+                                description: |-
+                                  The extend parameters of the root volume, in JSON format.
+                                  The extend parameters of the root volume, in JSON format.
+                                type: string
+                              size:
+                                description: |-
+                                  Specifies the size of the root volume, e.g. 100Gi.
+                                  The size of the root volume.
+                                type: string
+                              volumeType:
+                                description: |-
+                                  Specifies the type of the root volume.
+                                  The valid values are as follows:
+                                  The type of the root volume.
+                                type: string
+                            type: object
+                          type: array
                         securityGroupIds:
                           description: |-
                             Specifies the security group IDs. It can not be specified when network_id is
@@ -839,6 +1172,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         subnetId:
                           description: |-
                             Specifies the network ID of a subnet. It is mandatory when
@@ -875,6 +1209,54 @@ spec:
                                 description: |-
                                   Specifies the value of the taint.
                                   The value of the taint.
+                                type: string
+                            type: object
+                          type: array
+                        volumeGroupConfigs:
+                          description: |-
+                            Specifies the extend configurations of the volume groups.
+                            The volume_group_configs structure is documented below.
+                            The extend configurations of the volume groups.
+                          items:
+                            properties:
+                              dockerThinPool:
+                                description: |-
+                                  Specifies the percentage of container volumes to data volumes on resource pool nodes.
+                                  The percentage of container volumes to data volumes on resource pool nodes.
+                                type: number
+                              lvmConfig:
+                                description: |-
+                                  Specifies the configuration of the LVM management.
+                                  The lvm_config structure is documented below.
+                                  The configuration of the LVM management.
+                                items:
+                                  properties:
+                                    lvType:
+                                      description: |-
+                                        Specifies the LVM write mode.
+                                        The valid values are as follows:
+                                        The LVM write mode.
+                                      type: string
+                                    path:
+                                      description: |-
+                                        Specifies the volume mount path.
+                                        The volume mount path.
+                                      type: string
+                                  type: object
+                                type: array
+                              types:
+                                description: |-
+                                  Specifies the storage types of the volume group.
+                                  The valid values for the list elements are as follows:
+                                  The storage types of the volume group.
+                                items:
+                                  type: string
+                                type: array
+                              volumeGroup:
+                                description: |-
+                                  Specifies the name of the volume group.
+                                  The valid values are as follows:
+                                  The name of the volume group.
                                 type: string
                             type: object
                           type: array
@@ -1385,11 +1767,28 @@ spec:
                   description:
                     description: |-
                       Specifies the description of the dedicated resource pool.
+                      This parameter and os.modelarts/description in metadata.annotations are set at the same time, the former will
+                      take precedence.
                       The description of the resource pool.
                     type: string
                   id:
                     description: The resource ID.
                     type: string
+                  metadata:
+                    description: |-
+                      Specifies the metadata of the dedicated resource pool.
+                      The metadata structure is documented below.
+                      The metadata of the resource pool.
+                    items:
+                      properties:
+                        annotations:
+                          description: |-
+                            Specifies the annotations of the resource pool, in JSON format.
+                            For details, please refer to the document.
+                            The annotations of the resource pool, in JSON format.
+                          type: string
+                      type: object
+                    type: array
                   name:
                     description: |-
                       Specifies the name of the dedicated resource pool.
@@ -1454,6 +1853,9 @@ spec:
                               count:
                                 description: |-
                                   Specifies the number of resources of the corresponding flavors.
+                                  This parameter must be an integer multiple of resources.creating_step.step.
+                                  If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                                  based on the current parameter value.
                                   Number of nodes.
                                 type: number
                             type: object
@@ -1461,8 +1863,83 @@ spec:
                         count:
                           description: |-
                             Specifies the number of resources of the corresponding flavors.
+                            This parameter must be an integer multiple of resources.creating_step.step.
+                            If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                            based on the current parameter value.
                             Number of resources of the corresponding flavors.
                           type: number
+                        creatingStep:
+                          description: |-
+                            Specifies the creation step configuration of the resource pool nodes.
+                            The creating_step structure is documented below.
+                            The creation step configuration of the resource pool nodes.
+                          items:
+                            properties:
+                              step:
+                                description: |-
+                                  Specifies the creation step of the resource pool nodes.
+                                  The creation step of the resource pool nodes.
+                                type: number
+                              type:
+                                description: |-
+                                  Specifies the type of the resource pool nodes.
+                                  The valid values are as follows:
+                                  The type of the resource pool nodes.
+                                type: string
+                            type: object
+                          type: array
+                        dataVolumes:
+                          description: |-
+                            Specifies the data volumes of the resource pool nodes.
+                            The data_volumes structure is documented below.
+                            The data volumes of the resource pool nodes.
+                          items:
+                            properties:
+                              count:
+                                description: |-
+                                  Specifies the number of resources of the corresponding flavors.
+                                  This parameter must be an integer multiple of resources.creating_step.step.
+                                  If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+                                  based on the current parameter value.
+                                  The count of the current data volume configuration.
+                                type: number
+                              extendParams:
+                                description: |-
+                                  The extend parameters of the root volume, in JSON format.
+                                  The extend parameters of the data volume.
+                                type: string
+                              size:
+                                description: |-
+                                  Specifies the size of the root volume, e.g. 100Gi.
+                                  The size of the data volume.
+                                type: string
+                              volumeType:
+                                description: |-
+                                  Specifies the type of the root volume.
+                                  The valid values are as follows:
+                                  The type of the data volume.
+                                type: string
+                            type: object
+                          type: array
+                        driver:
+                          description: |-
+                            Specifies the driver information.
+                            The driver structure is documented below.
+                            The driver information.
+                          items:
+                            properties:
+                              version:
+                                description: |-
+                                  Specifies the driver version.
+                                  The driver version.
+                                type: string
+                            type: object
+                          type: array
+                        extendParams:
+                          description: |-
+                            Specifies the extend parameters of the resource pool.
+                            The extend parameters of the resource pool.
+                          type: string
                         flavorId:
                           description: |-
                             Specifies the resource flavor ID.
@@ -1479,6 +1956,7 @@ spec:
                         maxCount:
                           description: |-
                             Specifies the max number of resources of the corresponding flavors.
+                            This parameter must be an integer multiple of resources.creating_step.step.
                             The max number of resources of the corresponding flavors.
                           type: number
                         nodePool:
@@ -1488,12 +1966,58 @@ spec:
                             hyphens (-) are allowed, and cannot end with a hyphen (-).
                             The name of resource pool nodes.
                           type: string
-                        postInstall:
+                        os:
                           description: |-
-                            Specifies the script to be executed after security. The value should be a Base64
-                            encoded string.
-                            The script to be executed after security.
+                            Specifies the image information for the specified OS.
+                            The os structure is documented below.
+                            The image information for the specified OS.
+                          items:
+                            properties:
+                              imageId:
+                                description: |-
+                                  Specifies the image ID.
+                                  The image ID.
+                                type: string
+                              imageType:
+                                description: |-
+                                  Specifies the image type.
+                                  The image type.
+                                type: string
+                              name:
+                                description: |-
+                                  Specifies the OS name of the image.
+                                  The OS name of the image.
+                                type: string
+                            type: object
+                          type: array
+                        postInstall:
+                          description: The script to be executed after security.
                           type: string
+                        rootVolume:
+                          description: |-
+                            Specifies the root volume of the resource pool nodes.
+                            The root_volume structure is documented below.
+                            The root volume of the resource pool nodes.
+                          items:
+                            properties:
+                              extendParams:
+                                description: |-
+                                  The extend parameters of the root volume, in JSON format.
+                                  The extend parameters of the root volume, in JSON format.
+                                type: string
+                              size:
+                                description: |-
+                                  Specifies the size of the root volume, e.g. 100Gi.
+                                  The size of the root volume.
+                                type: string
+                              volumeType:
+                                description: |-
+                                  Specifies the type of the root volume.
+                                  The valid values are as follows:
+                                  The type of the root volume.
+                                type: string
+                            type: object
+                          type: array
                         securityGroupIds:
                           description: |-
                             Specifies the security group IDs. It can not be specified when network_id is
@@ -1502,6 +2026,7 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: set
                         subnetId:
                           description: |-
                             Specifies the network ID of a subnet. It is mandatory when
@@ -1541,11 +2066,80 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        volumeGroupConfigs:
+                          description: |-
+                            Specifies the extend configurations of the volume groups.
+                            The volume_group_configs structure is documented below.
+                            The extend configurations of the volume groups.
+                          items:
+                            properties:
+                              dockerThinPool:
+                                description: |-
+                                  Specifies the percentage of container volumes to data volumes on resource pool nodes.
+                                  The percentage of container volumes to data volumes on resource pool nodes.
+                                type: number
+                              lvmConfig:
+                                description: |-
+                                  Specifies the configuration of the LVM management.
+                                  The lvm_config structure is documented below.
+                                  The configuration of the LVM management.
+                                items:
+                                  properties:
+                                    lvType:
+                                      description: |-
+                                        Specifies the LVM write mode.
+                                        The valid values are as follows:
+                                        The LVM write mode.
+                                      type: string
+                                    path:
+                                      description: |-
+                                        Specifies the volume mount path.
+                                        The volume mount path.
+                                      type: string
+                                  type: object
+                                type: array
+                              types:
+                                description: |-
+                                  Specifies the storage types of the volume group.
+                                  The valid values for the list elements are as follows:
+                                  The storage types of the volume group.
+                                items:
+                                  type: string
+                                type: array
+                              volumeGroup:
+                                description: |-
+                                  Specifies the name of the volume group.
+                                  The valid values are as follows:
+                                  The name of the volume group.
+                                type: string
+                            type: object
+                          type: array
                         vpcId:
                           description: |-
                             Specifies the VPC ID. It is mandatory when resources.subnet_id,
                             resources.security_group_ids is specified, and can not be specified when network_id is specified.
                             The VPC ID.
+                          type: string
+                      type: object
+                    type: array
+                  resourcesOrderOrigin:
+                    description: The script configuration value after the last change,
+                      according to which the resources are sorted.
+                    items:
+                      properties:
+                        creatingStep:
+                          description: |-
+                            Specifies the creation step configuration of the resource pool nodes.
+                            The creating_step structure is documented below.
+                          type: string
+                        flavorId:
+                          description: Specifies the resource flavor ID.
+                          type: string
+                        nodePool:
+                          description: |-
+                            Specifies the name of resource pool nodes. It can contain 1 to 50
+                            characters, and should start with a letter and ending with a letter or digit, only lowercase letters, digits,
+                            hyphens (-) are allowed, and cannot end with a hyphen (-).
                           type: string
                       type: object
                     type: array
@@ -1558,6 +2152,13 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  serverIds:
+                    description: |-
+                      The list of service IDs corresponding to the latest expanded nodes.
+                      The list of service IDs corresponding to the latest expanded nodes.
+                    items:
+                      type: string
+                    type: array
                   status:
                     description: |-
                       Indicates the status of the resource pool.

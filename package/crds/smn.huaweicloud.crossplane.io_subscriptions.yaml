@@ -95,6 +95,15 @@ spec:
                             field obtained by the tenant from WeLink. This field is mandatory when protocol is set to welink.
                             Changing this parameter will create a new resource.
                           type: string
+                        header:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Specifies the HTTP/HTTPS headers to be added to the requests when the
+                            message is delivered via HTTP/HTTPS. This field is used when protocol is set to http or https.
+                            The following requirements apply to the header keys and values:
+                          type: object
+                          x-kubernetes-map-type: granular
                         keyword:
                           description: |-
                             Specifies the keyword. When protocol is set to feishu,
@@ -244,6 +253,15 @@ spec:
                             field obtained by the tenant from WeLink. This field is mandatory when protocol is set to welink.
                             Changing this parameter will create a new resource.
                           type: string
+                        header:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Specifies the HTTP/HTTPS headers to be added to the requests when the
+                            message is delivered via HTTP/HTTPS. This field is used when protocol is set to http or https.
+                            The following requirements apply to the header keys and values:
+                          type: object
+                          x-kubernetes-map-type: granular
                         keyword:
                           description: |-
                             Specifies the keyword. When protocol is set to feishu,
@@ -561,6 +579,15 @@ spec:
                             field obtained by the tenant from WeLink. This field is mandatory when protocol is set to welink.
                             Changing this parameter will create a new resource.
                           type: string
+                        header:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            Specifies the HTTP/HTTPS headers to be added to the requests when the
+                            message is delivered via HTTP/HTTPS. This field is used when protocol is set to http or https.
+                            The following requirements apply to the header keys and values:
+                          type: object
+                          x-kubernetes-map-type: granular
                         keyword:
                           description: |-
                             Specifies the keyword. When protocol is set to feishu,

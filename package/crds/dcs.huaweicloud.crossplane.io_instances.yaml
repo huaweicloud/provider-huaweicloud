@@ -150,6 +150,16 @@ spec:
                       Time at which backup starts.
                       Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
                     type: string
+                  bigKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for big key.
+                    type: boolean
+                  bigKeyScheduleAt:
+                    description: Specifies the UTC time of the day that cache analysis
+                      is scheduled for big key.
+                    items:
+                      type: string
+                    type: array
                   capacity:
                     description: 'Specifies the cache capacity. Unit: GB.'
                     type: number
@@ -191,6 +201,31 @@ spec:
                       The name must be 4 to 64 characters and start with a letter.
                       Only chinese, letters (case-insensitive), digits, underscores (_) ,and hyphens (-) are allowed.
                     type: string
+                  expireKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for expire key.
+                    type: boolean
+                  expireKeyFirstScanAt:
+                    description: |-
+                      Specifies the first scan time for expire key, for example,
+                      2023-07-07T15:00:05.000z. It is mandatory when expire_key_enable_auto_scan is set to true.
+                    type: string
+                  expireKeyInterval:
+                    description: |-
+                      Specifies the scan interval for expire key, in seconds. It is mandatory when
+                      expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyScanKeysCount:
+                    description: |-
+                      Specifies the number of keys scanned in iteration for expire key. It is
+                      mandatory when expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyTimeout:
+                    description: |-
+                      Specifies the Scan timeout for expire key, in seconds. If one scan times out, a
+                      failure message is returned, and the next scan can continue. The value at least twice the interval. It is mandatory when
+                      expire_key_enable_auto_scan is set to true.
+                    type: number
                   flavor:
                     description: |-
                       The flavor of the cache instance, which including the total memory, available memory,
@@ -198,6 +233,16 @@ spec:
                       It also includes the modes of Redis instances. You can query the flavor as follows:
                       schema: Required
                     type: string
+                  hotKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for hot key.
+                    type: boolean
+                  hotKeyScheduleAt:
+                    description: Specifies the UTC time of the day that cache analysis
+                      is scheduled for hot key.
+                    items:
+                      type: string
+                    type: array
                   maintainBegin:
                     description: Time at which the maintenance time window starts.
                       Defaults to 02:00:00.
@@ -214,7 +259,7 @@ spec:
                     type: string
                   parameters:
                     description: |-
-                      Specify an array of one or more parameters to be set to the DCS instance after
+                      Specifies an array of one or more parameters to be set to the DCS instance after
                       launched. You can check on console to see which parameters supported.
                       The parameters structure is documented below.
                     items:
@@ -295,7 +340,8 @@ spec:
                     description: |-
                       Critical command renaming, which is supported only by Redis 4.0 and
                       Redis 5.0 instances but not by Redis 3.0 instance.
-                      The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+                      The valid commands that can be renamed are: command, keys, flushdb, flushall, hgetall, scan,
+                      hscan, sscan and zscan.
                     type: object
                     x-kubernetes-map-type: granular
                   reservedIps:
@@ -483,6 +529,9 @@ spec:
                       The Parameter Template ID.
                       Changing this creates a new instance resource.
                     type: string
+                  transparentClientIpEnable:
+                    description: Specifies whether client IP pass-through is enabled.
+                    type: boolean
                   vpcId:
                     description: |-
                       The ID of VPC which the instance belongs to.
@@ -677,6 +726,16 @@ spec:
                       Time at which backup starts.
                       Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
                     type: string
+                  bigKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for big key.
+                    type: boolean
+                  bigKeyScheduleAt:
+                    description: Specifies the UTC time of the day that cache analysis
+                      is scheduled for big key.
+                    items:
+                      type: string
+                    type: array
                   capacity:
                     description: 'Specifies the cache capacity. Unit: GB.'
                     type: number
@@ -718,6 +777,31 @@ spec:
                       The name must be 4 to 64 characters and start with a letter.
                       Only chinese, letters (case-insensitive), digits, underscores (_) ,and hyphens (-) are allowed.
                     type: string
+                  expireKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for expire key.
+                    type: boolean
+                  expireKeyFirstScanAt:
+                    description: |-
+                      Specifies the first scan time for expire key, for example,
+                      2023-07-07T15:00:05.000z. It is mandatory when expire_key_enable_auto_scan is set to true.
+                    type: string
+                  expireKeyInterval:
+                    description: |-
+                      Specifies the scan interval for expire key, in seconds. It is mandatory when
+                      expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyScanKeysCount:
+                    description: |-
+                      Specifies the number of keys scanned in iteration for expire key. It is
+                      mandatory when expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyTimeout:
+                    description: |-
+                      Specifies the Scan timeout for expire key, in seconds. If one scan times out, a
+                      failure message is returned, and the next scan can continue. The value at least twice the interval. It is mandatory when
+                      expire_key_enable_auto_scan is set to true.
+                    type: number
                   flavor:
                     description: |-
                       The flavor of the cache instance, which including the total memory, available memory,
@@ -725,6 +809,16 @@ spec:
                       It also includes the modes of Redis instances. You can query the flavor as follows:
                       schema: Required
                     type: string
+                  hotKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for hot key.
+                    type: boolean
+                  hotKeyScheduleAt:
+                    description: Specifies the UTC time of the day that cache analysis
+                      is scheduled for hot key.
+                    items:
+                      type: string
+                    type: array
                   maintainBegin:
                     description: Time at which the maintenance time window starts.
                       Defaults to 02:00:00.
@@ -741,7 +835,7 @@ spec:
                     type: string
                   parameters:
                     description: |-
-                      Specify an array of one or more parameters to be set to the DCS instance after
+                      Specifies an array of one or more parameters to be set to the DCS instance after
                       launched. You can check on console to see which parameters supported.
                       The parameters structure is documented below.
                     items:
@@ -822,7 +916,8 @@ spec:
                     description: |-
                       Critical command renaming, which is supported only by Redis 4.0 and
                       Redis 5.0 instances but not by Redis 3.0 instance.
-                      The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+                      The valid commands that can be renamed are: command, keys, flushdb, flushall, hgetall, scan,
+                      hscan, sscan and zscan.
                     type: object
                     x-kubernetes-map-type: granular
                   reservedIps:
@@ -1010,6 +1105,9 @@ spec:
                       The Parameter Template ID.
                       Changing this creates a new instance resource.
                     type: string
+                  transparentClientIpEnable:
+                    description: Specifies whether client IP pass-through is enabled.
+                    type: boolean
                   vpcId:
                     description: |-
                       The ID of VPC which the instance belongs to.
@@ -1416,6 +1514,20 @@ spec:
                       Time at which backup starts.
                       Format: hh24:00-hh24:00, "00:00-01:00" indicates that backup starts at 00:00:00.
                     type: string
+                  bigKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for big key.
+                    type: boolean
+                  bigKeyScheduleAt:
+                    description: Specifies the UTC time of the day that cache analysis
+                      is scheduled for big key.
+                    items:
+                      type: string
+                    type: array
+                  bigKeyUpdatedAt:
+                    description: Indicates the time when the configuration is updated
+                      for big key.
+                    type: string
                   cacheMode:
                     description: Indicates the instance type. The value can be single,
                       ha, cluster or proxy.
@@ -1473,12 +1585,55 @@ spec:
                       The name must be 4 to 64 characters and start with a letter.
                       Only chinese, letters (case-insensitive), digits, underscores (_) ,and hyphens (-) are allowed.
                     type: string
+                  expireKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for expire key.
+                    type: boolean
+                  expireKeyFirstScanAt:
+                    description: |-
+                      Specifies the first scan time for expire key, for example,
+                      2023-07-07T15:00:05.000z. It is mandatory when expire_key_enable_auto_scan is set to true.
+                    type: string
+                  expireKeyInterval:
+                    description: |-
+                      Specifies the scan interval for expire key, in seconds. It is mandatory when
+                      expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyScanKeysCount:
+                    description: |-
+                      Specifies the number of keys scanned in iteration for expire key. It is
+                      mandatory when expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyTimeout:
+                    description: |-
+                      Specifies the Scan timeout for expire key, in seconds. If one scan times out, a
+                      failure message is returned, and the next scan can continue. The value at least twice the interval. It is mandatory when
+                      expire_key_enable_auto_scan is set to true.
+                    type: number
+                  expireKeyUpdatedAt:
+                    description: Indicates the time when the configuration is updated
+                      for expire key.
+                    type: string
                   flavor:
                     description: |-
                       The flavor of the cache instance, which including the total memory, available memory,
                       maximum number of connections allowed, maximum/assured bandwidth and reference performance.
                       It also includes the modes of Redis instances. You can query the flavor as follows:
                       schema: Required
+                    type: string
+                  hotKeyEnableAutoScan:
+                    description: Specifies whether to enable scheduled cache analysis
+                      for hot key.
+                    type: boolean
+                  hotKeyScheduleAt:
+                    description: Specifies the UTC time of the day that cache analysis
+                      is scheduled for hot key.
+                    items:
+                      type: string
+                    type: array
+                  hotKeyUpdatedAt:
+                    description: Indicates the time when the configuration is updated
+                      for hot key.
                     type: string
                   id:
                     description: A resource ID in UUID format.
@@ -1513,7 +1668,7 @@ spec:
                     type: string
                   parameters:
                     description: |-
-                      Specify an array of one or more parameters to be set to the DCS instance after
+                      Specifies an array of one or more parameters to be set to the DCS instance after
                       launched. You can check on console to see which parameters supported.
                       The parameters structure is documented below.
                     items:
@@ -1584,7 +1739,8 @@ spec:
                     description: |-
                       Critical command renaming, which is supported only by Redis 4.0 and
                       Redis 5.0 instances but not by Redis 3.0 instance.
-                      The valid commands that can be renamed are: command, keys, flushdb, flushall and hgetall.
+                      The valid commands that can be renamed are: command, keys, flushdb, flushall, hgetall, scan,
+                      hscan, sscan and zscan.
                     type: object
                     x-kubernetes-map-type: granular
                   replicaCount:
@@ -1644,7 +1800,7 @@ spec:
                       Changing this creates a new instance resource.
                     type: string
                   transparentClientIpEnable:
-                    description: Indicates whether client IP pass-through is enabled.
+                    description: Specifies whether client IP pass-through is enabled.
                     type: boolean
                   usedMemory:
                     description: 'Size of the used memory. Unit: MB.'

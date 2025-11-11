@@ -277,8 +277,27 @@ spec:
                         type: object
                     type: object
                   enableDistributeManagement:
-                    description: 'schema: Internal'
+                    description: |-
+                      Specifies whether to enable support for remote clouds.
+                      Changing this parameter will create a new cluster resource.
                     type: boolean
+                  encryptionConfig:
+                    description: |-
+                      Specifies the encryption configuration.
+                      The object structure is documented below.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        kmsKeyId:
+                          description: Specifies KMS key ID, required if mode is set
+                            to KMS.
+                          type: string
+                        mode:
+                          description: 'Specifies the encryption mode. The value can
+                            be: Default and KMS.'
+                          type: string
+                      type: object
+                    type: array
                   eniSubnetCidr:
                     description: |-
                       The ENI network segment. This value is valid when only one eni_subnet_id is specified.
@@ -592,9 +611,7 @@ spec:
                         type: object
                     type: object
                   supportIstio:
-                    description: |-
-                      Specifies whether to support Istio in the cluster.
-                      Changing this parameter will create a new cluster resource.
+                    description: Whether Istio is supported in the cluster.
                     type: boolean
                   tags:
                     additionalProperties:
@@ -603,6 +620,11 @@ spec:
                       pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  timezone:
+                    description: |-
+                      Specifies the time zone of a cluster. Changing this parameter will create a
+                      new cluster resource.
+                    type: string
                   vpcId:
                     description: |-
                       Specifies the ID of the VPC used to create the node.
@@ -901,8 +923,27 @@ spec:
                         type: object
                     type: object
                   enableDistributeManagement:
-                    description: 'schema: Internal'
+                    description: |-
+                      Specifies whether to enable support for remote clouds.
+                      Changing this parameter will create a new cluster resource.
                     type: boolean
+                  encryptionConfig:
+                    description: |-
+                      Specifies the encryption configuration.
+                      The object structure is documented below.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        kmsKeyId:
+                          description: Specifies KMS key ID, required if mode is set
+                            to KMS.
+                          type: string
+                        mode:
+                          description: 'Specifies the encryption mode. The value can
+                            be: Default and KMS.'
+                          type: string
+                      type: object
+                    type: array
                   eniSubnetCidr:
                     description: |-
                       The ENI network segment. This value is valid when only one eni_subnet_id is specified.
@@ -1216,9 +1257,7 @@ spec:
                         type: object
                     type: object
                   supportIstio:
-                    description: |-
-                      Specifies whether to support Istio in the cluster.
-                      Changing this parameter will create a new cluster resource.
+                    description: Whether Istio is supported in the cluster.
                     type: boolean
                   tags:
                     additionalProperties:
@@ -1227,6 +1266,11 @@ spec:
                       pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  timezone:
+                    description: |-
+                      Specifies the time zone of a cluster. Changing this parameter will create a
+                      new cluster resource.
+                    type: string
                   vpcId:
                     description: |-
                       Specifies the ID of the VPC used to create the node.
@@ -1658,8 +1702,27 @@ spec:
                     description: Specifies the EIP address of the cluster.
                     type: string
                   enableDistributeManagement:
-                    description: 'schema: Internal'
+                    description: |-
+                      Specifies whether to enable support for remote clouds.
+                      Changing this parameter will create a new cluster resource.
                     type: boolean
+                  encryptionConfig:
+                    description: |-
+                      Specifies the encryption configuration.
+                      The object structure is documented below.
+                      Changing this parameter will create a new cluster resource.
+                    items:
+                      properties:
+                        kmsKeyId:
+                          description: Specifies KMS key ID, required if mode is set
+                            to KMS.
+                          type: string
+                        mode:
+                          description: 'Specifies the encryption mode. The value can
+                            be: Default and KMS.'
+                          type: string
+                      type: object
+                    type: array
                   eniSubnetCidr:
                     description: |-
                       The ENI network segment. This value is valid when only one eni_subnet_id is specified.
@@ -1835,9 +1898,7 @@ spec:
                       configured with a DNS address. Changing this parameter will create a new cluster resource.
                     type: string
                   supportIstio:
-                    description: |-
-                      Specifies whether to support Istio in the cluster.
-                      Changing this parameter will create a new cluster resource.
+                    description: Whether Istio is supported in the cluster.
                     type: boolean
                   tags:
                     additionalProperties:
@@ -1846,6 +1907,11 @@ spec:
                       pair format.
                     type: object
                     x-kubernetes-map-type: granular
+                  timezone:
+                    description: |-
+                      Specifies the time zone of a cluster. Changing this parameter will create a
+                      new cluster resource.
+                    type: string
                   vpcId:
                     description: |-
                       Specifies the ID of the VPC used to create the node.

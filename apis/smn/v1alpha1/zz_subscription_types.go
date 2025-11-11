@@ -25,6 +25,12 @@ type ExtensionInitParameters struct {
 	// Changing this parameter will create a new resource.
 	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
 
+	// Specifies the HTTP/HTTPS headers to be added to the requests when the
+	// message is delivered via HTTP/HTTPS. This field is used when protocol is set to http or https.
+	// The following requirements apply to the header keys and values:
+	// +mapType=granular
+	Header map[string]*string `json:"header,omitempty" tf:"header,omitempty"`
+
 	// Specifies the keyword. When protocol is set to feishu,
 	// either keyword or sign_secret must be specified. When you use keywords to configure a security policy
 	// for the Lark or DingTalk chatbot on SMN, the keywords must have one of the keywords configured on the Lark
@@ -50,6 +56,12 @@ type ExtensionObservation struct {
 	// field obtained by the tenant from WeLink. This field is mandatory when protocol is set to welink.
 	// Changing this parameter will create a new resource.
 	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
+	// Specifies the HTTP/HTTPS headers to be added to the requests when the
+	// message is delivered via HTTP/HTTPS. This field is used when protocol is set to http or https.
+	// The following requirements apply to the header keys and values:
+	// +mapType=granular
+	Header map[string]*string `json:"header,omitempty" tf:"header,omitempty"`
 
 	// Specifies the keyword. When protocol is set to feishu,
 	// either keyword or sign_secret must be specified. When you use keywords to configure a security policy
@@ -78,6 +90,13 @@ type ExtensionParameters struct {
 	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
+	// Specifies the HTTP/HTTPS headers to be added to the requests when the
+	// message is delivered via HTTP/HTTPS. This field is used when protocol is set to http or https.
+	// The following requirements apply to the header keys and values:
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Header map[string]*string `json:"header,omitempty" tf:"header,omitempty"`
 
 	// Specifies the keyword. When protocol is set to feishu,
 	// either keyword or sign_secret must be specified. When you use keywords to configure a security policy

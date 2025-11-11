@@ -245,6 +245,11 @@ spec:
                       The region in which to create the CCE pool nodes add resource.
                       If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
                     type: string
+                  removeNodesOnDelete:
+                    description: |-
+                      Whether to remove nodes when delete this resource.
+                      If set to false, it will only be removed from the state. Defaults to false.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -431,6 +436,11 @@ spec:
                       The region in which to create the CCE pool nodes add resource.
                       If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
                     type: string
+                  removeNodesOnDelete:
+                    description: |-
+                      Whether to remove nodes when delete this resource.
+                      If set to false, it will only be removed from the state. Defaults to false.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -636,6 +646,11 @@ spec:
                       The region in which to create the CCE pool nodes add resource.
                       If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
                     type: string
+                  removeNodesOnDelete:
+                    description: |-
+                      Whether to remove nodes when delete this resource.
+                      If set to false, it will only be removed from the state. Defaults to false.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

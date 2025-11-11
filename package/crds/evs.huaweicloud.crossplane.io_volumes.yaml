@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Volume is the Schema for the Volumes API. ""
+        description: Volume is the Schema for the Volumes API. Manages a volume resource
+          within HuaweiCloud.
         properties:
           apiVersion:
             description: |-
@@ -76,18 +77,15 @@ spec:
                     type: string
                   autoRenew:
                     description: |-
-                      Specifies whether auto renew is enabled.
-                      Valid values are true and false.
+                      Specifies whether auto-renew is enabled.
+                      Valid values are true and false. Defaults to false.
                     type: string
                   availabilityZone:
-                    description: |-
-                      Specifies the availability zone for the disk. Changing this creates
-                      a new disk.
+                    description: Specifies the availability zone for the disk.
                     type: string
                   backupId:
-                    description: |-
-                      Specifies the backup ID from which to create the disk. Changing this
-                      creates a new disk.
+                    description: Specifies the backup ID from which to create the
+                      disk.
                     type: string
                   cascade:
                     description: |-
@@ -104,69 +102,60 @@ spec:
                       the disk.
                     type: string
                   description:
-                    description: Specifies the disk description. The value can contain
-                      a maximum of 255 bytes.
+                    description: Specifies the disk description. You can enter up
+                      to 85 characters.
                     type: string
                   deviceType:
                     description: |-
                       Specifies the device type of disk to create. Valid options are VBD and
-                      SCSI. Defaults to VBD. Changing this creates a new disk.
+                      SCSI. Defaults to VBD.
                     type: string
                   enterpriseProjectId:
                     description: |-
-                      Specifies the enterprise project id of the disk. Changing this
-                      creates a new disk.
+                      Specifies the enterprise project ID of the disk.
+                      For enterprise users, if omitted, default enterprise project will be used.
                     type: string
                   imageId:
-                    description: |-
-                      Specifies the image ID from which to create the disk. Changing this creates
-                      a new disk.
+                    description: Specifies the image ID from which to create the disk.
                     type: string
                   iops:
                     description: |-
                       Specifies the IOPS(Input/Output Operations Per Second) for the volume.
                       The field is valid and required when volume_type is set to GPSSD2 or ESSD2.
+                      This field can be changed only when the disk status is Available or In-use.
                     type: number
                   kmsId:
-                    description: |-
-                      Specifies the Encryption KMS ID to create the disk. Changing this creates a
-                      new disk.
+                    description: Specifies the Encryption KMS ID to create the disk.
                     type: string
                   multiattach:
                     description: |-
-                      Specifies whether the disk is shareable. The default value is false.
-                      Changing this creates a new disk.
+                      be-expanded disk is in-use, the status of the server to which the disk attached
+                      must be ACTIVE, PAUSED, SUSPENDED, or SHUTOFF.
+                      5. Please refer to Notes and Constraints
+                      to view the limitations of disk capacity expansion.
                     type: boolean
                   name:
-                    description: Specifies the disk name. The value can contain a
-                      maximum of 255 bytes.
+                    description: Specifies the disk name. You can enter up to 64 characters.
                     type: string
                   period:
-                    description: |-
-                      Specifies the charging period of the disk.
-                      If period_unit is set to month, the value ranges from 1 to 9.
-                      If period_unit is set to year, the valid value is 1.
-                      This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new disk.
+                    description: Specifies the charging period of the disk.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the disk.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new disk.
                     type: string
                   region:
                     description: |-
                       Specifies the region in which to create the disk. If omitted, the
-                      provider-level region will be used. Changing this creates a new disk.
+                      provider-level region will be used. Changing this parameter will create a new resource.
                     type: string
                   serverId:
                     description: |-
-                      Specify the server ID to which the cloudvolume is to be mounted.
-                      After specifying the value of this field, the cloudvolume will be automatically attached on the cloudserver.
-                      The charging_mode of the created cloudvolume will be consistent with that of the cloudserver.
-                      Currently, only ECS cloudservers are supported, and BMS bare metal cloudservers are not supported yet.
-                      Changing this creates a new disk.
+                      Specifies the server ID to which the cloud volume is to be mounted.
+                      After specifying the value of this field, the cloud volume will be automatically attached on the cloud server.
+                      The charging_mode of the created cloud volume will be consistent with that of the cloud server.
+                      Currently, only ECS cloud-servers are supported, and BMS bare metal cloud-servers are not supported yet.
                     type: string
                   serverIdRef:
                     description: Reference to a Instance in ecs to populate serverId.
@@ -243,13 +232,14 @@ spec:
                         type: object
                     type: object
                   size:
-                    description: 'Specifies the disk size, in GB. The valid value
-                      is range from:'
+                    description: |-
+                      Specifies the disk size, in GB.
+                      For system disk, the valid value ranges from 1 GB to 1,024 GB.
+                      For data disk, the valid value ranges from 10 GB to 32,768 GB.
                     type: number
                   snapshotId:
-                    description: |-
-                      Specifies the snapshot ID from which to create the disk. Changing this
-                      creates a new disk.
+                    description: Specifies the snapshot ID from which to create the
+                      disk.
                     type: string
                   snapshotIdRef:
                     description: Reference to a Snapshot in evs to populate snapshotId.
@@ -336,11 +326,10 @@ spec:
                     description: |-
                       Specifies the throughput for the volume. The Unit is MiB/s.
                       The field is valid and required when volume_type is set to GPSSD2.
+                      This field can be changed only when the disk status is Available or In-use.
                     type: number
                   volumeType:
-                    description: |-
-                      Specifies the disk type. Changing this creates a new disk.
-                      Valid values are as follows:
+                    description: 'Specifies the disk type. Valid values are as follows:'
                     type: string
                 type: object
               initProvider:
@@ -360,18 +349,15 @@ spec:
                     type: string
                   autoRenew:
                     description: |-
-                      Specifies whether auto renew is enabled.
-                      Valid values are true and false.
+                      Specifies whether auto-renew is enabled.
+                      Valid values are true and false. Defaults to false.
                     type: string
                   availabilityZone:
-                    description: |-
-                      Specifies the availability zone for the disk. Changing this creates
-                      a new disk.
+                    description: Specifies the availability zone for the disk.
                     type: string
                   backupId:
-                    description: |-
-                      Specifies the backup ID from which to create the disk. Changing this
-                      creates a new disk.
+                    description: Specifies the backup ID from which to create the
+                      disk.
                     type: string
                   cascade:
                     description: |-
@@ -388,69 +374,60 @@ spec:
                       the disk.
                     type: string
                   description:
-                    description: Specifies the disk description. The value can contain
-                      a maximum of 255 bytes.
+                    description: Specifies the disk description. You can enter up
+                      to 85 characters.
                     type: string
                   deviceType:
                     description: |-
                       Specifies the device type of disk to create. Valid options are VBD and
-                      SCSI. Defaults to VBD. Changing this creates a new disk.
+                      SCSI. Defaults to VBD.
                     type: string
                   enterpriseProjectId:
                     description: |-
-                      Specifies the enterprise project id of the disk. Changing this
-                      creates a new disk.
+                      Specifies the enterprise project ID of the disk.
+                      For enterprise users, if omitted, default enterprise project will be used.
                     type: string
                   imageId:
-                    description: |-
-                      Specifies the image ID from which to create the disk. Changing this creates
-                      a new disk.
+                    description: Specifies the image ID from which to create the disk.
                     type: string
                   iops:
                     description: |-
                       Specifies the IOPS(Input/Output Operations Per Second) for the volume.
                       The field is valid and required when volume_type is set to GPSSD2 or ESSD2.
+                      This field can be changed only when the disk status is Available or In-use.
                     type: number
                   kmsId:
-                    description: |-
-                      Specifies the Encryption KMS ID to create the disk. Changing this creates a
-                      new disk.
+                    description: Specifies the Encryption KMS ID to create the disk.
                     type: string
                   multiattach:
                     description: |-
-                      Specifies whether the disk is shareable. The default value is false.
-                      Changing this creates a new disk.
+                      be-expanded disk is in-use, the status of the server to which the disk attached
+                      must be ACTIVE, PAUSED, SUSPENDED, or SHUTOFF.
+                      5. Please refer to Notes and Constraints
+                      to view the limitations of disk capacity expansion.
                     type: boolean
                   name:
-                    description: Specifies the disk name. The value can contain a
-                      maximum of 255 bytes.
+                    description: Specifies the disk name. You can enter up to 64 characters.
                     type: string
                   period:
-                    description: |-
-                      Specifies the charging period of the disk.
-                      If period_unit is set to month, the value ranges from 1 to 9.
-                      If period_unit is set to year, the valid value is 1.
-                      This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new disk.
+                    description: Specifies the charging period of the disk.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the disk.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new disk.
                     type: string
                   region:
                     description: |-
                       Specifies the region in which to create the disk. If omitted, the
-                      provider-level region will be used. Changing this creates a new disk.
+                      provider-level region will be used. Changing this parameter will create a new resource.
                     type: string
                   serverId:
                     description: |-
-                      Specify the server ID to which the cloudvolume is to be mounted.
-                      After specifying the value of this field, the cloudvolume will be automatically attached on the cloudserver.
-                      The charging_mode of the created cloudvolume will be consistent with that of the cloudserver.
-                      Currently, only ECS cloudservers are supported, and BMS bare metal cloudservers are not supported yet.
-                      Changing this creates a new disk.
+                      Specifies the server ID to which the cloud volume is to be mounted.
+                      After specifying the value of this field, the cloud volume will be automatically attached on the cloud server.
+                      The charging_mode of the created cloud volume will be consistent with that of the cloud server.
+                      Currently, only ECS cloud-servers are supported, and BMS bare metal cloud-servers are not supported yet.
                     type: string
                   serverIdRef:
                     description: Reference to a Instance in ecs to populate serverId.
@@ -527,13 +504,14 @@ spec:
                         type: object
                     type: object
                   size:
-                    description: 'Specifies the disk size, in GB. The valid value
-                      is range from:'
+                    description: |-
+                      Specifies the disk size, in GB.
+                      For system disk, the valid value ranges from 1 GB to 1,024 GB.
+                      For data disk, the valid value ranges from 10 GB to 32,768 GB.
                     type: number
                   snapshotId:
-                    description: |-
-                      Specifies the snapshot ID from which to create the disk. Changing this
-                      creates a new disk.
+                    description: Specifies the snapshot ID from which to create the
+                      disk.
                     type: string
                   snapshotIdRef:
                     description: Reference to a Snapshot in evs to populate snapshotId.
@@ -620,11 +598,10 @@ spec:
                     description: |-
                       Specifies the throughput for the volume. The Unit is MiB/s.
                       The field is valid and required when volume_type is set to GPSSD2.
+                      This field can be changed only when the disk status is Available or In-use.
                     type: number
                   volumeType:
-                    description: |-
-                      Specifies the disk type. Changing this creates a new disk.
-                      Valid values are as follows:
+                    description: 'Specifies the disk type. Valid values are as follows:'
                     type: string
                 type: object
               managementPolicies:
@@ -808,14 +785,37 @@ spec:
             properties:
               atProvider:
                 properties:
+                  allMetadata:
+                    additionalProperties:
+                      type: string
+                    description: 'The key-value pair disk metadata. Valid key-value
+                      pairs are as follows:'
+                    type: object
+                    x-kubernetes-map-type: granular
+                  allVolumeImageMetadata:
+                    additionalProperties:
+                      type: string
+                    description: The metadata of the disk image.
+                    type: object
+                    x-kubernetes-map-type: granular
                   attachment:
                     description: |-
-                      If a disk is attached to an instance, this attribute will display the Attachment ID, Instance ID, and
-                      the Device as the Instance sees it. The object structure is documented below.
+                      If a disk is attached to an instance, this attribute will display the attachment ID, instance ID, and
+                      the device as the instance sees it. The attachment structure is documented below.
                     items:
                       properties:
+                        attachedAt:
+                          description: The time when the disk was attached.
+                          type: string
+                        attachedVolumeId:
+                          description: The ID of the attached disk.
+                          type: string
                         device:
                           description: The device name.
+                          type: string
+                        hostName:
+                          description: The name of the physical host housing the cloud
+                            server to which the disk is attached.
                           type: string
                         id:
                           description: The ID of the attachment information.
@@ -823,24 +823,28 @@ spec:
                         instanceId:
                           description: The ID of the server to which the disk is attached.
                           type: string
+                        volumeId:
+                          description: The disk ID.
+                          type: string
                       type: object
                     type: array
                   autoPay:
                     type: string
                   autoRenew:
                     description: |-
-                      Specifies whether auto renew is enabled.
-                      Valid values are true and false.
+                      Specifies whether auto-renew is enabled.
+                      Valid values are true and false. Defaults to false.
                     type: string
                   availabilityZone:
-                    description: |-
-                      Specifies the availability zone for the disk. Changing this creates
-                      a new disk.
+                    description: Specifies the availability zone for the disk.
                     type: string
                   backupId:
-                    description: |-
-                      Specifies the backup ID from which to create the disk. Changing this
-                      creates a new disk.
+                    description: Specifies the backup ID from which to create the
+                      disk.
+                    type: string
+                  bootable:
+                    description: 'Whether the disk is bootable. true: The disk is
+                      bootable. false: The disk is not bootable.'
                     type: string
                   cascade:
                     description: |-
@@ -852,6 +856,9 @@ spec:
                       Specifies the charging mode of the disk.
                       The valid values are as follows:
                     type: string
+                  createdAt:
+                    description: The time when the disk was created.
+                    type: string
                   dedicatedStorageId:
                     description: Specifies the ID of the DSS storage pool accommodating
                       the disk.
@@ -861,81 +868,118 @@ spec:
                       disk.
                     type: string
                   description:
-                    description: Specifies the disk description. The value can contain
-                      a maximum of 255 bytes.
+                    description: Specifies the disk description. You can enter up
+                      to 85 characters.
                     type: string
                   deviceType:
                     description: |-
                       Specifies the device type of disk to create. Valid options are VBD and
-                      SCSI. Defaults to VBD. Changing this creates a new disk.
+                      SCSI. Defaults to VBD.
                     type: string
                   enterpriseProjectId:
                     description: |-
-                      Specifies the enterprise project id of the disk. Changing this
-                      creates a new disk.
+                      Specifies the enterprise project ID of the disk.
+                      For enterprise users, if omitted, default enterprise project will be used.
                     type: string
                   id:
-                    description: A resource ID in UUID format.
+                    description: The resource ID in UUID format.
                     type: string
                   imageId:
-                    description: |-
-                      Specifies the image ID from which to create the disk. Changing this creates
-                      a new disk.
+                    description: Specifies the image ID from which to create the disk.
                     type: string
                   iops:
                     description: |-
                       Specifies the IOPS(Input/Output Operations Per Second) for the volume.
                       The field is valid and required when volume_type is set to GPSSD2 or ESSD2.
+                      This field can be changed only when the disk status is Available or In-use.
                     type: number
-                  kmsId:
+                  iopsAttribute:
                     description: |-
-                      Specifies the Encryption KMS ID to create the disk. Changing this creates a
-                      new disk.
+                      The disk IOPS information. This attribute appears only for a general purpose SSD V2 or an extreme
+                      SSD V2 disk. The iops_attribute structure is documented below.
+                    items:
+                      properties:
+                        frozened:
+                          description: The frozen tag.
+                          type: boolean
+                        id:
+                          description: The ID of the disk IOPS.
+                          type: string
+                        totalVal:
+                          description: The IOPS.
+                          type: number
+                      type: object
+                    type: array
+                  kmsId:
+                    description: Specifies the Encryption KMS ID to create the disk.
                     type: string
+                  links:
+                    description: |-
+                      The disk URI.
+                      The links structure is documented below.
+                    items:
+                      properties:
+                        href:
+                          description: The corresponding shortcut link.
+                          type: string
+                        rel:
+                          description: The shortcut link marker name.
+                          type: string
+                      type: object
+                    type: array
                   multiattach:
                     description: |-
-                      Specifies whether the disk is shareable. The default value is false.
-                      Changing this creates a new disk.
+                      be-expanded disk is in-use, the status of the server to which the disk attached
+                      must be ACTIVE, PAUSED, SUSPENDED, or SHUTOFF.
+                      5. Please refer to Notes and Constraints
+                      to view the limitations of disk capacity expansion.
                     type: boolean
                   name:
-                    description: Specifies the disk name. The value can contain a
-                      maximum of 255 bytes.
+                    description: Specifies the disk name. You can enter up to 64 characters.
                     type: string
                   period:
-                    description: |-
-                      Specifies the charging period of the disk.
-                      If period_unit is set to month, the value ranges from 1 to 9.
-                      If period_unit is set to year, the valid value is 1.
-                      This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new disk.
+                    description: Specifies the charging period of the disk.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the disk.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this creates a new disk.
                     type: string
                   region:
                     description: |-
                       Specifies the region in which to create the disk. If omitted, the
-                      provider-level region will be used. Changing this creates a new disk.
+                      provider-level region will be used. Changing this parameter will create a new resource.
+                    type: string
+                  serialNumber:
+                    description: |-
+                      The disk serial number. This field is returned only for non-HyperMetro SCSI disks and is used for
+                      disk mapping in the VM.
                     type: string
                   serverId:
                     description: |-
-                      Specify the server ID to which the cloudvolume is to be mounted.
-                      After specifying the value of this field, the cloudvolume will be automatically attached on the cloudserver.
-                      The charging_mode of the created cloudvolume will be consistent with that of the cloudserver.
-                      Currently, only ECS cloudservers are supported, and BMS bare metal cloudservers are not supported yet.
-                      Changing this creates a new disk.
+                      Specifies the server ID to which the cloud volume is to be mounted.
+                      After specifying the value of this field, the cloud volume will be automatically attached on the cloud server.
+                      The charging_mode of the created cloud volume will be consistent with that of the cloud server.
+                      Currently, only ECS cloud-servers are supported, and BMS bare metal cloud-servers are not supported yet.
+                    type: string
+                  serviceType:
+                    description: The service type. Supported services are EVS, DSS,
+                      and DESS.
                     type: string
                   size:
-                    description: 'Specifies the disk size, in GB. The valid value
-                      is range from:'
+                    description: |-
+                      Specifies the disk size, in GB.
+                      For system disk, the valid value ranges from 1 GB to 1,024 GB.
+                      For data disk, the valid value ranges from 10 GB to 32,768 GB.
                     type: number
                   snapshotId:
+                    description: Specifies the snapshot ID from which to create the
+                      disk.
+                    type: string
+                  status:
                     description: |-
-                      Specifies the snapshot ID from which to create the disk. Changing this
-                      creates a new disk.
+                      The disk status.
+                      Please refer to EVS Disk Status.
                     type: string
                   tags:
                     additionalProperties:
@@ -948,11 +992,30 @@ spec:
                     description: |-
                       Specifies the throughput for the volume. The Unit is MiB/s.
                       The field is valid and required when volume_type is set to GPSSD2.
+                      This field can be changed only when the disk status is Available or In-use.
                     type: number
-                  volumeType:
+                  throughputAttribute:
                     description: |-
-                      Specifies the disk type. Changing this creates a new disk.
-                      Valid values are as follows:
+                      The disk throughput information. This attribute appears only for a general purpose SSD V2 disk.
+                      The throughput_attribute structure is documented below.
+                    items:
+                      properties:
+                        frozened:
+                          description: The frozen tag.
+                          type: boolean
+                        id:
+                          description: The throughput ID.
+                          type: string
+                        totalVal:
+                          description: The throughput.
+                          type: number
+                      type: object
+                    type: array
+                  updatedAt:
+                    description: The time when the disk was updated.
+                    type: string
+                  volumeType:
+                    description: 'Specifies the disk type. Valid values are as follows:'
                     type: string
                   wwn:
                     description: The unique identifier used for mounting the EVS disk.

@@ -14,8 +14,9 @@ import (
 )
 
 type InstanceEIPAssociateInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
-	// Specifies the ID of an RDS instance. Changing this creates a new resource.
+	// Specifies the ID of an RDS instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
@@ -28,12 +29,12 @@ type InstanceEIPAssociateInitParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
-	// Specifies the EIP address to be bound. Changing this creates a new resource.
+	// Specifies the EIP address to be bound.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("address",true)
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
-	// Specifies the EIP ID. Changing this creates a new resource.
+	// Specifies the EIP ID.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	PublicIPID *string `json:"publicIpId,omitempty" tf:"public_ip_id,omitempty"`
@@ -60,17 +61,18 @@ type InstanceEIPAssociateInitParameters struct {
 }
 
 type InstanceEIPAssociateObservation struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// The resource ID. The value is instance_id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the ID of an RDS instance. Changing this creates a new resource.
+	// Specifies the ID of an RDS instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
-	// Specifies the EIP address to be bound. Changing this creates a new resource.
+	// Specifies the EIP address to be bound.
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
-	// Specifies the EIP ID. Changing this creates a new resource.
+	// Specifies the EIP ID.
 	PublicIPID *string `json:"publicIpId,omitempty" tf:"public_ip_id,omitempty"`
 
 	// Specifies the region in which to create the resource.
@@ -80,7 +82,10 @@ type InstanceEIPAssociateObservation struct {
 
 type InstanceEIPAssociateParameters struct {
 
-	// Specifies the ID of an RDS instance. Changing this creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the ID of an RDS instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -94,13 +99,13 @@ type InstanceEIPAssociateParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
-	// Specifies the EIP address to be bound. Changing this creates a new resource.
+	// Specifies the EIP address to be bound.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("address",true)
 	// +kubebuilder:validation:Optional
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
 
-	// Specifies the EIP ID. Changing this creates a new resource.
+	// Specifies the EIP ID.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/eip/v1alpha1.VpcEip
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional

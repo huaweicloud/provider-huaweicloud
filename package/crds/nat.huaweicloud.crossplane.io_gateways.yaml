@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Gateway is the Schema for the Gateways API. ""
+        description: Gateway is the Schema for the Gateways API. Manages a gateway
+          resource of the
         properties:
           apiVersion:
             description: |-
@@ -102,11 +103,11 @@ spec:
                     type: string
                   ngportIpAddress:
                     description: |-
-                      Specifies the private IP address of the NAT gateway.
+                      Specifies the IP address used for the NG port of the NAT gateway.
                       The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
                       If not spacified, it will be automatically allocated.
                       Changing this will creates a new resource.
-                      The private IP address of the NAT gateway.
+                      The IP address used for the NG port of the NAT gateway.
                     type: string
                   period:
                     description: |-
@@ -128,6 +129,39 @@ spec:
                       If omitted, the provider-level region will be used. Changing this will create a new resource.
                       The region where the NAT gateway is located.
                     type: string
+                  sessionConf:
+                    description: |-
+                      Specifies the session configuration of the NAT gateway.
+                      The session_conf structure is documented below.
+                      The session configuration of the NAT gateway.
+                    items:
+                      properties:
+                        icmpSessionExpireTime:
+                          description: |-
+                            Specifies the ICMP session expiration time, in seconds.
+                            The valid value from 10 to 7,200, default value is 10.
+                            The ICMP session expiration time.
+                          type: number
+                        tcpSessionExpireTime:
+                          description: |-
+                            Specifies the TCP session expiration time, in seconds.
+                            The valid value from 40 to 7,200, default value is 900.
+                            The TCP session expiration time.
+                          type: number
+                        tcpTimeWaitTime:
+                          description: |-
+                            Specifies the duration of TIME_WAIT state when TCP connection is closed,
+                            in seconds. The valid value from 0 to 1,800, default value is 5.
+                            The duration of TIME_WAIT state when TCP connection is closed.
+                          type: number
+                        udpSessionExpireTime:
+                          description: |-
+                            Specifies the UDP session expiration time, in seconds.
+                            The valid value from 40 to 7,200, default value is 300.
+                            The UDP session expiration time.
+                          type: number
+                      type: object
+                    type: array
                   spec:
                     description: |-
                       Specifies the specification of the NAT gateway. The valid values are as follows:
@@ -345,11 +379,11 @@ spec:
                     type: string
                   ngportIpAddress:
                     description: |-
-                      Specifies the private IP address of the NAT gateway.
+                      Specifies the IP address used for the NG port of the NAT gateway.
                       The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
                       If not spacified, it will be automatically allocated.
                       Changing this will creates a new resource.
-                      The private IP address of the NAT gateway.
+                      The IP address used for the NG port of the NAT gateway.
                     type: string
                   period:
                     description: |-
@@ -371,6 +405,39 @@ spec:
                       If omitted, the provider-level region will be used. Changing this will create a new resource.
                       The region where the NAT gateway is located.
                     type: string
+                  sessionConf:
+                    description: |-
+                      Specifies the session configuration of the NAT gateway.
+                      The session_conf structure is documented below.
+                      The session configuration of the NAT gateway.
+                    items:
+                      properties:
+                        icmpSessionExpireTime:
+                          description: |-
+                            Specifies the ICMP session expiration time, in seconds.
+                            The valid value from 10 to 7,200, default value is 10.
+                            The ICMP session expiration time.
+                          type: number
+                        tcpSessionExpireTime:
+                          description: |-
+                            Specifies the TCP session expiration time, in seconds.
+                            The valid value from 40 to 7,200, default value is 900.
+                            The TCP session expiration time.
+                          type: number
+                        tcpTimeWaitTime:
+                          description: |-
+                            Specifies the duration of TIME_WAIT state when TCP connection is closed,
+                            in seconds. The valid value from 0 to 1,800, default value is 5.
+                            The duration of TIME_WAIT state when TCP connection is closed.
+                          type: number
+                        udpSessionExpireTime:
+                          description: |-
+                            Specifies the UDP session expiration time, in seconds.
+                            The valid value from 40 to 7,200, default value is 300.
+                            The UDP session expiration time.
+                          type: number
+                      type: object
+                    type: array
                   spec:
                     description: |-
                       Specifies the specification of the NAT gateway. The valid values are as follows:
@@ -731,10 +798,26 @@ spec:
                       Specifies whether auto-renew is enabled. This parameter is only valid when
                       charging_mode is set to prePaid. Valid values are true and false. Defaults to false.
                     type: string
+                  billingInfo:
+                    description: |-
+                      The order information of the NAT gateway.
+                      When the charging_mode is set to prePaid, this parameter is available.
+                      The order information of the NAT gateway.
+                    type: string
+                  bpsMax:
+                    description: |-
+                      The bandwidth that the NAT gateway can receive or send per second, unit is MB.
+                      The bandwidth that the NAT gateway can receive or send per second.
+                    type: number
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the NAT gateway.
                       The valid values are as follows:
+                    type: string
+                  createdAt:
+                    description: |-
+                      The creation time of the NAT gateway.
+                      The creation time of the NAT gateway.
                     type: string
                   description:
                     description: |-
@@ -742,6 +825,11 @@ spec:
                       characters, and angle brackets (<) and (>) are not allowed.
                       The description of the NAT gateway.
                     type: string
+                  dnatRulesLimit:
+                    description: |-
+                      The maximum number of DNAT rules on the NAT gateway. Defaults to 200.
+                      The maximum number of DNAT rules on the NAT gateway.
+                    type: number
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID of the NAT gateway.
@@ -759,11 +847,11 @@ spec:
                     type: string
                   ngportIpAddress:
                     description: |-
-                      Specifies the private IP address of the NAT gateway.
+                      Specifies the IP address used for the NG port of the NAT gateway.
                       The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
                       If not spacified, it will be automatically allocated.
                       Changing this will creates a new resource.
-                      The private IP address of the NAT gateway.
+                      The IP address used for the NG port of the NAT gateway.
                     type: string
                   period:
                     description: |-
@@ -779,12 +867,55 @@ spec:
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
                       Changing this will create a new resource.
                     type: string
+                  ppsMax:
+                    description: |-
+                      The number of packets that the NAT gateway can receive or send per second.
+                      The number of packets that the NAT gateway can receive or send per second.
+                    type: number
                   region:
                     description: |-
                       Specifies the region where the NAT gateway is located.
                       If omitted, the provider-level region will be used. Changing this will create a new resource.
                       The region where the NAT gateway is located.
                     type: string
+                  sessionConf:
+                    description: |-
+                      Specifies the session configuration of the NAT gateway.
+                      The session_conf structure is documented below.
+                      The session configuration of the NAT gateway.
+                    items:
+                      properties:
+                        icmpSessionExpireTime:
+                          description: |-
+                            Specifies the ICMP session expiration time, in seconds.
+                            The valid value from 10 to 7,200, default value is 10.
+                            The ICMP session expiration time.
+                          type: number
+                        tcpSessionExpireTime:
+                          description: |-
+                            Specifies the TCP session expiration time, in seconds.
+                            The valid value from 40 to 7,200, default value is 900.
+                            The TCP session expiration time.
+                          type: number
+                        tcpTimeWaitTime:
+                          description: |-
+                            Specifies the duration of TIME_WAIT state when TCP connection is closed,
+                            in seconds. The valid value from 0 to 1,800, default value is 5.
+                            The duration of TIME_WAIT state when TCP connection is closed.
+                          type: number
+                        udpSessionExpireTime:
+                          description: |-
+                            Specifies the UDP session expiration time, in seconds.
+                            The valid value from 40 to 7,200, default value is 300.
+                            The UDP session expiration time.
+                          type: number
+                      type: object
+                    type: array
+                  snatRulePublicIpLimit:
+                    description: |-
+                      The maximum number of SNAT rules on the NAT gateway. Defaults to 20.
+                      The maximum number of SNAT rules on the NAT gateway.
+                    type: number
                   spec:
                     description: |-
                       Specifies the specification of the NAT gateway. The valid values are as follows:

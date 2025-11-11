@@ -160,8 +160,14 @@ type ClusterInitParameters struct {
 	// +kubebuilder:validation:Optional
 	EIPSelector *v1.Selector `json:"eipSelector,omitempty" tf:"-"`
 
-	// schema: Internal
+	// Specifies whether to enable support for remote clouds.
+	// Changing this parameter will create a new cluster resource.
 	EnableDistributeManagement *bool `json:"enableDistributeManagement,omitempty" tf:"enable_distribute_management,omitempty"`
+
+	// Specifies the encryption configuration.
+	// The object structure is documented below.
+	// Changing this parameter will create a new cluster resource.
+	EncryptionConfig []EncryptionConfigInitParameters `json:"encryptionConfig,omitempty" tf:"encryption_config,omitempty"`
 
 	// The ENI network segment. This value is valid when only one eni_subnet_id is specified.
 	// schema: Computed
@@ -280,13 +286,16 @@ type ClusterInitParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
-	// Specifies whether to support Istio in the cluster.
-	// Changing this parameter will create a new cluster resource.
+	// Whether Istio is supported in the cluster.
 	SupportIstio *bool `json:"supportIstio,omitempty" tf:"support_istio,omitempty"`
 
 	// Specifies the tags of the CCE cluster, key/value pair format.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the time zone of a cluster. Changing this parameter will create a
+	// new cluster resource.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// Specifies the ID of the VPC used to create the node.
 	// Changing this parameter will create a new cluster resource.
@@ -413,8 +422,14 @@ type ClusterObservation struct {
 	// Specifies the EIP address of the cluster.
 	EIP *string `json:"eip,omitempty" tf:"eip,omitempty"`
 
-	// schema: Internal
+	// Specifies whether to enable support for remote clouds.
+	// Changing this parameter will create a new cluster resource.
 	EnableDistributeManagement *bool `json:"enableDistributeManagement,omitempty" tf:"enable_distribute_management,omitempty"`
+
+	// Specifies the encryption configuration.
+	// The object structure is documented below.
+	// Changing this parameter will create a new cluster resource.
+	EncryptionConfig []EncryptionConfigObservation `json:"encryptionConfig,omitempty" tf:"encryption_config,omitempty"`
 
 	// The ENI network segment. This value is valid when only one eni_subnet_id is specified.
 	// schema: Computed
@@ -522,13 +537,16 @@ type ClusterObservation struct {
 	// configured with a DNS address. Changing this parameter will create a new cluster resource.
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
 
-	// Specifies whether to support Istio in the cluster.
-	// Changing this parameter will create a new cluster resource.
+	// Whether Istio is supported in the cluster.
 	SupportIstio *bool `json:"supportIstio,omitempty" tf:"support_istio,omitempty"`
 
 	// Specifies the tags of the CCE cluster, key/value pair format.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the time zone of a cluster. Changing this parameter will create a
+	// new cluster resource.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// Specifies the ID of the VPC used to create the node.
 	// Changing this parameter will create a new cluster resource.
@@ -671,9 +689,16 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	EIPSelector *v1.Selector `json:"eipSelector,omitempty" tf:"-"`
 
-	// schema: Internal
+	// Specifies whether to enable support for remote clouds.
+	// Changing this parameter will create a new cluster resource.
 	// +kubebuilder:validation:Optional
 	EnableDistributeManagement *bool `json:"enableDistributeManagement,omitempty" tf:"enable_distribute_management,omitempty"`
+
+	// Specifies the encryption configuration.
+	// The object structure is documented below.
+	// Changing this parameter will create a new cluster resource.
+	// +kubebuilder:validation:Optional
+	EncryptionConfig []EncryptionConfigParameters `json:"encryptionConfig,omitempty" tf:"encryption_config,omitempty"`
 
 	// The ENI network segment. This value is valid when only one eni_subnet_id is specified.
 	// schema: Computed
@@ -813,8 +838,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIDSelector *v1.Selector `json:"subnetIdSelector,omitempty" tf:"-"`
 
-	// Specifies whether to support Istio in the cluster.
-	// Changing this parameter will create a new cluster resource.
+	// Whether Istio is supported in the cluster.
 	// +kubebuilder:validation:Optional
 	SupportIstio *bool `json:"supportIstio,omitempty" tf:"support_istio,omitempty"`
 
@@ -822,6 +846,11 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Specifies the time zone of a cluster. Changing this parameter will create a
+	// new cluster resource.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// Specifies the ID of the VPC used to create the node.
 	// Changing this parameter will create a new cluster resource.
@@ -866,6 +895,35 @@ type ComponentConfigurationsParameters struct {
 	// Specifies the component name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
+}
+
+type EncryptionConfigInitParameters struct {
+
+	// Specifies KMS key ID, required if mode is set to KMS.
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
+	// Specifies the encryption mode. The value can be: Default and KMS.
+	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
+}
+
+type EncryptionConfigObservation struct {
+
+	// Specifies KMS key ID, required if mode is set to KMS.
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
+	// Specifies the encryption mode. The value can be: Default and KMS.
+	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
+}
+
+type EncryptionConfigParameters struct {
+
+	// Specifies KMS key ID, required if mode is set to KMS.
+	// +kubebuilder:validation:Optional
+	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
+
+	// Specifies the encryption mode. The value can be: Default and KMS.
+	// +kubebuilder:validation:Optional
+	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 }
 
 type ExtendParamsInitParameters struct {

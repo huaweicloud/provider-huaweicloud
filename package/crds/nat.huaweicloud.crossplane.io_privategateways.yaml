@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: PrivateGateway is the Schema for the PrivateGateways API. ""
+        description: PrivateGateway is the Schema for the PrivateGateways API. Manages
+          a gateway resource of the
         properties:
           apiVersion:
             description: |-

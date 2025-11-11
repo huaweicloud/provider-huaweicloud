@@ -25,6 +25,8 @@ type PgDatabaseInitParameters struct {
 	// Specifies the database description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -39,8 +41,8 @@ type PgDatabaseInitParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
-	// Specifies whether to revoke the PUBLIC CREATE permission of
-	// the public schema.
+	// Specifies whether to revoke the PUBLIC CREATE
+	// permission of the public schema.
 	// Specifies whether to revoke the PUBLIC CREATE permission of the public schema.
 	IsRevokePublicPrivilege *bool `json:"isRevokePublicPrivilege,omitempty" tf:"is_revoke_public_privilege,omitempty"`
 
@@ -90,6 +92,8 @@ type PgDatabaseObservation struct {
 	// Specifies the database description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID of database which is formatted <instance_id>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -97,8 +101,8 @@ type PgDatabaseObservation struct {
 	// Specifies the ID of the RDS PostgreSQL instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
-	// Specifies whether to revoke the PUBLIC CREATE permission of
-	// the public schema.
+	// Specifies whether to revoke the PUBLIC CREATE
+	// permission of the public schema.
 	// Specifies whether to revoke the PUBLIC CREATE permission of the public schema.
 	IsRevokePublicPrivilege *bool `json:"isRevokePublicPrivilege,omitempty" tf:"is_revoke_public_privilege,omitempty"`
 
@@ -154,6 +158,9 @@ type PgDatabaseParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -169,8 +176,8 @@ type PgDatabaseParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
-	// Specifies whether to revoke the PUBLIC CREATE permission of
-	// the public schema.
+	// Specifies whether to revoke the PUBLIC CREATE
+	// permission of the public schema.
 	// Specifies whether to revoke the PUBLIC CREATE permission of the public schema.
 	// +kubebuilder:validation:Optional
 	IsRevokePublicPrivilege *bool `json:"isRevokePublicPrivilege,omitempty" tf:"is_revoke_public_privilege,omitempty"`

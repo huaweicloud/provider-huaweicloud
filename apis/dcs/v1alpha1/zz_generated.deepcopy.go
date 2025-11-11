@@ -2529,6 +2529,22 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.BigKeyEnableAutoScan != nil {
+		in, out := &in.BigKeyEnableAutoScan, &out.BigKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.BigKeyScheduleAt != nil {
+		in, out := &in.BigKeyScheduleAt, &out.BigKeyScheduleAt
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.Capacity != nil {
 		in, out := &in.Capacity, &out.Capacity
 		*out = new(float64)
@@ -2575,10 +2591,51 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpireKeyEnableAutoScan != nil {
+		in, out := &in.ExpireKeyEnableAutoScan, &out.ExpireKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ExpireKeyFirstScanAt != nil {
+		in, out := &in.ExpireKeyFirstScanAt, &out.ExpireKeyFirstScanAt
+		*out = new(string)
+		**out = **in
+	}
+	if in.ExpireKeyInterval != nil {
+		in, out := &in.ExpireKeyInterval, &out.ExpireKeyInterval
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyScanKeysCount != nil {
+		in, out := &in.ExpireKeyScanKeysCount, &out.ExpireKeyScanKeysCount
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyTimeout != nil {
+		in, out := &in.ExpireKeyTimeout, &out.ExpireKeyTimeout
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(string)
 		**out = **in
+	}
+	if in.HotKeyEnableAutoScan != nil {
+		in, out := &in.HotKeyEnableAutoScan, &out.HotKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HotKeyScheduleAt != nil {
+		in, out := &in.HotKeyScheduleAt, &out.HotKeyScheduleAt
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.MaintainBegin != nil {
 		in, out := &in.MaintainBegin, &out.MaintainBegin
@@ -2730,6 +2787,11 @@ func (in *InstanceInitParameters) DeepCopyInto(out *InstanceInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TransparentClientIPEnable != nil {
+		in, out := &in.TransparentClientIPEnable, &out.TransparentClientIPEnable
+		*out = new(bool)
+		**out = **in
+	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
 		*out = new(string)
@@ -2876,6 +2938,27 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.BigKeyEnableAutoScan != nil {
+		in, out := &in.BigKeyEnableAutoScan, &out.BigKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.BigKeyScheduleAt != nil {
+		in, out := &in.BigKeyScheduleAt, &out.BigKeyScheduleAt
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.BigKeyUpdatedAt != nil {
+		in, out := &in.BigKeyUpdatedAt, &out.BigKeyUpdatedAt
+		*out = new(string)
+		**out = **in
+	}
 	if in.CPUType != nil {
 		in, out := &in.CPUType, &out.CPUType
 		*out = new(string)
@@ -2942,8 +3025,59 @@ func (in *InstanceObservation) DeepCopyInto(out *InstanceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpireKeyEnableAutoScan != nil {
+		in, out := &in.ExpireKeyEnableAutoScan, &out.ExpireKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ExpireKeyFirstScanAt != nil {
+		in, out := &in.ExpireKeyFirstScanAt, &out.ExpireKeyFirstScanAt
+		*out = new(string)
+		**out = **in
+	}
+	if in.ExpireKeyInterval != nil {
+		in, out := &in.ExpireKeyInterval, &out.ExpireKeyInterval
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyScanKeysCount != nil {
+		in, out := &in.ExpireKeyScanKeysCount, &out.ExpireKeyScanKeysCount
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyTimeout != nil {
+		in, out := &in.ExpireKeyTimeout, &out.ExpireKeyTimeout
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyUpdatedAt != nil {
+		in, out := &in.ExpireKeyUpdatedAt, &out.ExpireKeyUpdatedAt
+		*out = new(string)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
+		*out = new(string)
+		**out = **in
+	}
+	if in.HotKeyEnableAutoScan != nil {
+		in, out := &in.HotKeyEnableAutoScan, &out.HotKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HotKeyScheduleAt != nil {
+		in, out := &in.HotKeyScheduleAt, &out.HotKeyScheduleAt
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.HotKeyUpdatedAt != nil {
+		in, out := &in.HotKeyUpdatedAt, &out.HotKeyUpdatedAt
 		*out = new(string)
 		**out = **in
 	}
@@ -3264,6 +3398,22 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.BigKeyEnableAutoScan != nil {
+		in, out := &in.BigKeyEnableAutoScan, &out.BigKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.BigKeyScheduleAt != nil {
+		in, out := &in.BigKeyScheduleAt, &out.BigKeyScheduleAt
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.Capacity != nil {
 		in, out := &in.Capacity, &out.Capacity
 		*out = new(float64)
@@ -3310,10 +3460,51 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpireKeyEnableAutoScan != nil {
+		in, out := &in.ExpireKeyEnableAutoScan, &out.ExpireKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.ExpireKeyFirstScanAt != nil {
+		in, out := &in.ExpireKeyFirstScanAt, &out.ExpireKeyFirstScanAt
+		*out = new(string)
+		**out = **in
+	}
+	if in.ExpireKeyInterval != nil {
+		in, out := &in.ExpireKeyInterval, &out.ExpireKeyInterval
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyScanKeysCount != nil {
+		in, out := &in.ExpireKeyScanKeysCount, &out.ExpireKeyScanKeysCount
+		*out = new(float64)
+		**out = **in
+	}
+	if in.ExpireKeyTimeout != nil {
+		in, out := &in.ExpireKeyTimeout, &out.ExpireKeyTimeout
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Flavor != nil {
 		in, out := &in.Flavor, &out.Flavor
 		*out = new(string)
 		**out = **in
+	}
+	if in.HotKeyEnableAutoScan != nil {
+		in, out := &in.HotKeyEnableAutoScan, &out.HotKeyEnableAutoScan
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HotKeyScheduleAt != nil {
+		in, out := &in.HotKeyScheduleAt, &out.HotKeyScheduleAt
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.MaintainBegin != nil {
 		in, out := &in.MaintainBegin, &out.MaintainBegin
@@ -3463,6 +3654,11 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.TemplateID != nil {
 		in, out := &in.TemplateID, &out.TemplateID
 		*out = new(string)
+		**out = **in
+	}
+	if in.TransparentClientIPEnable != nil {
+		in, out := &in.TransparentClientIPEnable, &out.TransparentClientIPEnable
+		*out = new(bool)
 		**out = **in
 	}
 	if in.VPCID != nil {

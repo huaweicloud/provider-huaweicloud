@@ -26,6 +26,22 @@ func (in *ExtensionInitParameters) DeepCopyInto(out *ExtensionInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Header != nil {
+		in, out := &in.Header, &out.Header
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.Keyword != nil {
 		in, out := &in.Keyword, &out.Keyword
 		*out = new(string)
@@ -61,6 +77,22 @@ func (in *ExtensionObservation) DeepCopyInto(out *ExtensionObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Header != nil {
+		in, out := &in.Header, &out.Header
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.Keyword != nil {
 		in, out := &in.Keyword, &out.Keyword
 		*out = new(string)
@@ -95,6 +127,22 @@ func (in *ExtensionParameters) DeepCopyInto(out *ExtensionParameters) {
 		in, out := &in.ClientSecret, &out.ClientSecret
 		*out = new(string)
 		**out = **in
+	}
+	if in.Header != nil {
+		in, out := &in.Header, &out.Header
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.Keyword != nil {
 		in, out := &in.Keyword, &out.Keyword

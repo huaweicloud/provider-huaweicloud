@@ -76,9 +76,10 @@ spec:
                     description: 'Specifies the binlog retention period. Value range:
                       1 to 168 (7x24).'
                     type: number
+                  enableForceNew:
+                    type: string
                   instanceId:
-                    description: Specifies the RDS MySQL instance ID. Changing this
-                      will create a new resource.
+                    description: Specifies the RDS MySQL instance ID.
                     type: string
                   instanceIdRef:
                     description: Reference to a Instance in rds to populate instanceId.
@@ -177,9 +178,10 @@ spec:
                     description: 'Specifies the binlog retention period. Value range:
                       1 to 168 (7x24).'
                     type: number
+                  enableForceNew:
+                    type: string
                   instanceId:
-                    description: Specifies the RDS MySQL instance ID. Changing this
-                      will create a new resource.
+                    description: Specifies the RDS MySQL instance ID.
                     type: string
                   instanceIdRef:
                     description: Reference to a Instance in rds to populate instanceId.
@@ -442,12 +444,13 @@ spec:
                     description: 'Specifies the binlog retention period. Value range:
                       1 to 168 (7x24).'
                     type: number
+                  enableForceNew:
+                    type: string
                   id:
                     description: The resource ID .
                     type: string
                   instanceId:
-                    description: Specifies the RDS MySQL instance ID. Changing this
-                      will create a new resource.
+                    description: Specifies the RDS MySQL instance ID.
                     type: string
                   region:
                     description: |-

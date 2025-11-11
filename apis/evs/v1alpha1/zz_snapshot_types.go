@@ -26,6 +26,11 @@ type SnapshotInitParameters struct {
 	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// The script configuration value of this change is also the original value used for comparison with
+	// the new value next time the change is made. The corresponding parameter name is 'metadata'.
+	// +mapType=granular
+	MetadataOrigin map[string]*string `json:"metadataOrigin,omitempty" tf:"metadata_origin,omitempty"`
+
 	// The name of the snapshot. The value can contain a maximum of 255 bytes.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -50,6 +55,9 @@ type SnapshotInitParameters struct {
 
 type SnapshotObservation struct {
 
+	// The time when the snapshot was created.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// The description of the snapshot. The value can contain a maximum of 255 bytes.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -64,6 +72,11 @@ type SnapshotObservation struct {
 	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// The script configuration value of this change is also the original value used for comparison with
+	// the new value next time the change is made. The corresponding parameter name is 'metadata'.
+	// +mapType=granular
+	MetadataOrigin map[string]*string `json:"metadataOrigin,omitempty" tf:"metadata_origin,omitempty"`
+
 	// The name of the snapshot. The value can contain a maximum of 255 bytes.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -76,6 +89,9 @@ type SnapshotObservation struct {
 
 	// The status of the snapshot.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// The time when the snapshot was updated.
+	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
 	// The id of the snapshot's source disk. Changing the parameter creates a new
 	// snapshot.
@@ -97,6 +113,12 @@ type SnapshotParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Metadata map[string]*string `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+	// The script configuration value of this change is also the original value used for comparison with
+	// the new value next time the change is made. The corresponding parameter name is 'metadata'.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	MetadataOrigin map[string]*string `json:"metadataOrigin,omitempty" tf:"metadata_origin,omitempty"`
 
 	// The name of the snapshot. The value can contain a maximum of 255 bytes.
 	// +kubebuilder:validation:Optional

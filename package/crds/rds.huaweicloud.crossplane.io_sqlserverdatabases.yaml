@@ -73,6 +73,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS SQLServer instance.
@@ -179,6 +181,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS SQLServer instance.
@@ -453,6 +457,8 @@ spec:
                     description: |-
                       Indicates the character set used by the database.
                       Indicates the character set used by the database.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID of database which is formatted <instance_id>/<name>.

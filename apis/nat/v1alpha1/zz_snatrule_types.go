@@ -107,6 +107,10 @@ type SnatRuleObservation struct {
 	// The CIDR block connected by SNAT rule (DC side).
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// The creation time of the SNAT rule.
+	// The creation time of the SNAT rule.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
 	// Specifies the description of the SNAT rule.
 	// The value is a string of no more than 255 characters, and angle brackets (<>) are not allowed.
 	// The description of the SNAT rule.
@@ -120,6 +124,10 @@ type SnatRuleObservation struct {
 	// Multiple floating IPs are separated using commas (,). The number of floating IP IDs cannot exceed 20.
 	// The IDs of floating IPs connected by SNAT rule.
 	FloatingIPID *string `json:"floatingIpId,omitempty" tf:"floating_ip_id,omitempty"`
+
+	// The frozen EIP associated with the SNAT rule.
+	// The frozen EIP associated with the SNAT rule.
+	FreezedIPAddress *string `json:"freezedIpAddress,omitempty" tf:"freezed_ip_address,omitempty"`
 
 	// The global EIP addresses (separated by commas) connected by SNAT rule.
 	// The global EIP addresses (separated by commas) connected by SNAT rule.
@@ -285,7 +293,7 @@ type SnatRuleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SnatRule is the Schema for the SnatRules API. ""
+// SnatRule is the Schema for the SnatRules API. Manages an SNAT rule resource of the
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

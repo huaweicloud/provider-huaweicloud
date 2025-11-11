@@ -23,6 +23,8 @@ type SQLAuditInitParameters struct {
 	// +listType=set
 	AuditTypes []*string `json:"auditTypes,omitempty" tf:"audit_types,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of the RDS instance.
 	// Specifies the ID of the RDS instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -62,6 +64,8 @@ type SQLAuditObservation struct {
 	// +listType=set
 	AuditTypes []*string `json:"auditTypes,omitempty" tf:"audit_types,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -94,6 +98,9 @@ type SQLAuditParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	AuditTypes []*string `json:"auditTypes,omitempty" tf:"audit_types,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS instance.
 	// Specifies the ID of the RDS instance.

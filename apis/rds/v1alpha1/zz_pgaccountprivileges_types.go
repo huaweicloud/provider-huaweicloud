@@ -14,6 +14,7 @@ import (
 )
 
 type PgAccountPrivilegesInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.
@@ -51,6 +52,7 @@ type PgAccountPrivilegesInitParameters struct {
 }
 
 type PgAccountPrivilegesObservation struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// The resource ID of account which is formatted <instance_id>/<user_name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -81,6 +83,9 @@ type PgAccountPrivilegesObservation struct {
 }
 
 type PgAccountPrivilegesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.

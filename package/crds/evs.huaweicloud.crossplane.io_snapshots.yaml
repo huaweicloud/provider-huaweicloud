@@ -88,6 +88,14 @@ spec:
                       creates a new snapshot.
                     type: object
                     x-kubernetes-map-type: granular
+                  metadataOrigin:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      The script configuration value of this change is also the original value used for comparison with
+                      the new value next time the change is made. The corresponding parameter name is 'metadata'.
+                    type: object
+                    x-kubernetes-map-type: granular
                   name:
                     description: The name of the snapshot. The value can contain a
                       maximum of 255 bytes.
@@ -204,6 +212,14 @@ spec:
                     description: |-
                       Specifies the user-defined metadata key-value pair. Changing the parameter
                       creates a new snapshot.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  metadataOrigin:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      The script configuration value of this change is also the original value used for comparison with
+                      the new value next time the change is made. The corresponding parameter name is 'metadata'.
                     type: object
                     x-kubernetes-map-type: granular
                   name:
@@ -472,6 +488,9 @@ spec:
             properties:
               atProvider:
                 properties:
+                  createdAt:
+                    description: The time when the snapshot was created.
+                    type: string
                   description:
                     description: The description of the snapshot. The value can contain
                       a maximum of 255 bytes.
@@ -491,6 +510,14 @@ spec:
                       creates a new snapshot.
                     type: object
                     x-kubernetes-map-type: granular
+                  metadataOrigin:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      The script configuration value of this change is also the original value used for comparison with
+                      the new value next time the change is made. The corresponding parameter name is 'metadata'.
+                    type: object
+                    x-kubernetes-map-type: granular
                   name:
                     description: The name of the snapshot. The value can contain a
                       maximum of 255 bytes.
@@ -505,6 +532,9 @@ spec:
                     type: number
                   status:
                     description: The status of the snapshot.
+                    type: string
+                  updatedAt:
+                    description: The time when the snapshot was updated.
                     type: string
                   volumeId:
                     description: |-

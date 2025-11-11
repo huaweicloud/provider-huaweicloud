@@ -39,7 +39,7 @@ type ConversionRulesLocalParameters struct {
 
 	// Specifies the name of a federated user on the cloud platform.
 	// +kubebuilder:validation:Optional
-	Username *string `json:"username" tf:"username,omitempty"`
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type ConversionRulesRemoteInitParameters struct {

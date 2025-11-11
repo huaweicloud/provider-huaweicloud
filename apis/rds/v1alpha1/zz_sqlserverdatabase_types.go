@@ -14,6 +14,7 @@ import (
 )
 
 type SqlserverDatabaseInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS SQLServer instance.
 	// Specifies the ID of the RDS SQLServer instance.
@@ -47,6 +48,8 @@ type SqlserverDatabaseObservation struct {
 	// Indicates the character set used by the database.
 	CharacterSet *string `json:"characterSet,omitempty" tf:"character_set,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID of database which is formatted <instance_id>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -71,6 +74,9 @@ type SqlserverDatabaseObservation struct {
 }
 
 type SqlserverDatabaseParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS SQLServer instance.
 	// Specifies the ID of the RDS SQLServer instance.

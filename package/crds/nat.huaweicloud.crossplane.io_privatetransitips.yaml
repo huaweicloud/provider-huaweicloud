@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: PrivateTransitIP is the Schema for the PrivateTransitIPs API.
-          ""
+          Manages a transit IP resource of the
         properties:
           apiVersion:
             description: |-
@@ -508,6 +508,11 @@ spec:
                       Specifies the region where the transit IP is located.
                       If omitted, the provider-level region will be used. Changing this will create a new resource.
                       The region where the transit IP is located.
+                    type: string
+                  status:
+                    description: |-
+                      The status of the transit IP.
+                      The status of the transit IP.
                     type: string
                   subnetId:
                     description: |-

@@ -87,7 +87,6 @@ type BandwidthPackageInitParameters struct {
 	SpecCode *string `json:"specCode,omitempty" tf:"spec_code,omitempty"`
 
 	// The key/value pairs to associate with the bandwidth package.
-	// The key/value pairs to associate with the bandwidth package.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -173,7 +172,6 @@ type BandwidthPackageObservation struct {
 	// Bandwidth package status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-	// The key/value pairs to associate with the bandwidth package.
 	// The key/value pairs to associate with the bandwidth package.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -266,7 +264,6 @@ type BandwidthPackageParameters struct {
 	// +kubebuilder:validation:Optional
 	SpecCode *string `json:"specCode,omitempty" tf:"spec_code,omitempty"`
 
-	// The key/value pairs to associate with the bandwidth package.
 	// The key/value pairs to associate with the bandwidth package.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular

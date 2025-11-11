@@ -19,6 +19,8 @@ type SqlserverDatabasePrivilegeInitParameters struct {
 	// Specifies the database name.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of the RDS SQL Server instance.
 	// Specifies the ID of the RDS SQL Server instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -48,6 +50,8 @@ type SqlserverDatabasePrivilegeObservation struct {
 	// Specifies the database name.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID of database privilege which is formatted <instance_id>/<db_name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -70,6 +74,9 @@ type SqlserverDatabasePrivilegeParameters struct {
 	// Specifies the database name.
 	// +kubebuilder:validation:Optional
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS SQL Server instance.
 	// Specifies the ID of the RDS SQL Server instance.

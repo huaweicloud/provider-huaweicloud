@@ -69,6 +69,10 @@ type NodePoolNodesAddInitParameters struct {
 	// The region in which to create the CCE pool nodes add resource.
 	// If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Whether to remove nodes when delete this resource.
+	// If set to false, it will only be removed from the state. Defaults to false.
+	RemoveNodesOnDelete *bool `json:"removeNodesOnDelete,omitempty" tf:"remove_nodes_on_delete,omitempty"`
 }
 
 type NodePoolNodesAddObservation struct {
@@ -91,6 +95,10 @@ type NodePoolNodesAddObservation struct {
 	// The region in which to create the CCE pool nodes add resource.
 	// If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Whether to remove nodes when delete this resource.
+	// If set to false, it will only be removed from the state. Defaults to false.
+	RemoveNodesOnDelete *bool `json:"removeNodesOnDelete,omitempty" tf:"remove_nodes_on_delete,omitempty"`
 }
 
 type NodePoolNodesAddParameters struct {
@@ -135,6 +143,11 @@ type NodePoolNodesAddParameters struct {
 	// If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Whether to remove nodes when delete this resource.
+	// If set to false, it will only be removed from the state. Defaults to false.
+	// +kubebuilder:validation:Optional
+	RemoveNodesOnDelete *bool `json:"removeNodesOnDelete,omitempty" tf:"remove_nodes_on_delete,omitempty"`
 }
 
 // NodePoolNodesAddSpec defines the desired state of NodePoolNodesAdd

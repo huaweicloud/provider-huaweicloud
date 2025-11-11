@@ -73,6 +73,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  name:
+                    description: |-
+                      Specifies the target volume name for snapshot rollback.
+                      Changing this parameter will create a new resource.
+                    type: string
                   region:
                     description: |-
                       Specifies the region in which to create the resource.
@@ -250,6 +255,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  name:
+                    description: |-
+                      Specifies the target volume name for snapshot rollback.
+                      Changing this parameter will create a new resource.
+                    type: string
                   region:
                     description: |-
                       Specifies the region in which to create the resource.
@@ -588,6 +598,11 @@ spec:
                 properties:
                   id:
                     description: The resource ID, same as snapshot_id.
+                    type: string
+                  name:
+                    description: |-
+                      Specifies the target volume name for snapshot rollback.
+                      Changing this parameter will create a new resource.
                     type: string
                   region:
                     description: |-

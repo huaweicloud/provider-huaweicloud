@@ -80,7 +80,9 @@ spec:
                       Changing this creates a new resource.
                     type: string
                   chargeMode:
-                    description: Specifies the charge mode, for example, 95peak_guar.
+                    description: |-
+                      Specifies the charge mode.
+                      Value can be as follows:
                     type: string
                   description:
                     description: Specifies the description of the global internet
@@ -138,7 +140,9 @@ spec:
                       Changing this creates a new resource.
                     type: string
                   chargeMode:
-                    description: Specifies the charge mode, for example, 95peak_guar.
+                    description: |-
+                      Specifies the charge mode.
+                      Value can be as follows:
                     type: string
                   description:
                     description: Specifies the description of the global internet
@@ -373,7 +377,9 @@ spec:
                       Changing this creates a new resource.
                     type: string
                   chargeMode:
-                    description: Specifies the charge mode, for example, 95peak_guar.
+                    description: |-
+                      Specifies the charge mode.
+                      Value can be as follows:
                     type: string
                   createdAt:
                     description: The create time of the global internet bandwidth.

@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: PrivateDnatRule is the Schema for the PrivateDnatRules API. ""
+        description: PrivateDnatRule is the Schema for the PrivateDnatRules API. Manages
+          a DNAT rule resource of the
         properties:
           apiVersion:
             description: |-

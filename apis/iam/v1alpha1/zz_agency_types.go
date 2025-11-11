@@ -43,6 +43,10 @@ type AgencyInitParameters struct {
 	// or the specific days, for example, "20". The default value is FOREVER.
 	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
 
+	// Specifies an array of one or more roles and enterprise projects which
+	// are used to grant permissions to agency on project. The structure is documented below.
+	EnterpriseProjectRoles []EnterpriseProjectRolesInitParameters `json:"enterpriseProjectRoles,omitempty" tf:"enterprise_project_roles,omitempty"`
+
 	// Specifies the name of agency. The name is a string of 1 to 64 characters.
 	// Changing this will create a new agency.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -84,6 +88,10 @@ type AgencyObservation struct {
 	// Specifies the validity period of an agency. The valid value are FOREVER, ONEDAY
 	// or the specific days, for example, "20". The default value is FOREVER.
 	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
+
+	// Specifies an array of one or more roles and enterprise projects which
+	// are used to grant permissions to agency on project. The structure is documented below.
+	EnterpriseProjectRoles []EnterpriseProjectRolesObservation `json:"enterpriseProjectRoles,omitempty" tf:"enterprise_project_roles,omitempty"`
 
 	// The expiration time of agency.
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
@@ -136,6 +144,11 @@ type AgencyParameters struct {
 	// +kubebuilder:validation:Optional
 	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
 
+	// Specifies an array of one or more roles and enterprise projects which
+	// are used to grant permissions to agency on project. The structure is documented below.
+	// +kubebuilder:validation:Optional
+	EnterpriseProjectRoles []EnterpriseProjectRolesParameters `json:"enterpriseProjectRoles,omitempty" tf:"enterprise_project_roles,omitempty"`
+
 	// Specifies the name of agency. The name is a string of 1 to 64 characters.
 	// Changing this will create a new agency.
 	// +kubebuilder:validation:Optional
@@ -145,6 +158,38 @@ type AgencyParameters struct {
 	// permissions to agency on project. The structure is documented below.
 	// +kubebuilder:validation:Optional
 	ProjectRole []ProjectRoleParameters `json:"projectRole,omitempty" tf:"project_role,omitempty"`
+}
+
+type EnterpriseProjectRolesInitParameters struct {
+
+	// Specifies the name of enterprise project.
+	EnterpriseProject *string `json:"enterpriseProject,omitempty" tf:"enterprise_project,omitempty"`
+
+	// Specifies an array of role names.
+	// +listType=set
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+}
+
+type EnterpriseProjectRolesObservation struct {
+
+	// Specifies the name of enterprise project.
+	EnterpriseProject *string `json:"enterpriseProject,omitempty" tf:"enterprise_project,omitempty"`
+
+	// Specifies an array of role names.
+	// +listType=set
+	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
+}
+
+type EnterpriseProjectRolesParameters struct {
+
+	// Specifies the name of enterprise project.
+	// +kubebuilder:validation:Optional
+	EnterpriseProject *string `json:"enterpriseProject" tf:"enterprise_project,omitempty"`
+
+	// Specifies an array of role names.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Roles []*string `json:"roles" tf:"roles,omitempty"`
 }
 
 type ProjectRoleInitParameters struct {
@@ -206,7 +251,7 @@ type AgencyStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Agency is the Schema for the Agencys API. ""
+// Agency is the Schema for the Agencys API. Manages an agency resource within HuaweiCloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

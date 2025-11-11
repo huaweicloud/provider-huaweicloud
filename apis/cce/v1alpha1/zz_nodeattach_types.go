@@ -109,6 +109,9 @@ type NodeAttachDataVolumesObservation struct {
 
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// The iops of the disk.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// The ID of a KMS key. This is used to encrypt the volume.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
@@ -117,11 +120,26 @@ type NodeAttachDataVolumesObservation struct {
 	// Changing this parameter will reset the node.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// The throughput of the disk.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
+
 	// The disk type.
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`
 }
 
 type NodeAttachDataVolumesParameters struct {
+}
+
+type NodeAttachExtensionNicsInitParameters struct {
+}
+
+type NodeAttachExtensionNicsObservation struct {
+
+	// The ID of the subnet to which the NIC belongs.
+	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
+}
+
+type NodeAttachExtensionNicsParameters struct {
 }
 
 type NodeAttachHostnameConfigInitParameters struct {
@@ -295,6 +313,10 @@ type NodeAttachObservation struct {
 
 	// The enterprise project ID of the CCE node.
 	EnterpriseProjectID *string `json:"enterpriseProjectId,omitempty" tf:"enterprise_project_id,omitempty"`
+
+	// The extension NICs of the node.
+	// The object structure is documented below.
+	ExtensionNics []NodeAttachExtensionNicsObservation `json:"extensionNics,omitempty" tf:"extension_nics,omitempty"`
 
 	// The flavor ID of the CCE node.
 	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
@@ -567,6 +589,9 @@ type NodeAttachRootVolumeObservation struct {
 
 	HwPassthrough *bool `json:"hwPassthrough,omitempty" tf:"hw_passthrough,omitempty"`
 
+	// The iops of the disk.
+	Iops *float64 `json:"iops,omitempty" tf:"iops,omitempty"`
+
 	// The ID of a KMS key. This is used to encrypt the volume.
 	KMSKeyID *string `json:"kmsKeyId,omitempty" tf:"kms_key_id,omitempty"`
 
@@ -574,6 +599,9 @@ type NodeAttachRootVolumeObservation struct {
 	// Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
 	// Changing this parameter will reset the node.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// The throughput of the disk.
+	Throughput *float64 `json:"throughput,omitempty" tf:"throughput,omitempty"`
 
 	// The disk type.
 	Volumetype *string `json:"volumetype,omitempty" tf:"volumetype,omitempty"`

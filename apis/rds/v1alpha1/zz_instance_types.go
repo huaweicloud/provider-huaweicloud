@@ -146,8 +146,7 @@ type InstanceInitParameters struct {
 	// Specifies whether auto-renew is enabled. Valid values are "true" and "false".
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the list of AZ name. Changing this parameter will create a
-	// new resource.
+	// Specifies the list of AZ name.
 	AvailabilityZone []*string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the advanced backup policy. Structure is documented below.
@@ -157,8 +156,8 @@ type InstanceInitParameters struct {
 	// MySQL Server databases. Value range: 0 to 168 (7x24).
 	BinlogRetentionHours *float64 `json:"binlogRetentionHours,omitempty" tf:"binlog_retention_hours,omitempty"`
 
-	// Specifies the charging mode of the RDS DB instance. Valid values are
-	// prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// Specifies the charging mode of the RDS DB instance. Valid values are prePaid
+	// and postPaid, defaults to postPaid.
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// Specifies the Character Set, only available to Microsoft SQL Server DB instances.
@@ -183,11 +182,15 @@ type InstanceInitParameters struct {
 	// Specifies an intranet floating IP address of RDS DB instance.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specifies the specification code.
+	// will be changed to the ha mode value, so the value of flavor in the script should be changed
+	// to the ha mode value too.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Specifies the replication mode for the standby DB instance.
 	HaReplicationMode *string `json:"haReplicationMode,omitempty" tf:"ha_replication_mode,omitempty"`
+
+	// Specifies whether to create flexus RDS instance. Defaults to false.
+	IsFlexus *bool `json:"isFlexus,omitempty" tf:"is_flexus,omitempty"`
 
 	// Specifies the case-sensitive state of the database table name,
 	// the default value is "1". Changing this parameter will create a new resource.
@@ -198,6 +201,9 @@ type InstanceInitParameters struct {
 
 	// Specifies the time at which the maintenance time window ends, for example, 01:00.
 	MaintainEnd *string `json:"maintainEnd,omitempty" tf:"maintain_end,omitempty"`
+
+	// Specifies whether to enable minor version auto upgrade.
+	MinorVersionAutoUpgradeEnabled *bool `json:"minorVersionAutoUpgradeEnabled,omitempty" tf:"minor_version_auto_upgrade_enabled,omitempty"`
 
 	// Specify the host information for MSDTC.
 	// The msdtc_hosts structure is documented below.
@@ -225,14 +231,13 @@ type InstanceInitParameters struct {
 	// launched. You can check on console to see which parameters supported. Structure is documented below.
 	Parameters []ParametersInitParameters `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// Specifies the charging period of the RDS DB instance. If period_unit is set
-	// to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
-	// This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+	// Specifies the charging period of the RDS DB instance. If period_unit is set to month,
+	// the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+	// is mandatory if charging_mode is set to prePaid.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
-	// Specifies the charging period unit of the RDS DB instance. Valid values
-	// are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
-	// creates a new resource.
+	// Specifies the charging period unit of the RDS DB instance. Valid values are month
+	// and year. This parameter is mandatory if charging_mode is set to prePaid.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the power action to be done for the instance.
@@ -348,8 +353,7 @@ type InstanceObservation struct {
 	// Specifies whether auto-renew is enabled. Valid values are "true" and "false".
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the list of AZ name. Changing this parameter will create a
-	// new resource.
+	// Specifies the list of AZ name.
 	AvailabilityZone []*string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
 	// Specifies the advanced backup policy. Structure is documented below.
@@ -359,8 +363,8 @@ type InstanceObservation struct {
 	// MySQL Server databases. Value range: 0 to 168 (7x24).
 	BinlogRetentionHours *float64 `json:"binlogRetentionHours,omitempty" tf:"binlog_retention_hours,omitempty"`
 
-	// Specifies the charging mode of the RDS DB instance. Valid values are
-	// prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// Specifies the charging mode of the RDS DB instance. Valid values are prePaid
+	// and postPaid, defaults to postPaid.
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
 	// Specifies the Character Set, only available to Microsoft SQL Server DB instances.
@@ -388,7 +392,8 @@ type InstanceObservation struct {
 	// Specifies an intranet floating IP address of RDS DB instance.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specifies the specification code.
+	// will be changed to the ha mode value, so the value of flavor in the script should be changed
+	// to the ha mode value too.
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Specifies the replication mode for the standby DB instance.
@@ -396,6 +401,9 @@ type InstanceObservation struct {
 
 	// Indicates the DB instance ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies whether to create flexus RDS instance. Defaults to false.
+	IsFlexus *bool `json:"isFlexus,omitempty" tf:"is_flexus,omitempty"`
 
 	// Specifies the case-sensitive state of the database table name,
 	// the default value is "1". Changing this parameter will create a new resource.
@@ -407,6 +415,9 @@ type InstanceObservation struct {
 	// Specifies the time at which the maintenance time window ends, for example, 01:00.
 	MaintainEnd *string `json:"maintainEnd,omitempty" tf:"maintain_end,omitempty"`
 
+	// Specifies whether to enable minor version auto upgrade.
+	MinorVersionAutoUpgradeEnabled *bool `json:"minorVersionAutoUpgradeEnabled,omitempty" tf:"minor_version_auto_upgrade_enabled,omitempty"`
+
 	// Specify the host information for MSDTC.
 	// The msdtc_hosts structure is documented below.
 	MsdtcHosts []MsdtcHostsObservation `json:"msdtcHosts,omitempty" tf:"msdtc_hosts,omitempty"`
@@ -416,7 +427,8 @@ type InstanceObservation struct {
 	// contain only letters, digits, hyphens (-), and underscores (_).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Indicates the instance nodes information. Structure is documented below.
+	// Indicates the instance nodes information.
+	// The nodes structure is documented below.
 	Nodes []NodesObservation `json:"nodes,omitempty" tf:"nodes,omitempty"`
 
 	// Specifies the parameter group ID.
@@ -426,14 +438,13 @@ type InstanceObservation struct {
 	// launched. You can check on console to see which parameters supported. Structure is documented below.
 	Parameters []ParametersObservation `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// Specifies the charging period of the RDS DB instance. If period_unit is set
-	// to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
-	// This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+	// Specifies the charging period of the RDS DB instance. If period_unit is set to month,
+	// the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+	// is mandatory if charging_mode is set to prePaid.
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
-	// Specifies the charging period unit of the RDS DB instance. Valid values
-	// are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
-	// creates a new resource.
+	// Specifies the charging period unit of the RDS DB instance. Valid values are month
+	// and year. This parameter is mandatory if charging_mode is set to prePaid.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
 	// Specifies the power action to be done for the instance.
@@ -459,6 +470,9 @@ type InstanceObservation struct {
 	// The region in which to create the rds instance resource. If omitted, the
 	// provider-level region will be used. Changing this creates a new rds instance resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Indicates the replication status of the instance.
+	ReplicationStatus *string `json:"replicationStatus,omitempty" tf:"replication_status,omitempty"`
 
 	// Specifies the restoration information. It only supported restore to postpaid
 	// instance. Structure is documented below. Changing this parameter will create a new resource.
@@ -495,6 +509,10 @@ type InstanceObservation struct {
 
 	// Indicates the DB instance status.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// Indicates the storage usage of the instance.
+	// The storage_used_space structure is documented below.
+	StorageUsedSpace []StorageUsedSpaceObservation `json:"storageUsedSpace,omitempty" tf:"storage_used_space,omitempty"`
 
 	// Specifies the network id of a subnet. Changing this parameter will create a
 	// new resource.
@@ -534,8 +552,7 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
-	// Specifies the list of AZ name. Changing this parameter will create a
-	// new resource.
+	// Specifies the list of AZ name.
 	// +kubebuilder:validation:Optional
 	AvailabilityZone []*string `json:"availabilityZone,omitempty" tf:"availability_zone,omitempty"`
 
@@ -548,8 +565,8 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	BinlogRetentionHours *float64 `json:"binlogRetentionHours,omitempty" tf:"binlog_retention_hours,omitempty"`
 
-	// Specifies the charging mode of the RDS DB instance. Valid values are
-	// prePaid and postPaid, defaults to postPaid. Changing this creates a new resource.
+	// Specifies the charging mode of the RDS DB instance. Valid values are prePaid
+	// and postPaid, defaults to postPaid.
 	// +kubebuilder:validation:Optional
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
 
@@ -581,13 +598,18 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
 
-	// Specifies the specification code.
+	// will be changed to the ha mode value, so the value of flavor in the script should be changed
+	// to the ha mode value too.
 	// +kubebuilder:validation:Optional
 	Flavor *string `json:"flavor,omitempty" tf:"flavor,omitempty"`
 
 	// Specifies the replication mode for the standby DB instance.
 	// +kubebuilder:validation:Optional
 	HaReplicationMode *string `json:"haReplicationMode,omitempty" tf:"ha_replication_mode,omitempty"`
+
+	// Specifies whether to create flexus RDS instance. Defaults to false.
+	// +kubebuilder:validation:Optional
+	IsFlexus *bool `json:"isFlexus,omitempty" tf:"is_flexus,omitempty"`
 
 	// Specifies the case-sensitive state of the database table name,
 	// the default value is "1". Changing this parameter will create a new resource.
@@ -601,6 +623,10 @@ type InstanceParameters struct {
 	// Specifies the time at which the maintenance time window ends, for example, 01:00.
 	// +kubebuilder:validation:Optional
 	MaintainEnd *string `json:"maintainEnd,omitempty" tf:"maintain_end,omitempty"`
+
+	// Specifies whether to enable minor version auto upgrade.
+	// +kubebuilder:validation:Optional
+	MinorVersionAutoUpgradeEnabled *bool `json:"minorVersionAutoUpgradeEnabled,omitempty" tf:"minor_version_auto_upgrade_enabled,omitempty"`
 
 	// Specify the host information for MSDTC.
 	// The msdtc_hosts structure is documented below.
@@ -632,15 +658,14 @@ type InstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	Parameters []ParametersParameters `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// Specifies the charging period of the RDS DB instance. If period_unit is set
-	// to month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3.
-	// This parameter is mandatory if charging_mode is set to prePaid. Changing this creates a new resource.
+	// Specifies the charging period of the RDS DB instance. If period_unit is set to month,
+	// the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
+	// is mandatory if charging_mode is set to prePaid.
 	// +kubebuilder:validation:Optional
 	Period *float64 `json:"period,omitempty" tf:"period,omitempty"`
 
-	// Specifies the charging period unit of the RDS DB instance. Valid values
-	// are month and year. This parameter is mandatory if charging_mode is set to prePaid. Changing this
-	// creates a new resource.
+	// Specifies the charging period unit of the RDS DB instance. Valid values are month
+	// and year. This parameter is mandatory if charging_mode is set to prePaid.
 	// +kubebuilder:validation:Optional
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
@@ -910,6 +935,21 @@ type RestoreParameters struct {
 	// a new resource.
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId" tf:"instance_id,omitempty"`
+}
+
+type StorageUsedSpaceInitParameters struct {
+}
+
+type StorageUsedSpaceObservation struct {
+
+	// Indicates the instance node ID.
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+
+	// Indicates the used storage, in GB.
+	Used *string `json:"used,omitempty" tf:"used,omitempty"`
+}
+
+type StorageUsedSpaceParameters struct {
 }
 
 type VolumeInitParameters struct {

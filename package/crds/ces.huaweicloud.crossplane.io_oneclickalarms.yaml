@@ -115,6 +115,8 @@ spec:
                           type: array
                       type: object
                     type: array
+                  enableForceNew:
+                    type: string
                   notificationBeginTime:
                     description: |-
                       Specifies the time when the alarm notification was enabled.
@@ -219,6 +221,8 @@ spec:
                           type: array
                       type: object
                     type: array
+                  enableForceNew:
+                    type: string
                   notificationBeginTime:
                     description: |-
                       Specifies the time when the alarm notification was enabled.
@@ -500,6 +504,8 @@ spec:
                           type: array
                       type: object
                     type: array
+                  enableForceNew:
+                    type: string
                   enabled:
                     description: |-
                       Whether the one-click monitoring is enabled.

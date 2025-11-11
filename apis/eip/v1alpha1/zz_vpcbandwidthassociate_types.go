@@ -53,6 +53,16 @@ type VpcBandwidthAssociateInitParameters struct {
 	// +kubebuilder:validation:Optional
 	EIPIDSelector *v1.Selector `json:"eipIdSelector,omitempty" tf:"-"`
 
+	// Specifies a fixed Ipv6 address to associate with the bandwidth.
+	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
+
+	// Specifies the ID of the network to which the fixed_ip belongs.
+	// It is mandatory when fixed_ip is set.
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Specifies the ID of the Ipv6 port that uses the bandwidth.
+	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
 	// Specifies the region in which to associate the bandwidth. If omitted,
 	// the provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -81,11 +91,30 @@ type VpcBandwidthAssociateObservation struct {
 	// Specifies the ID of the EIP that uses the bandwidth.
 	EIPID *string `json:"eipId,omitempty" tf:"eip_id,omitempty"`
 
-	// The resource ID in format of <bandwidth_id>/<eip_id>.
+	// Specifies a fixed Ipv6 address to associate with the bandwidth.
+	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
+
+	// The resource ID in format of <bandwidth_id>/<eip_id> or <bandwidth_id>/<port_id>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The EIP address.
+	// The IP version.
+	IPVersion *float64 `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// Specifies the ID of the network to which the fixed_ip belongs.
+	// It is mandatory when fixed_ip is set.
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Specifies the ID of the Ipv6 port that uses the bandwidth.
+	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
+
+	// The public IP address.
 	PublicIP *string `json:"publicIp,omitempty" tf:"public_ip,omitempty"`
+
+	// The public IP type.
+	PublicIPType *string `json:"publicIpType,omitempty" tf:"public_ip_type,omitempty"`
+
+	// The public IPv6 address.
+	PublicIPv6 *string `json:"publicIpv6,omitempty" tf:"public_ipv6,omitempty"`
 
 	// Specifies the region in which to associate the bandwidth. If omitted,
 	// the provider-level region will be used. Changing this creates a new resource.
@@ -135,6 +164,19 @@ type VpcBandwidthAssociateParameters struct {
 	// Selector for a VpcEip in eip to populate eipId.
 	// +kubebuilder:validation:Optional
 	EIPIDSelector *v1.Selector `json:"eipIdSelector,omitempty" tf:"-"`
+
+	// Specifies a fixed Ipv6 address to associate with the bandwidth.
+	// +kubebuilder:validation:Optional
+	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
+
+	// Specifies the ID of the network to which the fixed_ip belongs.
+	// It is mandatory when fixed_ip is set.
+	// +kubebuilder:validation:Optional
+	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Specifies the ID of the Ipv6 port that uses the bandwidth.
+	// +kubebuilder:validation:Optional
+	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
 	// Specifies the region in which to associate the bandwidth. If omitted,
 	// the provider-level region will be used. Changing this creates a new resource.

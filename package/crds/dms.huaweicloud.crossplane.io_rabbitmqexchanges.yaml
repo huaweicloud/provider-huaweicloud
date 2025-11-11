@@ -73,6 +73,13 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  arguments:
+                    description: |-
+                      Specifies the argument configuration of the exchange, in JSON format.
+                      Changing this creates a new resource.
+                      Currently, this parameter is available only when type is set to x-delayed-message.
+                      The argument configuration of the exchange, in JSON format.
+                    type: string
                   autoDelete:
                     description: Specifies whether to enable auto delete. Changing
                       this creates a new resource.
@@ -81,6 +88,7 @@ spec:
                     description: |-
                       Specifies whether to enable durable. Defaults to false.
                       Changing this creates a new resource.
+                      This parameter is only valid for RabbitMQ 3.x.x exchange. It is enabled by default for RabbitMQ AMQP-0-9-1 exchange.
                     type: boolean
                   instanceId:
                     description: |-
@@ -167,6 +175,7 @@ spec:
                     description: |-
                       Specifies whether the exchange is internal. Defaults to false.
                       Changing this creates a new resource.
+                      This parameter is only valid for RabbitMQ 3.x.x exchange.
                     type: boolean
                   name:
                     description: Specifies the exchange name. Changing this creates
@@ -179,8 +188,9 @@ spec:
                     type: string
                   type:
                     description: |-
-                      Specifies the exchange type. Valid values are direct, fanout, topic
-                      and headers. Changing this creates a new resource.
+                      Specifies the routing type of the exchange.
+                      Changing this creates a new resource.
+                      The valid values are as follows:
                     type: string
                   vhost:
                     description: Specifies the vhost name. Changing this creates a
@@ -200,6 +210,13 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  arguments:
+                    description: |-
+                      Specifies the argument configuration of the exchange, in JSON format.
+                      Changing this creates a new resource.
+                      Currently, this parameter is available only when type is set to x-delayed-message.
+                      The argument configuration of the exchange, in JSON format.
+                    type: string
                   autoDelete:
                     description: Specifies whether to enable auto delete. Changing
                       this creates a new resource.
@@ -208,6 +225,7 @@ spec:
                     description: |-
                       Specifies whether to enable durable. Defaults to false.
                       Changing this creates a new resource.
+                      This parameter is only valid for RabbitMQ 3.x.x exchange. It is enabled by default for RabbitMQ AMQP-0-9-1 exchange.
                     type: boolean
                   instanceId:
                     description: |-
@@ -294,6 +312,7 @@ spec:
                     description: |-
                       Specifies whether the exchange is internal. Defaults to false.
                       Changing this creates a new resource.
+                      This parameter is only valid for RabbitMQ 3.x.x exchange.
                     type: boolean
                   name:
                     description: Specifies the exchange name. Changing this creates
@@ -306,8 +325,9 @@ spec:
                     type: string
                   type:
                     description: |-
-                      Specifies the exchange type. Valid values are direct, fanout, topic
-                      and headers. Changing this creates a new resource.
+                      Specifies the routing type of the exchange.
+                      Changing this creates a new resource.
+                      The valid values are as follows:
                     type: string
                   vhost:
                     description: Specifies the vhost name. Changing this creates a
@@ -503,6 +523,13 @@ spec:
             properties:
               atProvider:
                 properties:
+                  arguments:
+                    description: |-
+                      Specifies the argument configuration of the exchange, in JSON format.
+                      Changing this creates a new resource.
+                      Currently, this parameter is available only when type is set to x-delayed-message.
+                      The argument configuration of the exchange, in JSON format.
+                    type: string
                   autoDelete:
                     description: Specifies whether to enable auto delete. Changing
                       this creates a new resource.
@@ -531,6 +558,7 @@ spec:
                     description: |-
                       Specifies whether to enable durable. Defaults to false.
                       Changing this creates a new resource.
+                      This parameter is only valid for RabbitMQ 3.x.x exchange. It is enabled by default for RabbitMQ AMQP-0-9-1 exchange.
                     type: boolean
                   id:
                     description: The resource ID.
@@ -544,6 +572,7 @@ spec:
                     description: |-
                       Specifies whether the exchange is internal. Defaults to false.
                       Changing this creates a new resource.
+                      This parameter is only valid for RabbitMQ 3.x.x exchange.
                     type: boolean
                   name:
                     description: Specifies the exchange name. Changing this creates
@@ -556,8 +585,9 @@ spec:
                     type: string
                   type:
                     description: |-
-                      Specifies the exchange type. Valid values are direct, fanout, topic
-                      and headers. Changing this creates a new resource.
+                      Specifies the routing type of the exchange.
+                      Changing this creates a new resource.
+                      The valid values are as follows:
                     type: string
                   vhost:
                     description: Specifies the vhost name. Changing this creates a

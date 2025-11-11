@@ -152,6 +152,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  enableForceNew:
+                    type: string
                   location:
                     description: |-
                       Specifies the dashboard widget coordinates.
@@ -377,6 +379,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  enableForceNew:
+                    type: string
                   location:
                     description: |-
                       Specifies the dashboard widget coordinates.
@@ -712,6 +716,8 @@ spec:
                     description: |-
                       Specifies the dashboard ID.
                       Specifies the dashboard ID.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID.

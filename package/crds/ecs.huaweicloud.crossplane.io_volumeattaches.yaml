@@ -72,6 +72,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  deleteOnTermination:
+                    description: |-
+                      Specifies whether the disk attached to the ECS is deleted when the ECS is
+                      deleted. Value options:
+                    type: string
                   device:
                     description: 'Specifies the device of the volume attachment (ex:
                       /dev/vdc).'
@@ -176,6 +181,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  deleteOnTermination:
+                    description: |-
+                      Specifies whether the disk attached to the ECS is deleted when the ECS is
+                      deleted. Value options:
+                    type: string
                   device:
                     description: 'Specifies the device of the volume attachment (ex:
                       /dev/vdc).'
@@ -444,6 +454,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  deleteOnTermination:
+                    description: |-
+                      Specifies whether the disk attached to the ECS is deleted when the ECS is
+                      deleted. Value options:
+                    type: string
                   device:
                     description: 'Specifies the device of the volume attachment (ex:
                       /dev/vdc).'

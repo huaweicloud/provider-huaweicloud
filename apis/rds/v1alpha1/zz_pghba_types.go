@@ -107,6 +107,7 @@ type HostBasedAuthenticationsParameters struct {
 }
 
 type PgHbaInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the list of host based authentications.
 	// The host_based_authentications structure is documented below.
@@ -133,6 +134,7 @@ type PgHbaInitParameters struct {
 }
 
 type PgHbaObservation struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the list of host based authentications.
 	// The host_based_authentications structure is documented below.
@@ -152,6 +154,9 @@ type PgHbaObservation struct {
 }
 
 type PgHbaParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the list of host based authentications.
 	// The host_based_authentications structure is documented below.

@@ -18,11 +18,10 @@ type ConfigurationParametersInitParameters struct {
 
 type ConfigurationParametersObservation struct {
 
-	// The parameter group description. It contains a maximum of 256 characters and cannot
-	// contain the following special characters:>!<"&'= the value is left blank by default.
+	// Indicates the parameter description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The parameter group name. It contains a maximum of 64 characters.
+	// Indicates the parameter name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Indicates whether the parameter is read-only.
@@ -46,8 +45,8 @@ type ConfigurationParametersParameters struct {
 
 type DatastoreInitParameters struct {
 
-	// The DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and MariaDB are supported.
-	// The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
+	// Specifies the DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and
+	// MariaDB are supported. The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the database version.
@@ -56,8 +55,8 @@ type DatastoreInitParameters struct {
 
 type DatastoreObservation struct {
 
-	// The DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and MariaDB are supported.
-	// The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
+	// Specifies the DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and
+	// MariaDB are supported. The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// Specifies the database version.
@@ -66,8 +65,8 @@ type DatastoreObservation struct {
 
 type DatastoreParameters struct {
 
-	// The DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and MariaDB are supported.
-	// The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
+	// Specifies the DB engine. Currently, MySQL, PostgreSQL, Microsoft SQL Server and
+	// MariaDB are supported. The value is case-insensitive and can be mysql, postgresql, sqlserver, or mariadb.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 
@@ -78,86 +77,93 @@ type DatastoreParameters struct {
 
 type ParametergroupInitParameters struct {
 
-	// Database object. The database object structure is documented below. Changing
-	// this creates a new parameter group.
+	// Specifies the database object.
+	// The datastore structure is documented below.
 	Datastore []DatastoreInitParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
-	// The parameter group description. It contains a maximum of 256 characters and cannot
-	// contain the following special characters:>!<"&'= the value is left blank by default.
+	// Specifies the parameter group description. It contains a maximum of 256 characters
+	// and cannot contain the following special characters:>!<"&'= the value is left blank by default.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The parameter group name. It contains a maximum of 64 characters.
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the parameter group name. It contains a maximum of 64 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The region in which to create the RDS parameter group. If omitted, the
-	// provider-level region will be used. Changing this creates a new parameter group.
+	// Specifies the region in which to create the resource. If omitted, the
+	// provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Parameter group values key/value pairs defined by users based on the default parameter
-	// groups.
+	// Specifies the parameter group values key/value pairs defined by users based on the default
+	// parameter groups.
 	// +mapType=granular
 	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type ParametergroupObservation struct {
 
-	// Indicates the parameter configuration defined by users based on the default parameters
-	// groups.
+	// Indicates the parameter configuration defined by users based on the default parameters groups.
+	// The configuration_parameters structure is documented below.
 	ConfigurationParameters []ConfigurationParametersObservation `json:"configurationParameters,omitempty" tf:"configuration_parameters,omitempty"`
 
-	// The creation time, in UTC format.
+	// Indicates the creation time, in UTC format.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// Database object. The database object structure is documented below. Changing
-	// this creates a new parameter group.
+	// Specifies the database object.
+	// The datastore structure is documented below.
 	Datastore []DatastoreObservation `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
-	// The parameter group description. It contains a maximum of 256 characters and cannot
-	// contain the following special characters:>!<"&'= the value is left blank by default.
+	// Specifies the parameter group description. It contains a maximum of 256 characters
+	// and cannot contain the following special characters:>!<"&'= the value is left blank by default.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// ID of the parameter group.
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Indicates the resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The parameter group name. It contains a maximum of 64 characters.
+	// Specifies the parameter group name. It contains a maximum of 64 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The region in which to create the RDS parameter group. If omitted, the
-	// provider-level region will be used. Changing this creates a new parameter group.
+	// Specifies the region in which to create the resource. If omitted, the
+	// provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// The last update time, in UTC format.
+	// Indicates the last update time, in UTC format.
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
-	// Parameter group values key/value pairs defined by users based on the default parameter
-	// groups.
+	// Specifies the parameter group values key/value pairs defined by users based on the default
+	// parameter groups.
 	// +mapType=granular
 	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 type ParametergroupParameters struct {
 
-	// Database object. The database object structure is documented below. Changing
-	// this creates a new parameter group.
+	// Specifies the database object.
+	// The datastore structure is documented below.
 	// +kubebuilder:validation:Optional
 	Datastore []DatastoreParameters `json:"datastore,omitempty" tf:"datastore,omitempty"`
 
-	// The parameter group description. It contains a maximum of 256 characters and cannot
-	// contain the following special characters:>!<"&'= the value is left blank by default.
+	// Specifies the parameter group description. It contains a maximum of 256 characters
+	// and cannot contain the following special characters:>!<"&'= the value is left blank by default.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The parameter group name. It contains a maximum of 64 characters.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the parameter group name. It contains a maximum of 64 characters.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The region in which to create the RDS parameter group. If omitted, the
-	// provider-level region will be used. Changing this creates a new parameter group.
+	// Specifies the region in which to create the resource. If omitted, the
+	// provider-level region will be used. Changing this creates a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Parameter group values key/value pairs defined by users based on the default parameter
-	// groups.
+	// Specifies the parameter group values key/value pairs defined by users based on the default
+	// parameter groups.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Values map[string]*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -190,7 +196,7 @@ type ParametergroupStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Parametergroup is the Schema for the Parametergroups API. ""
+// Parametergroup is the Schema for the Parametergroups API. Manages an RDS parameter group resource within HuaweiCloud.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

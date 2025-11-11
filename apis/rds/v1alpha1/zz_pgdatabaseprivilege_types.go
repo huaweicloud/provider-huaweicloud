@@ -15,11 +15,13 @@ import (
 
 type PgDatabasePrivilegeInitParameters struct {
 
-	// Specifies the database name. Changing this creates a new resource.
+	// Specifies the database name.
 	// Specifies the database name.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
-	// Specifies the RDS instance ID. Changing this will create a new resource.
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the RDS instance ID.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -45,14 +47,16 @@ type PgDatabasePrivilegeInitParameters struct {
 
 type PgDatabasePrivilegeObservation struct {
 
-	// Specifies the database name. Changing this creates a new resource.
+	// Specifies the database name.
 	// Specifies the database name.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
+
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// The resource ID of database privilege which is formatted <instance_id>/<db_name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the RDS instance ID. Changing this will create a new resource.
+	// Specifies the RDS instance ID.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
@@ -68,12 +72,15 @@ type PgDatabasePrivilegeObservation struct {
 
 type PgDatabasePrivilegeParameters struct {
 
-	// Specifies the database name. Changing this creates a new resource.
+	// Specifies the database name.
 	// Specifies the database name.
 	// +kubebuilder:validation:Optional
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
-	// Specifies the RDS instance ID. Changing this will create a new resource.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the RDS instance ID.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()

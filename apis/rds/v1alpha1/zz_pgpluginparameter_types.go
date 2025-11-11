@@ -14,6 +14,7 @@ import (
 )
 
 type PgPluginParameterInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of RDS instance.
 	// Specifies the ID of RDS instance.
@@ -49,6 +50,8 @@ type PgPluginParameterObservation struct {
 	// Indicates the default values of the plugin parameter.
 	DefaultValues []*string `json:"defaultValues,omitempty" tf:"default_values,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Indicates the resource ID. The format is <instance_id>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -75,6 +78,9 @@ type PgPluginParameterObservation struct {
 }
 
 type PgPluginParameterParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of RDS instance.
 	// Specifies the ID of RDS instance.

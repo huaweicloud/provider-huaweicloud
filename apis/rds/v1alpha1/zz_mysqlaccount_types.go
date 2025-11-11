@@ -20,11 +20,13 @@ type MySQLAccountInitParameters struct {
 	// Specifies remarks of the DB account.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the IP addresses that are allowed to access your DB instance.
 	// Specifies the IP addresses that are allowed to access your DB instance.
 	Hosts []*string `json:"hosts,omitempty" tf:"hosts,omitempty"`
 
-	// Specifies the rds instance id. Changing this will create a new resource.
+	// Specifies the rds instance id.
 	// Specifies the ID of the RDS Mysql instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -39,7 +41,7 @@ type MySQLAccountInitParameters struct {
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the username of the db account. Only lowercase letters, digits,
-	// hyphens (-), and underscores (_) are allowed. Changing this will create a new resource.
+	// hyphens (-), and underscores (_) are allowed.
 	// Specifies the username of the DB account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -61,6 +63,8 @@ type MySQLAccountObservation struct {
 	// Specifies remarks of the DB account.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the IP addresses that are allowed to access your DB instance.
 	// Specifies the IP addresses that are allowed to access your DB instance.
 	Hosts []*string `json:"hosts,omitempty" tf:"hosts,omitempty"`
@@ -68,12 +72,12 @@ type MySQLAccountObservation struct {
 	// The resource ID of account which is formatted <instance_id>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the rds instance id. Changing this will create a new resource.
+	// Specifies the rds instance id.
 	// Specifies the ID of the RDS Mysql instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Specifies the username of the db account. Only lowercase letters, digits,
-	// hyphens (-), and underscores (_) are allowed. Changing this will create a new resource.
+	// hyphens (-), and underscores (_) are allowed.
 	// Specifies the username of the DB account.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -90,12 +94,15 @@ type MySQLAccountParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the IP addresses that are allowed to access your DB instance.
 	// Specifies the IP addresses that are allowed to access your DB instance.
 	// +kubebuilder:validation:Optional
 	Hosts []*string `json:"hosts,omitempty" tf:"hosts,omitempty"`
 
-	// Specifies the rds instance id. Changing this will create a new resource.
+	// Specifies the rds instance id.
 	// Specifies the ID of the RDS Mysql instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -111,7 +118,7 @@ type MySQLAccountParameters struct {
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the username of the db account. Only lowercase letters, digits,
-	// hyphens (-), and underscores (_) are allowed. Changing this will create a new resource.
+	// hyphens (-), and underscores (_) are allowed.
 	// Specifies the username of the DB account.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

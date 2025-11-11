@@ -191,8 +191,17 @@ spec:
                             type: string
                         type: object
                     type: object
+                  currentVersion:
+                    description: Specifies the current version, e.g. v1.28.15-r30.
+                    type: string
                   enableForceNew:
                     type: string
+                  isPostcheck:
+                    description: Specifies whether to run postcheck.
+                    type: boolean
+                  isSnapshot:
+                    description: Specifies whether the cluster is snapshotted.
+                    type: boolean
                   nodeOrder:
                     additionalProperties:
                       type: string
@@ -245,7 +254,7 @@ spec:
                       type: object
                     type: array
                   targetVersion:
-                    description: Specifies the target version.
+                    description: Specifies the target version, e.g. v1.29.13-r10.
                     type: string
                 type: object
               initProvider:
@@ -379,8 +388,17 @@ spec:
                             type: string
                         type: object
                     type: object
+                  currentVersion:
+                    description: Specifies the current version, e.g. v1.28.15-r30.
+                    type: string
                   enableForceNew:
                     type: string
+                  isPostcheck:
+                    description: Specifies whether to run postcheck.
+                    type: boolean
+                  isSnapshot:
+                    description: Specifies whether the cluster is snapshotted.
+                    type: boolean
                   nodeOrder:
                     additionalProperties:
                       type: string
@@ -433,7 +451,7 @@ spec:
                       type: object
                     type: array
                   targetVersion:
-                    description: Specifies the target version.
+                    description: Specifies the target version, e.g. v1.29.13-r10.
                     type: string
                 type: object
               managementPolicies:
@@ -661,11 +679,20 @@ spec:
                   clusterId:
                     description: Specifies the cluster ID.
                     type: string
+                  currentVersion:
+                    description: Specifies the current version, e.g. v1.28.15-r30.
+                    type: string
                   enableForceNew:
                     type: string
                   id:
                     description: The resource ID in UUID format.
                     type: string
+                  isPostcheck:
+                    description: Specifies whether to run postcheck.
+                    type: boolean
+                  isSnapshot:
+                    description: Specifies whether the cluster is snapshotted.
+                    type: boolean
                   nodeOrder:
                     additionalProperties:
                       type: string
@@ -718,7 +745,7 @@ spec:
                       type: object
                     type: array
                   targetVersion:
-                    description: Specifies the target version.
+                    description: Specifies the target version, e.g. v1.29.13-r10.
                     type: string
                 type: object
               conditions:

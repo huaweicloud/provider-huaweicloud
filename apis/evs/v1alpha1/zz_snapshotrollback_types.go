@@ -15,6 +15,10 @@ import (
 
 type SnapshotRollbackInitParameters struct {
 
+	// Specifies the target volume name for snapshot rollback.
+	// Changing this parameter will create a new resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -53,6 +57,10 @@ type SnapshotRollbackObservation struct {
 	// The resource ID, same as snapshot_id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Specifies the target volume name for snapshot rollback.
+	// Changing this parameter will create a new resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used. Changing this parameter will create a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -67,6 +75,11 @@ type SnapshotRollbackObservation struct {
 }
 
 type SnapshotRollbackParameters struct {
+
+	// Specifies the target volume name for snapshot rollback.
+	// Changing this parameter will create a new resource.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the region in which to create the resource.
 	// If omitted, the provider-level region will be used. Changing this parameter will create a new resource.

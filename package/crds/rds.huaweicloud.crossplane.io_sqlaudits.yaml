@@ -83,6 +83,8 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS instance.
@@ -204,6 +206,8 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of the RDS instance.
@@ -489,6 +493,8 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  enableForceNew:
+                    type: string
                   id:
                     description: The resource ID.
                     type: string

@@ -14,14 +14,11 @@ import (
 )
 
 type LtsLogInitParameters struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
-	// Specifies the engine of the RDS instance.
-	// Value options: mysql, postgresql, sqlserver. Changing this creates a new resource.
 	// Specifies the engine of the RDS instance.
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
-	// Specifies the ID of the RDS instance.
-	// Changing this creates a new resource.
 	// Specifies the ID of the RDS instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -36,66 +33,49 @@ type LtsLogInitParameters struct {
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the type of the LTS log.
-	// Value options: error_log, slow_log, audit_log. Changing this creates a new resource.
-	// Specifies the type of the LTS log.
 	LogType *string `json:"logType,omitempty" tf:"log_type,omitempty"`
 
-	// Specifies the ID of the LTS log group.
 	// Specifies the ID of the LTS log group.
 	LtsGroupID *string `json:"ltsGroupId,omitempty" tf:"lts_group_id,omitempty"`
 
 	// Specifies the ID of the LTS log stream.
-	// Specifies the ID of the LTS log stream.
 	LtsStreamID *string `json:"ltsStreamId,omitempty" tf:"lts_stream_id,omitempty"`
 
-	// Specifies the region in which to create the resource.
-	// If omitted, the provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type LtsLogObservation struct {
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
-	// Specifies the engine of the RDS instance.
-	// Value options: mysql, postgresql, sqlserver. Changing this creates a new resource.
 	// Specifies the engine of the RDS instance.
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
-	// The resource ID in format of <instance_id>/<log_type>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the ID of the RDS instance.
-	// Changing this creates a new resource.
 	// Specifies the ID of the RDS instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Specifies the type of the LTS log.
-	// Value options: error_log, slow_log, audit_log. Changing this creates a new resource.
-	// Specifies the type of the LTS log.
 	LogType *string `json:"logType,omitempty" tf:"log_type,omitempty"`
 
-	// Specifies the ID of the LTS log group.
 	// Specifies the ID of the LTS log group.
 	LtsGroupID *string `json:"ltsGroupId,omitempty" tf:"lts_group_id,omitempty"`
 
 	// Specifies the ID of the LTS log stream.
-	// Specifies the ID of the LTS log stream.
 	LtsStreamID *string `json:"ltsStreamId,omitempty" tf:"lts_stream_id,omitempty"`
 
-	// Specifies the region in which to create the resource.
-	// If omitted, the provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 type LtsLogParameters struct {
 
-	// Specifies the engine of the RDS instance.
-	// Value options: mysql, postgresql, sqlserver. Changing this creates a new resource.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the engine of the RDS instance.
 	// +kubebuilder:validation:Optional
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
-	// Specifies the ID of the RDS instance.
-	// Changing this creates a new resource.
 	// Specifies the ID of the RDS instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -111,23 +91,17 @@ type LtsLogParameters struct {
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the type of the LTS log.
-	// Value options: error_log, slow_log, audit_log. Changing this creates a new resource.
-	// Specifies the type of the LTS log.
 	// +kubebuilder:validation:Optional
 	LogType *string `json:"logType,omitempty" tf:"log_type,omitempty"`
 
-	// Specifies the ID of the LTS log group.
 	// Specifies the ID of the LTS log group.
 	// +kubebuilder:validation:Optional
 	LtsGroupID *string `json:"ltsGroupId,omitempty" tf:"lts_group_id,omitempty"`
 
 	// Specifies the ID of the LTS log stream.
-	// Specifies the ID of the LTS log stream.
 	// +kubebuilder:validation:Optional
 	LtsStreamID *string `json:"ltsStreamId,omitempty" tf:"lts_stream_id,omitempty"`
 
-	// Specifies the region in which to create the resource.
-	// If omitted, the provider-level region will be used. Changing this creates a new resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
@@ -159,7 +133,7 @@ type LtsLogStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// LtsLog is the Schema for the LtsLogs API. ""
+// LtsLog is the Schema for the LtsLogs API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

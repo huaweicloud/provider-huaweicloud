@@ -73,24 +73,21 @@ spec:
               forProvider:
                 properties:
                   autoRenew:
-                    description: |-
-                      Specifies whether auto renew is enabled. Valid values are "true" and "false".
-                      Changing this parameter will create a new resource.
+                    description: Specifies whether auto renew is enabled. Valid values
+                      are "true" and "false".
                     type: string
                   availabilityZone:
                     description: |-
                       Specifies the name of the available partition (AZ). Default value
-                      is random to create nodes in a random AZ in the node pool. Changing this parameter will create a new resource.
+                      is random to create nodes in a random AZ in the node pool.
                     type: string
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the CCE node pool. Valid values are
-                      prePaid and postPaid, defaults to postPaid. Changing this parameter will create a new resource.
+                      prePaid and postPaid, defaults to postPaid.
                     type: string
                   clusterId:
-                    description: |-
-                      Specifies the cluster ID.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the cluster ID.
                     type: string
                   clusterIdRef:
                     description: Reference to a Cluster in cce to populate clusterId.
@@ -169,46 +166,50 @@ spec:
                   dataVolumes:
                     description: |-
                       Specifies the configuration of the data disks.
-                      The structure is described below. Changing this parameter will create a new resource.
+                      The structure is described below.
                     items:
                       properties:
                         dssPoolId:
-                          description: |-
-                            Specifies the DSS pool ID. This field is used only for dedicated storage.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the DSS pool ID. This field is used
+                            only for dedicated storage.
                           type: string
                         extendParam:
                           type: string
                         extendParams:
                           additionalProperties:
                             type: string
-                          description: |-
-                            Specifies the disk expansion parameters.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk expansion parameters.
                           type: object
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           description: 'schema: Internal'
                           type: boolean
-                        kmsKeyId:
+                        iops:
                           description: |-
-                            Specifies the KMS key ID. This is used to encrypt the volume.
-                            Changing this parameter will create a new resource.
+                            Specifies the iops of the disk,
+                            required when volumetype is GPSSD2 or ESSD2.
+                          type: number
+                        kmsKeyId:
+                          description: Specifies the KMS key ID. This is used to encrypt
+                            the volume.
                           type: string
                         size:
-                          description: Specifies the disk size in GB. Changing this
-                            parameter will create a new resource.
+                          description: Specifies the disk size in GB.
+                          type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the disk in MiB/s,
+                            required when volumetype is GPSSD2.
                           type: number
                         volumetype:
-                          description: Specifies the disk type. Changing this parameter
-                            will create a new resource.
+                          description: Specifies the disk type.
                           type: string
                       type: object
                     type: array
                   ecsGroupId:
                     description: |-
                       Specifies the ECS group ID. If specified, the node will be created under
-                      the cloud server group. Changing this parameter will create a new resource.
+                      the cloud server group.
                     type: string
                   ecsGroupIdRef:
                     description: Reference to a Servergroup in ecs to populate ecsGroupId.
@@ -284,6 +285,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  enableForceNew:
+                    type: string
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID of the node pool.
@@ -300,64 +303,66 @@ spec:
                     description: |-
                       Specifies the extended parameters.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
                         agencyName:
-                          description: |-
-                            Specifies the agency name.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the agency name.
                           type: string
                         dockerBaseSize:
                           description: |-
                             Specifies the available disk space of a single container on a node,
-                            in GB. Changing this parameter will create a new resource.
+                            in GB.
                           type: number
                         kubeReservedMem:
                           description: |-
                             Specifies the reserved node memory, which is reserved for
-                            Kubernetes-related components. Changing this parameter will create a new resource.
+                            Kubernetes-related components.
                           type: number
                         marketType:
-                          description: 'Specifies the node pool type. Possible values
-                            are: vm and ElasticBMS.'
+                          description: |-
+                            Specifies the market type. When creating a spot node pool,
+                            this parameter should be set to spot.
                           type: string
                         maxPods:
-                          description: |-
-                            Specifies the maximum number of instances a node is allowed to create.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the maximum number of instances a
+                            node is allowed to create.
                           type: number
                         nicThreshold:
                           description: |-
                             Specifies the ENI pre-binding thresholds.
-                            Example setting: "0.3:0.6". Changing this parameter will create a new resource.
+                            Example setting: "0.3:0.6".
                           type: string
                         nodeImageId:
-                          description: |-
-                            Specifies the image ID to create the node.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the image ID to create the node.
                           type: string
                         nodeMultiQueue:
                           description: |-
                             Specifies the number of ENI queues.
-                            Example setting: "[{"queue":4}]". Changing this parameter will create a new resource.
+                            Example setting: "[{"queue":4}]".
                           type: string
                         postinstall:
                           description: |-
                             Specifies the script to be executed after installation.
-                            The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                            The input value can be a Base64 encoded string or not.
                           type: string
                         preinstall:
                           description: |-
                             Specifies the script to be executed before installation.
-                            The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                            The input value can be a Base64 encoded string or not.
+                          type: string
+                        securityReinforcementType:
+                          description: |-
+                            Specifies the security reinforcement type.
+                            The value can be: null or cybersecurity.
                           type: string
                         spotPrice:
+                          description: Specifies the highest price per hour a user
+                            accepts for a spot node.
                           type: string
                         systemReservedMem:
                           description: |-
                             Specifies the reserved node memory, which is reserved
-                            value for system components. Changing this parameter will create a new resource.
+                            value for system components.
                           type: number
                       type: object
                     type: array
@@ -375,8 +380,8 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                             type: object
                           type: array
@@ -444,16 +449,13 @@ spec:
                       type: object
                     type: array
                   flavorId:
-                    description: |-
-                      Specifies the flavor ID. Changing this parameter will create a new
-                      resource.
+                    description: Specifies the flavor ID.
                     type: string
                   hostnameConfig:
                     description: |-
                       Specifies the hostname config of the kubernetes node,
                       which is supported by clusters of v1.23.6-r0 to v1.25 or clusters of v1.25.2-r0 or later versions.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
                         type:
@@ -463,6 +465,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  ignoreInitialNodeCount:
+                    description: |-
+                      Specifies whether to ignore the changes of initial_node_count,
+                      defaults to true.
+                    type: boolean
                   initialNodeCount:
                     description: |-
                       Specifies the initial number of expected nodes in the node pool.
@@ -476,7 +483,7 @@ spec:
                   keyPair:
                     description: |-
                       Specifies the key pair name when logging in to select the key pair mode.
-                      This parameter and password are alternative. Changing this parameter will create a new resource.
+                      This parameter and password are alternative.
                     type: string
                   labelPolicyOnExistingNodes:
                     description: |-
@@ -497,7 +504,6 @@ spec:
                   maxPods:
                     description: |-
                       Specifies the maximum number of instances a node is allowed to create.
-                      Changing this parameter will create a new resource.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: number
                   minNodeCount:
@@ -514,13 +520,16 @@ spec:
                       please see documentation.
                       This parameter is required when the node_image_id in extend_params is not specified.
                     type: string
+                  partition:
+                    description: 'Specifies the partition to which the node belongs.
+                      Value options:'
+                    type: string
                   passwordSecretRef:
                     description: |-
                       Specifies the root password when logging in to select the password mode.
                       The password consists of 8 to 26 characters and must contain at least three of following: uppercase letters,
                       lowercase letters, digits, special characters(!@$%^-_=+[{}]:,./?~#*).
                       This parameter can be plain or salted and is alternative to key_pair.
-                      Changing this parameter will create a new resource.
                     properties:
                       key:
                         description: The key to select.
@@ -540,31 +549,30 @@ spec:
                     description: |-
                       Specifies the charging period of the CCE node pool. If period_unit is set to
                       month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
-                      is mandatory if charging_mode is set to prePaid. Changing this parameter will create a new resource.
+                      is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the CCE node pool.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this parameter will create a new resource.
                     type: string
                   podSecurityGroups:
                     description: |-
                       Specifies the list of security group IDs for the pod.
-                      Only supported in CCE Turbo clusters of v1.19 and above. Changing this parameter will create a new resource.
+                      Only supported in CCE Turbo clusters of v1.19 and above.
                     items:
                       type: string
                     type: array
                   postinstall:
                     description: |-
                       Specifies the script to be executed after installation.
-                      The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                      The input value can be a Base64 encoded string or not.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   preinstall:
                     description: |-
                       Specifies the script to be executed before installation.
-                      The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                      The input value can be a Base64 encoded string or not.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   priority:
@@ -580,46 +588,50 @@ spec:
                   rootVolume:
                     description: |-
                       Specifies the configuration of the system disk.
-                      The structure is described below. Changing this parameter will create a new resource.
+                      The structure is described below.
                     items:
                       properties:
                         dssPoolId:
-                          description: |-
-                            Specifies the DSS pool ID. This field is used only for dedicated storage.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the DSS pool ID. This field is used
+                            only for dedicated storage.
                           type: string
                         extendParam:
                           type: string
                         extendParams:
                           additionalProperties:
                             type: string
-                          description: |-
-                            Specifies the disk expansion parameters.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk expansion parameters.
                           type: object
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           description: 'schema: Internal'
                           type: boolean
-                        kmsKeyId:
+                        iops:
                           description: |-
-                            Specifies the KMS key ID. This is used to encrypt the volume.
-                            Changing this parameter will create a new resource.
+                            Specifies the iops of the disk,
+                            required when volumetype is GPSSD2 or ESSD2.
+                          type: number
+                        kmsKeyId:
+                          description: Specifies the KMS key ID. This is used to encrypt
+                            the volume.
                           type: string
                         size:
-                          description: Specifies the disk size in GB. Changing this
-                            parameter will create a new resource.
+                          description: Specifies the disk size in GB.
+                          type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the disk in MiB/s,
+                            required when volumetype is GPSSD2.
                           type: number
                         volumetype:
-                          description: Specifies the disk type. Changing this parameter
-                            will create a new resource.
+                          description: Specifies the disk type.
                           type: string
                       type: object
                     type: array
                   runtime:
                     description: |-
                       Specifies the runtime of the CCE node pool. Valid values are docker and
-                      containerd. Changing this creates a new resource.
+                      containerd.
                     type: string
                   scaleDownCooldownTime:
                     description: Specifies the time interval between two scaling operations,
@@ -643,67 +655,68 @@ spec:
                     description: |-
                       Specifies the disk initialization management parameter.
                       If omitted, disks are managed based on the DockerLVMConfigOverride parameter in extendParam.
-                      This parameter is supported for clusters of v1.15.11 and later. Changing this parameter will create a new resource.
+                      This parameter is supported for clusters of v1.15.11 and later.
+                      If the node has both local and EVS disks attached,
+                      this parameter must be specified, or it may result in unexpected disk partitions.
+                      If you want to change the value range of a data disk to 20 to 32768, this parameter must be specified.
+                      If you want to use the shared disk space (with the runtime and Kubernetes partitions cancelled),
+                      this parameter must be specified.
+                      If you want to store system components in the system disk, this parameter must be specified.
                     items:
                       properties:
                         groups:
                           description: |-
                             Specifies the storage group consists of multiple storage devices.
                             This is used to divide storage space. Structure is documented below.
-                            Changing this parameter will create a new resource.
                           items:
                             properties:
                               cceManaged:
                                 description: |-
                                   Specifies the whether the storage space is for kubernetes and
                                   runtime components. Only one group can be set to true. The default value is false.
-                                  Changing this parameter will create a new resource.
                                 type: boolean
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                               selectorNames:
                                 description: |-
                                   Specifies the list of names of selectors to match.
                                   This parameter corresponds to name in selectors. A group can match multiple selectors,
-                                  but a selector can match only one group. Changing this parameter will create a new resource.
+                                  but a selector can match only one group.
                                 items:
                                   type: string
                                 type: array
                               virtualSpaces:
-                                description: |-
-                                  Specifies the detailed management of space configuration in a group.
-                                  Changing this parameter will create a new resource.
+                                description: Specifies the detailed management of
+                                  space configuration in a group.
                                 items:
                                   properties:
                                     lvmLvType:
                                       description: |-
                                         Specifies the LVM write mode, values can be linear and striped.
-                                        This parameter takes effect only in kubernetes and user configuration. Changing this parameter will create
-                                        a new resource.
+                                        This parameter takes effect only in kubernetes and user configuration.
                                       type: string
                                     lvmPath:
                                       description: |-
                                         Specifies the absolute path to which the disk is attached.
-                                        This parameter takes effect only in user configuration. Changing this parameter will create a new resource.
+                                        This parameter takes effect only in user configuration.
                                       type: string
                                     name:
                                       description: |-
-                                        Specifies the selector name, used as the index of selector_names in storage group.
-                                        The name of each selector must be unique. Changing this parameter will create a new resource.
+                                        Specifies the selector name, used as the index of selector_names
+                                        in storage group. The name of each selector must be unique.
                                       type: string
                                     runtimeLvType:
                                       description: |-
                                         Specifies the LVM write mode, values can be linear and striped.
-                                        This parameter takes effect only in runtime configuration. Changing this parameter will create a new resource.
+                                        This parameter takes effect only in runtime configuration.
                                       type: string
                                     size:
                                       description: |-
                                         Specifies the size of a virtual space. Only an integer percentage is supported.
                                         Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
-                                        Changing this parameter will create a new resource.
                                       type: string
                                   type: object
                                 type: array
@@ -713,40 +726,38 @@ spec:
                           description: |-
                             Specifies the disk selection.
                             Matched disks are managed according to match labels and storage type. Structure is documented below.
-                            Changing this parameter will create a new resource.
                           items:
                             properties:
                               matchLabelCount:
                                 description: |-
                                   Specifies the number of disks to be selected. If omitted,
-                                  all disks of this type are selected. Changing this parameter will create a new resource.
+                                  all disks of this type are selected.
                                 type: string
                               matchLabelMetadataCmkid:
                                 description: |-
                                   Specifies the customer master key ID of an encrypted
-                                  disk. Changing this parameter will create a new resource.
+                                  disk.
                                 type: string
                               matchLabelMetadataEncrypted:
                                 description: |-
                                   Specifies the disk encryption identifier.
                                   Values can be: 0 indicates that the disk is not encrypted and 1 indicates that the disk is encrypted.
-                                  If omitted, whether the disk is encrypted is not limited. Changing this parameter will create a new resource.
+                                  If omitted, whether the disk is encrypted is not limited.
                                 type: string
                               matchLabelSize:
                                 description: |-
                                   Specifies the matched disk size. If omitted,
-                                  the disk size is not limited. Example: 100. Changing this parameter will create a new resource.
+                                  the disk size is not limited. Example: 100.
                                 type: string
                               matchLabelVolumeType:
                                 description: |-
                                   Specifies the EVS disk type. Currently,
                                   SSD, GPSSD, and SAS are supported. If omitted, the disk type is not limited.
-                                  Changing this parameter will create a new resource.
                                 type: string
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                               type:
                                 description: 'Specifies the node pool type. Possible
@@ -757,9 +768,7 @@ spec:
                       type: object
                     type: array
                   subnetId:
-                    description: |-
-                      Specifies the ID of the subnet to which the NIC belongs.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the ID of the subnet to which the NIC belongs.
                     type: string
                   subnetIdRef:
                     description: Reference to a Subnet in vpc to populate subnetId.
@@ -835,6 +844,12 @@ spec:
                             type: string
                         type: object
                     type: object
+                  subnetList:
+                    description: Specifies the ID list of the subnet to which the
+                      NIC belongs.
+                    items:
+                      type: string
+                    type: array
                   tagPolicyOnExistingNodes:
                     description: |-
                       Specifies the tag policy on existing nodes.
@@ -893,24 +908,21 @@ spec:
                   autoscaler.
                 properties:
                   autoRenew:
-                    description: |-
-                      Specifies whether auto renew is enabled. Valid values are "true" and "false".
-                      Changing this parameter will create a new resource.
+                    description: Specifies whether auto renew is enabled. Valid values
+                      are "true" and "false".
                     type: string
                   availabilityZone:
                     description: |-
                       Specifies the name of the available partition (AZ). Default value
-                      is random to create nodes in a random AZ in the node pool. Changing this parameter will create a new resource.
+                      is random to create nodes in a random AZ in the node pool.
                     type: string
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the CCE node pool. Valid values are
-                      prePaid and postPaid, defaults to postPaid. Changing this parameter will create a new resource.
+                      prePaid and postPaid, defaults to postPaid.
                     type: string
                   clusterId:
-                    description: |-
-                      Specifies the cluster ID.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the cluster ID.
                     type: string
                   clusterIdRef:
                     description: Reference to a Cluster in cce to populate clusterId.
@@ -989,46 +1001,50 @@ spec:
                   dataVolumes:
                     description: |-
                       Specifies the configuration of the data disks.
-                      The structure is described below. Changing this parameter will create a new resource.
+                      The structure is described below.
                     items:
                       properties:
                         dssPoolId:
-                          description: |-
-                            Specifies the DSS pool ID. This field is used only for dedicated storage.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the DSS pool ID. This field is used
+                            only for dedicated storage.
                           type: string
                         extendParam:
                           type: string
                         extendParams:
                           additionalProperties:
                             type: string
-                          description: |-
-                            Specifies the disk expansion parameters.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk expansion parameters.
                           type: object
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           description: 'schema: Internal'
                           type: boolean
-                        kmsKeyId:
+                        iops:
                           description: |-
-                            Specifies the KMS key ID. This is used to encrypt the volume.
-                            Changing this parameter will create a new resource.
+                            Specifies the iops of the disk,
+                            required when volumetype is GPSSD2 or ESSD2.
+                          type: number
+                        kmsKeyId:
+                          description: Specifies the KMS key ID. This is used to encrypt
+                            the volume.
                           type: string
                         size:
-                          description: Specifies the disk size in GB. Changing this
-                            parameter will create a new resource.
+                          description: Specifies the disk size in GB.
+                          type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the disk in MiB/s,
+                            required when volumetype is GPSSD2.
                           type: number
                         volumetype:
-                          description: Specifies the disk type. Changing this parameter
-                            will create a new resource.
+                          description: Specifies the disk type.
                           type: string
                       type: object
                     type: array
                   ecsGroupId:
                     description: |-
                       Specifies the ECS group ID. If specified, the node will be created under
-                      the cloud server group. Changing this parameter will create a new resource.
+                      the cloud server group.
                     type: string
                   ecsGroupIdRef:
                     description: Reference to a Servergroup in ecs to populate ecsGroupId.
@@ -1104,6 +1120,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  enableForceNew:
+                    type: string
                   enterpriseProjectId:
                     description: |-
                       Specifies the enterprise project ID of the node pool.
@@ -1120,64 +1138,66 @@ spec:
                     description: |-
                       Specifies the extended parameters.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
                         agencyName:
-                          description: |-
-                            Specifies the agency name.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the agency name.
                           type: string
                         dockerBaseSize:
                           description: |-
                             Specifies the available disk space of a single container on a node,
-                            in GB. Changing this parameter will create a new resource.
+                            in GB.
                           type: number
                         kubeReservedMem:
                           description: |-
                             Specifies the reserved node memory, which is reserved for
-                            Kubernetes-related components. Changing this parameter will create a new resource.
+                            Kubernetes-related components.
                           type: number
                         marketType:
-                          description: 'Specifies the node pool type. Possible values
-                            are: vm and ElasticBMS.'
+                          description: |-
+                            Specifies the market type. When creating a spot node pool,
+                            this parameter should be set to spot.
                           type: string
                         maxPods:
-                          description: |-
-                            Specifies the maximum number of instances a node is allowed to create.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the maximum number of instances a
+                            node is allowed to create.
                           type: number
                         nicThreshold:
                           description: |-
                             Specifies the ENI pre-binding thresholds.
-                            Example setting: "0.3:0.6". Changing this parameter will create a new resource.
+                            Example setting: "0.3:0.6".
                           type: string
                         nodeImageId:
-                          description: |-
-                            Specifies the image ID to create the node.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the image ID to create the node.
                           type: string
                         nodeMultiQueue:
                           description: |-
                             Specifies the number of ENI queues.
-                            Example setting: "[{"queue":4}]". Changing this parameter will create a new resource.
+                            Example setting: "[{"queue":4}]".
                           type: string
                         postinstall:
                           description: |-
                             Specifies the script to be executed after installation.
-                            The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                            The input value can be a Base64 encoded string or not.
                           type: string
                         preinstall:
                           description: |-
                             Specifies the script to be executed before installation.
-                            The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                            The input value can be a Base64 encoded string or not.
+                          type: string
+                        securityReinforcementType:
+                          description: |-
+                            Specifies the security reinforcement type.
+                            The value can be: null or cybersecurity.
                           type: string
                         spotPrice:
+                          description: Specifies the highest price per hour a user
+                            accepts for a spot node.
                           type: string
                         systemReservedMem:
                           description: |-
                             Specifies the reserved node memory, which is reserved
-                            value for system components. Changing this parameter will create a new resource.
+                            value for system components.
                           type: number
                       type: object
                     type: array
@@ -1195,8 +1215,8 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                             type: object
                           type: array
@@ -1264,16 +1284,13 @@ spec:
                       type: object
                     type: array
                   flavorId:
-                    description: |-
-                      Specifies the flavor ID. Changing this parameter will create a new
-                      resource.
+                    description: Specifies the flavor ID.
                     type: string
                   hostnameConfig:
                     description: |-
                       Specifies the hostname config of the kubernetes node,
                       which is supported by clusters of v1.23.6-r0 to v1.25 or clusters of v1.25.2-r0 or later versions.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
                         type:
@@ -1283,6 +1300,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  ignoreInitialNodeCount:
+                    description: |-
+                      Specifies whether to ignore the changes of initial_node_count,
+                      defaults to true.
+                    type: boolean
                   initialNodeCount:
                     description: |-
                       Specifies the initial number of expected nodes in the node pool.
@@ -1296,7 +1318,7 @@ spec:
                   keyPair:
                     description: |-
                       Specifies the key pair name when logging in to select the key pair mode.
-                      This parameter and password are alternative. Changing this parameter will create a new resource.
+                      This parameter and password are alternative.
                     type: string
                   labelPolicyOnExistingNodes:
                     description: |-
@@ -1317,7 +1339,6 @@ spec:
                   maxPods:
                     description: |-
                       Specifies the maximum number of instances a node is allowed to create.
-                      Changing this parameter will create a new resource.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: number
                   minNodeCount:
@@ -1334,13 +1355,16 @@ spec:
                       please see documentation.
                       This parameter is required when the node_image_id in extend_params is not specified.
                     type: string
+                  partition:
+                    description: 'Specifies the partition to which the node belongs.
+                      Value options:'
+                    type: string
                   passwordSecretRef:
                     description: |-
                       Specifies the root password when logging in to select the password mode.
                       The password consists of 8 to 26 characters and must contain at least three of following: uppercase letters,
                       lowercase letters, digits, special characters(!@$%^-_=+[{}]:,./?~#*).
                       This parameter can be plain or salted and is alternative to key_pair.
-                      Changing this parameter will create a new resource.
                     properties:
                       key:
                         description: The key to select.
@@ -1360,31 +1384,30 @@ spec:
                     description: |-
                       Specifies the charging period of the CCE node pool. If period_unit is set to
                       month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
-                      is mandatory if charging_mode is set to prePaid. Changing this parameter will create a new resource.
+                      is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the CCE node pool.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this parameter will create a new resource.
                     type: string
                   podSecurityGroups:
                     description: |-
                       Specifies the list of security group IDs for the pod.
-                      Only supported in CCE Turbo clusters of v1.19 and above. Changing this parameter will create a new resource.
+                      Only supported in CCE Turbo clusters of v1.19 and above.
                     items:
                       type: string
                     type: array
                   postinstall:
                     description: |-
                       Specifies the script to be executed after installation.
-                      The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                      The input value can be a Base64 encoded string or not.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   preinstall:
                     description: |-
                       Specifies the script to be executed before installation.
-                      The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                      The input value can be a Base64 encoded string or not.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   priority:
@@ -1400,46 +1423,50 @@ spec:
                   rootVolume:
                     description: |-
                       Specifies the configuration of the system disk.
-                      The structure is described below. Changing this parameter will create a new resource.
+                      The structure is described below.
                     items:
                       properties:
                         dssPoolId:
-                          description: |-
-                            Specifies the DSS pool ID. This field is used only for dedicated storage.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the DSS pool ID. This field is used
+                            only for dedicated storage.
                           type: string
                         extendParam:
                           type: string
                         extendParams:
                           additionalProperties:
                             type: string
-                          description: |-
-                            Specifies the disk expansion parameters.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk expansion parameters.
                           type: object
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           description: 'schema: Internal'
                           type: boolean
-                        kmsKeyId:
+                        iops:
                           description: |-
-                            Specifies the KMS key ID. This is used to encrypt the volume.
-                            Changing this parameter will create a new resource.
+                            Specifies the iops of the disk,
+                            required when volumetype is GPSSD2 or ESSD2.
+                          type: number
+                        kmsKeyId:
+                          description: Specifies the KMS key ID. This is used to encrypt
+                            the volume.
                           type: string
                         size:
-                          description: Specifies the disk size in GB. Changing this
-                            parameter will create a new resource.
+                          description: Specifies the disk size in GB.
+                          type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the disk in MiB/s,
+                            required when volumetype is GPSSD2.
                           type: number
                         volumetype:
-                          description: Specifies the disk type. Changing this parameter
-                            will create a new resource.
+                          description: Specifies the disk type.
                           type: string
                       type: object
                     type: array
                   runtime:
                     description: |-
                       Specifies the runtime of the CCE node pool. Valid values are docker and
-                      containerd. Changing this creates a new resource.
+                      containerd.
                     type: string
                   scaleDownCooldownTime:
                     description: Specifies the time interval between two scaling operations,
@@ -1463,67 +1490,68 @@ spec:
                     description: |-
                       Specifies the disk initialization management parameter.
                       If omitted, disks are managed based on the DockerLVMConfigOverride parameter in extendParam.
-                      This parameter is supported for clusters of v1.15.11 and later. Changing this parameter will create a new resource.
+                      This parameter is supported for clusters of v1.15.11 and later.
+                      If the node has both local and EVS disks attached,
+                      this parameter must be specified, or it may result in unexpected disk partitions.
+                      If you want to change the value range of a data disk to 20 to 32768, this parameter must be specified.
+                      If you want to use the shared disk space (with the runtime and Kubernetes partitions cancelled),
+                      this parameter must be specified.
+                      If you want to store system components in the system disk, this parameter must be specified.
                     items:
                       properties:
                         groups:
                           description: |-
                             Specifies the storage group consists of multiple storage devices.
                             This is used to divide storage space. Structure is documented below.
-                            Changing this parameter will create a new resource.
                           items:
                             properties:
                               cceManaged:
                                 description: |-
                                   Specifies the whether the storage space is for kubernetes and
                                   runtime components. Only one group can be set to true. The default value is false.
-                                  Changing this parameter will create a new resource.
                                 type: boolean
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                               selectorNames:
                                 description: |-
                                   Specifies the list of names of selectors to match.
                                   This parameter corresponds to name in selectors. A group can match multiple selectors,
-                                  but a selector can match only one group. Changing this parameter will create a new resource.
+                                  but a selector can match only one group.
                                 items:
                                   type: string
                                 type: array
                               virtualSpaces:
-                                description: |-
-                                  Specifies the detailed management of space configuration in a group.
-                                  Changing this parameter will create a new resource.
+                                description: Specifies the detailed management of
+                                  space configuration in a group.
                                 items:
                                   properties:
                                     lvmLvType:
                                       description: |-
                                         Specifies the LVM write mode, values can be linear and striped.
-                                        This parameter takes effect only in kubernetes and user configuration. Changing this parameter will create
-                                        a new resource.
+                                        This parameter takes effect only in kubernetes and user configuration.
                                       type: string
                                     lvmPath:
                                       description: |-
                                         Specifies the absolute path to which the disk is attached.
-                                        This parameter takes effect only in user configuration. Changing this parameter will create a new resource.
+                                        This parameter takes effect only in user configuration.
                                       type: string
                                     name:
                                       description: |-
-                                        Specifies the selector name, used as the index of selector_names in storage group.
-                                        The name of each selector must be unique. Changing this parameter will create a new resource.
+                                        Specifies the selector name, used as the index of selector_names
+                                        in storage group. The name of each selector must be unique.
                                       type: string
                                     runtimeLvType:
                                       description: |-
                                         Specifies the LVM write mode, values can be linear and striped.
-                                        This parameter takes effect only in runtime configuration. Changing this parameter will create a new resource.
+                                        This parameter takes effect only in runtime configuration.
                                       type: string
                                     size:
                                       description: |-
                                         Specifies the size of a virtual space. Only an integer percentage is supported.
                                         Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
-                                        Changing this parameter will create a new resource.
                                       type: string
                                   type: object
                                 type: array
@@ -1533,40 +1561,38 @@ spec:
                           description: |-
                             Specifies the disk selection.
                             Matched disks are managed according to match labels and storage type. Structure is documented below.
-                            Changing this parameter will create a new resource.
                           items:
                             properties:
                               matchLabelCount:
                                 description: |-
                                   Specifies the number of disks to be selected. If omitted,
-                                  all disks of this type are selected. Changing this parameter will create a new resource.
+                                  all disks of this type are selected.
                                 type: string
                               matchLabelMetadataCmkid:
                                 description: |-
                                   Specifies the customer master key ID of an encrypted
-                                  disk. Changing this parameter will create a new resource.
+                                  disk.
                                 type: string
                               matchLabelMetadataEncrypted:
                                 description: |-
                                   Specifies the disk encryption identifier.
                                   Values can be: 0 indicates that the disk is not encrypted and 1 indicates that the disk is encrypted.
-                                  If omitted, whether the disk is encrypted is not limited. Changing this parameter will create a new resource.
+                                  If omitted, whether the disk is encrypted is not limited.
                                 type: string
                               matchLabelSize:
                                 description: |-
                                   Specifies the matched disk size. If omitted,
-                                  the disk size is not limited. Example: 100. Changing this parameter will create a new resource.
+                                  the disk size is not limited. Example: 100.
                                 type: string
                               matchLabelVolumeType:
                                 description: |-
                                   Specifies the EVS disk type. Currently,
                                   SSD, GPSSD, and SAS are supported. If omitted, the disk type is not limited.
-                                  Changing this parameter will create a new resource.
                                 type: string
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                               type:
                                 description: 'Specifies the node pool type. Possible
@@ -1577,9 +1603,7 @@ spec:
                       type: object
                     type: array
                   subnetId:
-                    description: |-
-                      Specifies the ID of the subnet to which the NIC belongs.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the ID of the subnet to which the NIC belongs.
                     type: string
                   subnetIdRef:
                     description: Reference to a Subnet in vpc to populate subnetId.
@@ -1655,6 +1679,12 @@ spec:
                             type: string
                         type: object
                     type: object
+                  subnetList:
+                    description: Specifies the ID list of the subnet to which the
+                      NIC belongs.
+                    items:
+                      type: string
+                    type: array
                   tagPolicyOnExistingNodes:
                     description: |-
                       Specifies the tag policy on existing nodes.
@@ -1867,10 +1897,6 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.dataVolumes is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.dataVolumes)
-                || (has(self.initProvider) && has(self.initProvider.dataVolumes))'
             - message: spec.forProvider.flavorId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.flavorId)
@@ -1893,14 +1919,13 @@ spec:
               atProvider:
                 properties:
                   autoRenew:
-                    description: |-
-                      Specifies whether auto renew is enabled. Valid values are "true" and "false".
-                      Changing this parameter will create a new resource.
+                    description: Specifies whether auto renew is enabled. Valid values
+                      are "true" and "false".
                     type: string
                   availabilityZone:
                     description: |-
                       Specifies the name of the available partition (AZ). Default value
-                      is random to create nodes in a random AZ in the node pool. Changing this parameter will create a new resource.
+                      is random to create nodes in a random AZ in the node pool.
                     type: string
                   billingMode:
                     description: Billing mode of a node.
@@ -1908,12 +1933,10 @@ spec:
                   chargingMode:
                     description: |-
                       Specifies the charging mode of the CCE node pool. Valid values are
-                      prePaid and postPaid, defaults to postPaid. Changing this parameter will create a new resource.
+                      prePaid and postPaid, defaults to postPaid.
                     type: string
                   clusterId:
-                    description: |-
-                      Specifies the cluster ID.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the cluster ID.
                     type: string
                   currentNodeCount:
                     description: The current number of the nodes.
@@ -1921,46 +1944,52 @@ spec:
                   dataVolumes:
                     description: |-
                       Specifies the configuration of the data disks.
-                      The structure is described below. Changing this parameter will create a new resource.
+                      The structure is described below.
                     items:
                       properties:
                         dssPoolId:
-                          description: |-
-                            Specifies the DSS pool ID. This field is used only for dedicated storage.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the DSS pool ID. This field is used
+                            only for dedicated storage.
                           type: string
                         extendParam:
                           type: string
                         extendParams:
                           additionalProperties:
                             type: string
-                          description: |-
-                            Specifies the disk expansion parameters.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk expansion parameters.
                           type: object
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           description: 'schema: Internal'
                           type: boolean
-                        kmsKeyId:
+                        iops:
                           description: |-
-                            Specifies the KMS key ID. This is used to encrypt the volume.
-                            Changing this parameter will create a new resource.
+                            Specifies the iops of the disk,
+                            required when volumetype is GPSSD2 or ESSD2.
+                          type: number
+                        kmsKeyId:
+                          description: Specifies the KMS key ID. This is used to encrypt
+                            the volume.
                           type: string
                         size:
-                          description: Specifies the disk size in GB. Changing this
-                            parameter will create a new resource.
+                          description: Specifies the disk size in GB.
+                          type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the disk in MiB/s,
+                            required when volumetype is GPSSD2.
                           type: number
                         volumetype:
-                          description: Specifies the disk type. Changing this parameter
-                            will create a new resource.
+                          description: Specifies the disk type.
                           type: string
                       type: object
                     type: array
                   ecsGroupId:
                     description: |-
                       Specifies the ECS group ID. If specified, the node will be created under
-                      the cloud server group. Changing this parameter will create a new resource.
+                      the cloud server group.
+                    type: string
+                  enableForceNew:
                     type: string
                   enterpriseProjectId:
                     description: |-
@@ -1978,64 +2007,66 @@ spec:
                     description: |-
                       Specifies the extended parameters.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
                         agencyName:
-                          description: |-
-                            Specifies the agency name.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the agency name.
                           type: string
                         dockerBaseSize:
                           description: |-
                             Specifies the available disk space of a single container on a node,
-                            in GB. Changing this parameter will create a new resource.
+                            in GB.
                           type: number
                         kubeReservedMem:
                           description: |-
                             Specifies the reserved node memory, which is reserved for
-                            Kubernetes-related components. Changing this parameter will create a new resource.
+                            Kubernetes-related components.
                           type: number
                         marketType:
-                          description: 'Specifies the node pool type. Possible values
-                            are: vm and ElasticBMS.'
+                          description: |-
+                            Specifies the market type. When creating a spot node pool,
+                            this parameter should be set to spot.
                           type: string
                         maxPods:
-                          description: |-
-                            Specifies the maximum number of instances a node is allowed to create.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the maximum number of instances a
+                            node is allowed to create.
                           type: number
                         nicThreshold:
                           description: |-
                             Specifies the ENI pre-binding thresholds.
-                            Example setting: "0.3:0.6". Changing this parameter will create a new resource.
+                            Example setting: "0.3:0.6".
                           type: string
                         nodeImageId:
-                          description: |-
-                            Specifies the image ID to create the node.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the image ID to create the node.
                           type: string
                         nodeMultiQueue:
                           description: |-
                             Specifies the number of ENI queues.
-                            Example setting: "[{"queue":4}]". Changing this parameter will create a new resource.
+                            Example setting: "[{"queue":4}]".
                           type: string
                         postinstall:
                           description: |-
                             Specifies the script to be executed after installation.
-                            The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                            The input value can be a Base64 encoded string or not.
                           type: string
                         preinstall:
                           description: |-
                             Specifies the script to be executed before installation.
-                            The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                            The input value can be a Base64 encoded string or not.
+                          type: string
+                        securityReinforcementType:
+                          description: |-
+                            Specifies the security reinforcement type.
+                            The value can be: null or cybersecurity.
                           type: string
                         spotPrice:
+                          description: Specifies the highest price per hour a user
+                            accepts for a spot node.
                           type: string
                         systemReservedMem:
                           description: |-
                             Specifies the reserved node memory, which is reserved
-                            value for system components. Changing this parameter will create a new resource.
+                            value for system components.
                           type: number
                       type: object
                     type: array
@@ -2053,8 +2084,11 @@ spec:
                             properties:
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
+                                type: string
+                              uid:
+                                description: The ID of the extended scaling group.
                                 type: string
                             type: object
                           type: array
@@ -2122,16 +2156,13 @@ spec:
                       type: object
                     type: array
                   flavorId:
-                    description: |-
-                      Specifies the flavor ID. Changing this parameter will create a new
-                      resource.
+                    description: Specifies the flavor ID.
                     type: string
                   hostnameConfig:
                     description: |-
                       Specifies the hostname config of the kubernetes node,
                       which is supported by clusters of v1.23.6-r0 to v1.25 or clusters of v1.25.2-r0 or later versions.
                       The object structure is documented below.
-                      Changing this parameter will create a new resource.
                     items:
                       properties:
                         type:
@@ -2144,6 +2175,11 @@ spec:
                   id:
                     description: The resource ID in UUID format.
                     type: string
+                  ignoreInitialNodeCount:
+                    description: |-
+                      Specifies whether to ignore the changes of initial_node_count,
+                      defaults to true.
+                    type: boolean
                   initialNodeCount:
                     description: |-
                       Specifies the initial number of expected nodes in the node pool.
@@ -2157,7 +2193,7 @@ spec:
                   keyPair:
                     description: |-
                       Specifies the key pair name when logging in to select the key pair mode.
-                      This parameter and password are alternative. Changing this parameter will create a new resource.
+                      This parameter and password are alternative.
                     type: string
                   labelPolicyOnExistingNodes:
                     description: |-
@@ -2178,7 +2214,6 @@ spec:
                   maxPods:
                     description: |-
                       Specifies the maximum number of instances a node is allowed to create.
-                      Changing this parameter will create a new resource.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: number
                   minNodeCount:
@@ -2195,35 +2230,38 @@ spec:
                       please see documentation.
                       This parameter is required when the node_image_id in extend_params is not specified.
                     type: string
+                  partition:
+                    description: 'Specifies the partition to which the node belongs.
+                      Value options:'
+                    type: string
                   period:
                     description: |-
                       Specifies the charging period of the CCE node pool. If period_unit is set to
                       month, the value ranges from 1 to 9. If period_unit is set to year, the value ranges from 1 to 3. This parameter
-                      is mandatory if charging_mode is set to prePaid. Changing this parameter will create a new resource.
+                      is mandatory if charging_mode is set to prePaid.
                     type: number
                   periodUnit:
                     description: |-
                       Specifies the charging period unit of the CCE node pool.
                       Valid values are month and year. This parameter is mandatory if charging_mode is set to prePaid.
-                      Changing this parameter will create a new resource.
                     type: string
                   podSecurityGroups:
                     description: |-
                       Specifies the list of security group IDs for the pod.
-                      Only supported in CCE Turbo clusters of v1.19 and above. Changing this parameter will create a new resource.
+                      Only supported in CCE Turbo clusters of v1.19 and above.
                     items:
                       type: string
                     type: array
                   postinstall:
                     description: |-
                       Specifies the script to be executed after installation.
-                      The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                      The input value can be a Base64 encoded string or not.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   preinstall:
                     description: |-
                       Specifies the script to be executed before installation.
-                      The input value can be a Base64 encoded string or not. Changing this parameter will create a new resource.
+                      The input value can be a Base64 encoded string or not.
                       schema: Deprecated; This parameter can be configured in the 'extend_params' parameter.
                     type: string
                   priority:
@@ -2239,46 +2277,50 @@ spec:
                   rootVolume:
                     description: |-
                       Specifies the configuration of the system disk.
-                      The structure is described below. Changing this parameter will create a new resource.
+                      The structure is described below.
                     items:
                       properties:
                         dssPoolId:
-                          description: |-
-                            Specifies the DSS pool ID. This field is used only for dedicated storage.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the DSS pool ID. This field is used
+                            only for dedicated storage.
                           type: string
                         extendParam:
                           type: string
                         extendParams:
                           additionalProperties:
                             type: string
-                          description: |-
-                            Specifies the disk expansion parameters.
-                            Changing this parameter will create a new resource.
+                          description: Specifies the disk expansion parameters.
                           type: object
                           x-kubernetes-map-type: granular
                         hwPassthrough:
                           description: 'schema: Internal'
                           type: boolean
-                        kmsKeyId:
+                        iops:
                           description: |-
-                            Specifies the KMS key ID. This is used to encrypt the volume.
-                            Changing this parameter will create a new resource.
+                            Specifies the iops of the disk,
+                            required when volumetype is GPSSD2 or ESSD2.
+                          type: number
+                        kmsKeyId:
+                          description: Specifies the KMS key ID. This is used to encrypt
+                            the volume.
                           type: string
                         size:
-                          description: Specifies the disk size in GB. Changing this
-                            parameter will create a new resource.
+                          description: Specifies the disk size in GB.
+                          type: number
+                        throughput:
+                          description: |-
+                            Specifies the throughput of the disk in MiB/s,
+                            required when volumetype is GPSSD2.
                           type: number
                         volumetype:
-                          description: Specifies the disk type. Changing this parameter
-                            will create a new resource.
+                          description: Specifies the disk type.
                           type: string
                       type: object
                     type: array
                   runtime:
                     description: |-
                       Specifies the runtime of the CCE node pool. Valid values are docker and
-                      containerd. Changing this creates a new resource.
+                      containerd.
                     type: string
                   scaleDownCooldownTime:
                     description: Specifies the time interval between two scaling operations,
@@ -2305,67 +2347,68 @@ spec:
                     description: |-
                       Specifies the disk initialization management parameter.
                       If omitted, disks are managed based on the DockerLVMConfigOverride parameter in extendParam.
-                      This parameter is supported for clusters of v1.15.11 and later. Changing this parameter will create a new resource.
+                      This parameter is supported for clusters of v1.15.11 and later.
+                      If the node has both local and EVS disks attached,
+                      this parameter must be specified, or it may result in unexpected disk partitions.
+                      If you want to change the value range of a data disk to 20 to 32768, this parameter must be specified.
+                      If you want to use the shared disk space (with the runtime and Kubernetes partitions cancelled),
+                      this parameter must be specified.
+                      If you want to store system components in the system disk, this parameter must be specified.
                     items:
                       properties:
                         groups:
                           description: |-
                             Specifies the storage group consists of multiple storage devices.
                             This is used to divide storage space. Structure is documented below.
-                            Changing this parameter will create a new resource.
                           items:
                             properties:
                               cceManaged:
                                 description: |-
                                   Specifies the whether the storage space is for kubernetes and
                                   runtime components. Only one group can be set to true. The default value is false.
-                                  Changing this parameter will create a new resource.
                                 type: boolean
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                               selectorNames:
                                 description: |-
                                   Specifies the list of names of selectors to match.
                                   This parameter corresponds to name in selectors. A group can match multiple selectors,
-                                  but a selector can match only one group. Changing this parameter will create a new resource.
+                                  but a selector can match only one group.
                                 items:
                                   type: string
                                 type: array
                               virtualSpaces:
-                                description: |-
-                                  Specifies the detailed management of space configuration in a group.
-                                  Changing this parameter will create a new resource.
+                                description: Specifies the detailed management of
+                                  space configuration in a group.
                                 items:
                                   properties:
                                     lvmLvType:
                                       description: |-
                                         Specifies the LVM write mode, values can be linear and striped.
-                                        This parameter takes effect only in kubernetes and user configuration. Changing this parameter will create
-                                        a new resource.
+                                        This parameter takes effect only in kubernetes and user configuration.
                                       type: string
                                     lvmPath:
                                       description: |-
                                         Specifies the absolute path to which the disk is attached.
-                                        This parameter takes effect only in user configuration. Changing this parameter will create a new resource.
+                                        This parameter takes effect only in user configuration.
                                       type: string
                                     name:
                                       description: |-
-                                        Specifies the selector name, used as the index of selector_names in storage group.
-                                        The name of each selector must be unique. Changing this parameter will create a new resource.
+                                        Specifies the selector name, used as the index of selector_names
+                                        in storage group. The name of each selector must be unique.
                                       type: string
                                     runtimeLvType:
                                       description: |-
                                         Specifies the LVM write mode, values can be linear and striped.
-                                        This parameter takes effect only in runtime configuration. Changing this parameter will create a new resource.
+                                        This parameter takes effect only in runtime configuration.
                                       type: string
                                     size:
                                       description: |-
                                         Specifies the size of a virtual space. Only an integer percentage is supported.
                                         Example: 90%. Note that the total percentage of all virtual spaces in a group cannot exceed 100%.
-                                        Changing this parameter will create a new resource.
                                       type: string
                                   type: object
                                 type: array
@@ -2375,40 +2418,38 @@ spec:
                           description: |-
                             Specifies the disk selection.
                             Matched disks are managed according to match labels and storage type. Structure is documented below.
-                            Changing this parameter will create a new resource.
                           items:
                             properties:
                               matchLabelCount:
                                 description: |-
                                   Specifies the number of disks to be selected. If omitted,
-                                  all disks of this type are selected. Changing this parameter will create a new resource.
+                                  all disks of this type are selected.
                                 type: string
                               matchLabelMetadataCmkid:
                                 description: |-
                                   Specifies the customer master key ID of an encrypted
-                                  disk. Changing this parameter will create a new resource.
+                                  disk.
                                 type: string
                               matchLabelMetadataEncrypted:
                                 description: |-
                                   Specifies the disk encryption identifier.
                                   Values can be: 0 indicates that the disk is not encrypted and 1 indicates that the disk is encrypted.
-                                  If omitted, whether the disk is encrypted is not limited. Changing this parameter will create a new resource.
+                                  If omitted, whether the disk is encrypted is not limited.
                                 type: string
                               matchLabelSize:
                                 description: |-
                                   Specifies the matched disk size. If omitted,
-                                  the disk size is not limited. Example: 100. Changing this parameter will create a new resource.
+                                  the disk size is not limited. Example: 100.
                                 type: string
                               matchLabelVolumeType:
                                 description: |-
                                   Specifies the EVS disk type. Currently,
                                   SSD, GPSSD, and SAS are supported. If omitted, the disk type is not limited.
-                                  Changing this parameter will create a new resource.
                                 type: string
                               name:
                                 description: |-
-                                  Specifies the selector name, used as the index of selector_names in storage group.
-                                  The name of each selector must be unique. Changing this parameter will create a new resource.
+                                  Specifies the selector name, used as the index of selector_names
+                                  in storage group. The name of each selector must be unique.
                                 type: string
                               type:
                                 description: 'Specifies the node pool type. Possible
@@ -2419,10 +2460,14 @@ spec:
                       type: object
                     type: array
                   subnetId:
-                    description: |-
-                      Specifies the ID of the subnet to which the NIC belongs.
-                      Changing this parameter will create a new resource.
+                    description: Specifies the ID of the subnet to which the NIC belongs.
                     type: string
+                  subnetList:
+                    description: Specifies the ID list of the subnet to which the
+                      NIC belongs.
+                    items:
+                      type: string
+                    type: array
                   tagPolicyOnExistingNodes:
                     description: |-
                       Specifies the tag policy on existing nodes.

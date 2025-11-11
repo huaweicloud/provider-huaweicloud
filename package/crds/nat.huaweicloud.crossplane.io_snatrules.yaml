@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: SnatRule is the Schema for the SnatRules API. ""
+        description: SnatRule is the Schema for the SnatRules API. Manages an SNAT
+          rule resource of the
         properties:
           apiVersion:
             description: |-
@@ -961,6 +962,11 @@ spec:
                       This parameter and subnet_id are alternative. Changing this will create a new resource.
                       The CIDR block connected by SNAT rule (DC side).
                     type: string
+                  createdAt:
+                    description: |-
+                      The creation time of the SNAT rule.
+                      The creation time of the SNAT rule.
+                    type: string
                   description:
                     description: |-
                       Specifies the description of the SNAT rule.
@@ -977,6 +983,11 @@ spec:
                       Specifies the IDs of floating IPs connected by SNAT rule.
                       Multiple floating IPs are separated using commas (,). The number of floating IP IDs cannot exceed 20.
                       The IDs of floating IPs connected by SNAT rule.
+                    type: string
+                  freezedIpAddress:
+                    description: |-
+                      The frozen EIP associated with the SNAT rule.
+                      The frozen EIP associated with the SNAT rule.
                     type: string
                   globalEipAddress:
                     description: |-

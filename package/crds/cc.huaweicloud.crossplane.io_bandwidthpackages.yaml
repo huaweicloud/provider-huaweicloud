@@ -161,9 +161,8 @@ spec:
                   tags:
                     additionalProperties:
                       type: string
-                    description: |-
-                      The key/value pairs to associate with the bandwidth package.
-                      The key/value pairs to associate with the bandwidth package.
+                    description: The key/value pairs to associate with the bandwidth
+                      package.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -268,9 +267,8 @@ spec:
                   tags:
                     additionalProperties:
                       type: string
-                    description: |-
-                      The key/value pairs to associate with the bandwidth package.
-                      The key/value pairs to associate with the bandwidth package.
+                    description: The key/value pairs to associate with the bandwidth
+                      package.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object
@@ -568,9 +566,8 @@ spec:
                   tags:
                     additionalProperties:
                       type: string
-                    description: |-
-                      The key/value pairs to associate with the bandwidth package.
-                      The key/value pairs to associate with the bandwidth package.
+                    description: The key/value pairs to associate with the bandwidth
+                      package.
                     type: object
                     x-kubernetes-map-type: granular
                 type: object

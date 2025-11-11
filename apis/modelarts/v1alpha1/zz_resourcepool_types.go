@@ -20,6 +20,9 @@ type AzsInitParameters struct {
 	Az *string `json:"az,omitempty" tf:"az,omitempty"`
 
 	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
 	// Number of nodes.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 }
@@ -31,6 +34,9 @@ type AzsObservation struct {
 	Az *string `json:"az,omitempty" tf:"az,omitempty"`
 
 	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
 	// Number of nodes.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 }
@@ -43,6 +49,9 @@ type AzsParameters struct {
 	Az *string `json:"az,omitempty" tf:"az,omitempty"`
 
 	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
 	// Number of nodes.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
@@ -74,6 +83,250 @@ type ClustersParameters struct {
 	ProviderID *string `json:"providerId" tf:"provider_id,omitempty"`
 }
 
+type CreatingStepInitParameters struct {
+
+	// Specifies the creation step of the resource pool nodes.
+	// The creation step of the resource pool nodes.
+	Step *float64 `json:"step,omitempty" tf:"step,omitempty"`
+
+	// Specifies the type of the resource pool nodes.
+	// The valid values are as follows:
+	// The type of the resource pool nodes.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type CreatingStepObservation struct {
+
+	// Specifies the creation step of the resource pool nodes.
+	// The creation step of the resource pool nodes.
+	Step *float64 `json:"step,omitempty" tf:"step,omitempty"`
+
+	// Specifies the type of the resource pool nodes.
+	// The valid values are as follows:
+	// The type of the resource pool nodes.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type CreatingStepParameters struct {
+
+	// Specifies the creation step of the resource pool nodes.
+	// The creation step of the resource pool nodes.
+	// +kubebuilder:validation:Optional
+	Step *float64 `json:"step" tf:"step,omitempty"`
+
+	// Specifies the type of the resource pool nodes.
+	// The valid values are as follows:
+	// The type of the resource pool nodes.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+}
+
+type DataVolumesInitParameters struct {
+
+	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
+	// The count of the current data volume configuration.
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// The extend parameters of the root volume, in JSON format.
+	// The extend parameters of the data volume.
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
+
+	// Specifies the size of the root volume, e.g. 100Gi.
+	// The size of the data volume.
+	Size *string `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the type of the root volume.
+	// The valid values are as follows:
+	// The type of the data volume.
+	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
+}
+
+type DataVolumesObservation struct {
+
+	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
+	// The count of the current data volume configuration.
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// The extend parameters of the root volume, in JSON format.
+	// The extend parameters of the data volume.
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
+
+	// Specifies the size of the root volume, e.g. 100Gi.
+	// The size of the data volume.
+	Size *string `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the type of the root volume.
+	// The valid values are as follows:
+	// The type of the data volume.
+	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
+}
+
+type DataVolumesParameters struct {
+
+	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
+	// The count of the current data volume configuration.
+	// +kubebuilder:validation:Optional
+	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// The extend parameters of the root volume, in JSON format.
+	// The extend parameters of the data volume.
+	// +kubebuilder:validation:Optional
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
+
+	// Specifies the size of the root volume, e.g. 100Gi.
+	// The size of the data volume.
+	// +kubebuilder:validation:Optional
+	Size *string `json:"size" tf:"size,omitempty"`
+
+	// Specifies the type of the root volume.
+	// The valid values are as follows:
+	// The type of the data volume.
+	// +kubebuilder:validation:Optional
+	VolumeType *string `json:"volumeType" tf:"volume_type,omitempty"`
+}
+
+type DriverInitParameters struct {
+
+	// Specifies the driver version.
+	// The driver version.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type DriverObservation struct {
+
+	// Specifies the driver version.
+	// The driver version.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type DriverParameters struct {
+
+	// Specifies the driver version.
+	// The driver version.
+	// +kubebuilder:validation:Optional
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+}
+
+type LvmConfigInitParameters struct {
+
+	// Specifies the LVM write mode.
+	// The valid values are as follows:
+	// The LVM write mode.
+	LvType *string `json:"lvType,omitempty" tf:"lv_type,omitempty"`
+
+	// Specifies the volume mount path.
+	// The volume mount path.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type LvmConfigObservation struct {
+
+	// Specifies the LVM write mode.
+	// The valid values are as follows:
+	// The LVM write mode.
+	LvType *string `json:"lvType,omitempty" tf:"lv_type,omitempty"`
+
+	// Specifies the volume mount path.
+	// The volume mount path.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type LvmConfigParameters struct {
+
+	// Specifies the LVM write mode.
+	// The valid values are as follows:
+	// The LVM write mode.
+	// +kubebuilder:validation:Optional
+	LvType *string `json:"lvType" tf:"lv_type,omitempty"`
+
+	// Specifies the volume mount path.
+	// The volume mount path.
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type MetadataInitParameters struct {
+
+	// Specifies the annotations of the resource pool, in JSON format.
+	// For details, please refer to the document.
+	// The annotations of the resource pool, in JSON format.
+	Annotations *string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+}
+
+type MetadataObservation struct {
+
+	// Specifies the annotations of the resource pool, in JSON format.
+	// For details, please refer to the document.
+	// The annotations of the resource pool, in JSON format.
+	Annotations *string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+}
+
+type MetadataParameters struct {
+
+	// Specifies the annotations of the resource pool, in JSON format.
+	// For details, please refer to the document.
+	// The annotations of the resource pool, in JSON format.
+	// +kubebuilder:validation:Optional
+	Annotations *string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+}
+
+type OsInitParameters struct {
+
+	// Specifies the image ID.
+	// The image ID.
+	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
+
+	// Specifies the image type.
+	// The image type.
+	ImageType *string `json:"imageType,omitempty" tf:"image_type,omitempty"`
+
+	// Specifies the OS name of the image.
+	// The OS name of the image.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type OsObservation struct {
+
+	// Specifies the image ID.
+	// The image ID.
+	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
+
+	// Specifies the image type.
+	// The image type.
+	ImageType *string `json:"imageType,omitempty" tf:"image_type,omitempty"`
+
+	// Specifies the OS name of the image.
+	// The OS name of the image.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type OsParameters struct {
+
+	// Specifies the image ID.
+	// The image ID.
+	// +kubebuilder:validation:Optional
+	ImageID *string `json:"imageId,omitempty" tf:"image_id,omitempty"`
+
+	// Specifies the image type.
+	// The image type.
+	// +kubebuilder:validation:Optional
+	ImageType *string `json:"imageType,omitempty" tf:"image_type,omitempty"`
+
+	// Specifies the OS name of the image.
+	// The OS name of the image.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
 type ResourcePoolInitParameters struct {
 
 	// Specifies whether auto-renew is enabled. Valid values are true and false.
@@ -91,8 +344,15 @@ type ResourcePoolInitParameters struct {
 	Clusters []ClustersInitParameters `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
 	// Specifies the description of the dedicated resource pool.
+	// This parameter and os.modelarts/description in metadata.annotations are set at the same time, the former will
+	// take precedence.
 	// The description of the resource pool.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the metadata of the dedicated resource pool.
+	// The metadata structure is documented below.
+	// The metadata of the resource pool.
+	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Specifies the name of the dedicated resource pool.
 	// The name can contain 4 to 32 characters, only lowercase letters, digits and hyphens (-) are allowed.
@@ -213,11 +473,18 @@ type ResourcePoolObservation struct {
 	Clusters []ClustersObservation `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
 	// Specifies the description of the dedicated resource pool.
+	// This parameter and os.modelarts/description in metadata.annotations are set at the same time, the former will
+	// take precedence.
 	// The description of the resource pool.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The resource ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Specifies the metadata of the dedicated resource pool.
+	// The metadata structure is documented below.
+	// The metadata of the resource pool.
+	Metadata []MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Specifies the name of the dedicated resource pool.
 	// The name can contain 4 to 32 characters, only lowercase letters, digits and hyphens (-) are allowed.
@@ -259,11 +526,18 @@ type ResourcePoolObservation struct {
 	// List of resource specifications in the resource pool.
 	Resources []ResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// The script configuration value after the last change, according to which the resources are sorted.
+	ResourcesOrderOrigin []ResourcesOrderOriginObservation `json:"resourcesOrderOrigin,omitempty" tf:"resources_order_origin,omitempty"`
+
 	// Specifies the list of job types supported by the resource pool. It is mandatory when
 	// network_id is specified and can not be specified when vpc_id is specified. The options are as follows:
 	// List of job types supported by the resource pool.
 	// +listType=set
 	Scope []*string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// The list of service IDs corresponding to the latest expanded nodes.
+	// The list of service IDs corresponding to the latest expanded nodes.
+	ServerIds []*string `json:"serverIds,omitempty" tf:"server_ids,omitempty"`
 
 	// Indicates the status of the resource pool.
 	// The status of the resource pool.
@@ -309,9 +583,17 @@ type ResourcePoolParameters struct {
 	Clusters []ClustersParameters `json:"clusters,omitempty" tf:"clusters,omitempty"`
 
 	// Specifies the description of the dedicated resource pool.
+	// This parameter and os.modelarts/description in metadata.annotations are set at the same time, the former will
+	// take precedence.
 	// The description of the resource pool.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// Specifies the metadata of the dedicated resource pool.
+	// The metadata structure is documented below.
+	// The metadata of the resource pool.
+	// +kubebuilder:validation:Optional
+	Metadata []MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Specifies the name of the dedicated resource pool.
 	// The name can contain 4 to 32 characters, only lowercase letters, digits and hyphens (-) are allowed.
@@ -435,8 +717,30 @@ type ResourcesInitParameters struct {
 	Azs []AzsInitParameters `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
 	// Number of resources of the corresponding flavors.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// Specifies the creation step configuration of the resource pool nodes.
+	// The creating_step structure is documented below.
+	// The creation step configuration of the resource pool nodes.
+	CreatingStep []CreatingStepInitParameters `json:"creatingStep,omitempty" tf:"creating_step,omitempty"`
+
+	// Specifies the data volumes of the resource pool nodes.
+	// The data_volumes structure is documented below.
+	// The data volumes of the resource pool nodes.
+	DataVolumes []DataVolumesInitParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+
+	// Specifies the driver information.
+	// The driver structure is documented below.
+	// The driver information.
+	Driver []DriverInitParameters `json:"driver,omitempty" tf:"driver,omitempty"`
+
+	// Specifies the extend parameters of the resource pool.
+	// The extend parameters of the resource pool.
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// Specifies the resource flavor ID.
 	// The resource flavor ID.
@@ -448,6 +752,7 @@ type ResourcesInitParameters struct {
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Specifies the max number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
 	// The max number of resources of the corresponding flavors.
 	MaxCount *float64 `json:"maxCount,omitempty" tf:"max_count,omitempty"`
 
@@ -457,14 +762,23 @@ type ResourcesInitParameters struct {
 	// The name of resource pool nodes.
 	NodePool *string `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
 
-	// Specifies the script to be executed after security. The value should be a Base64
-	// encoded string.
+	// Specifies the image information for the specified OS.
+	// The os structure is documented below.
+	// The image information for the specified OS.
+	Os []OsInitParameters `json:"os,omitempty" tf:"os,omitempty"`
+
 	// The script to be executed after security.
 	PostInstall *string `json:"postInstall,omitempty" tf:"post_install,omitempty"`
+
+	// Specifies the root volume of the resource pool nodes.
+	// The root_volume structure is documented below.
+	// The root volume of the resource pool nodes.
+	RootVolume []RootVolumeInitParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Specifies the security group IDs. It can not be specified when network_id is
 	// specified.
 	// The security group IDs.
+	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// Specifies the network ID of a subnet. It is mandatory when
@@ -486,6 +800,11 @@ type ResourcesInitParameters struct {
 	// resources.security_group_ids is specified, and can not be specified when network_id is specified.
 	// The VPC ID.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Specifies the extend configurations of the volume groups.
+	// The volume_group_configs structure is documented below.
+	// The extend configurations of the volume groups.
+	VolumeGroupConfigs []VolumeGroupConfigsInitParameters `json:"volumeGroupConfigs,omitempty" tf:"volume_group_configs,omitempty"`
 }
 
 type ResourcesObservation struct {
@@ -496,8 +815,30 @@ type ResourcesObservation struct {
 	Azs []AzsObservation `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
 	// Number of resources of the corresponding flavors.
 	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+
+	// Specifies the creation step configuration of the resource pool nodes.
+	// The creating_step structure is documented below.
+	// The creation step configuration of the resource pool nodes.
+	CreatingStep []CreatingStepObservation `json:"creatingStep,omitempty" tf:"creating_step,omitempty"`
+
+	// Specifies the data volumes of the resource pool nodes.
+	// The data_volumes structure is documented below.
+	// The data volumes of the resource pool nodes.
+	DataVolumes []DataVolumesObservation `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+
+	// Specifies the driver information.
+	// The driver structure is documented below.
+	// The driver information.
+	Driver []DriverObservation `json:"driver,omitempty" tf:"driver,omitempty"`
+
+	// Specifies the extend parameters of the resource pool.
+	// The extend parameters of the resource pool.
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// Specifies the resource flavor ID.
 	// The resource flavor ID.
@@ -509,6 +850,7 @@ type ResourcesObservation struct {
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Specifies the max number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
 	// The max number of resources of the corresponding flavors.
 	MaxCount *float64 `json:"maxCount,omitempty" tf:"max_count,omitempty"`
 
@@ -518,14 +860,23 @@ type ResourcesObservation struct {
 	// The name of resource pool nodes.
 	NodePool *string `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
 
-	// Specifies the script to be executed after security. The value should be a Base64
-	// encoded string.
+	// Specifies the image information for the specified OS.
+	// The os structure is documented below.
+	// The image information for the specified OS.
+	Os []OsObservation `json:"os,omitempty" tf:"os,omitempty"`
+
 	// The script to be executed after security.
 	PostInstall *string `json:"postInstall,omitempty" tf:"post_install,omitempty"`
+
+	// Specifies the root volume of the resource pool nodes.
+	// The root_volume structure is documented below.
+	// The root volume of the resource pool nodes.
+	RootVolume []RootVolumeObservation `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Specifies the security group IDs. It can not be specified when network_id is
 	// specified.
 	// The security group IDs.
+	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// Specifies the network ID of a subnet. It is mandatory when
@@ -547,6 +898,32 @@ type ResourcesObservation struct {
 	// resources.security_group_ids is specified, and can not be specified when network_id is specified.
 	// The VPC ID.
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Specifies the extend configurations of the volume groups.
+	// The volume_group_configs structure is documented below.
+	// The extend configurations of the volume groups.
+	VolumeGroupConfigs []VolumeGroupConfigsObservation `json:"volumeGroupConfigs,omitempty" tf:"volume_group_configs,omitempty"`
+}
+
+type ResourcesOrderOriginInitParameters struct {
+}
+
+type ResourcesOrderOriginObservation struct {
+
+	// Specifies the creation step configuration of the resource pool nodes.
+	// The creating_step structure is documented below.
+	CreatingStep *string `json:"creatingStep,omitempty" tf:"creating_step,omitempty"`
+
+	// Specifies the resource flavor ID.
+	FlavorID *string `json:"flavorId,omitempty" tf:"flavor_id,omitempty"`
+
+	// Specifies the name of resource pool nodes. It can contain 1 to 50
+	// characters, and should start with a letter and ending with a letter or digit, only lowercase letters, digits,
+	// hyphens (-) are allowed, and cannot end with a hyphen (-).
+	NodePool *string `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
+}
+
+type ResourcesOrderOriginParameters struct {
 }
 
 type ResourcesParameters struct {
@@ -558,9 +935,35 @@ type ResourcesParameters struct {
 	Azs []AzsParameters `json:"azs,omitempty" tf:"azs,omitempty"`
 
 	// Specifies the number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
+	// If you want to expand the nodes, you only need to increase the number of nodes to be expanded
+	// based on the current parameter value.
 	// Number of resources of the corresponding flavors.
 	// +kubebuilder:validation:Optional
 	Count *float64 `json:"count" tf:"count,omitempty"`
+
+	// Specifies the creation step configuration of the resource pool nodes.
+	// The creating_step structure is documented below.
+	// The creation step configuration of the resource pool nodes.
+	// +kubebuilder:validation:Optional
+	CreatingStep []CreatingStepParameters `json:"creatingStep,omitempty" tf:"creating_step,omitempty"`
+
+	// Specifies the data volumes of the resource pool nodes.
+	// The data_volumes structure is documented below.
+	// The data volumes of the resource pool nodes.
+	// +kubebuilder:validation:Optional
+	DataVolumes []DataVolumesParameters `json:"dataVolumes,omitempty" tf:"data_volumes,omitempty"`
+
+	// Specifies the driver information.
+	// The driver structure is documented below.
+	// The driver information.
+	// +kubebuilder:validation:Optional
+	Driver []DriverParameters `json:"driver,omitempty" tf:"driver,omitempty"`
+
+	// Specifies the extend parameters of the resource pool.
+	// The extend parameters of the resource pool.
+	// +kubebuilder:validation:Optional
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
 
 	// Specifies the resource flavor ID.
 	// The resource flavor ID.
@@ -574,6 +977,7 @@ type ResourcesParameters struct {
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// Specifies the max number of resources of the corresponding flavors.
+	// This parameter must be an integer multiple of resources.creating_step.step.
 	// The max number of resources of the corresponding flavors.
 	// +kubebuilder:validation:Optional
 	MaxCount *float64 `json:"maxCount,omitempty" tf:"max_count,omitempty"`
@@ -585,16 +989,27 @@ type ResourcesParameters struct {
 	// +kubebuilder:validation:Optional
 	NodePool *string `json:"nodePool,omitempty" tf:"node_pool,omitempty"`
 
-	// Specifies the script to be executed after security. The value should be a Base64
-	// encoded string.
+	// Specifies the image information for the specified OS.
+	// The os structure is documented below.
+	// The image information for the specified OS.
+	// +kubebuilder:validation:Optional
+	Os []OsParameters `json:"os,omitempty" tf:"os,omitempty"`
+
 	// The script to be executed after security.
 	// +kubebuilder:validation:Optional
 	PostInstall *string `json:"postInstall,omitempty" tf:"post_install,omitempty"`
+
+	// Specifies the root volume of the resource pool nodes.
+	// The root_volume structure is documented below.
+	// The root volume of the resource pool nodes.
+	// +kubebuilder:validation:Optional
+	RootVolume []RootVolumeParameters `json:"rootVolume,omitempty" tf:"root_volume,omitempty"`
 
 	// Specifies the security group IDs. It can not be specified when network_id is
 	// specified.
 	// The security group IDs.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	SecurityGroupIds []*string `json:"securityGroupIds,omitempty" tf:"security_group_ids,omitempty"`
 
 	// Specifies the network ID of a subnet. It is mandatory when
@@ -620,6 +1035,63 @@ type ResourcesParameters struct {
 	// The VPC ID.
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
+
+	// Specifies the extend configurations of the volume groups.
+	// The volume_group_configs structure is documented below.
+	// The extend configurations of the volume groups.
+	// +kubebuilder:validation:Optional
+	VolumeGroupConfigs []VolumeGroupConfigsParameters `json:"volumeGroupConfigs,omitempty" tf:"volume_group_configs,omitempty"`
+}
+
+type RootVolumeInitParameters struct {
+
+	// The extend parameters of the root volume, in JSON format.
+	// The extend parameters of the root volume, in JSON format.
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
+
+	// Specifies the size of the root volume, e.g. 100Gi.
+	// The size of the root volume.
+	Size *string `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the type of the root volume.
+	// The valid values are as follows:
+	// The type of the root volume.
+	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
+}
+
+type RootVolumeObservation struct {
+
+	// The extend parameters of the root volume, in JSON format.
+	// The extend parameters of the root volume, in JSON format.
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
+
+	// Specifies the size of the root volume, e.g. 100Gi.
+	// The size of the root volume.
+	Size *string `json:"size,omitempty" tf:"size,omitempty"`
+
+	// Specifies the type of the root volume.
+	// The valid values are as follows:
+	// The type of the root volume.
+	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
+}
+
+type RootVolumeParameters struct {
+
+	// The extend parameters of the root volume, in JSON format.
+	// The extend parameters of the root volume, in JSON format.
+	// +kubebuilder:validation:Optional
+	ExtendParams *string `json:"extendParams,omitempty" tf:"extend_params,omitempty"`
+
+	// Specifies the size of the root volume, e.g. 100Gi.
+	// The size of the root volume.
+	// +kubebuilder:validation:Optional
+	Size *string `json:"size" tf:"size,omitempty"`
+
+	// Specifies the type of the root volume.
+	// The valid values are as follows:
+	// The type of the root volume.
+	// +kubebuilder:validation:Optional
+	VolumeType *string `json:"volumeType" tf:"volume_type,omitempty"`
 }
 
 type TaintsInitParameters struct {
@@ -704,6 +1176,76 @@ type UserLoginParameters struct {
 	// The password of the login user.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+}
+
+type VolumeGroupConfigsInitParameters struct {
+
+	// Specifies the percentage of container volumes to data volumes on resource pool nodes.
+	// The percentage of container volumes to data volumes on resource pool nodes.
+	DockerThinPool *float64 `json:"dockerThinPool,omitempty" tf:"docker_thin_pool,omitempty"`
+
+	// Specifies the configuration of the LVM management.
+	// The lvm_config structure is documented below.
+	// The configuration of the LVM management.
+	LvmConfig []LvmConfigInitParameters `json:"lvmConfig,omitempty" tf:"lvm_config,omitempty"`
+
+	// Specifies the storage types of the volume group.
+	// The valid values for the list elements are as follows:
+	// The storage types of the volume group.
+	Types []*string `json:"types,omitempty" tf:"types,omitempty"`
+
+	// Specifies the name of the volume group.
+	// The valid values are as follows:
+	// The name of the volume group.
+	VolumeGroup *string `json:"volumeGroup,omitempty" tf:"volume_group,omitempty"`
+}
+
+type VolumeGroupConfigsObservation struct {
+
+	// Specifies the percentage of container volumes to data volumes on resource pool nodes.
+	// The percentage of container volumes to data volumes on resource pool nodes.
+	DockerThinPool *float64 `json:"dockerThinPool,omitempty" tf:"docker_thin_pool,omitempty"`
+
+	// Specifies the configuration of the LVM management.
+	// The lvm_config structure is documented below.
+	// The configuration of the LVM management.
+	LvmConfig []LvmConfigObservation `json:"lvmConfig,omitempty" tf:"lvm_config,omitempty"`
+
+	// Specifies the storage types of the volume group.
+	// The valid values for the list elements are as follows:
+	// The storage types of the volume group.
+	Types []*string `json:"types,omitempty" tf:"types,omitempty"`
+
+	// Specifies the name of the volume group.
+	// The valid values are as follows:
+	// The name of the volume group.
+	VolumeGroup *string `json:"volumeGroup,omitempty" tf:"volume_group,omitempty"`
+}
+
+type VolumeGroupConfigsParameters struct {
+
+	// Specifies the percentage of container volumes to data volumes on resource pool nodes.
+	// The percentage of container volumes to data volumes on resource pool nodes.
+	// +kubebuilder:validation:Optional
+	DockerThinPool *float64 `json:"dockerThinPool,omitempty" tf:"docker_thin_pool,omitempty"`
+
+	// Specifies the configuration of the LVM management.
+	// The lvm_config structure is documented below.
+	// The configuration of the LVM management.
+	// +kubebuilder:validation:Optional
+	LvmConfig []LvmConfigParameters `json:"lvmConfig,omitempty" tf:"lvm_config,omitempty"`
+
+	// Specifies the storage types of the volume group.
+	// The valid values for the list elements are as follows:
+	// The storage types of the volume group.
+	// +kubebuilder:validation:Optional
+	Types []*string `json:"types,omitempty" tf:"types,omitempty"`
+
+	// Specifies the name of the volume group.
+	// The valid values are as follows:
+	// The name of the volume group.
+	// +kubebuilder:validation:Optional
+	VolumeGroup *string `json:"volumeGroup" tf:"volume_group,omitempty"`
 }
 
 // ResourcePoolSpec defines the desired state of ResourcePool

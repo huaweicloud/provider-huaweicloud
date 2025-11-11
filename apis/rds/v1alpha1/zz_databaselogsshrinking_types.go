@@ -19,6 +19,8 @@ type DatabaseLogsShrinkingInitParameters struct {
 	// Specifies the name of the database.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of instance.
 	// Specifies the ID of instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -44,6 +46,8 @@ type DatabaseLogsShrinkingObservation struct {
 	// Specifies the name of the database.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID. The value is the instance ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -62,6 +66,9 @@ type DatabaseLogsShrinkingParameters struct {
 	// Specifies the name of the database.
 	// +kubebuilder:validation:Optional
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of instance.
 	// Specifies the ID of instance.

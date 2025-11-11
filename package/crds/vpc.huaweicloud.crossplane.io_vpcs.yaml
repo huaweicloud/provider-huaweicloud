@@ -72,6 +72,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  blockServiceEndpointStates:
+                    type: string
                   cidr:
                     description: |-
                       Specifies the range of available subnets in the VPC. The value ranges from 10.0.0.0/8 to
@@ -81,6 +83,11 @@ spec:
                     description: |-
                       Specifies supplementary information about the VPC. The value is a string of
                       no more than 255 characters and cannot contain angle brackets (< or >).
+                    type: string
+                  enhancedLocalRoute:
+                    description: |-
+                      Specifies whether to enable local route enhancement function. It can not be
+                      closed if it has been open. Value options: true or false. Defaults to true.
                     type: string
                   enterpriseProjectId:
                     description: Specifies the enterprise project ID of the VPC.
@@ -130,6 +137,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  blockServiceEndpointStates:
+                    type: string
                   cidr:
                     description: |-
                       Specifies the range of available subnets in the VPC. The value ranges from 10.0.0.0/8 to
@@ -139,6 +148,11 @@ spec:
                     description: |-
                       Specifies supplementary information about the VPC. The value is a string of
                       no more than 255 characters and cannot contain angle brackets (< or >).
+                    type: string
+                  enhancedLocalRoute:
+                    description: |-
+                      Specifies whether to enable local route enhancement function. It can not be
+                      closed if it has been open. Value options: true or false. Defaults to true.
                     type: string
                   enterpriseProjectId:
                     description: Specifies the enterprise project ID of the VPC.
@@ -356,6 +370,8 @@ spec:
             properties:
               atProvider:
                 properties:
+                  blockServiceEndpointStates:
+                    type: string
                   cidr:
                     description: |-
                       Specifies the range of available subnets in the VPC. The value ranges from 10.0.0.0/8 to
@@ -365,6 +381,11 @@ spec:
                     description: |-
                       Specifies supplementary information about the VPC. The value is a string of
                       no more than 255 characters and cannot contain angle brackets (< or >).
+                    type: string
+                  enhancedLocalRoute:
+                    description: |-
+                      Specifies whether to enable local route enhancement function. It can not be
+                      closed if it has been open. Value options: true or false. Defaults to true.
                     type: string
                   enterpriseProjectId:
                     description: Specifies the enterprise project ID of the VPC.

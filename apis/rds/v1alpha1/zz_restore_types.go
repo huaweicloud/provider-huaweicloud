@@ -30,6 +30,8 @@ type RestoreInitParameters_2 struct {
 	// +mapType=granular
 	DatabaseName map[string]*string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The region in which to create the rds instance resource. If omitted, the
 	// provider-level region will be used. Changing this creates a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -89,6 +91,8 @@ type RestoreObservation_2 struct {
 	// +mapType=granular
 	DatabaseName map[string]*string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID. The value is the restore job ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -132,6 +136,9 @@ type RestoreParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	DatabaseName map[string]*string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// The region in which to create the rds instance resource. If omitted, the
 	// provider-level region will be used. Changing this creates a new resource.

@@ -38,11 +38,11 @@ type GatewayInitParameters struct {
 	// The NAT gateway name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies the private IP address of the NAT gateway.
+	// Specifies the IP address used for the NG port of the NAT gateway.
 	// The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
 	// If not spacified, it will be automatically allocated.
 	// Changing this will creates a new resource.
-	// The private IP address of the NAT gateway.
+	// The IP address used for the NG port of the NAT gateway.
 	NgportIPAddress *string `json:"ngportIpAddress,omitempty" tf:"ngport_ip_address,omitempty"`
 
 	// Specifies the charging period of the NAT gateway.
@@ -61,6 +61,11 @@ type GatewayInitParameters struct {
 	// If omitted, the provider-level region will be used. Changing this will create a new resource.
 	// The region where the NAT gateway is located.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Specifies the session configuration of the NAT gateway.
+	// The session_conf structure is documented below.
+	// The session configuration of the NAT gateway.
+	SessionConf []SessionConfInitParameters `json:"sessionConf,omitempty" tf:"session_conf,omitempty"`
 
 	// Specifies the specification of the NAT gateway. The valid values are as follows:
 	// The specification of the NAT gateway.
@@ -108,14 +113,31 @@ type GatewayObservation struct {
 	// charging_mode is set to prePaid. Valid values are true and false. Defaults to false.
 	AutoRenew *string `json:"autoRenew,omitempty" tf:"auto_renew,omitempty"`
 
+	// The order information of the NAT gateway.
+	// When the charging_mode is set to prePaid, this parameter is available.
+	// The order information of the NAT gateway.
+	BillingInfo *string `json:"billingInfo,omitempty" tf:"billing_info,omitempty"`
+
+	// The bandwidth that the NAT gateway can receive or send per second, unit is MB.
+	// The bandwidth that the NAT gateway can receive or send per second.
+	BpsMax *float64 `json:"bpsMax,omitempty" tf:"bps_max,omitempty"`
+
 	// Specifies the charging mode of the NAT gateway.
 	// The valid values are as follows:
 	ChargingMode *string `json:"chargingMode,omitempty" tf:"charging_mode,omitempty"`
+
+	// The creation time of the NAT gateway.
+	// The creation time of the NAT gateway.
+	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
 	// Specifies the description of the NAT gateway, which contain maximum of 512
 	// characters, and angle brackets (<) and (>) are not allowed.
 	// The description of the NAT gateway.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// The maximum number of DNAT rules on the NAT gateway. Defaults to 200.
+	// The maximum number of DNAT rules on the NAT gateway.
+	DnatRulesLimit *float64 `json:"dnatRulesLimit,omitempty" tf:"dnat_rules_limit,omitempty"`
 
 	// Specifies the enterprise project ID of the NAT gateway.
 	// Changing this will create a new resource.
@@ -130,11 +152,11 @@ type GatewayObservation struct {
 	// The NAT gateway name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies the private IP address of the NAT gateway.
+	// Specifies the IP address used for the NG port of the NAT gateway.
 	// The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
 	// If not spacified, it will be automatically allocated.
 	// Changing this will creates a new resource.
-	// The private IP address of the NAT gateway.
+	// The IP address used for the NG port of the NAT gateway.
 	NgportIPAddress *string `json:"ngportIpAddress,omitempty" tf:"ngport_ip_address,omitempty"`
 
 	// Specifies the charging period of the NAT gateway.
@@ -149,10 +171,23 @@ type GatewayObservation struct {
 	// Changing this will create a new resource.
 	PeriodUnit *string `json:"periodUnit,omitempty" tf:"period_unit,omitempty"`
 
+	// The number of packets that the NAT gateway can receive or send per second.
+	// The number of packets that the NAT gateway can receive or send per second.
+	PpsMax *float64 `json:"ppsMax,omitempty" tf:"pps_max,omitempty"`
+
 	// Specifies the region where the NAT gateway is located.
 	// If omitted, the provider-level region will be used. Changing this will create a new resource.
 	// The region where the NAT gateway is located.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Specifies the session configuration of the NAT gateway.
+	// The session_conf structure is documented below.
+	// The session configuration of the NAT gateway.
+	SessionConf []SessionConfObservation `json:"sessionConf,omitempty" tf:"session_conf,omitempty"`
+
+	// The maximum number of SNAT rules on the NAT gateway. Defaults to 20.
+	// The maximum number of SNAT rules on the NAT gateway.
+	SnatRulePublicIPLimit *float64 `json:"snatRulePublicIpLimit,omitempty" tf:"snat_rule_public_ip_limit,omitempty"`
 
 	// Specifies the specification of the NAT gateway. The valid values are as follows:
 	// The specification of the NAT gateway.
@@ -208,11 +243,11 @@ type GatewayParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Specifies the private IP address of the NAT gateway.
+	// Specifies the IP address used for the NG port of the NAT gateway.
 	// The IP address must be one of the IP addresses of the VPC subnet associated with the NAT gateway.
 	// If not spacified, it will be automatically allocated.
 	// Changing this will creates a new resource.
-	// The private IP address of the NAT gateway.
+	// The IP address used for the NG port of the NAT gateway.
 	// +kubebuilder:validation:Optional
 	NgportIPAddress *string `json:"ngportIpAddress,omitempty" tf:"ngport_ip_address,omitempty"`
 
@@ -235,6 +270,12 @@ type GatewayParameters struct {
 	// The region where the NAT gateway is located.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// Specifies the session configuration of the NAT gateway.
+	// The session_conf structure is documented below.
+	// The session configuration of the NAT gateway.
+	// +kubebuilder:validation:Optional
+	SessionConf []SessionConfParameters `json:"sessionConf,omitempty" tf:"session_conf,omitempty"`
 
 	// Specifies the specification of the NAT gateway. The valid values are as follows:
 	// The specification of the NAT gateway.
@@ -280,6 +321,79 @@ type GatewayParameters struct {
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 }
 
+type SessionConfInitParameters struct {
+
+	// Specifies the ICMP session expiration time, in seconds.
+	// The valid value from 10 to 7,200, default value is 10.
+	// The ICMP session expiration time.
+	IcmpSessionExpireTime *float64 `json:"icmpSessionExpireTime,omitempty" tf:"icmp_session_expire_time,omitempty"`
+
+	// Specifies the TCP session expiration time, in seconds.
+	// The valid value from 40 to 7,200, default value is 900.
+	// The TCP session expiration time.
+	TCPSessionExpireTime *float64 `json:"tcpSessionExpireTime,omitempty" tf:"tcp_session_expire_time,omitempty"`
+
+	// Specifies the duration of TIME_WAIT state when TCP connection is closed,
+	// in seconds. The valid value from 0 to 1,800, default value is 5.
+	// The duration of TIME_WAIT state when TCP connection is closed.
+	TCPTimeWaitTime *float64 `json:"tcpTimeWaitTime,omitempty" tf:"tcp_time_wait_time,omitempty"`
+
+	// Specifies the UDP session expiration time, in seconds.
+	// The valid value from 40 to 7,200, default value is 300.
+	// The UDP session expiration time.
+	UDPSessionExpireTime *float64 `json:"udpSessionExpireTime,omitempty" tf:"udp_session_expire_time,omitempty"`
+}
+
+type SessionConfObservation struct {
+
+	// Specifies the ICMP session expiration time, in seconds.
+	// The valid value from 10 to 7,200, default value is 10.
+	// The ICMP session expiration time.
+	IcmpSessionExpireTime *float64 `json:"icmpSessionExpireTime,omitempty" tf:"icmp_session_expire_time,omitempty"`
+
+	// Specifies the TCP session expiration time, in seconds.
+	// The valid value from 40 to 7,200, default value is 900.
+	// The TCP session expiration time.
+	TCPSessionExpireTime *float64 `json:"tcpSessionExpireTime,omitempty" tf:"tcp_session_expire_time,omitempty"`
+
+	// Specifies the duration of TIME_WAIT state when TCP connection is closed,
+	// in seconds. The valid value from 0 to 1,800, default value is 5.
+	// The duration of TIME_WAIT state when TCP connection is closed.
+	TCPTimeWaitTime *float64 `json:"tcpTimeWaitTime,omitempty" tf:"tcp_time_wait_time,omitempty"`
+
+	// Specifies the UDP session expiration time, in seconds.
+	// The valid value from 40 to 7,200, default value is 300.
+	// The UDP session expiration time.
+	UDPSessionExpireTime *float64 `json:"udpSessionExpireTime,omitempty" tf:"udp_session_expire_time,omitempty"`
+}
+
+type SessionConfParameters struct {
+
+	// Specifies the ICMP session expiration time, in seconds.
+	// The valid value from 10 to 7,200, default value is 10.
+	// The ICMP session expiration time.
+	// +kubebuilder:validation:Optional
+	IcmpSessionExpireTime *float64 `json:"icmpSessionExpireTime,omitempty" tf:"icmp_session_expire_time,omitempty"`
+
+	// Specifies the TCP session expiration time, in seconds.
+	// The valid value from 40 to 7,200, default value is 900.
+	// The TCP session expiration time.
+	// +kubebuilder:validation:Optional
+	TCPSessionExpireTime *float64 `json:"tcpSessionExpireTime,omitempty" tf:"tcp_session_expire_time,omitempty"`
+
+	// Specifies the duration of TIME_WAIT state when TCP connection is closed,
+	// in seconds. The valid value from 0 to 1,800, default value is 5.
+	// The duration of TIME_WAIT state when TCP connection is closed.
+	// +kubebuilder:validation:Optional
+	TCPTimeWaitTime *float64 `json:"tcpTimeWaitTime,omitempty" tf:"tcp_time_wait_time,omitempty"`
+
+	// Specifies the UDP session expiration time, in seconds.
+	// The valid value from 40 to 7,200, default value is 300.
+	// The UDP session expiration time.
+	// +kubebuilder:validation:Optional
+	UDPSessionExpireTime *float64 `json:"udpSessionExpireTime,omitempty" tf:"udp_session_expire_time,omitempty"`
+}
+
 // GatewaySpec defines the desired state of Gateway
 type GatewaySpec struct {
 	v1.ResourceSpec `json:",inline"`
@@ -307,7 +421,7 @@ type GatewayStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Gateway is the Schema for the Gateways API. ""
+// Gateway is the Schema for the Gateways API. Manages a gateway resource of the
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

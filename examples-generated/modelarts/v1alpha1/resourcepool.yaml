@@ -8,6 +8,8 @@ metadata:
   name: test
 spec:
   forProvider:
+    clusters:
+    - providerId: ${var.cce_cluster_id}
     description: This is a demo
     name: demo
     networkIdSelector:
@@ -15,8 +17,33 @@ spec:
         testing.upbound.io/example-name: example
     resources:
     - count: 1
+      dataVolumes:
+      - extendParams: |-
+          ${jsonencode({
+                  "billing": "on",
+                  "volumeGroup": "vguser0"
+                })}
+        size: 500Gi
+        volumeType: SSD
+      extendParams: |-
+        ${jsonencode({
+              "dockerBaseSize": "50",
+              "runtime": "docker"
+            })}
       flavorId: modelarts.vm.cpu.16u64g.d
+      volumeGroupConfigs:
+      - lvmConfig:
+        - lvType: linear
+        types:
+        - local
+        volumeGroup: vgpaas
+      - lvmConfig:
+        - lvType: linear
+          path: /data
+        volumeGroup: vguser0
     scope:
     - Train
     - Infer
     - Notebook
+    userLogin:
+    - keyPairName: ${var.login_key_pair_name}

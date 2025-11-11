@@ -52,6 +52,8 @@ type PgAccountInitParameters struct {
 	// Specifies the remarks of the DB account.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -99,6 +101,8 @@ type PgAccountObservation struct {
 	// Specifies the remarks of the DB account.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID of account which is formatted <instance_id>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -128,6 +132,9 @@ type PgAccountParameters struct {
 	// Specifies the remarks of the DB account.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
 
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.

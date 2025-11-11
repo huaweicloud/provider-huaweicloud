@@ -78,6 +78,8 @@ spec:
                       Specifies the name of the database.
                       Specifies the name of the database.
                     type: string
+                  enableForceNew:
+                    type: string
                   instanceId:
                     description: |-
                       Specifies the ID of instance.
@@ -180,6 +182,8 @@ spec:
                     description: |-
                       Specifies the name of the database.
                       Specifies the name of the database.
+                    type: string
+                  enableForceNew:
                     type: string
                   instanceId:
                     description: |-
@@ -448,6 +452,8 @@ spec:
                     description: |-
                       Specifies the name of the database.
                       Specifies the name of the database.
+                    type: string
+                  enableForceNew:
                     type: string
                   id:
                     description: The resource ID. The value is the instance ID.

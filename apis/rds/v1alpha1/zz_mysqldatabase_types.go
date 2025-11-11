@@ -16,7 +16,7 @@ import (
 type MySQLDatabaseInitParameters struct {
 
 	// Specifies the character set used by the database, For example utf8,
-	// gbk, ascii, etc. Changing this will create a new resource.
+	// gbk, ascii, etc.
 	// Specifies the character set used by the database.
 	CharacterSet *string `json:"characterSet,omitempty" tf:"character_set,omitempty"`
 
@@ -26,7 +26,9 @@ type MySQLDatabaseInitParameters struct {
 	// Specifies the database description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Specifies the RDS instance ID. Changing this will create a new resource.
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the RDS instance ID.
 	// Specifies the ID of the RDS Mysql instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -43,7 +45,7 @@ type MySQLDatabaseInitParameters struct {
 	// Specifies the database name. The database name contains 1 to 64
 	// characters. The name can only consist of lowercase letters, digits, hyphens (-), underscores (_) and dollar signs
 	// ($). The total number of hyphens (-) and dollar signs ($) cannot exceed 10. RDS for MySQL 8.0 does not
-	// support dollar signs ($). Changing this will create a new resource.
+	// support dollar signs ($).
 	// Specifies the database name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -55,7 +57,7 @@ type MySQLDatabaseInitParameters struct {
 type MySQLDatabaseObservation struct {
 
 	// Specifies the character set used by the database, For example utf8,
-	// gbk, ascii, etc. Changing this will create a new resource.
+	// gbk, ascii, etc.
 	// Specifies the character set used by the database.
 	CharacterSet *string `json:"characterSet,omitempty" tf:"character_set,omitempty"`
 
@@ -65,17 +67,19 @@ type MySQLDatabaseObservation struct {
 	// Specifies the database description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID of database which is formatted <instance_id>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Specifies the RDS instance ID. Changing this will create a new resource.
+	// Specifies the RDS instance ID.
 	// Specifies the ID of the RDS Mysql instance.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Specifies the database name. The database name contains 1 to 64
 	// characters. The name can only consist of lowercase letters, digits, hyphens (-), underscores (_) and dollar signs
 	// ($). The total number of hyphens (-) and dollar signs ($) cannot exceed 10. RDS for MySQL 8.0 does not
-	// support dollar signs ($). Changing this will create a new resource.
+	// support dollar signs ($).
 	// Specifies the database name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -87,7 +91,7 @@ type MySQLDatabaseObservation struct {
 type MySQLDatabaseParameters struct {
 
 	// Specifies the character set used by the database, For example utf8,
-	// gbk, ascii, etc. Changing this will create a new resource.
+	// gbk, ascii, etc.
 	// Specifies the character set used by the database.
 	// +kubebuilder:validation:Optional
 	CharacterSet *string `json:"characterSet,omitempty" tf:"character_set,omitempty"`
@@ -99,7 +103,10 @@ type MySQLDatabaseParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Specifies the RDS instance ID. Changing this will create a new resource.
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
+	// Specifies the RDS instance ID.
 	// Specifies the ID of the RDS Mysql instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
@@ -117,7 +124,7 @@ type MySQLDatabaseParameters struct {
 	// Specifies the database name. The database name contains 1 to 64
 	// characters. The name can only consist of lowercase letters, digits, hyphens (-), underscores (_) and dollar signs
 	// ($). The total number of hyphens (-) and dollar signs ($) cannot exceed 10. RDS for MySQL 8.0 does not
-	// support dollar signs ($). Changing this will create a new resource.
+	// support dollar signs ($).
 	// Specifies the database name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

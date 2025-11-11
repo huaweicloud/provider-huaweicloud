@@ -34,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DnatRule is the Schema for the DnatRules API. ""
+        description: DnatRule is the Schema for the DnatRules API. Manages a DNAT
+          rule resource of the
         properties:
           apiVersion:
             description: |-

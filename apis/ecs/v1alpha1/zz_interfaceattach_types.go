@@ -15,8 +15,14 @@ import (
 
 type InterfaceAttachInitParameters struct {
 
+	// Whether to delete a NIC when detaching it. Value options:
+	DeleteOnTermination *string `json:"deleteOnTermination,omitempty" tf:"delete_on_termination,omitempty"`
+
 	// An IP address to associate with the port.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
+
+	// The IPv6 address.
+	FixedIPv6 *string `json:"fixedIpv6,omitempty" tf:"fixed_ipv6,omitempty"`
 
 	// Specifies the shared bandwidth ID to which the IPv6 NIC attaches.
 	IPv6BandwidthID *string `json:"ipv6BandwidthId,omitempty" tf:"ipv6_bandwidth_id,omitempty"`
@@ -37,8 +43,7 @@ type InterfaceAttachInitParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
-	// The ID of the Network to attach to an Instance. A port will be created
-	// automatically.
+	// The ID of the Network to attach to an Instance. A port will be created automatically.
 	// This option and port_id are mutually exclusive.
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
@@ -46,8 +51,8 @@ type InterfaceAttachInitParameters struct {
 	// This option and network_id are mutually exclusive.
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
-	// The region in which to create the network interface attache resource. If
-	// omitted, the provider-level region will be used. Changing this creates a new network interface attache resource.
+	// The region in which to create the network interface attach resource. If
+	// omitted, the provider-level region will be used. Changing this creates a new network interface attach resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the list of security group IDs bound to the specified port.
@@ -61,6 +66,9 @@ type InterfaceAttachInitParameters struct {
 }
 
 type InterfaceAttachObservation struct {
+
+	// Whether to delete a NIC when detaching it. Value options:
+	DeleteOnTermination *string `json:"deleteOnTermination,omitempty" tf:"delete_on_termination,omitempty"`
 
 	// An IP address to associate with the port.
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
@@ -83,8 +91,7 @@ type InterfaceAttachObservation struct {
 	// The MAC address of the NIC.
 	Mac *string `json:"mac,omitempty" tf:"mac,omitempty"`
 
-	// The ID of the Network to attach to an Instance. A port will be created
-	// automatically.
+	// The ID of the Network to attach to an Instance. A port will be created automatically.
 	// This option and port_id are mutually exclusive.
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
 
@@ -92,8 +99,8 @@ type InterfaceAttachObservation struct {
 	// This option and network_id are mutually exclusive.
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
-	// The region in which to create the network interface attache resource. If
-	// omitted, the provider-level region will be used. Changing this creates a new network interface attache resource.
+	// The region in which to create the network interface attach resource. If
+	// omitted, the provider-level region will be used. Changing this creates a new network interface attach resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Specifies the list of security group IDs bound to the specified port.
@@ -108,9 +115,17 @@ type InterfaceAttachObservation struct {
 
 type InterfaceAttachParameters struct {
 
+	// Whether to delete a NIC when detaching it. Value options:
+	// +kubebuilder:validation:Optional
+	DeleteOnTermination *string `json:"deleteOnTermination,omitempty" tf:"delete_on_termination,omitempty"`
+
 	// An IP address to associate with the port.
 	// +kubebuilder:validation:Optional
 	FixedIP *string `json:"fixedIp,omitempty" tf:"fixed_ip,omitempty"`
+
+	// The IPv6 address.
+	// +kubebuilder:validation:Optional
+	FixedIPv6 *string `json:"fixedIpv6,omitempty" tf:"fixed_ipv6,omitempty"`
 
 	// Specifies the shared bandwidth ID to which the IPv6 NIC attaches.
 	// +kubebuilder:validation:Optional
@@ -134,8 +149,7 @@ type InterfaceAttachParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
-	// The ID of the Network to attach to an Instance. A port will be created
-	// automatically.
+	// The ID of the Network to attach to an Instance. A port will be created automatically.
 	// This option and port_id are mutually exclusive.
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
@@ -145,8 +159,8 @@ type InterfaceAttachParameters struct {
 	// +kubebuilder:validation:Optional
 	PortID *string `json:"portId,omitempty" tf:"port_id,omitempty"`
 
-	// The region in which to create the network interface attache resource. If
-	// omitted, the provider-level region will be used. Changing this creates a new network interface attache resource.
+	// The region in which to create the network interface attach resource. If
+	// omitted, the provider-level region will be used. Changing this creates a new network interface attach resource.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 

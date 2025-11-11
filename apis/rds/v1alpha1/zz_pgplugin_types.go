@@ -16,11 +16,11 @@ import (
 type PgPluginInitParameters struct {
 
 	// Specifies the database name.
-	// Changing this parameter will create a new resource.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the PostgreSQL instance ID.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
@@ -34,7 +34,6 @@ type PgPluginInitParameters struct {
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the plugin name.
-	// Changing this parameter will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the region in which to create the resource.
@@ -45,21 +44,20 @@ type PgPluginInitParameters struct {
 type PgPluginObservation struct {
 
 	// Specifies the database name.
-	// Changing this parameter will create a new resource.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	// The plugin description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// The resource ID of PostgreSQL plugin which is formatted <instance_id>/<database_name>/<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Specifies the PostgreSQL instance ID.
-	// Changing this parameter will create a new resource.
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
 
 	// Specifies the plugin name.
-	// Changing this parameter will create a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Specifies the region in which to create the resource.
@@ -76,12 +74,13 @@ type PgPluginObservation struct {
 type PgPluginParameters struct {
 
 	// Specifies the database name.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the PostgreSQL instance ID.
-	// Changing this parameter will create a new resource.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
@@ -96,7 +95,6 @@ type PgPluginParameters struct {
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
 	// Specifies the plugin name.
-	// Changing this parameter will create a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

@@ -84,6 +84,10 @@ type PrivateTransitIPObservation struct {
 	// The region where the transit IP is located.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// The status of the transit IP.
+	// The status of the transit IP.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
 	// Specifies the transit subnet ID to which the transit IP belongs.
 	// Changing this will create a new resource.
 	// The ID of the transit subnet to which the transit IP belongs.
@@ -168,7 +172,7 @@ type PrivateTransitIPStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// PrivateTransitIP is the Schema for the PrivateTransitIPs API. ""
+// PrivateTransitIP is the Schema for the PrivateTransitIPs API. Manages a transit IP resource of the
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -19,6 +19,8 @@ type PgSQLLimitInitParameters struct {
 	// Specifies the name of the database.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -42,7 +44,8 @@ type PgSQLLimitInitParameters struct {
 	// Specifies the max waiting time in seconds.
 	MaxWaiting *float64 `json:"maxWaiting,omitempty" tf:"max_waiting,omitempty"`
 
-	// Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.
+	// Specifies the query ID.
+	// Value ranges: -9223372036854775808~9223372036854775807.
 	// Specifies the query ID
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
 
@@ -70,6 +73,8 @@ type PgSQLLimitObservation struct {
 	// Specifies the name of the database.
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Indicates the resource ID. The format is <instance_id>/<db_name>/<sql_limit_id>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -90,7 +95,8 @@ type PgSQLLimitObservation struct {
 	// Specifies the max waiting time in seconds.
 	MaxWaiting *float64 `json:"maxWaiting,omitempty" tf:"max_waiting,omitempty"`
 
-	// Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.
+	// Specifies the query ID.
+	// Value ranges: -9223372036854775808~9223372036854775807.
 	// Specifies the query ID
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
 
@@ -123,6 +129,9 @@ type PgSQLLimitParameters struct {
 	// +kubebuilder:validation:Optional
 	DBName *string `json:"dbName,omitempty" tf:"db_name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	EnableForceNew *string `json:"enableForceNew,omitempty" tf:"enable_force_new,omitempty"`
+
 	// Specifies the ID of RDS PostgreSQL instance.
 	// Specifies the ID of the RDS PostgreSQL instance.
 	// +crossplane:generate:reference:type=github.com/huaweicloud/provider-huaweicloud/apis/rds/v1alpha1.Instance
@@ -149,7 +158,8 @@ type PgSQLLimitParameters struct {
 	// +kubebuilder:validation:Optional
 	MaxWaiting *float64 `json:"maxWaiting,omitempty" tf:"max_waiting,omitempty"`
 
-	// Specifies the query ID. Value ranges: -9223372036854775808~9223372036854775807.
+	// Specifies the query ID.
+	// Value ranges: -9223372036854775808~9223372036854775807.
 	// Specifies the query ID
 	// +kubebuilder:validation:Optional
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
