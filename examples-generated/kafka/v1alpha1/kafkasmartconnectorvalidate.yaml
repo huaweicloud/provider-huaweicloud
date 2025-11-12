@@ -1,0 +1,33 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaSmartConnectorValidate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkasmartconnectorvalidate
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    task:
+      clusterName: ${var.peer_instance_alias}
+      compressionType: none
+      consumerStrategy: earliest
+      currentClusterName: ${var.current_instance_alias}
+      direction: push
+      instanceId: ${var.peer_instance_id}
+      passwordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      provenanceHeaderEnabled: true
+      renameTopicEnabled: true
+      replicationFactor: 3
+      saslMechanism: SCRAM-SHA-512
+      securityProtocol: SASL_SSL
+      syncConsumerOffsetsEnabled: true
+      taskNum: 2
+      userName: ${var.peer_user_name}
+    type: ${var.task_type}

@@ -1,0 +1,35 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaInstance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkainstance
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessUser: user
+    availabilityZones: ${var.availability_zones}
+    brokerNum: 3
+    engineVersion: "2.7"
+    flavorId: ${data.huaweicloud_dms_kafka_flavors.test.flavor_id}
+    name: kafka_test
+    networkIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    parameters:
+    - name: min.insync.replicas
+      value: "2"
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    sslEnable: true
+    storageSpace: 600
+    storageSpecCode: ${data.huaweicloud_dms_kafka_flavors.test.flavors[0].ios[0].storage_spec_code}
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

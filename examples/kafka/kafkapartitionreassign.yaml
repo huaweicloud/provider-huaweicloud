@@ -1,0 +1,31 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaPartitionReassign
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkapartitionreassign
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    reassignments:
+    - assignment:
+      - partition: 0
+        partitionBrokers:
+        - 0
+        - 1
+        - 2
+      - partition: 1
+        partitionBrokers:
+        - 2
+        - 0
+        - 1
+      - partition: 2
+        partitionBrokers:
+        - 1
+        - 2
+        - 0
+      topic: topic_name

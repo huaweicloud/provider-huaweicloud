@@ -1,0 +1,19 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaUser
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkauser
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    description: test_description
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: user_1
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

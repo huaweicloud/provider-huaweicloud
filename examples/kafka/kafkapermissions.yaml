@@ -1,0 +1,19 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaPermissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkapermissions
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    policies:
+    - accessPolicy: all
+      userName: user_1
+    - accessPolicy: pub
+      userName: user_2
+    topicName: kafka_topic_name

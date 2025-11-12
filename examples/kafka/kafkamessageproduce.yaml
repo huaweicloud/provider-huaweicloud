@@ -1,0 +1,20 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaMessageProduce
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkamessageproduce
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    body: test
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    propertyList:
+    - name: KEY
+      value: testKey
+    - name: PARTITION
+      value: "1"
+    topic: topic_name

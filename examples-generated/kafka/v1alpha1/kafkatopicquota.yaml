@@ -1,0 +1,16 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaTopicQuota
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkatopicquota
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    consumerByteRate: 3145728
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    producerByteRate: 2097152
+    topic: ${var.topic_name}

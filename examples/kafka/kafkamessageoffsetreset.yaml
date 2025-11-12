@@ -1,0 +1,17 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaMessageOffsetReset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkamessageoffsetreset
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    group: group
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    partition: -1
+    timestamp: 0
+    topic: ""
