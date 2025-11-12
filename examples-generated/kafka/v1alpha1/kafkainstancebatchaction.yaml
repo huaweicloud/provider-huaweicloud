@@ -1,0 +1,12 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaInstanceBatchAction
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkainstancebatchaction
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    action: restart
+    instance_ids: ${var.instance_ids}

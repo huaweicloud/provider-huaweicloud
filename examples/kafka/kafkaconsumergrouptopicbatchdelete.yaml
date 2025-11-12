@@ -1,0 +1,15 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaConsumerGroupTopicBatchDelete
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkaconsumergrouptopicbatchdelete
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    group: consumer_group_id
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    topics: topic_names

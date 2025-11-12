@@ -1,0 +1,16 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaSmartConnect
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkasmartconnect
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    bandwidth: 100MB
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    nodeCount: 2
+    storageSpecCode: dms.physical.storage.ultra.v2

@@ -1,0 +1,15 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaConsumerGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkaconsumergroup
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: the description of the consumer group
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: consumer_group_test

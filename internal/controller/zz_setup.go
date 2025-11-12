@@ -103,6 +103,28 @@ import (
 	userroleassignment "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/userroleassignment"
 	usertoken "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/usertoken"
 	virtualmfadevice "github.com/huaweicloud/provider-huaweicloud/internal/controller/iam/virtualmfadevice"
+	kafkabackgroundtaskdelete "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkabackgroundtaskdelete"
+	kafkaconsumergroup "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkaconsumergroup"
+	kafkaconsumergrouptopicbatchdelete "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkaconsumergrouptopicbatchdelete"
+	kafkainstance "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkainstance"
+	kafkainstancebatchaction "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkainstancebatchaction"
+	kafkainstancerebalancelog "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkainstancerebalancelog"
+	kafkainstancerestart "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkainstancerestart"
+	kafkamessagediagnosistask "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkamessagediagnosistask"
+	kafkamessageoffsetreset "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkamessageoffsetreset"
+	kafkamessageproduce "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkamessageproduce"
+	kafkapartitionreassign "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkapartitionreassign"
+	kafkapermissions "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkapermissions"
+	kafkasmartconnect "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkasmartconnect"
+	kafkasmartconnectorvalidate "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkasmartconnectorvalidate"
+	kafkasmartconnecttask "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkasmartconnecttask"
+	kafkasmartconnecttaskaction "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkasmartconnecttaskaction"
+	kafkatopic "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkatopic"
+	kafkatopicquota "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkatopicquota"
+	kafkauser "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkauser"
+	kafkauserclientquota "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkauserclientquota"
+	kafkauserpasswordreset "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkauserpasswordreset"
+	kafkav2smartconnecttask "github.com/huaweicloud/provider-huaweicloud/internal/controller/kafka/kafkav2smartconnecttask"
 	authorizationmodelarts "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/authorization"
 	dataset "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/dataset"
 	datasetversion "github.com/huaweicloud/provider-huaweicloud/internal/controller/modelarts/datasetversion"
@@ -290,6 +312,28 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		userroleassignment.Setup,
 		usertoken.Setup,
 		virtualmfadevice.Setup,
+		kafkabackgroundtaskdelete.Setup,
+		kafkaconsumergroup.Setup,
+		kafkaconsumergrouptopicbatchdelete.Setup,
+		kafkainstance.Setup,
+		kafkainstancebatchaction.Setup,
+		kafkainstancerebalancelog.Setup,
+		kafkainstancerestart.Setup,
+		kafkamessagediagnosistask.Setup,
+		kafkamessageoffsetreset.Setup,
+		kafkamessageproduce.Setup,
+		kafkapartitionreassign.Setup,
+		kafkapermissions.Setup,
+		kafkasmartconnect.Setup,
+		kafkasmartconnectorvalidate.Setup,
+		kafkasmartconnecttask.Setup,
+		kafkasmartconnecttaskaction.Setup,
+		kafkatopic.Setup,
+		kafkatopicquota.Setup,
+		kafkauser.Setup,
+		kafkauserclientquota.Setup,
+		kafkauserpasswordreset.Setup,
+		kafkav2smartconnecttask.Setup,
 		authorizationmodelarts.Setup,
 		dataset.Setup,
 		datasetversion.Setup,

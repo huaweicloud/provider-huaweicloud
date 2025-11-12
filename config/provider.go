@@ -18,6 +18,7 @@ import (
 	"github.com/huaweicloud/provider-huaweicloud/config/evs"
 	"github.com/huaweicloud/provider-huaweicloud/config/geminidb"
 	"github.com/huaweicloud/provider-huaweicloud/config/iam"
+	"github.com/huaweicloud/provider-huaweicloud/config/kafka"
 	"github.com/huaweicloud/provider-huaweicloud/config/modelarts"
 	"github.com/huaweicloud/provider-huaweicloud/config/nat"
 	"github.com/huaweicloud/provider-huaweicloud/config/obs"
@@ -59,6 +60,7 @@ func GetProvider() *ujconfig.Provider {
 		ecs.Configure,
 		iam.Configure,
 		geminidb.Configure,
+		kafka.Configure,
 		modelarts.Configure,
 		obs.Configure,
 		vpc.Configure,

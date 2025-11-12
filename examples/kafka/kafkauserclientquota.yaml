@@ -1,0 +1,17 @@
+apiVersion: kafka.huaweicloud.crossplane.io/v1alpha1
+kind: KafkaUserClientQuota
+metadata:
+  annotations:
+    meta.upbound.io/example-id: kafka/v1alpha1/kafkauserclientquota
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    client: consumer_group
+    consumerByteRate: 1024
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    producerByteRate: 2048
+    user: test_user
